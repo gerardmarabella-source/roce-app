@@ -114,19 +114,19 @@ window.CARTA = {
           title: { es: 'Drinks', en: 'Drinks' },
           blocks: [
             {
-              title: { es: 'Cafés', en: 'Coffees' }, note: { es: 'Valores nutricionales aproximados', en: 'Approximate nutrition values' }, compact: true, alPending: true,
+              title: { es: 'Cafés', en: 'Coffees' }, compact: true, alPending: true,
               items: [
-                { name: 'Espresso', nut: [2, 0, 0, 0], nutEst: true, price: 2 }, { name: 'Double espresso', nut: [4, 0, 0, 0], nutEst: true, price: 2.5 }, { name: 'Cortado', nut: [39, 2, 3, 2], nutEst: true, price: 2.2 }, { name: 'Americano', nut: [2, 0, 0, 0], nutEst: true, price: 2.5 },
-                { name: 'Latte', nut: [126, 6, 9, 7], nutEst: true, price: 3 }, { name: 'Flat white', nut: [85, 4, 6, 5], nutEst: true, price: 3.5 }, { name: 'Mocca latte', nut: [180, 6, 20, 8], nutEst: true, price: 3.9 }
+                { name: 'Espresso', price: 2 }, { name: 'Double espresso', price: 2.5 }, { name: 'Cortado', price: 2.2 }, { name: 'Americano', price: 2.5 },
+                { name: 'Latte', price: 3 }, { name: 'Flat white', price: 3.5 }, { name: 'Mocca latte', price: 3.9 }
               ],
               extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Iced', en: 'Iced' }, '+0,50'], [{ es: 'Doble carga', en: 'Double shot' }, '+1,00'], [{ es: 'Vegetal barista', en: 'Barista plant milk' }, '+0,30'], [{ es: 'Con hielo', en: 'On ice' }, '+0,15'], [{ es: 'Descafeinado', en: 'Decaf' }, '']] }
             },
             {
-              title: { es: 'Matcha & Tés', en: 'Matcha & Teas' }, note: { es: 'Valores nutricionales aproximados', en: 'Approximate nutrition values' }, compact: true, alPending: true,
+              title: { es: 'Matcha & Tés', en: 'Matcha & Teas' }, compact: true, alPending: true,
               items: [
-                { name: 'Matcha', nut: [6, 1, 1, 0], nutEst: true, price: 3.5 }, { name: 'Matcha latte', nut: [130, 7, 10, 7], nutEst: true, price: 4.5 }, { name: 'Iced matcha latte', nut: [118, 6, 9, 6], nutEst: true, price: 4.9 }, { name: 'Té verde', nut: [2, 0, 0, 0], nutEst: true, price: 2.2 },
-                { name: 'Té negro', nut: [2, 0, 0, 0], nutEst: true, price: 2.2 }, { name: 'Té rojo', nut: [2, 0, 0, 0], nutEst: true, price: 2.2 }, { name: 'Rooibos', nut: [2, 0, 0, 0], nutEst: true, price: 2.2 }, { name: 'Manzanilla', nut: [1, 0, 0, 0], nutEst: true, price: 1.9 },
-                { name: 'Menta poleo', nut: [1, 0, 0, 0], nutEst: true, price: 1.9 }, { name: 'Digestivo', nut: [1, 0, 0, 0], nutEst: true, price: 1.9 }
+                { name: 'Matcha', price: 3.5 }, { name: 'Matcha latte', price: 4.5 }, { name: 'Iced matcha latte', price: 4.9 }, { name: 'Té verde', price: 2.2 },
+                { name: 'Té negro', price: 2.2 }, { name: 'Té rojo', price: 2.2 }, { name: 'Rooibos', price: 2.2 }, { name: 'Manzanilla', price: 1.9 },
+                { name: 'Menta poleo', price: 1.9 }, { name: 'Digestivo', price: 1.9 }
               ]
             },
             {
