@@ -106,3 +106,8 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .ap-toast { position: fixed; left: 50%; bottom: calc(5.5rem + env(safe-area-inset-bottom)); z-index: 80; max-width: calc(100vw - 2rem); padding: 0.75rem 1.1rem; background: var(--black); color: #fff; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; transform: translate(-50%, 1rem); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; }
 .ap-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 .cv-item[data-sold] .cv-i-name::after { content: " · AGOTADO"; font-size: 0.7rem; letter-spacing: 0.12em; }
+
+/* Comensales en el pedido a mesa */
+.ap-party { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0.8rem 0 0.4rem; padding: 0.7rem 0; border-top: 1.5px solid var(--black); border-bottom: 1px solid rgba(10, 10, 10, 0.18); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.ap-party .ap-qty { margin: 0; gap: 0.8rem; }
+.ap-party .ap-qty button { width: 2.2rem; height: 2.2rem; font-size: 1.2rem; }
