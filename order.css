@@ -1,0 +1,39 @@
+/* ROCE · App de pedidos: encima de la carta (carta.css) solo se añade lo de pedir */
+.cv-crumb-row { justify-content: space-between; gap: 1rem; }
+.ap-modebtn { flex: 0 0 auto; padding: 0.15rem 0; border: 0; background: transparent; color: inherit; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 4px; white-space: nowrap; }
+
+/* Plato pulsable con su botón "+" */
+.cv-item { position: relative; padding-right: 3.2rem; cursor: pointer; }
+.cv-item::after { content: "+"; position: absolute; right: 0; bottom: 0.8rem; width: 2.2rem; height: 2.2rem; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--sheet); font-size: 1.45rem; line-height: 1; }
+.cv-item[data-off] { cursor: not-allowed; }
+.cv-item[data-off]::after { content: "—"; background: transparent; border: 1.5px solid var(--ink); color: var(--ink); font-size: 0.9rem; opacity: 0.6; }
+.cv-item[data-off] .cv-i-main { opacity: 0.55; }
+.ap-hours { display: inline-block; margin: 0.4rem 0 0; padding: 0.2rem 0.55rem; background: color-mix(in srgb, var(--ink) 14%, transparent); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Barra del pedido */
+.ap-cartbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.7rem var(--pad) calc(0.7rem + env(safe-area-inset-bottom)); background: linear-gradient(to top, rgba(10, 10, 10, 0.92) 65%, rgba(10, 10, 10, 0)); }
+.ap-cartbar[hidden] { display: none; }
+.ap-cartbar button { width: 100%; max-width: 46rem; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.95rem 1.1rem; border: 1.5px solid #fff; background: #fff; color: var(--black); font-size: 0.95rem; }
+.ap-cartbar button b { flex: 1; text-align: left; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.85rem; }
+.ap-cartbar button span:first-child { display: inline-grid; place-items: center; min-width: 1.7rem; height: 1.7rem; padding: 0 0.4rem; border-radius: 999px; background: var(--black); color: #fff; font-weight: 700; font-size: 0.85rem; }
+body.ap-has-cart .cv-chef-btn { bottom: calc(5rem + env(safe-area-inset-bottom)); }
+body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bottom)); }
+
+/* Hojas de plato, pedido y modo */
+.ap-qty { display: flex; align-items: center; justify-content: center; gap: 1.2rem; margin: 1rem 0 0.2rem; }
+.ap-qty button { width: 2.6rem; height: 2.6rem; border: 1.5px solid var(--black); background: #fff; border-radius: 50%; font-size: 1.4rem; line-height: 1; }
+.ap-qty b { min-width: 1.5rem; text-align: center; font-size: 1.2rem; }
+.ap-pick-price { margin-left: auto; opacity: 0.7; font-size: 0.9rem; }
+.ap-note { width: 100%; min-height: 3.2rem; padding: 0.7rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); font: inherit; font-size: 0.95rem; resize: vertical; border-radius: 0; }
+.ap-line { display: flex; gap: 0.8rem; padding: 0.8rem 0; border-top: 1px solid rgba(10, 10, 10, 0.18); }
+.ap-line-b { flex: 1; min-width: 0; }
+.ap-line-b b { font-size: 0.95rem; text-transform: uppercase; }
+.ap-line-b span { display: block; margin-top: 0.1rem; font-size: 0.8rem; opacity: 0.65; }
+.ap-line-r { text-align: right; }
+.ap-line-r .ap-qty { margin: 0.4rem 0 0; gap: 0.5rem; justify-content: flex-end; }
+.ap-line-r .ap-qty button { width: 1.9rem; height: 1.9rem; font-size: 1.1rem; }
+.ap-line-r .ap-qty b { min-width: 1rem; font-size: 0.95rem; }
+.ap-total { display: flex; justify-content: space-between; padding-top: 0.8rem; border-top: 1.5px solid var(--black); font-size: 1.15rem; font-weight: 700; }
+.ap-info { margin: 0.8rem 0 0; padding: 0.7rem 0.8rem; background: var(--cream); font-size: 0.85rem; opacity: 1; }
+.cv-solid[disabled] { opacity: 0.4; cursor: not-allowed; }
+.cv-sheet .cv-fs .cv-pick { width: 100%; }

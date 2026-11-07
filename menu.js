@@ -1,4 +1,4 @@
-/* ROCE · Carta de la app de pedidos (copia de roce-restaurant/carta/menu.js; cuando cambie la carta hay que actualizar los dos).
+/* ROCE · Carta digital (se abre solo con el QR de las mesas; no hay ningún enlace desde roce.es).
    Todo el contenido está aquí: para cambiar un plato o un precio se edita este archivo.
    Alérgenos: números oficiales de la carta (1 Gluten … 14 Moluscos). `img` (opcional) = foto del plato, p. ej. "/carta/img/001.jpg". */
 window.CARTA = {
