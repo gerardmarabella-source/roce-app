@@ -37,3 +37,17 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .ap-info { margin: 0.8rem 0 0; padding: 0.7rem 0.8rem; background: var(--cream); font-size: 0.85rem; opacity: 1; }
 .cv-solid[disabled] { opacity: 0.4; cursor: not-allowed; }
 .cv-sheet .cv-fs .cv-pick { width: 100%; }
+
+/* Cuenta */
+.ap-acct { display: block; width: 100%; margin-top: 1.2rem; padding: 0.9rem 0; border: 1.5px solid var(--black); background: transparent; color: var(--black); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.ap-in { width: 100%; padding: 0.8rem 0.7rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); font: inherit; font-size: 1rem; border-radius: 0; }
+.ap-code { letter-spacing: 0.5em; font-size: 1.4rem; text-align: center; }
+.ap-msg { min-height: 1.2rem; margin: 0.5rem 0 0; font-size: 0.85rem; color: #a02020; opacity: 1; }
+.ap-msg.is-ok { color: #1e6b2e; }
+.ap-legal { font-size: 0.78rem; }
+.ap-legal a { color: inherit; }
+.ap-link { padding: 0; border: 0; background: transparent; color: var(--black); font: inherit; font-size: 0.88rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.ap-or { text-align: center; margin: 0.6rem 0; }
+.ap-soc { width: 100%; margin-bottom: 0.5rem; }
+.ap-check { display: flex; gap: 0.7rem; align-items: flex-start; margin-top: 1rem; font-size: 0.85rem; line-height: 1.4; }
+.ap-check input { width: 1.2rem; height: 1.2rem; flex: 0 0 auto; margin-top: 0.1rem; accent-color: var(--black); }
