@@ -4,7 +4,7 @@
 (function () {
   'use strict';
   var B = window.ROCE_BACKEND, KEY = 'roce_app_session';
-  var PROVIDERS = { google: false, apple: false };      // se ponen a true cuando el proveedor esté activado en Supabase → Authentication → Providers
+  var PROVIDERS = { google: true, apple: false };      // se ponen a true cuando el proveedor esté activado en Supabase → Authentication → Providers
   var UI = {
     es: { acct: 'Mi cuenta', login: 'Entrar', login_h: 'Entra para pedir', login_p: 'Te enviamos un código a tu email. Sin contraseñas.', email: 'Tu email', send: 'Enviar código', code_h: 'Introduce el código', code_p: 'Te lo hemos enviado a', code: 'Código', enter: 'Entrar', other: 'Cambiar email', resend: 'Reenviar código',
       google: 'Continuar con Google', apple: 'Continuar con Apple', or: 'o', prof_h: 'Completa tu perfil', prof_p: 'Solo necesitamos tu nombre para avisarte cuando tu pedido esté listo.', name: 'Nombre', phone: 'Teléfono (opcional)', mkt: 'Quiero recibir novedades y ventajas de ROCE por email (puedes darte de baja cuando quieras).',
