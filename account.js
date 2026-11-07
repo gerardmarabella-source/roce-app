@@ -1,16 +1,16 @@
 /* ROCE · App de pedidos: cuenta de cliente (registro obligatorio para pedir con la app).
-   Entrada con código por email (sin contraseña) y, cuando se activen en Supabase, con Google y Apple.
+   Entrada con código por email (sin contraseña) y con Google.
    Habla directamente con la API de Supabase Auth (sin librerías); la clave "anon" es pública. */
 (function () {
   'use strict';
   var B = window.ROCE_BACKEND, KEY = 'roce_app_session';
-  var PROVIDERS = { google: true, apple: false };      // se ponen a true cuando el proveedor esté activado en Supabase → Authentication → Providers
+  var PROVIDERS = { google: true };      // proveedores sociales activados en Supabase → Authentication → Providers
   var UI = {
     es: { acct: 'Mi cuenta', login: 'Entrar', login_h: 'Entra para pedir', login_p: 'Te enviamos un código a tu email. Sin contraseñas.', email: 'Tu email', send: 'Enviar código', code_h: 'Introduce el código', code_p: 'Te lo hemos enviado a', code: 'Código', enter: 'Entrar', other: 'Cambiar email', resend: 'Reenviar código',
-      google: 'Continuar con Google', apple: 'Continuar con Apple', or: 'o', prof_h: 'Completa tu perfil', prof_p: 'Solo necesitamos tu nombre para avisarte cuando tu pedido esté listo.', name: 'Nombre', phone: 'Teléfono (opcional)', mkt: 'Quiero recibir novedades y ventajas de ROCE por email (puedes darte de baja cuando quieras).',
+      google: 'Continuar con Google', or: 'o', prof_h: 'Completa tu perfil', prof_p: 'Solo necesitamos tu nombre para avisarte cuando tu pedido esté listo.', name: 'Nombre', phone: 'Teléfono (opcional)', mkt: 'Quiero recibir novedades y ventajas de ROCE por email (puedes darte de baja cuando quieras).',
       save: 'Guardar', hello: 'Hola', logout: 'Cerrar sesión', edit: 'Editar perfil', close: 'Cerrar', legal: 'Al continuar aceptas nuestra', privacy: 'política de privacidad', err_email: 'Escribe un email válido.', err_code: 'El código no es válido o ha caducado.', err_send: 'No hemos podido enviar el código. Inténtalo de nuevo en un minuto.', err_name: 'Escribe tu nombre.', err_net: 'Sin conexión. Inténtalo de nuevo.', sent: 'Código enviado.', ok_in: 'Sesión iniciada.' },
     en: { acct: 'My account', login: 'Sign in', login_h: 'Sign in to order', login_p: "We'll email you a code. No passwords.", email: 'Your email', send: 'Send code', code_h: 'Enter the code', code_p: 'We sent it to', code: 'Code', enter: 'Sign in', other: 'Change email', resend: 'Resend code',
-      google: 'Continue with Google', apple: 'Continue with Apple', or: 'or', prof_h: 'Complete your profile', prof_p: 'We only need your name to tell you when your order is ready.', name: 'Name', phone: 'Phone (optional)', mkt: 'I want to receive ROCE news and perks by email (unsubscribe any time).',
+      google: 'Continue with Google', or: 'or', prof_h: 'Complete your profile', prof_p: 'We only need your name to tell you when your order is ready.', name: 'Name', phone: 'Phone (optional)', mkt: 'I want to receive ROCE news and perks by email (unsubscribe any time).',
       save: 'Save', hello: 'Hi', logout: 'Sign out', edit: 'Edit profile', close: 'Close', legal: 'By continuing you accept our', privacy: 'privacy policy', err_email: 'Enter a valid email.', err_code: 'The code is invalid or has expired.', err_send: "We couldn't send the code. Try again in a minute.", err_name: 'Enter your name.', err_net: 'No connection. Try again.', sent: 'Code sent.', ok_in: 'Signed in.' }
   };
   var L = function () { return document.documentElement.lang === 'en' ? 'en' : 'es'; };
@@ -51,7 +51,6 @@
   function viewLogin() {
     var soc = '';
     if (PROVIDERS.google) soc += '<button type="button" class="cv-ghost ap-soc" data-acct="google">' + t('google') + '</button>';
-    if (PROVIDERS.apple) soc += '<button type="button" class="cv-ghost ap-soc" data-acct="apple">' + t('apple') + '</button>';
     show('<h2>' + t('login_h') + '</h2><div class="cv-sheet-body"><p>' + t('login_p') + '</p>' + (soc ? soc + '<p class="ap-or">' + t('or') + '</p>' : '') +
       '<section class="cv-fs"><h3>' + t('email') + '</h3><input class="ap-in" id="apAcEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" value="' + esc(state.email) + '"></section><p class="ap-msg" id="apAcMsg"></p>' + legal() + '</div>' +
       '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="close">' + t('close') + '</button><button type="button" class="cv-solid" data-acct="send">' + t('send') + '</button></div>');
@@ -110,7 +109,7 @@
     }
     else if (a === 'edit') { viewProfile(); }
     else if (a === 'logout') { S = null; profile = null; store(null); if (dlg.open) dlg.close(); paintEntry(); }
-    else if (a === 'google' || a === 'apple') { location.href = B.url + '/auth/v1/authorize?provider=' + a + '&redirect_to=' + encodeURIComponent(location.origin + '/'); }
+    else if (a === 'google') { location.href = B.url + '/auth/v1/authorize?provider=google' + '&redirect_to=' + encodeURIComponent(location.origin + '/'); }
   });
 
   /* ── Entrada en el menú (Entrar / Mi cuenta) ── */
