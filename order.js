@@ -53,6 +53,15 @@
   window.ROCE_AVAIL = {
     item: function (b, it) { return open(b) && !soldOut[itemKey(b, it)]; },
     meal: function () { return nowHM() < '12:00' ? 'breakfast' : 'lunch'; },
+    /* Todos los complementos disponibles ahora para un plato (con sus datos nutricionales): acompañamientos y más proteína. */
+    addons: function (b) {
+      var out = [];
+      addonsFor(b).forEach(function (g) {
+        var ab = addonBlock(g); if (!ab || !open(ab)) return;
+        ab.items.forEach(function (p, k) { if (!soldOut[itemKey(ab, p)]) out.push({ grp: g.id, k: k, name: p.name, price: p.price, it: p, blk: ab }); });
+      });
+      return out;
+    },
     suggest: function (b, okFn, o) {
       var out = [];
       addonsFor(b).forEach(function (g) {
