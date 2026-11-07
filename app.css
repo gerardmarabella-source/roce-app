@@ -1,0 +1,86 @@
+/* ROCE · App de pedidos */
+@font-face { font-family: "Helvetica Neue Web"; src: url("/assets/fonts/HelveticaNeue-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Helvetica Neue Web"; src: url("/assets/fonts/HelveticaNeue-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+:root { --black: #0a0a0a; --paper: #f6f3ec; --cream: #ece7dd; --kraft: #a78d5b; --line: rgba(10, 10, 10, 0.16); --mut: rgba(10, 10, 10, 0.62); --display: "Helvetica Neue Web", "Helvetica Neue", Helvetica, Arial, sans-serif; --pad: 1.1rem; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--black); font-family: var(--display); font-size: 16px; line-height: 1.4; -webkit-tap-highlight-color: transparent; padding-bottom: calc(5.5rem + env(safe-area-inset-bottom)); }
+button { font: inherit; color: inherit; cursor: pointer; }
+.ap-top { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; padding: calc(0.7rem + env(safe-area-inset-top)) var(--pad) 0.7rem; background: var(--black); color: #fff; }
+.ap-brand { font-weight: 700; font-size: 1.35rem; letter-spacing: 0.04em; }
+.ap-brand small { font-weight: 400; font-size: 0.78rem; letter-spacing: 0.06em; opacity: 0.75; margin-left: 0.5rem; text-transform: uppercase; }
+.ap-lang { display: flex; gap: 0.2rem; }
+.ap-lang button { border: 0; background: transparent; color: rgba(255, 255, 255, 0.55); padding: 0.25rem 0.4rem; font-size: 0.8rem; letter-spacing: 0.08em; }
+.ap-lang button.is-on { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+.ap-mode { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; padding: 0.9rem var(--pad) 0.4rem; }
+.ap-mode button { border: 1.5px solid var(--black); background: transparent; padding: 0.7rem 0.5rem; text-align: center; line-height: 1.15; }
+.ap-mode button b { display: block; font-size: 0.95rem; letter-spacing: 0.03em; text-transform: uppercase; }
+.ap-mode button span { display: block; font-size: 0.74rem; opacity: 0.7; margin-top: 0.15rem; }
+.ap-mode button.is-on { background: var(--black); color: var(--paper); }
+.ap-mode button[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+.ap-tabs { position: sticky; top: 2.95rem; top: calc(2.95rem + env(safe-area-inset-top)); z-index: 15; display: flex; gap: 1.2rem; overflow-x: auto; padding: 0.7rem var(--pad) 0; background: var(--paper); border-bottom: 1px solid var(--line); scrollbar-width: none; }
+.ap-tabs::-webkit-scrollbar { display: none; }
+.ap-tabs button { flex: 0 0 auto; border: 0; background: transparent; padding: 0.2rem 0 0.7rem; font-size: 0.95rem; color: var(--mut); border-bottom: 3px solid transparent; white-space: nowrap; }
+.ap-tabs button.is-on { color: var(--black); font-weight: 700; border-bottom-color: var(--black); }
+
+.ap-main { padding: 0 var(--pad); max-width: 46rem; margin: 0 auto; }
+.ap-cat { padding-top: 1.4rem; scroll-margin-top: 7.6rem; }
+.ap-cat h2 { margin: 0; font-size: 1.5rem; letter-spacing: -0.01em; text-transform: uppercase; }
+.ap-cat .ap-note { margin: 0.15rem 0 0; font-size: 0.8rem; color: var(--mut); }
+.ap-cat .ap-closed { display: inline-block; margin-top: 0.4rem; padding: 0.2rem 0.55rem; font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; background: var(--cream); }
+.ap-items { list-style: none; margin: 0.6rem 0 0; padding: 0; }
+.ap-item { display: flex; gap: 0.8rem; align-items: flex-start; padding: 0.95rem 0; border-top: 1px solid var(--line); }
+.ap-item:first-child { border-top: 1.5px solid var(--black); }
+.ap-i-body { flex: 1; min-width: 0; text-align: left; border: 0; background: transparent; padding: 0; }
+.ap-i-name { font-size: 1.02rem; text-transform: uppercase; letter-spacing: 0.01em; }
+.ap-i-name em { font-style: normal; color: var(--mut); margin-right: 0.4rem; }
+.ap-i-desc { margin: 0.2rem 0 0; font-size: 0.88rem; color: var(--mut); line-height: 1.4; }
+.ap-i-nut { display: flex; flex-wrap: wrap; gap: 0.1rem 0.6rem; margin-top: 0.3rem; font-size: 0.72rem; color: var(--mut); }
+.ap-i-nut span + span { padding-left: 0.6rem; border-left: 1px solid var(--line); }
+.ap-i-nut b { color: var(--black); margin-right: 0.15rem; }
+.ap-i-price { margin-top: 0.4rem; font-size: 0.95rem; font-weight: 700; }
+.ap-als { display: inline-flex; flex-wrap: wrap; gap: 0.18rem; margin-left: 0.4rem; vertical-align: middle; }
+.ap-al { display: inline-grid; place-items: center; width: 1.1rem; height: 1.1rem; border: 1px solid currentColor; border-radius: 50%; font-size: 0.58rem; font-weight: 700; line-height: 1; opacity: 0.75; }
+.ap-add { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; border: 0; border-radius: 50%; background: var(--black); color: var(--paper); font-size: 1.5rem; line-height: 1; display: grid; place-items: center; }
+.ap-item.is-off { opacity: 0.45; }
+.ap-item.is-off .ap-add { background: transparent; border: 1.5px solid var(--black); color: var(--black); font-size: 0.6rem; letter-spacing: 0.03em; text-transform: uppercase; width: auto; border-radius: 1.25rem; padding: 0 0.7rem; }
+
+.ap-cartbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 0.7rem var(--pad) calc(0.7rem + env(safe-area-inset-bottom)); background: linear-gradient(to top, var(--paper) 70%, rgba(246, 243, 236, 0)); }
+.ap-cartbar[hidden] { display: none; }
+.ap-cartbar button { width: 100%; max-width: 46rem; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem; border: 0; background: var(--black); color: var(--paper); font-size: 1rem; }
+.ap-cartbar button span:first-child { display: inline-grid; place-items: center; min-width: 1.7rem; height: 1.7rem; padding: 0 0.4rem; background: var(--paper); color: var(--black); border-radius: 0.9rem; font-weight: 700; font-size: 0.9rem; }
+.ap-cartbar button b { flex: 1; text-align: left; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+
+.ap-sheet { position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end; justify-content: center; }
+.ap-sheet[hidden] { display: none; }
+.ap-sheet-bg { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.55); }
+.ap-sheet-card { position: relative; width: 100%; max-width: 46rem; max-height: 92vh; max-height: 92dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; background: var(--paper); padding: 1.3rem var(--pad) calc(1.2rem + env(safe-area-inset-bottom)); outline: none; animation: apUp 0.25s ease-out; }
+@keyframes apUp { from { transform: translateY(2rem); opacity: 0; } to { transform: none; opacity: 1; } }
+.ap-sheet h3 { margin: 0 0 0.2rem; font-size: 1.4rem; text-transform: uppercase; }
+.ap-sheet .ap-i-desc { margin-bottom: 0.4rem; }
+.ap-sec { margin-top: 1.1rem; }
+.ap-sec h4 { margin: 0 0 0.4rem; font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mut); font-weight: 700; }
+.ap-opt { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.7rem 0; border-top: 1px solid var(--line); cursor: pointer; }
+.ap-opt input { width: 1.2rem; height: 1.2rem; accent-color: var(--black); margin-right: 0.7rem; flex: 0 0 auto; }
+.ap-opt span:first-of-type { flex: 1; display: flex; align-items: center; }
+.ap-opt em { font-style: normal; color: var(--mut); font-size: 0.9rem; }
+.ap-note-in { width: 100%; min-height: 3.2rem; padding: 0.7rem; border: 1.5px solid var(--black); background: transparent; font: inherit; font-size: 0.95rem; resize: vertical; border-radius: 0; }
+.ap-qty { display: flex; align-items: center; justify-content: center; gap: 1.2rem; margin-top: 1.2rem; }
+.ap-qty button { width: 2.6rem; height: 2.6rem; border: 1.5px solid var(--black); background: transparent; border-radius: 50%; font-size: 1.4rem; line-height: 1; }
+.ap-qty b { min-width: 1.5rem; text-align: center; font-size: 1.2rem; }
+.ap-cta { display: block; width: 100%; margin-top: 1.1rem; padding: 1rem; border: 0; background: var(--black); color: var(--paper); font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.ap-cta[disabled] { opacity: 0.45; cursor: not-allowed; }
+.ap-ghost { display: block; width: 100%; margin-top: 0.5rem; padding: 0.8rem; border: 1.5px solid var(--black); background: transparent; font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.ap-line { display: flex; gap: 0.8rem; padding: 0.85rem 0; border-top: 1px solid var(--line); }
+.ap-line-b { flex: 1; min-width: 0; }
+.ap-line-b b { text-transform: uppercase; font-size: 0.95rem; }
+.ap-line-b p { margin: 0.15rem 0 0; font-size: 0.8rem; color: var(--mut); }
+.ap-line-r { text-align: right; }
+.ap-line-r .ap-qty { margin: 0.4rem 0 0; gap: 0.5rem; }
+.ap-line-r .ap-qty button { width: 1.9rem; height: 1.9rem; font-size: 1.1rem; }
+.ap-line-r .ap-qty b { font-size: 0.95rem; min-width: 1rem; }
+.ap-total { display: flex; justify-content: space-between; padding-top: 0.9rem; border-top: 1.5px solid var(--black); font-size: 1.2rem; font-weight: 700; }
+.ap-info { margin: 0.8rem 0 0; padding: 0.7rem 0.8rem; background: var(--cream); font-size: 0.85rem; line-height: 1.45; }
+.ap-empty { padding: 3rem 0; text-align: center; color: var(--mut); }

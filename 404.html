@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ROCE</title>
+<script>
+// Los QR de las mesas son app.roce.es/mesa/<código>. GitHub Pages no sirve esa ruta, así que se reenvía a la app con ?m=<código>.
+(function () {
+  var m = location.pathname.match(/^\/mesa\/([A-Za-z0-9_-]{1,40})\/?$/);
+  location.replace(m ? '/?m=' + encodeURIComponent(m[1]) + location.hash : '/');
+})();
+</script></head><body></body></html>
