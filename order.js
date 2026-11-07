@@ -5,12 +5,12 @@
   var D = window.CARTA, LS = 'roce_app_v1';
   var UI = {
     es: { mesa: 'A mesa', mesa_s: 'Te lo llevamos', recoger: 'Recoger', recoger_s: 'Pasa a por él', mesa_n: 'Escanea el QR de tu mesa', where: 'Mesa', pick: 'Recoger', view: 'Ver pedido', your: 'Tu pedido', how: '¿Cómo lo quieres?',
-      choose: 'Elige', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
+      choose: 'Elige', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', note_bar: 'Nota para barra', note_ph_bakery: 'Calentar, para llevar, alergias…', note_ph_coffee: 'Leche de avena, sin azúcar, bien caliente…', note_ph_fresh: 'Sin hielo, sin azúcar, alergias…', note_ph_drinks: 'Sin hielo, con limón…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
       paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
       from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
-      choose: 'Choose', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
+      choose: 'Choose', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', note_bar: 'Note for the bar', note_ph_bakery: 'Warm it up, to go, allergies…', note_ph_coffee: 'Oat milk, no sugar, extra hot…', note_ph_fresh: 'No ice, no sugar, allergies…', note_ph_drinks: 'No ice, with lemon…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
       paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
       from: 'From', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
@@ -73,6 +73,15 @@
   function addonBlock(g) { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (gr) { gr.blocks.forEach(function (x) { if (bk(x) === g.key) f = x; }); }); }); return f; }
   function addonsFor(b) { return ADDON.filter(function (g) { var ab = addonBlock(g); return ab && ab !== b && g.forCats.indexOf(bk(b)) !== -1; }); }
   function protBlock() { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (x) { if (x.key === 'Extras') f = x; }); }); }); return f; }
+  /* Carta a la que pertenece un bloque: kitchen, bakery, coffee, fresh o drinks. */
+  function sectionIdOf(b) { var f = ''; D.sections.forEach(function (s) { s.groups.forEach(function (g) { if (g.blocks.indexOf(b) !== -1) f = s.id; }); }); return f; }
+  /* El texto de ayuda de la nota cambia según el producto: no se le sugiere «sin cebolla» a un café. */
+  function noteTexts(b) {
+    var k = sectionIdOf(b);
+    if (k === 'coffee' || k === 'fresh' || k === 'drinks') return { title: t('note_bar'), ph: t('note_ph_' + k) };
+    if (k === 'bakery') return { title: t('note'), ph: t('note_ph_bakery') };
+    return { title: t('note'), ph: t('note_ph') };
+  }
   function blockOf(id) { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (b) { if (b._id === id) f = b; }); }); }); return f; }
 
   /* Marca los platos fuera de horario cada vez que la carta se pinta */
@@ -187,7 +196,8 @@
       if (opn) h += '<div class="ap-fold-body">' + ab.items.map(function (p, k) { var off = soldOut[itemKey(ab, p)]; return '<button type="button" class="cv-pick" data-pr="' + g.id + ':' + k + '" aria-pressed="' + (sel.indexOf(k) !== -1) + '"' + (off ? ' disabled' : '') + '><i class="cv-radio"></i><span>' + esc(p.name) + (off ? ' · ' + (L() === 'en' ? 'sold out' : 'agotado') : '') + '</span><span class="ap-pick-price">+' + money(cents(p.price)) + '</span></button>'; }).join('') + '</div>';
       h += '</section>';
     });
-    h += '<section class="cv-fs"><h3>' + t('note') + '</h3><textarea class="ap-note" id="apNote" maxlength="200" placeholder="' + esc(t('note_ph')) + '">' + esc(cur.note) + '</textarea></section>';
+    var nt = noteTexts(b);
+    h += '<section class="cv-fs"><h3>' + nt.title + '</h3><textarea class="ap-note" id="apNote" maxlength="200" placeholder="' + esc(nt.ph) + '">' + esc(cur.note) + '</textarea></section>';
     h += '<div class="ap-qty"><button type="button" data-q="-1" aria-label="-">−</button><b>' + cur.qty + '</b><button type="button" data-q="1" aria-label="+">+</button></div></div>';
     h += '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button><button type="button" class="cv-solid" data-addcart' + (cur.ok ? '' : ' disabled') + '>' + (cur.ok ? t('add') + ' · ' + money((unit() + protTotal()) * cur.qty) : t('off')) + '</button></div>';
     var sc = (dlg.querySelector('.cv-sheet-body') || {}).scrollTop || 0; show(h); var bd = dlg.querySelector('.cv-sheet-body'); if (bd) bd.scrollTop = sc;
