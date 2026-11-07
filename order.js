@@ -35,7 +35,7 @@
   var extraPrice = function (p) { return typeof p === 'number' ? p : parseFloat(String(p).replace('+', '').replace(',', '.')) || 0; };
 
   /* Horarios por categoría (hora de Madrid) */
-  var RULES = { 'Tostadas': { to: '12:00' }, 'Sándwiches': { from: '12:00' }, 'Starters': { from: '12:00' }, 'Pokes': { from: '12:00' }, 'Platos ROCE': { from: '12:00' }, 'Acompañamientos': { from: '12:00' } };
+  var RULES = { 'Tostadas': { to: '12:00' }, 'Starters': { from: '12:00' }, 'Pokes': { from: '12:00' }, 'Platos ROCE': { from: '12:00' }, 'Acompañamientos': { from: '12:00' } };
   var bk = function (b) { return b.key || b.title.es; };      // los extras de proteína se piden todo el día
   function nowHM() { var p = {}; new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Madrid' }).formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; }); return p.hour + ':' + p.minute; }
   function open(b) { var r = RULES[bk(b)], n = nowHM(); return !r || !((r.from && n < r.from) || (r.to && n >= r.to)); }
