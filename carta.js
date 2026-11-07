@@ -300,7 +300,7 @@
       setTimeout(function () { el.classList.remove('is-flash'); }, 2600);
     }, 80);
   }
-  window.CARTA_API = { D: D, ING: ING, DIETS: DIETS, RE: RE, F: function () { return F; }, L: function () { return L; }, tx: tx, esc: esc, money: money, als: als, norm: norm, analyze: analyze, goTo: goTo, openFilters: openAl };
+  window.CARTA_API = { D: D, ING: ING, DIETS: DIETS, RE: RE, F: function () { return F; }, L: function () { return L; }, tx: tx, esc: esc, money: money, als: als, norm: norm, analyze: analyze, goTo: goTo, openFilters: openAl, setF: function (x) { setF(x); } };
   render();
   if (landing) openMenu();
   document.dispatchEvent(new Event('carta:ready'));

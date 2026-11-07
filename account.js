@@ -39,11 +39,22 @@
     });
   }
   var profile = null;
-  function getProfile() { return rest('GET', '/rest/v1/app_customers?select=*&limit=1').then(function (a) { profile = a && a[0] || null; return profile; }); }
+  function getProfile() { return rest('GET', '/rest/v1/app_customers?select=*&limit=1').then(function (a) { profile = a && a[0] || null; syncFilters(false); return profile; }); }
+  /* Las alergias y la dieta del perfil se aplican solas a los filtros de la carta y de la Ayuda. */
+  var DIETMAP = { vegetariana: 'veg', vegana: 'vegan', pescetariana: 'pesc', sin_gluten: 'gf', sin_lactosa: 'lf' };
+  function syncFilters(force) {
+    var C = window.CARTA_API; if (!C || !profile) return;
+    var key = 'roce_profile_filters', done = false; try { done = sessionStorage.getItem(key) === '1'; } catch (e) {}
+    if (done && !force) return;
+    var cur = C.F(), al = (profile.allergies || []).slice(), diet = DIETMAP[profile.diet] ? [DIETMAP[profile.diet]] : [];
+    if (!al.length && !diet.length) return;
+    C.setF({ al: al, diet: diet, ing: cur.ing || { m: 'sin', k: [] } });
+    try { sessionStorage.setItem(key, '1'); } catch (e) {}
+  }
 
   /* ── Diálogo ── */
   var dlg = document.getElementById('apDlg'), box = document.getElementById('apDlgIn'), after = null, state = { email: '' };
-  function show(h) { box.innerHTML = h; if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); } }
+  function show(h) { box.innerHTML = h; if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); } box.setAttribute('tabindex', '-1'); try { box.focus({ preventScroll: true }); } catch (e) {} }
   function msg(m, ok) { var e = document.getElementById('apAcMsg'); if (e) { e.textContent = m || ''; e.className = 'ap-msg' + (ok ? ' is-ok' : ''); } }
   function busy(b, on) { if (b) { b.disabled = !!on; } }
   var legal = function () { return '<p class="ap-legal">' + t('legal') + ' <a href="https://roce.es/privacidad.html" target="_blank" rel="noopener">' + t('privacy') + '</a>.</p>'; };
@@ -138,7 +149,7 @@
       if ((d.phone || '').replace(/\D/g, '').length < 9) { msg(t('err_phone')); return; }
       busy(el, true); d.lang = L();
       rest('POST', '/rest/v1/rpc/app_profile_save', { p: d })
-        .then(function () { draft = null; return getProfile(); }).then(function () { busy(el, false); if (dlg.open) dlg.close(); var cb = after; after = null; paintEntry(); if (cb) cb(); })
+        .then(function () { draft = null; return getProfile(); }).then(function (r) { syncFilters(true); return r; }).then(function () { busy(el, false); if (dlg.open) dlg.close(); var cb = after; after = null; paintEntry(); if (cb) cb(); })
         .catch(function (x) { msg(/phone/.test(x.message || '') ? t('err_phone') : /name/.test(x.message || '') ? t('err_name') : t('err_net')); busy(el, false); });
     }
     else if (a === 'delete') { viewDelete(); }

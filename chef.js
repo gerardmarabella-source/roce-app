@@ -40,7 +40,7 @@
     var t = function (k) { return T[A.L()][k]; };
 
     /* ── Catálogo ── */
-    var KIND = { 'tostadas': 'toast', 'acai & yogur': 'sweet', 'sandwiches': 'sandwich', 'starters': 'starter', 'pokes': 'bowl', 'platos roce': 'main', 'acompanamientos': 'side', 'extras': 'extra', 'cafes': 'coffee', 'tes & infusiones': 'tea', 'matcha & tes': 'tea', 'smoothies': 'smoothie', 'zumos naturales': 'juice' };
+    var KIND = { 'tostadas': 'toast', 'acai & yogur': 'sweet', 'sandwiches': 'sandwich', 'starters': 'starter', 'pokes': 'bowl', 'platos roce': 'main', 'acompanamientos': 'side', 'extras': 'extra', 'mas proteina': 'extra', 'cafes': 'coffee', 'tes & infusiones': 'tea', 'matcha & tes': 'tea', 'smoothies': 'smoothie', 'zumos naturales': 'juice' };
     var DRINK = ['juice', 'smoothie', 'coffee', 'tea'];
     function catalogue() {
       var out = [];
@@ -50,7 +50,7 @@
           g.blocks.forEach(function (b, bi) {
             var kind = KIND[norm(b.title.es)] || 'other';
             if (kind === 'extra') return;
-            b.items.forEach(function (it, n) { out.push({ it: it, blk: b, sec: s.id, kind: kind, id: 'it-c' + si + gi + bi + '-' + n }); });
+            b.items.forEach(function (it, n) { if (window.ROCE_AVAIL && !window.ROCE_AVAIL.item(b, it)) return; out.push({ it: it, blk: b, sec: s.id, kind: kind, id: 'it-c' + si + gi + bi + '-' + n }); });
           });
         });
       });
@@ -100,7 +100,7 @@
       var sweet = st.taste === 'sweet' || (!st.taste && f.sweet), salty = st.taste === 'salty' || (!st.taste && f.salty);
       var cat = catalogue().map(function (c) { var e = ev(c.it, c.blk, FF); c.hide = e.hide; c.pend = e.pend; return c; }).filter(function (c) { return !c.hide; });
       var foodWants = wants.some(function (k) { return cat.some(function (c) { return DRINK.indexOf(c.kind) === -1 && A.analyze(c.it, c.blk).ing.indexOf(k) !== -1; }); });
-      var when = st.when || (f.drinkAny && !f.food && !f.light && !f.hungry && !foodWants ? 'drink' : f.breakfast ? 'breakfast' : 'lunch');
+      var when = st.when || (f.drinkAny && !f.food && !f.light && !f.hungry && !foodWants ? 'drink' : f.breakfast ? 'breakfast' : (window.ROCE_AVAIL ? window.ROCE_AVAIL.meal() : 'lunch'));
       var missing = {};
       function score(c, kinds) {
         var a = A.analyze(c.it, c.blk), s = 0, txt = norm([c.it.name, c.it.es, c.it.tag && c.it.tag.es].join(' '));
@@ -143,7 +143,7 @@
       var picked = []; slots.forEach(function (s) { picked = picked.concat(s.items); });
       wants.forEach(function (k) { if (!picked.some(function (c) { return A.analyze(c.it, c.blk).ing.indexOf(k) !== -1; })) missing[k] = 1; });
       var miss = Object.keys(missing).map(function (k) { var g = A.ING.filter(function (x) { return x.k === k; })[0]; return g ? A.tx(g) : k; });
-      return { slots: slots, miss: miss, FF: FF, wants: wants, light: light, hungry: hungry, sweet: sweet };
+      return { slots: slots, miss: miss, FF: FF, wants: wants, light: light, hungry: hungry, sweet: sweet, protein: !!f.protein };
     }
     function price(c) { var p = c.it.price; return Array.isArray(p) ? p[0] : (p || 0); }
     function reason(c, R) {
@@ -177,6 +177,18 @@
         step(4, t('q_taste'), chips('taste', t('taste')), true) +
         (n ? '<p class="cv-fs-note">' + esc(t('filters')) + ' · <button type="button" class="cv-link" id="cvChefFilters">' + esc(t('filters_edit')) + '</button></p>' : '');
     }
+    /* En la app: extras (acompañamiento / más proteína) que encajan con el plato, con tus alérgenos, tu dieta y lo que hay disponible. */
+    function addons(c, R) {
+      if (c._add) return c._add;
+      c._add = window.ROCE_AVAIL ? window.ROCE_AVAIL.suggest(c.blk, function (it, blk) { return !ev(it, blk, R.FF).hide; }, { protein: R.protein, hungry: R.hungry }) : [];
+      return c._add;
+    }
+    function addTotal(c) { return (c._add || []).reduce(function (s, x) { return s + x.price; }, 0); }
+    function addAttr(c) { var a = c._add || []; return a.length ? ' data-add="' + a.map(function (x) { return x.grp + ':' + x.k; }).join(',') + '"' : ''; }
+    function addonLine(c, R) {
+      var a = addons(c, R); if (!a.length) return '';
+      return '<p class="cv-pl-why">' + esc(A.L() === 'en' ? 'With: ' : 'Con: ') + a.map(function (x) { return esc(x.name) + ' (+' + esc(A.money(x.price)) + ')'; }).join(' · ') + '</p>';
+    }
     function results() {
       var R = st.result, total = 0, idx = 0;
       var h = '<h2 id="cvChefTitle">' + esc(t('res_h')) + '</h2>';
@@ -185,11 +197,12 @@
       h += '<ul class="cv-pick-list">';
       R.slots.forEach(function (s) {
         s.items.forEach(function (c) {
-          total += price(c);
+          addons(c, R);
+          total += price(c) + addTotal(c);
           h += '<li class="cv-slot-' + s.label + '"><p class="cv-pl-slot"><span class="cv-pl-n">' + (++idx) + '</span>' + esc(t('slots')[s.label]) + '</p><div class="cv-pl-top"><b>' + esc((c.it.code && c.it.code !== c.it.name ? c.it.code + ' ' : '') + c.it.name) + '</b><span>' + esc(A.money(c.it.price)) + '</span></div>' +
             (c.it.es ? '<p class="cv-pl-desc">' + esc(A.tx({ es: c.it.es, en: c.it.en })) + '</p>' : '') +
-            (reason(c, R) ? '<p class="cv-pl-why">' + esc(reason(c, R)) + '</p>' : '') + (pendTxt(c) ? '<p class="cv-fs-note">' + esc(pendTxt(c)) + '</p>' : '') + allergenLine(c) +
-            '<button type="button" class="cv-link" data-go="' + c.sec + '|' + c.id + '">' + esc(t('see')) + ' →</button></li>';
+            (reason(c, R) ? '<p class="cv-pl-why">' + esc(reason(c, R)) + '</p>' : '') + (pendTxt(c) ? '<p class="cv-fs-note">' + esc(pendTxt(c)) + '</p>' : '') + allergenLine(c) + addonLine(c, R) +
+            '<button type="button" class="cv-link" data-go="' + c.sec + '|' + c.id + '"' + addAttr(c) + '>' + esc(window.ROCE_APP ? (A.L() === 'en' ? 'Order' : 'Pedir') : t('see')) + ' →</button></li>';
         });
       });
       h += '</ul><p class="cv-pl-total">' + esc(t('total')) + ': <b>' + esc(A.money(Math.round(total * 100) / 100)) + '</b></p><p class="cv-fs-note">' + esc(t('note')) + '</p>';
@@ -221,7 +234,7 @@
       var o = e.target.closest('.cv-opt'), x = e.target.closest('[data-ex]'), g = e.target.closest('[data-go]');
       if (o) { var k = o.parentNode.dataset.q; st[k] = st[k] === o.dataset.v && o.dataset.v !== '' ? '' : o.dataset.v; var ta = $('cvChefText'); if (ta) st.text = ta.value; paint(); }
       else if (x) { var ta2 = $('cvChefText'); st.text = x.dataset.ex; ta2.value = st.text; ta2.focus(); }
-      else if (g) { var p = g.dataset.go.split('|'); close(); A.goTo(p[0], p[1]); }
+      else if (g) { var p = g.dataset.go.split('|'); close(); A.goTo(p[0], p[1]); if (window.ROCE_APP && window.ROCE_APP.openItemById) { var pre = g.dataset.add || ''; setTimeout(function () { window.ROCE_APP.openItemById(p[1], pre); }, 450); } }
       else if (e.target.id === 'cvChefFilters') { close(); A.openFilters(); }
     });
     document.addEventListener('roce:lang', function () { if ($('cvChef').open) { st.result = null; } paint(); });

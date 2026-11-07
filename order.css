@@ -81,3 +81,28 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .ap-fold.is-na { cursor: default; opacity: 0.6; }
 .ap-fold.is-na em { font-style: normal; font-size: 0.68rem; letter-spacing: 0.1em; }
 .ap-fold.is-na i { display: none; }
+
+/* Sin anillo azul de foco al abrir los paneles (solo con teclado) */
+#apDlg, #apDlg * { -webkit-tap-highlight-color: transparent; }
+#apDlg :focus { outline: none; }
+#apDlg :focus-visible { outline: 2px solid var(--black); outline-offset: 2px; }
+.cv-sheet :focus:not(:focus-visible) { outline: none; }
+
+/* Plegables Acompañamientos / Más proteína: caja clara, contador y +/− */
+.ap-fold { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0.95rem 1rem; border: 1.5px solid var(--black); border-top-width: 1.5px; background: #fff; color: var(--black); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-align: left; }
+.ap-fold > span { display: inline-flex; align-items: center; gap: 0.7rem; }
+.ap-fold .cnt { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; padding: 0 0.35rem; border-radius: 999px; background: var(--black); color: #fff; font-size: 0.72rem; letter-spacing: 0; }
+.ap-fold i { position: relative; flex: 0 0 auto; width: 1rem; height: 1rem; margin: 0; border: 0; transform: none; transition: none; background: linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat, linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat; }
+.ap-fold[aria-expanded="true"] { background: var(--black); color: #fff; }
+.ap-fold[aria-expanded="true"] .cnt { background: #fff; color: var(--black); }
+.ap-fold[aria-expanded="true"] i { margin: 0; transform: none; background: linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat; }
+.ap-fold-body { padding: 0 1rem 0.3rem; border: 1.5px solid var(--black); border-top: 0; background: #fff; }
+.ap-fold-body .cv-pick:last-child { border-bottom: 0; }
+.ap-fold.is-na { cursor: default; opacity: 0.55; background: transparent; }
+.ap-fold.is-na em { font-style: normal; font-size: 0.66rem; letter-spacing: 0.1em; }
+.cv-pick[disabled] { opacity: 0.4; }
+
+/* Aviso breve (plato no disponible / agotado) */
+.ap-toast { position: fixed; left: 50%; bottom: calc(5.5rem + env(safe-area-inset-bottom)); z-index: 80; max-width: calc(100vw - 2rem); padding: 0.75rem 1.1rem; background: var(--black); color: #fff; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; transform: translate(-50%, 1rem); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; }
+.ap-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+.cv-item[data-sold] .cv-i-name::after { content: " · AGOTADO"; font-size: 0.7rem; letter-spacing: 0.12em; }

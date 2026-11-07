@@ -41,6 +41,29 @@
   function open(b) { var r = RULES[bk(b)], n = nowHM(); return !r || !((r.from && n < r.from) || (r.to && n >= r.to)); }
   function hoursLabel(b) { var r = RULES[bk(b)]; return !r ? '' : r.from ? t('from') + ' ' + r.from : t('until') + ' ' + r.to; }
 
+  /* Agotados: lo que el equipo apaga desde el panel (app_menu_items.active) */
+  var soldOut = {};
+  var itemKey = function (b, it) { return bk(b) + '|' + (it.code || it.name); };
+  function loadAvail() {
+    fetch(B.url + '/rest/v1/app_menu_items?select=key,active', { headers: { apikey: B.anonKey, Authorization: 'Bearer ' + B.anonKey } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (rows) { if (!rows) return; soldOut = {}; rows.forEach(function (x) { if (x.active === false) soldOut[x.key] = true; }); mark(); })
+      .catch(function () {});
+  }
+  window.ROCE_AVAIL = {
+    item: function (b, it) { return open(b) && !soldOut[itemKey(b, it)]; },
+    meal: function () { return nowHM() < '12:00' ? 'breakfast' : 'lunch'; },
+    suggest: function (b, okFn, o) {
+      var out = [];
+      addonsFor(b).forEach(function (g) {
+        var ab = addonBlock(g); if (!ab || !open(ab)) return;
+        if (g.id === 'prot' && !(o.protein || o.hungry)) return;
+        if (g.id === 'side' && !o.hungry) return;
+        for (var k = 0; k < ab.items.length; k++) { var p = ab.items[k]; if (soldOut[itemKey(ab, p)] || !okFn(p, ab)) continue; out.push({ grp: g.id, k: k, name: p.name, price: p.price }); break; }
+      });
+      return out;
+    }
+  };
   function secOf(b) { var f = ''; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (x) { if (x === b) f = s.id; }); }); }); return f; }
   /* Complementos que se ofrecen (plegados) al pedir un plato: primero acompañamientos, luego más proteína. */
   var ADDON = [
@@ -59,7 +82,10 @@
     [].forEach.call(document.querySelectorAll('.cv-cat'), function (sec) {
       var b = blockOf(sec.id); if (!b) return; var ok = open(b);
       if (!ok && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
-      [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) { if (ok) li.removeAttribute('data-off'); else li.setAttribute('data-off', ''); });
+      [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) {
+        var mm = /^it-(.+)-(\d+)$/.exec(li.id || ''), it = mm && b.items[+mm[2]], sold = !!(it && soldOut[itemKey(b, it)]);
+        if (ok && !sold) { li.removeAttribute('data-off'); li.removeAttribute('data-sold'); } else { li.setAttribute('data-off', ''); if (sold) li.setAttribute('data-sold', ''); else li.removeAttribute('data-sold'); }
+      });
       sec.classList.toggle('is-na', !ok);
       var h = sec.querySelector('.ap-hours'), lab = hoursLabel(b), hd = sec.querySelector('.cv-cat-h');
       if (lab && !h) { h = document.createElement('span'); h.className = 'ap-hours'; }
@@ -78,7 +104,7 @@
 
   /* Diálogo común */
   var dlg = $('apDlg'), cur = null, view = '';
-  function show(html) { $('apDlgIn').innerHTML = html; if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); } var b = dlg.querySelector('.cv-sheet-body'); if (b) b.scrollTop = 0; }
+  function show(html) { $('apDlgIn').innerHTML = html; if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); } var bx = $('apDlgIn'); bx.setAttribute('tabindex', '-1'); try { bx.focus({ preventScroll: true }); } catch (e) {} var b = dlg.querySelector('.cv-sheet-body'); if (b) b.scrollTop = 0; }
   function hide() { if (dlg.open) dlg.close(); view = ''; cur = null; }
   dlg.addEventListener('click', function (e) { if (e.target === dlg) hide(); });
 
@@ -104,8 +130,8 @@
     addonsFor(b).forEach(function (g) {
       var ab = addonBlock(g), sel = cur.sel[g.id], opn = cur.openG[g.id];
       if (!open(ab)) { h += '<section class="cv-fs"><div class="ap-fold is-na"><span>' + t(g.label) + '</span><em>' + esc(t('avail')) + ' ' + esc(hoursLabel(ab).toLowerCase()) + '</em></div></section>'; return; }
-      h += '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="' + g.id + '" aria-expanded="' + opn + '"><span>' + t(g.label) + (sel.length ? ' · ' + sel.length : '') + '</span><i></i></button>';
-      if (opn) h += ab.items.map(function (p, k) { return '<button type="button" class="cv-pick" data-pr="' + g.id + ':' + k + '" aria-pressed="' + (sel.indexOf(k) !== -1) + '"><i class="cv-radio"></i><span>' + esc(p.name) + '</span><span class="ap-pick-price">+' + money(cents(p.price)) + '</span></button>'; }).join('');
+      h += '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="' + g.id + '" aria-expanded="' + opn + '"><span>' + t(g.label) + (sel.length ? '<b class="cnt">' + sel.length + '</b>' : '') + '</span><i></i></button>';
+      if (opn) h += '<div class="ap-fold-body">' + ab.items.map(function (p, k) { var off = soldOut[itemKey(ab, p)]; return '<button type="button" class="cv-pick" data-pr="' + g.id + ':' + k + '" aria-pressed="' + (sel.indexOf(k) !== -1) + '"' + (off ? ' disabled' : '') + '><i class="cv-radio"></i><span>' + esc(p.name) + (off ? ' · ' + (L() === 'en' ? 'sold out' : 'agotado') : '') + '</span><span class="ap-pick-price">+' + money(cents(p.price)) + '</span></button>'; }).join('') + '</div>';
       h += '</section>';
     });
     h += '<section class="cv-fs"><h3>' + t('note') + '</h3><textarea class="ap-note" id="apNote" maxlength="200" placeholder="' + esc(t('note_ph')) + '">' + esc(cur.note) + '</textarea></section>';
@@ -141,7 +167,19 @@
   }
 
   /* Eventos */
-  $('cvSections').addEventListener('click', function (e) { var li = e.target.closest('.cv-item'); if (li) openItem(li); });
+  var toastT = null;
+  function toast(msg) {
+    var d = document.getElementById('apToast'); if (!d) { d = document.createElement('div'); d.id = 'apToast'; d.className = 'ap-toast'; d.setAttribute('role', 'status'); document.body.appendChild(d); }
+    d.textContent = msg; d.classList.add('is-on'); clearTimeout(toastT); toastT = setTimeout(function () { d.classList.remove('is-on'); }, 2600);
+  }
+  $('cvSections').addEventListener('click', function (e) {
+    var li = e.target.closest('.cv-item'); if (!li) return;
+    if (li.hasAttribute('data-off')) {
+      var mm = /^it-(.+)-(\d+)$/.exec(li.id || ''), b = mm && blockOf(mm[1]);
+      toast(li.hasAttribute('data-sold') ? (L() === 'en' ? 'Sold out for today' : 'Agotado por hoy') : (b ? t('avail') + ' ' + hoursLabel(b).toLowerCase() : t('off'))); return;
+    }
+    openItem(li);
+  });
   $('apModeBtn').addEventListener('click', openMode);
   $('apCartOpen').addEventListener('click', openCart);
   dlg.addEventListener('click', function (e) {
@@ -234,6 +272,11 @@
       }).catch(function () {});
   }
 
-  paintMode(); paintBar(); mark(); resolveTable(); setTimeout(handleReturn, 400);
-  window.ROCE_APP = { state: S };
+  paintMode(); paintBar(); mark(); loadAvail(); resolveTable(); setTimeout(handleReturn, 400);
+  window.ROCE_APP = { state: S, openItemById: function (id, preset) {
+    var li = document.getElementById(id); if (!li || li.hasAttribute('data-off')) return;
+    openItem(li); if (!cur) return;
+    String(preset || '').split(',').forEach(function (x) { var p = x.split(':'); if (cur.sel[p[0]] && p[1] !== undefined) { cur.sel[p[0]].push(+p[1]); cur.openG[p[0]] = true; } });
+    paintItem();
+  } };
 })();
