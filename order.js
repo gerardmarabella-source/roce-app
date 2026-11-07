@@ -183,9 +183,13 @@
     ['Ds_SignatureVersion', 'Ds_MerchantParameters', 'Ds_Signature'].forEach(function (k) { var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = p[k]; f.appendChild(i); });
     document.body.appendChild(f); f.submit();
   }
-  var PAY_LIVE = false;   // se pasa a true cuando estén ejecutados app_pago.sql y la función redsys con pay_app
+  /* El cobro está listo (SQL y función ya en producción) pero Redsys está en modo REAL: el cobro solo se activa en el móvil de quien abre
+     la app con ?pay=1 (queda recordado); con ?pay=0 se apaga. Para abrirlo a todos, pon PAY_LIVE = true cuando haya pantalla de cocina. */
+  var PAY_LIVE = false;
+  try { if (q.get('pay') === '1') localStorage.setItem('roce_app_testpay', '1'); if (q.get('pay') === '0') localStorage.removeItem('roce_app_testpay'); } catch (e) {}
+  var PAY_TEST = false; try { PAY_TEST = localStorage.getItem('roce_app_testpay') === '1'; } catch (e) {}
   function startCheckout() {
-    if (!PAY_LIVE) { showMsg(t('your'), t('soon')); return; }
+    if (!PAY_LIVE && !PAY_TEST) { showMsg(t('your'), t('soon')); return; }
     if (paying || !S.cart.length) return;
     paying = true; view = 'msg'; show('<h2>' + t('paying') + '</h2><div class="cv-sheet-body"><p>&nbsp;</p></div>');
     var items = S.cart.map(function (l) { return { key: l.item, qty: l.qty, variant: l.variant || '', extras: l.extras || [], note: l.note || '' }; });
