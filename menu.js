@@ -130,24 +130,24 @@ window.CARTA = {
               ]
             },
             {
-              title: { es: 'Smoothies', en: 'Smoothies' }, note: { es: 'Con fruta natural · valores nutricionales aproximados', en: 'Made with real fruit · approximate nutrition values' }, alPending: true,
+              title: { es: 'Smoothies', en: 'Smoothies' }, note: { es: 'Con fruta natural', en: 'Made with real fruit' }, alPending: true,
               items: [
-                { code: '01', name: 'Marathon Rat', nut: [172, 3, 42, 1], nutEst: true, price: 6, es: 'Mango · Piña · Maracuyá · Zumo de naranja', en: 'Mango · Pineapple · Passion fruit · Orange juice', tag: { es: 'Aporta energía de forma natural.', en: 'Natural energy.' } },
-                { code: '02', name: 'Purple Haze', nut: [166, 3, 33, 4], nutEst: true, price: 7, es: 'Açaí · Fresa · Plátano · Frutos rojos', en: 'Açaí · Strawberry · Banana · Red berries', tag: { es: 'Rico en antioxidantes y vitaminas.', en: 'Rich in antioxidants and vitamins.' } },
-                { code: '03', name: 'Out of the F*cking Office', nut: [270, 9, 36, 11], nutEst: true, price: 6, es: 'Piña · Plátano · Coco · Yogur griego', en: 'Pineapple · Banana · Coconut · Greek yogurt', tag: { es: 'Cremoso, nutritivo y refrescante.', en: 'Creamy, nourishing and refreshing.' } },
-                { code: '04', name: '404 Error Not Found', nut: [90, 2, 23, 1], nutEst: true, price: 6, es: 'Espinaca · Manzana verde · Pepino · Limón · Jengibre', en: 'Spinach · Green apple · Cucumber · Lemon · Ginger', tag: { es: 'Limpia, refresca y aporta fibra.', en: 'Cleansing, refreshing and full of fibre.' } },
-                { code: '05', name: 'Red Lips', nut: [261, 11, 41, 6], nutEst: true, price: 6, es: 'Frutos rojos · Plátano · Avena · Yogur griego · Canela', en: 'Red berries · Banana · Oats · Greek yogurt · Cinnamon', tag: { es: 'Equilibrio y bienestar.', en: 'Balance and wellbeing.' } },
-                { code: '06', name: '6AM in Kyoto', nut: [225, 9, 32, 7], nutEst: true, price: 7, es: 'Té matcha · Plátano · Yogur griego · Bebida de avena', en: 'Matcha tea · Banana · Greek yogurt · Oat drink', tag: { es: 'Energía sostenida y concentración.', en: 'Steady energy and focus.' } }
+                { code: '01', name: 'Marathon Rat', nut: [172, 3, 42, 1], price: 6, es: 'Mango · Piña · Maracuyá · Zumo de naranja', en: 'Mango · Pineapple · Passion fruit · Orange juice', tag: { es: 'Aporta energía de forma natural.', en: 'Natural energy.' } },
+                { code: '02', name: 'Purple Haze', nut: [166, 3, 33, 4], price: 7, es: 'Açaí · Fresa · Plátano · Frutos rojos', en: 'Açaí · Strawberry · Banana · Red berries', tag: { es: 'Rico en antioxidantes y vitaminas.', en: 'Rich in antioxidants and vitamins.' } },
+                { code: '03', name: 'Out of the F*cking Office', nut: [270, 9, 36, 11], price: 6, es: 'Piña · Plátano · Coco · Yogur griego', en: 'Pineapple · Banana · Coconut · Greek yogurt', tag: { es: 'Cremoso, nutritivo y refrescante.', en: 'Creamy, nourishing and refreshing.' } },
+                { code: '04', name: '404 Error Not Found', nut: [90, 2, 23, 1], price: 6, es: 'Espinaca · Manzana verde · Pepino · Limón · Jengibre', en: 'Spinach · Green apple · Cucumber · Lemon · Ginger', tag: { es: 'Limpia, refresca y aporta fibra.', en: 'Cleansing, refreshing and full of fibre.' } },
+                { code: '05', name: 'Red Lips', nut: [261, 11, 41, 6], price: 6, es: 'Frutos rojos · Plátano · Avena · Yogur griego · Canela', en: 'Red berries · Banana · Oats · Greek yogurt · Cinnamon', tag: { es: 'Equilibrio y bienestar.', en: 'Balance and wellbeing.' } },
+                { code: '06', name: '6AM in Kyoto', nut: [225, 9, 32, 7], price: 7, es: 'Té matcha · Plátano · Yogur griego · Bebida de avena', en: 'Matcha tea · Banana · Greek yogurt · Oat drink', tag: { es: 'Energía sostenida y concentración.', en: 'Steady energy and focus.' } }
               ]
             },
             {
-              title: { es: 'Zumos naturales', en: 'Fresh juices' }, note: { es: 'Valores nutricionales aproximados', en: 'Approximate nutrition values' }, alPending: true,
+              title: { es: 'Zumos naturales', en: 'Fresh juices' }, alPending: true,
               items: [
-                { code: '07', name: 'Depure', nut: [105, 2, 26, 1], nutEst: true, price: 5.5, es: 'Manzana verde · Pepino · Apio · Limón · Jengibre', en: 'Green apple · Cucumber · Celery · Lemon · Ginger', tag: { es: 'Ayuda a depurar el organismo.', en: 'Helps cleanse the body.' } },
-                { code: '08', name: 'Vitality', nut: [160, 3, 37, 1], nutEst: true, price: 5.5, es: 'Naranja · Zanahoria · Manzana · Jengibre', en: 'Orange · Carrot · Apple · Ginger', tag: { es: 'Aporta vitaminas y combate el cansancio.', en: 'Vitamins to fight tiredness.' } },
-                { code: '09', name: 'Anti-inflammatory', nut: [120, 1, 30, 0], nutEst: true, price: 6, es: 'Piña · Cúrcuma · Manzana · Limón · Jengibre', en: 'Pineapple · Turmeric · Apple · Lemon · Ginger', tag: { es: 'Contribuye a reducir la inflamación.', en: 'Helps reduce inflammation.' } },
-                { code: '10', name: 'Immunity', nut: [135, 2, 32, 1], nutEst: true, price: 6, es: 'Naranja · Pomelo · Zanahoria · Jengibre', en: 'Orange · Grapefruit · Carrot · Ginger', tag: { es: 'Rico en vitamina C y fortalece las defensas.', en: 'Rich in vitamin C, boosts your defences.' } },
-                { code: '11', name: 'Probiotic', nut: [150, 4, 30, 3], nutEst: true, price: 6, es: 'Piña · Manzana · Limón · Kéfir natural', en: 'Pineapple · Apple · Lemon · Natural kefir', tag: { es: 'Mejora la digestión y cuida la microbiota.', en: 'Improves digestion and cares for your gut.' } }
+                { code: '07', name: 'Depure', nut: [105, 2, 26, 1], price: 5.5, es: 'Manzana verde · Pepino · Apio · Limón · Jengibre', en: 'Green apple · Cucumber · Celery · Lemon · Ginger', tag: { es: 'Ayuda a depurar el organismo.', en: 'Helps cleanse the body.' } },
+                { code: '08', name: 'Vitality', nut: [160, 3, 37, 1], price: 5.5, es: 'Naranja · Zanahoria · Manzana · Jengibre', en: 'Orange · Carrot · Apple · Ginger', tag: { es: 'Aporta vitaminas y combate el cansancio.', en: 'Vitamins to fight tiredness.' } },
+                { code: '09', name: 'Anti-inflammatory', nut: [120, 1, 30, 0], price: 6, es: 'Piña · Cúrcuma · Manzana · Limón · Jengibre', en: 'Pineapple · Turmeric · Apple · Lemon · Ginger', tag: { es: 'Contribuye a reducir la inflamación.', en: 'Helps reduce inflammation.' } },
+                { code: '10', name: 'Immunity', nut: [135, 2, 32, 1], price: 6, es: 'Naranja · Pomelo · Zanahoria · Jengibre', en: 'Orange · Grapefruit · Carrot · Ginger', tag: { es: 'Rico en vitamina C y fortalece las defensas.', en: 'Rich in vitamin C, boosts your defences.' } },
+                { code: '11', name: 'Probiotic', nut: [150, 4, 30, 3], price: 6, es: 'Piña · Manzana · Limón · Kéfir natural', en: 'Pineapple · Apple · Lemon · Natural kefir', tag: { es: 'Mejora la digestión y cuida la microbiota.', en: 'Improves digestion and cares for your gut.' } }
               ]
             }
           ]
