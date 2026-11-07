@@ -8,12 +8,12 @@
       choose: 'Elige', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
       paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
-      from: 'Desde las', until: 'Hasta las', prot: 'Más proteína', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
+      from: 'Desde las', until: 'Hasta las', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
       paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
-      from: 'From', until: 'Until', prot: 'More protein', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
+      from: 'From', until: 'Until', prot: 'More protein', side: 'Sides', na: 'Not available now', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
   var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [] };
   var B = window.ROCE_BACKEND;
@@ -42,6 +42,13 @@
   function hoursLabel(b) { var r = RULES[bk(b)]; return !r ? '' : r.from ? t('from') + ' ' + r.from : t('until') + ' ' + r.to; }
 
   function secOf(b) { var f = ''; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (x) { if (x === b) f = s.id; }); }); }); return f; }
+  /* Complementos que se ofrecen (plegados) al pedir un plato: primero acompañamientos, luego más proteína. */
+  var ADDON = [
+    { id: 'side', key: 'Acompañamientos', label: 'side', forCats: ['Sándwiches', 'Pokes', 'Platos ROCE'] },
+    { id: 'prot', key: 'Extras', label: 'prot', forCats: ['Tostadas', 'Sándwiches', 'Pokes', 'Platos ROCE'] }
+  ];
+  function addonBlock(g) { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (gr) { gr.blocks.forEach(function (x) { if (bk(x) === g.key) f = x; }); }); }); return f; }
+  function addonsFor(b) { return ADDON.filter(function (g) { var ab = addonBlock(g); return ab && ab !== b && g.forCats.indexOf(bk(b)) !== -1; }); }
   function protBlock() { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (x) { if (x.key === 'Extras') f = x; }); }); }); return f; }
   function blockOf(id) { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (b) { if (b._id === id) f = b; }); }); }); return f; }
 
@@ -53,9 +60,13 @@
       var b = blockOf(sec.id); if (!b) return; var ok = open(b);
       if (!ok && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
       [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) { if (ok) li.removeAttribute('data-off'); else li.setAttribute('data-off', ''); });
-      var h = sec.querySelector('.ap-hours'), lab = hoursLabel(b);
-      if (lab && !h) { h = document.createElement('span'); h.className = 'ap-hours'; var hd = sec.querySelector('.cv-cat-h'); if (hd) hd.parentNode.insertBefore(h, hd.nextSibling); }
-      if (h) { h.textContent = lab + (ok ? '' : ' · ' + t('off').toLowerCase()); }
+      sec.classList.toggle('is-na', !ok);
+      var h = sec.querySelector('.ap-hours'), lab = hoursLabel(b), hd = sec.querySelector('.cv-cat-h');
+      if (lab && !h) { h = document.createElement('span'); h.className = 'ap-hours'; }
+      if (h) {
+        h.classList.toggle('is-na', !ok); h.textContent = ok ? lab : t('na') + ' · ' + lab;
+        if (hd) { if (!ok) sec.insertBefore(h, sec.firstChild); else hd.parentNode.insertBefore(h, hd.nextSibling); }
+      }
     });
   }
   new MutationObserver(function () { mark(); }).observe($('cvSections'), { childList: true });
@@ -81,35 +92,38 @@
   /* Plato */
   function openItem(li) {
     var m = /^it-(.+)-(\d+)$/.exec(li.id || ''); if (!m) return; var b = blockOf(m[1]); if (!b) return; var it = b.items[+m[2]];
-    cur = { b: b, it: it, qty: 1, variant: it.variants ? 0 : -1, extras: [], prot: [], protOpen: false, note: '', ok: open(b) }; view = 'item'; paintItem();
+    cur = { b: b, it: it, qty: 1, variant: it.variants ? 0 : -1, extras: [], sel: { side: [], prot: [] }, openG: { side: false, prot: false }, note: '', ok: open(b) }; view = 'item'; paintItem();
   }
   function unit() { var u = cents(cur.it.price); if (cur.b.extras) cur.b.extras.list.forEach(function (e, k) { if (cur.extras.indexOf(k) !== -1) u += cents(extraPrice(e[1])); }); return u; }
-  function protTotal() { var pb = protBlock(), s = 0; if (pb) cur.prot.forEach(function (k) { s += cents(pb.items[k].price); }); return s; }
+  function protTotal() { var s = 0; ADDON.forEach(function (g) { var ab = addonBlock(g); if (ab) (cur.sel[g.id] || []).forEach(function (k) { s += cents(ab.items[k].price); }); }); return s; }
   function keepNote() { var n = $('apNote'); if (n) cur.note = n.value; }
   function paintItem() {
     var it = cur.it, b = cur.b, h = '<h2>' + esc(it.name) + '</h2><div class="cv-sheet-body">' + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '');
     if (it.variants) h += '<section class="cv-fs"><h3>' + t('choose') + '</h3>' + it.variants.map(function (v, k) { return '<button type="button" class="cv-pick" data-v="' + k + '" aria-pressed="' + (cur.variant === k) + '"><i class="cv-radio"></i><span>' + esc(v.name) + '</span></button>'; }).join('') + '</section>';
     if (b.extras) h += '<section class="cv-fs"><h3>' + esc(tx(b.extras.title)) + '</h3>' + b.extras.list.map(function (e, k) { var p = extraPrice(e[1]); return '<button type="button" class="cv-pick" data-x="' + k + '" aria-pressed="' + (cur.extras.indexOf(k) !== -1) + '"><i class="cv-radio"></i><span>' + esc(tx(e[0])) + '</span>' + (p ? '<span class="ap-pick-price">+' + money(cents(p)) + '</span>' : '') + '</button>'; }).join('') + '</section>';
-    var pb = protBlock();
-    if (pb && b !== pb && secOf(b) === 'kitchen') {
-      h += '<section class="cv-fs"><button type="button" class="ap-fold" data-fold aria-expanded="' + cur.protOpen + '"><span>' + t('prot') + (cur.prot.length ? ' · ' + cur.prot.length : '') + '</span><i></i></button>';
-      if (cur.protOpen) h += pb.items.map(function (p, k) { return '<button type="button" class="cv-pick" data-pr="' + k + '" aria-pressed="' + (cur.prot.indexOf(k) !== -1) + '"><i class="cv-radio"></i><span>' + esc(p.name) + '</span><span class="ap-pick-price">+' + money(cents(p.price)) + '</span></button>'; }).join('');
+    addonsFor(b).forEach(function (g) {
+      var ab = addonBlock(g), sel = cur.sel[g.id], opn = cur.openG[g.id];
+      if (!open(ab)) { h += '<section class="cv-fs"><div class="ap-fold is-na"><span>' + t(g.label) + '</span><em>' + esc(t('na')) + ' · ' + esc(hoursLabel(ab)) + '</em></div></section>'; return; }
+      h += '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="' + g.id + '" aria-expanded="' + opn + '"><span>' + t(g.label) + (sel.length ? ' · ' + sel.length : '') + '</span><i></i></button>';
+      if (opn) h += ab.items.map(function (p, k) { return '<button type="button" class="cv-pick" data-pr="' + g.id + ':' + k + '" aria-pressed="' + (sel.indexOf(k) !== -1) + '"><i class="cv-radio"></i><span>' + esc(p.name) + '</span><span class="ap-pick-price">+' + money(cents(p.price)) + '</span></button>'; }).join('');
       h += '</section>';
-    }
+    });
     h += '<section class="cv-fs"><h3>' + t('note') + '</h3><textarea class="ap-note" id="apNote" maxlength="200" placeholder="' + esc(t('note_ph')) + '">' + esc(cur.note) + '</textarea></section>';
     h += '<div class="ap-qty"><button type="button" data-q="-1" aria-label="-">−</button><b>' + cur.qty + '</b><button type="button" data-q="1" aria-label="+">+</button></div></div>';
     h += '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button><button type="button" class="cv-solid" data-addcart' + (cur.ok ? '' : ' disabled') + '>' + (cur.ok ? t('add') + ' · ' + money((unit() + protTotal()) * cur.qty) : t('off')) + '</button></div>';
     var sc = (dlg.querySelector('.cv-sheet-body') || {}).scrollTop || 0; show(h); var bd = dlg.querySelector('.cv-sheet-body'); if (bd) bd.scrollTop = sc;
   }
   function addToCart() {
-    keepNote(); var it = cur.it, b = cur.b, key = [bk(b), it.name, cur.variant, cur.extras.slice().sort().join('+'), cur.prot.slice().sort().join('+'), cur.note].join('|'), parts = [];
+    keepNote(); var it = cur.it, b = cur.b, key = [bk(b), it.name, cur.variant, cur.extras.slice().sort().join('+'), cur.sel.side.slice().sort().join('+'), cur.sel.prot.slice().sort().join('+'), cur.note].join('|'), parts = [];
     if (cur.variant >= 0) parts.push(it.variants[cur.variant].name); cur.extras.forEach(function (k) { parts.push('+ ' + tx(b.extras.list[k][0])); });
     var f = S.cart.filter(function (l) { return l.key === key; })[0];
     if (f) f.qty += cur.qty; else S.cart.push({ key: key, item: bk(b) + '|' + (it.code || it.name), name: it.name, variant: cur.variant >= 0 ? it.variants[cur.variant].name : '', extras: cur.extras.map(function (k) { return b.extras.list[k][0].es; }), unit: unit(), qty: cur.qty, note: cur.note, detail: parts.join(' · ') });
-    var pb = protBlock();
-    if (pb) cur.prot.forEach(function (k) {
-      var p = pb.items[k], k2 = ['Extras', p.name, 'con', it.name, cur.variant].join('|'), f2 = S.cart.filter(function (l) { return l.key === k2; })[0];
-      if (f2) f2.qty += cur.qty; else S.cart.push({ key: k2, item: 'Extras|' + (p.code || p.name), name: p.name, variant: '', extras: [], unit: cents(p.price), qty: cur.qty, note: '', detail: t('with_') + ' ' + it.name });
+    ADDON.forEach(function (g) {
+      var ab = addonBlock(g); if (!ab || !open(ab)) return;
+      cur.sel[g.id].forEach(function (k) {
+        var p = ab.items[k], k2 = [bk(ab), p.name, 'con', it.name, cur.variant].join('|'), f2 = S.cart.filter(function (l) { return l.key === k2; })[0];
+        if (f2) f2.qty += cur.qty; else S.cart.push({ key: k2, item: bk(ab) + '|' + (p.code || p.name), name: p.name, variant: '', extras: [], unit: cents(p.price), qty: cur.qty, note: '', detail: t('with_') + ' ' + it.name });
+      });
     });
     save(); hide(); paintBar();
   }
@@ -139,8 +153,8 @@
     else if (el.dataset.q && cur) { keepNote(); cur.qty = Math.max(1, Math.min(20, cur.qty + (+el.dataset.q))); paintItem(); }
     else if (el.dataset.cq) { var a = el.dataset.cq.split(':'), l = S.cart[+a[0]]; l.qty += +a[1]; if (l.qty < 1) S.cart.splice(+a[0], 1); save(); paintBar(); openCart(); }
     else if (el.hasAttribute('data-addcart') && cur) addToCart();
-    else if (el.hasAttribute('data-fold') && cur) { keepNote(); cur.protOpen = !cur.protOpen; paintItem(); }
-    else if (el.dataset.pr !== undefined && cur) { keepNote(); var kp = +el.dataset.pr, ip = cur.prot.indexOf(kp); if (ip === -1) cur.prot.push(kp); else cur.prot.splice(ip, 1); paintItem(); }
+    else if (el.hasAttribute('data-fold') && cur) { keepNote(); cur.openG[el.dataset.fold] = !cur.openG[el.dataset.fold]; paintItem(); }
+    else if (el.dataset.pr !== undefined && cur) { keepNote(); var pp = el.dataset.pr.split(':'), arr = cur.sel[pp[0]], kp = +pp[1], ip = arr.indexOf(kp); if (ip === -1) arr.push(kp); else arr.splice(ip, 1); paintItem(); }
     else if (el.hasAttribute('data-pay')) { if (window.ROCE_ACCT) window.ROCE_ACCT.require(function () { startCheckout(); }); }
   });
 
@@ -169,7 +183,9 @@
     ['Ds_SignatureVersion', 'Ds_MerchantParameters', 'Ds_Signature'].forEach(function (k) { var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = p[k]; f.appendChild(i); });
     document.body.appendChild(f); f.submit();
   }
+  var PAY_LIVE = false;   // se pasa a true cuando estén ejecutados app_pago.sql y la función redsys con pay_app
   function startCheckout() {
+    if (!PAY_LIVE) { showMsg(t('your'), t('soon')); return; }
     if (paying || !S.cart.length) return;
     paying = true; view = 'msg'; show('<h2>' + t('paying') + '</h2><div class="cv-sheet-body"><p>&nbsp;</p></div>');
     var items = S.cart.map(function (l) { return { key: l.item, qty: l.qty, variant: l.variant || '', extras: l.extras || [], note: l.note || '' }; });

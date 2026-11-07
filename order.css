@@ -72,3 +72,12 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .ap-fold { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0.8rem 0; border: 0; border-top: 1.5px solid var(--black); border-bottom: 1px solid rgba(10, 10, 10, 0.18); background: transparent; color: var(--black); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-align: left; }
 .ap-fold i { width: 0.55rem; height: 0.55rem; border-right: 2px solid var(--black); border-bottom: 2px solid var(--black); transform: rotate(45deg); margin: -0.2rem 0.3rem 0 0; transition: transform 0.2s; }
 .ap-fold[aria-expanded="true"] i { transform: rotate(-135deg); margin-top: 0.2rem; }
+
+/* Categoría no disponible ahora: una caja entera, con franja de aviso, que se puede abrir y leer */
+.cv-cat.is-na { margin-top: 1.4rem; padding: 0 0.9rem 0.4rem; background: color-mix(in srgb, var(--ink) 9%, transparent); border: 1.5px dashed color-mix(in srgb, var(--ink) 50%, transparent); }
+.cv-cat.is-na > .cv-cat-h, .cv-cat.is-na > .cv-cat-body { opacity: 0.6; }
+.cv-cat.is-na .cv-item[data-off] .cv-i-main { opacity: 1; }
+.ap-hours.is-na { display: block; margin: 0 -0.9rem 0.5rem; padding: 0.6rem 0.9rem; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--ink) 24%, transparent) 0 9px, color-mix(in srgb, var(--ink) 10%, transparent) 9px 18px); }
+.ap-fold.is-na { cursor: default; opacity: 0.6; }
+.ap-fold.is-na em { font-style: normal; font-size: 0.68rem; letter-spacing: 0.1em; }
+.ap-fold.is-na i { display: none; }
