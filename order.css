@@ -111,3 +111,9 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .ap-party { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0.8rem 0 0.4rem; padding: 0.7rem 0; border-top: 1.5px solid var(--black); border-bottom: 1px solid rgba(10, 10, 10, 0.18); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
 .ap-party .ap-qty { margin: 0; gap: 0.8rem; }
 .ap-party .ap-qty button { width: 2.2rem; height: 2.2rem; font-size: 1.2rem; }
+
+/* Escáner de QR */
+.ap-scan { position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: 55vh; margin: 0.4rem 0 0.8rem; background: #000; overflow: hidden; }
+.ap-scan video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ap-scan-frame { position: absolute; inset: 14%; border: 2px solid rgba(255, 255, 255, 0.9); box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.35); pointer-events: none; }
+.ap-scanbtn { display: block; width: 100%; margin: 0.2rem 0 0.4rem; padding: 0.6rem 0; border: 0; background: transparent; color: var(--black); font: inherit; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 3px; text-align: left; }

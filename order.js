@@ -8,12 +8,12 @@
       choose: 'Elige', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
       paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
-      from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
+      from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
       paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
-      from: 'From', until: 'Until', party: 'How many of you?', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
+      from: 'From', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
   var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [], party: 2 };
   var B = window.ROCE_BACKEND;
@@ -110,11 +110,64 @@
 
   function openMode() {
     view = 'mode';
-    show('<h2>' + t('how') + '</h2><div class="cv-sheet-body"><button type="button" class="cv-pick" data-mode="mesa" aria-pressed="' + (S.mode === 'mesa') + '"' + (S.mesa ? '' : ' disabled') + '><i class="cv-radio"></i><span>' + t('mesa') + ' · ' + (S.mesa ? t('where') + ' ' + esc(mesaLabel()) : t('mesa_n')) + '</span></button>' +
+    var mesaOpt = S.mesa
+      ? '<button type="button" class="cv-pick" data-mode="mesa" aria-pressed="' + (S.mode === 'mesa') + '"><i class="cv-radio"></i><span>' + t('mesa') + ' · ' + t('where') + ' ' + esc(mesaLabel()) + '</span></button><button type="button" class="ap-scanbtn" data-scan>' + t('scan_other') + '</button>'
+      : '<button type="button" class="cv-pick" data-scan><i class="cv-radio"></i><span>' + t('mesa') + ' · ' + t('scan') + '</span></button>';
+    show('<h2>' + t('how') + '</h2><div class="cv-sheet-body">' + mesaOpt +
       '<button type="button" class="cv-pick" data-mode="recoger" aria-pressed="' + (S.mode === 'recoger') + '"><i class="cv-radio"></i><span>' + t('recoger') + ' · ' + t('recoger_s') + '</span></button></div>' +
       '<div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + t('done') + '</button></div>');
   }
 
+  /* ── Escáner de QR de la mesa (cámara) ── */
+  var scan = { stream: null, iv: 0, on: false, lib: null };
+  function loadJsQR() {
+    if (window.jsQR) return Promise.resolve();
+    if (scan.lib) return scan.lib;
+    scan.lib = new Promise(function (res, rej) { var s = document.createElement('script'); s.src = '/assets/js/jsQR.js?v=1'; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+    return scan.lib;
+  }
+  function codeFromText(txt) {
+    txt = String(txt || '').trim();
+    try {
+      var u = new URL(txt), m = u.pathname.match(/^\/mesa\/([A-Za-z0-9_-]{1,40})\/?$/);
+      if (m) return m[1];
+      var q = u.searchParams.get('m'); if (q) return q.replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40);
+    } catch (e) { /* no es una dirección */ }
+    return /^[A-Za-z0-9_-]{6,40}$/.test(txt) ? txt : '';
+  }
+  function stopScan() {
+    scan.on = false; if (scan.iv) clearInterval(scan.iv); scan.iv = 0;
+    if (scan.stream) { scan.stream.getTracks().forEach(function (tr) { tr.stop(); }); scan.stream = null; }
+  }
+  dlg.addEventListener('close', stopScan);
+  function scanMsg(txt, ok) { var e = document.getElementById('apScanMsg'); if (e) { e.textContent = txt || ''; e.className = 'ap-msg' + (ok ? ' is-ok' : ''); } }
+  function openScan() {
+    view = 'scan';
+    show('<h2>' + t('scan_t') + '</h2><div class="cv-sheet-body"><div class="ap-scan"><video id="apVid" playsinline muted autoplay></video><i class="ap-scan-frame"></i></div><p>' + t('scan_p') + '</p><p class="ap-msg" id="apScanMsg"></p></div>' +
+      '<div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + t('close') + '</button></div>');
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { scanMsg(t('scan_deny')); return; }
+    Promise.all([loadJsQR(), navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false })]).then(function (r) {
+      if (view !== 'scan' || !dlg.open) { r[1].getTracks().forEach(function (tr) { tr.stop(); }); return; }
+      scan.stream = r[1]; scan.on = true;
+      var v = document.getElementById('apVid'); v.srcObject = r[1]; v.setAttribute('playsinline', ''); v.play().catch(function () {});
+      var cv = document.createElement('canvas'), cx = cv.getContext('2d', { willReadFrequently: true });
+      scan.iv = setInterval(function () {
+        if (!scan.on || v.readyState < 2 || !v.videoWidth) return;
+        var w = Math.min(640, v.videoWidth), h = Math.round(v.videoHeight * w / v.videoWidth); cv.width = w; cv.height = h;
+        cx.drawImage(v, 0, 0, w, h);
+        var res = window.jsQR(cx.getImageData(0, 0, w, h).data, w, h, { inversionAttempts: 'dontInvert' });
+        if (!res || !res.data) return;
+        var code = codeFromText(res.data);
+        if (!code) { scanMsg(t('scan_bad')); return; }
+        scan.on = false; scanMsg(t('scan_chk'), true);
+        S.mesa = code; S.mesaName = ''; S.mode = 'mesa'; save();
+        resolveTable().then(function (ok) {
+          if (ok === false) { scan.on = true; scanMsg(t('scan_bad')); return; }
+          stopScan(); paintMode(); toast(t('scan_ok') + ' · ' + t('where') + ' ' + mesaLabel()); hide();
+        });
+      }, 150);
+    }).catch(function () { scanMsg(t('scan_deny')); });
+  }
   /* Plato */
   function openItem(li) {
     var m = /^it-(.+)-(\d+)$/.exec(li.id || ''); if (!m) return; var b = blockOf(m[1]); if (!b) return; var it = b.items[+m[2]];
@@ -184,7 +237,7 @@
   $('apModeBtn').addEventListener('click', openMode);
   $('apCartOpen').addEventListener('click', openCart);
   dlg.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party]'); if (!el || el.disabled) return;
+    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan]'); if (!el || el.disabled) return;
     if (el.hasAttribute('data-close')) hide();
     else if (el.dataset.mode) { S.mode = el.dataset.mode; save(); paintMode(); openMode(); }
     else if (el.dataset.v !== undefined && cur) { keepNote(); cur.variant = +el.dataset.v; paintItem(); }
@@ -192,6 +245,7 @@
     else if (el.dataset.q && cur) { keepNote(); cur.qty = Math.max(1, Math.min(20, cur.qty + (+el.dataset.q))); paintItem(); }
     else if (el.dataset.cq) { var a = el.dataset.cq.split(':'), l = S.cart[+a[0]]; l.qty += +a[1]; if (l.qty < 1) S.cart.splice(+a[0], 1); save(); paintBar(); openCart(); }
     else if (el.hasAttribute('data-addcart') && cur) addToCart();
+    else if (el.hasAttribute('data-scan')) { openScan(); }
     else if (el.dataset.party) { S.party = Math.max(1, Math.min(20, S.party + (+el.dataset.party))); save(); openCart(); }
     else if (el.hasAttribute('data-fold') && cur) { keepNote(); cur.openG[el.dataset.fold] = !cur.openG[el.dataset.fold]; paintItem(); }
     else if (el.dataset.pr !== undefined && cur) { keepNote(); var pp = el.dataset.pr.split(':'), arr = cur.sel[pp[0]], kp = +pp[1], ip = arr.indexOf(kp); if (ip === -1) arr.push(kp); else arr.splice(ip, 1); paintItem(); }
@@ -264,14 +318,15 @@
   }
   /* El QR trae un código; se resuelve al nombre real de la mesa (si no existe, se ignora el QR). */
   function resolveTable() {
-    if (!S.mesa) return;
-    fetch(B.url + '/rest/v1/rpc/app_resolve_table', { method: 'POST', headers: { apikey: B.anonKey, Authorization: 'Bearer ' + B.anonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_code: S.mesa }) })
+    if (!S.mesa) return Promise.resolve(null);
+    return fetch(B.url + '/rest/v1/rpc/app_resolve_table', { method: 'POST', headers: { apikey: B.anonKey, Authorization: 'Bearer ' + B.anonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_code: S.mesa }) })
       .then(function (r) { return r.ok ? r.json() : undefined; })
       .then(function (j) {
-        if (j === undefined) return;                       // sin conexión o error: se deja como está
-        if (j && j.name) { S.mesaName = j.name; } else { S.mesa = ''; S.mesaName = ''; if (S.mode === 'mesa') S.mode = 'recoger'; }
-        save(); paintMode();
-      }).catch(function () {});
+        if (j === undefined) return null;                  // sin conexión o error: se deja como está
+        var ok = !!(j && j.name);
+        if (ok) { S.mesaName = j.name; } else { S.mesa = ''; S.mesaName = ''; if (S.mode === 'mesa') S.mode = 'recoger'; }
+        save(); paintMode(); return ok;
+      }).catch(function () { return null; });
   }
 
   paintMode(); paintBar(); mark(); loadAvail(); resolveTable(); setTimeout(handleReturn, 400);
