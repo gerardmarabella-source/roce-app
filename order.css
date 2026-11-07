@@ -48,6 +48,15 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .ap-legal a { color: inherit; }
 .ap-link { padding: 0; border: 0; background: transparent; color: var(--black); font: inherit; font-size: 0.88rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .ap-or { text-align: center; margin: 0.6rem 0; }
-.ap-soc { width: 100%; margin-bottom: 0.5rem; }
+
 .ap-check { display: flex; gap: 0.7rem; align-items: flex-start; margin-top: 1rem; font-size: 0.85rem; line-height: 1.4; }
 .ap-check input { width: 1.2rem; height: 1.2rem; flex: 0 0 auto; margin-top: 0.1rem; accent-color: var(--black); }
+
+/* Botón de Google con su aspecto reconocible */
+.ap-gbtn { display: flex; align-items: center; justify-content: center; gap: 0.75rem; width: 100%; min-height: 3rem; padding: 0.6rem 1rem; border: 1px solid #dadce0; border-radius: 4px; background: #fff; color: #3c4043; font-family: var(--display); font-size: 0.95rem; font-weight: 700; letter-spacing: 0.02em; cursor: pointer; }
+.ap-gbtn:active { background: #f1f3f4; }
+.ap-gbtn .ap-g { flex: 0 0 auto; }
+
+/* Títulos de los paneles: nuestra tipografía y en mayúsculas */
+#apDlg h2 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+#apDlg .cv-fs h3, #apDlg .ap-sec h4 { text-transform: uppercase; }
