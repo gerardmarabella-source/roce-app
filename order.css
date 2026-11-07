@@ -60,3 +60,15 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 /* Títulos de los paneles: nuestra tipografía y en mayúsculas */
 #apDlg h2 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
 #apDlg .cv-fs h3, #apDlg .ap-sec h4 { text-transform: uppercase; }
+.ap-sech { margin: 1.4rem 0 0.2rem; padding-top: 0.8rem; border-top: 1.5px solid var(--black); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+#apDlg select.ap-in { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, #0a0a0a 50%), linear-gradient(135deg, #0a0a0a 50%, transparent 50%); background-position: calc(100% - 18px) 55%, calc(100% - 12px) 55%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 2rem; }
+#apDlg input.ap-in:disabled { opacity: 0.6; }
+
+/* El "+" dibujado con CSS para que quede exactamente centrado en el círculo */
+.cv-item::after { content: ""; font-size: 0; background: linear-gradient(var(--sheet), var(--sheet)) center / 0.95rem 2px no-repeat, linear-gradient(var(--sheet), var(--sheet)) center / 2px 0.95rem no-repeat, var(--ink); }
+.cv-item[data-off]::after { content: ""; background: linear-gradient(var(--ink), var(--ink)) center / 0.95rem 2px no-repeat; border: 1.5px solid var(--ink); opacity: 0.55; }
+
+/* Sección plegable "Más proteína" dentro de la ficha del plato */
+.ap-fold { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0.8rem 0; border: 0; border-top: 1.5px solid var(--black); border-bottom: 1px solid rgba(10, 10, 10, 0.18); background: transparent; color: var(--black); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-align: left; }
+.ap-fold i { width: 0.55rem; height: 0.55rem; border-right: 2px solid var(--black); border-bottom: 2px solid var(--black); transform: rotate(45deg); margin: -0.2rem 0.3rem 0 0; transition: transform 0.2s; }
+.ap-fold[aria-expanded="true"] i { transform: rotate(-135deg); margin-top: 0.2rem; }

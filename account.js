@@ -7,11 +7,11 @@
   var PROVIDERS = { google: true };      // proveedores sociales activados en Supabase → Authentication → Providers
   var UI = {
     es: { acct: 'Mi cuenta', login: 'Entrar', login_h: 'Entra para pedir', login_p: 'Te enviamos un código a tu email. Sin contraseñas.', email: 'Tu email', send: 'Enviar código', code_h: 'Introduce el código', code_p: 'Te lo hemos enviado a', code: 'Código', enter: 'Entrar', other: 'Cambiar email', resend: 'Reenviar código',
-      google: 'Continuar con Google', or: 'o', prof_h: 'Completa tu perfil', prof_p: 'Solo necesitamos tu nombre para avisarte cuando tu pedido esté listo.', name: 'Nombre', phone: 'Teléfono (opcional)', mkt: 'Quiero recibir novedades y ventajas de ROCE por email (puedes darte de baja cuando quieras).',
-      save: 'Guardar', hello: 'Hola', logout: 'Cerrar sesión', edit: 'Editar perfil', close: 'Cerrar', legal: 'Al continuar aceptas nuestra', privacy: 'política de privacidad', err_email: 'Escribe un email válido.', err_code: 'El código no es válido o ha caducado.', err_send: 'No hemos podido enviar el código. Inténtalo de nuevo en un minuto.', err_name: 'Escribe tu nombre.', err_net: 'Sin conexión. Inténtalo de nuevo.', sent: 'Código enviado.', ok_in: 'Sesión iniciada.' },
+      google: 'Continuar con Google', or: 'o', prof_h: 'Completa tu perfil', prof_p: 'Cuéntanos un poco sobre ti para atenderte mejor y avisarte cuando tu pedido esté listo. Lo marcado con * es obligatorio.', name: 'Nombre', phone: 'Teléfono (opcional)', mkt: 'Quiero recibir novedades y ventajas de ROCE por email (puedes darte de baja cuando quieras).',
+      save: 'Guardar', hello: 'Hola', sec_gen: 'General', sec_contact: 'Contacto', sec_comm: 'Comunicaciones', sec_bill: 'Facturación', last: 'Apellidos', birthday: 'Cumpleaños', gender: 'Género (para conocerte mejor)', g_m: 'Masculino', g_f: 'Femenino', g_o: 'Otro', g_n: 'Prefiero no decirlo', postal: 'Código postal', diet: 'Dieta', d_none: 'Ninguna', d_veg: 'Vegetariana', d_vegan: 'Vegana', d_pesc: 'Pescetariana', d_gf: 'Sin gluten', d_lf: 'Sin lactosa', d_keto: 'Keto', allergies: 'Alergias e intolerancias', email_ro: 'Email', mk_email: 'Quiero recibir novedades y ventajas de ROCE por email.', mk_wa: 'Quiero recibir novedades y ventajas de ROCE por WhatsApp.', heard: 'Cómo nos conociste', h_ig: 'Instagram', h_gg: 'Google', h_fr: 'Un amigo', h_walk: 'Pasaba por la puerta', h_ev: 'Un evento de ROCE', h_other: 'Otro', pick: 'Elige', bill_note: 'Solo si quieres factura con datos de empresa.', bill_name: 'Razón social', bill_tax: 'NIF / CIF', bill_addr: 'Dirección fiscal', bill_cp: 'Código postal', bill_city: 'Ciudad', err_phone: 'Escribe un teléfono válido.', del: 'Eliminar cuenta', del_h: '¿Eliminar tu cuenta?', del_p: 'Borraremos tu perfil y tu acceso. Tus pedidos se conservan sin datos personales (obligación fiscal). No se puede deshacer.', del_yes: 'Sí, eliminar', back: 'Volver', hello2: 'Hola', logout: 'Cerrar sesión', edit: 'Editar perfil', close: 'Cerrar', legal: 'Al continuar aceptas nuestra', privacy: 'política de privacidad', err_email: 'Escribe un email válido.', err_code: 'El código no es válido o ha caducado.', err_send: 'No hemos podido enviar el código. Inténtalo de nuevo en un minuto.', err_name: 'Escribe tu nombre.', err_net: 'Sin conexión. Inténtalo de nuevo.', sent: 'Código enviado.', ok_in: 'Sesión iniciada.' },
     en: { acct: 'My account', login: 'Sign in', login_h: 'Sign in to order', login_p: "We'll email you a code. No passwords.", email: 'Your email', send: 'Send code', code_h: 'Enter the code', code_p: 'We sent it to', code: 'Code', enter: 'Sign in', other: 'Change email', resend: 'Resend code',
-      google: 'Continue with Google', or: 'or', prof_h: 'Complete your profile', prof_p: 'We only need your name to tell you when your order is ready.', name: 'Name', phone: 'Phone (optional)', mkt: 'I want to receive ROCE news and perks by email (unsubscribe any time).',
-      save: 'Save', hello: 'Hi', logout: 'Sign out', edit: 'Edit profile', close: 'Close', legal: 'By continuing you accept our', privacy: 'privacy policy', err_email: 'Enter a valid email.', err_code: 'The code is invalid or has expired.', err_send: "We couldn't send the code. Try again in a minute.", err_name: 'Enter your name.', err_net: 'No connection. Try again.', sent: 'Code sent.', ok_in: 'Signed in.' }
+      google: 'Continue with Google', or: 'or', prof_h: 'Complete your profile', prof_p: 'Tell us a bit about you so we can serve you better and let you know when your order is ready. Fields marked * are required.', name: 'Name', phone: 'Phone (optional)', mkt: 'I want to receive ROCE news and perks by email (unsubscribe any time).',
+      save: 'Save', hello: 'Hi', sec_gen: 'General', sec_contact: 'Contact', sec_comm: 'Communications', sec_bill: 'Billing', last: 'Last name', birthday: 'Birthday', gender: 'Gender (to know you better)', g_m: 'Male', g_f: 'Female', g_o: 'Other', g_n: 'Prefer not to say', postal: 'Postcode', diet: 'Diet', d_none: 'None', d_veg: 'Vegetarian', d_vegan: 'Vegan', d_pesc: 'Pescatarian', d_gf: 'Gluten-free', d_lf: 'Lactose-free', d_keto: 'Keto', allergies: 'Allergies and intolerances', email_ro: 'Email', mk_email: 'I want to receive ROCE news and perks by email.', mk_wa: 'I want to receive ROCE news and perks by WhatsApp.', heard: 'How did you find us', h_ig: 'Instagram', h_gg: 'Google', h_fr: 'A friend', h_walk: 'Walked past', h_ev: 'A ROCE event', h_other: 'Other', pick: 'Choose', bill_note: 'Only if you want an invoice with company details.', bill_name: 'Company name', bill_tax: 'Tax ID', bill_addr: 'Billing address', bill_cp: 'Postcode', bill_city: 'City', err_phone: 'Enter a valid phone number.', del: 'Delete account', del_h: 'Delete your account?', del_p: "We'll delete your profile and access. Your orders are kept without personal data (tax requirement). This can't be undone.", del_yes: 'Yes, delete', back: 'Back', hello2: 'Hi', logout: 'Sign out', edit: 'Edit profile', close: 'Close', legal: 'By continuing you accept our', privacy: 'privacy policy', err_email: 'Enter a valid email.', err_code: 'The code is invalid or has expired.', err_send: "We couldn't send the code. Try again in a minute.", err_name: 'Enter your name.', err_net: 'No connection. Try again.', sent: 'Code sent.', ok_in: 'Signed in.' }
   };
   var L = function () { return document.documentElement.lang === 'en' ? 'en' : 'es'; };
   var t = function (k) { return UI[L()][k]; };
@@ -39,7 +39,7 @@
     });
   }
   var profile = null;
-  function getProfile() { return rest('GET', '/rest/v1/app_customers?select=name,phone,marketing_optin,email&limit=1').then(function (a) { profile = a && a[0] || null; return profile; }); }
+  function getProfile() { return rest('GET', '/rest/v1/app_customers?select=*&limit=1').then(function (a) { profile = a && a[0] || null; return profile; }); }
 
   /* ── Diálogo ── */
   var dlg = document.getElementById('apDlg'), box = document.getElementById('apDlgIn'), after = null, state = { email: '' };
@@ -62,29 +62,60 @@
       '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="close">' + t('close') + '</button><button type="button" class="cv-solid" data-acct="verify">' + t('enter') + '</button></div>');
     var c = document.getElementById('apAcCode'); if (c) setTimeout(function () { c.focus(); }, 50);
   }
+  var DIETS = [['', 'd_none'], ['vegetariana', 'd_veg'], ['vegana', 'd_vegan'], ['pescetariana', 'd_pesc'], ['sin_gluten', 'd_gf'], ['sin_lactosa', 'd_lf'], ['keto', 'd_keto']];
+  var GENDERS = [['', 'pick'], ['masculino', 'g_m'], ['femenino', 'g_f'], ['otro', 'g_o'], ['no_decir', 'g_n']];
+  var HEARD = [['', 'pick'], ['instagram', 'h_ig'], ['google', 'h_gg'], ['amigo', 'h_fr'], ['puerta', 'h_walk'], ['evento', 'h_ev'], ['otro', 'h_other']];
+  var draft = null;
+  function opts(list, cur) { return list.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === (cur || '') ? ' selected' : '') + '>' + esc(t(o[1])) + '</option>'; }).join(''); }
+  function fld(id, label, val, extra) { return '<section class="cv-fs"><h3>' + label + '</h3><input class="ap-in" id="' + id + '" value="' + esc(val || '') + '" ' + (extra || '') + '></section>'; }
+  function readDraft() {
+    var g = function (id) { var e = document.getElementById(id); return e ? e.value : ''; };
+    if (!document.getElementById('apPfName')) return;
+    draft = { name: g('apPfName'), last_name: g('apPfLast'), birthday: g('apPfBday'), gender: g('apPfGender'), postal_code: g('apPfCp'), diet: g('apPfDiet'), allergies: draft ? draft.allergies : [],
+      phone: g('apPfPhone'), marketing_optin: !!document.getElementById('apPfMk').checked, marketing_whatsapp: !!document.getElementById('apPfWa').checked, heard_from: g('apPfHeard'),
+      billing_name: g('apPfBn'), billing_tax_id: g('apPfBt'), billing_address: g('apPfBa'), billing_postal: g('apPfBc'), billing_city: g('apPfBy') };
+  }
   function viewProfile() {
-    var p = profile || {};
-    show('<h2>' + t('prof_h') + '</h2><div class="cv-sheet-body"><p>' + t('prof_p') + '</p>' +
-      '<section class="cv-fs"><h3>' + t('name') + '</h3><input class="ap-in" id="apAcName" autocomplete="given-name" maxlength="80" value="' + esc(p.name || '') + '"></section>' +
-      '<section class="cv-fs"><h3>' + t('phone') + '</h3><input class="ap-in" id="apAcPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" value="' + esc(p.phone || '') + '"></section>' +
-      '<label class="ap-check"><input type="checkbox" id="apAcMkt"' + (p.marketing_optin ? ' checked' : '') + '><span>' + t('mkt') + '</span></label><p class="ap-msg" id="apAcMsg"></p></div>' +
+    var p = draft || profile || {}, al = (draft ? draft.allergies : (profile && profile.allergies)) || [];
+    if (!draft) draft = { allergies: al.slice() };
+    var D = window.CARTA, em = (S && S.user && S.user.email) || p.email || '';
+    var alh = (D && D.allergens ? D.allergens : []).map(function (a) { return '<button type="button" class="cv-pick" data-pfal="' + a.n + '" aria-pressed="' + (draft.allergies.indexOf(a.n) !== -1) + '"><i class="cv-radio"></i><span>' + esc(a[L()] || a.es) + '</span><span class="cv-al">' + a.n + '</span></button>'; }).join('');
+    show('<h2>' + (profile && profile.name ? t('edit') : t('prof_h')) + '</h2><div class="cv-sheet-body"><p>' + t('prof_p') + '</p>' +
+      '<h3 class="ap-sech">' + t('sec_gen') + '</h3>' + fld('apPfName', t('name') + ' *', p.name, 'autocomplete="given-name" maxlength="80"') + fld('apPfLast', t('last'), p.last_name, 'autocomplete="family-name" maxlength="100"') +
+      '<section class="cv-fs"><h3>' + t('birthday') + '</h3><input class="ap-in" id="apPfBday" type="date" value="' + esc(p.birthday || '') + '" max="' + new Date().toISOString().slice(0, 10) + '"></section>' +
+      '<section class="cv-fs"><h3>' + t('gender') + '</h3><select class="ap-in" id="apPfGender">' + opts(GENDERS, p.gender) + '</select></section>' + fld('apPfCp', t('postal'), p.postal_code, 'inputmode="numeric" autocomplete="postal-code" maxlength="10"') +
+      '<section class="cv-fs"><h3>' + t('diet') + '</h3><select class="ap-in" id="apPfDiet">' + opts(DIETS, p.diet) + '</select></section>' +
+      '<section class="cv-fs"><h3>' + t('allergies') + '</h3>' + alh + '</section>' +
+      '<h3 class="ap-sech">' + t('sec_contact') + '</h3>' + fld('apPfPhone', t('phone').replace(' (opcional)', '').replace(' (optional)', '') + ' *', p.phone, 'type="tel" inputmode="tel" autocomplete="tel" maxlength="30"') +
+      '<section class="cv-fs"><h3>' + t('email_ro') + '</h3><input class="ap-in" value="' + esc(em) + '" disabled></section>' +
+      '<h3 class="ap-sech">' + t('sec_comm') + '</h3><label class="ap-check"><input type="checkbox" id="apPfMk"' + (p.marketing_optin ? ' checked' : '') + '><span>' + t('mk_email') + '</span></label>' +
+      '<label class="ap-check"><input type="checkbox" id="apPfWa"' + (p.marketing_whatsapp ? ' checked' : '') + '><span>' + t('mk_wa') + '</span></label>' +
+      '<section class="cv-fs"><h3>' + t('heard') + '</h3><select class="ap-in" id="apPfHeard">' + opts(HEARD, p.heard_from) + '</select></section>' +
+      '<h3 class="ap-sech">' + t('sec_bill') + '</h3><p>' + t('bill_note') + '</p>' + fld('apPfBn', t('bill_name'), p.billing_name, 'maxlength="120"') + fld('apPfBt', t('bill_tax'), p.billing_tax_id, 'maxlength="30" autocapitalize="characters"') + fld('apPfBa', t('bill_addr'), p.billing_address, 'maxlength="160"') + fld('apPfBc', t('bill_cp'), p.billing_postal, 'inputmode="numeric" maxlength="10"') + fld('apPfBy', t('bill_city'), p.billing_city, 'maxlength="80"') +
+      '<p class="ap-msg" id="apAcMsg"></p></div>' +
       '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="close">' + t('close') + '</button><button type="button" class="cv-solid" data-acct="save">' + t('save') + '</button></div>');
   }
+  function viewDelete() {
+    show('<h2>' + t('del_h') + '</h2><div class="cv-sheet-body"><p>' + t('del_p') + '</p><p class="ap-msg" id="apAcMsg"></p></div>' +
+      '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="edit">' + t('back') + '</button><button type="button" class="cv-solid" data-acct="delete-yes">' + t('del_yes') + '</button></div>');
+  }
   function viewAccount() {
+    draft = null;
     var p = profile || {}, em = (S && S.user && S.user.email) || p.email || '';
     show('<h2>' + t('hello') + (p.name ? ', ' + esc(p.name) : '') + '</h2><div class="cv-sheet-body"><p>' + esc(em) + '</p>' +
-      '<p><button type="button" class="ap-link" data-acct="edit">' + t('edit') + '</button></p></div>' +
+      '<p><button type="button" class="ap-link" data-acct="edit">' + t('edit') + '</button></p><p><button type="button" class="ap-link" data-acct="delete">' + t('del') + '</button></p></div>' +
       '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="logout">' + t('logout') + '</button><button type="button" class="cv-solid" data-acct="close">' + t('close') + '</button></div>');
   }
 
   function afterLogin() {
     return getProfile().then(function (p) {
-      if (!p || !p.name) { viewProfile(); return; }
+      if (!p || !p.name || !p.phone) { draft = null; viewProfile(); return; }
       if (dlg.open) dlg.close(); var cb = after; after = null; paintEntry(); if (cb) cb();
     }).catch(function () { viewProfile(); });
   }
 
   document.addEventListener('click', function (e) {
+    var pf = e.target.closest('[data-pfal]'); if (pf && dlg.contains(pf)) { readDraft(); var n = +pf.dataset.pfal, i = draft.allergies.indexOf(n); if (i === -1) draft.allergies.push(n); else draft.allergies.splice(i, 1); pf.setAttribute('aria-pressed', i === -1 ? 'true' : 'false'); return; }
     var el = e.target.closest('[data-acct]'); if (!el || el.disabled) return;
     var a = el.dataset.acct;
     if (a === 'close') { if (dlg.open) dlg.close(); after = null; }
@@ -102,12 +133,21 @@
         .catch(function (x) { msg(x.status === undefined ? t('err_net') : t('err_code')); busy(el, false); });
     }
     else if (a === 'save') {
-      var n = ((document.getElementById('apAcName') || {}).value || '').trim(); if (!n) { msg(t('err_name')); return; } busy(el, true);
-      rest('POST', '/rest/v1/rpc/app_customer_save', { p_name: n, p_phone: ((document.getElementById('apAcPhone') || {}).value || '').trim(), p_lang: L(), p_marketing: !!(document.getElementById('apAcMkt') || {}).checked })
-        .then(function () { return getProfile(); }).then(function () { busy(el, false); if (dlg.open) dlg.close(); var cb = after; after = null; paintEntry(); if (cb) cb(); })
+      readDraft(); var d = draft || {};
+      if (!(d.name || '').trim()) { msg(t('err_name')); return; }
+      if ((d.phone || '').replace(/\D/g, '').length < 9) { msg(t('err_phone')); return; }
+      busy(el, true); d.lang = L();
+      rest('POST', '/rest/v1/rpc/app_profile_save', { p: d })
+        .then(function () { draft = null; return getProfile(); }).then(function () { busy(el, false); if (dlg.open) dlg.close(); var cb = after; after = null; paintEntry(); if (cb) cb(); })
+        .catch(function (x) { msg(/phone/.test(x.message || '') ? t('err_phone') : /name/.test(x.message || '') ? t('err_name') : t('err_net')); busy(el, false); });
+    }
+    else if (a === 'delete') { viewDelete(); }
+    else if (a === 'delete-yes') {
+      busy(el, true);
+      rest('POST', '/rest/v1/rpc/app_account_delete', {}).then(function () { S = null; profile = null; draft = null; store(null); if (dlg.open) dlg.close(); paintEntry(); })
         .catch(function () { msg(t('err_net')); busy(el, false); });
     }
-    else if (a === 'edit') { viewProfile(); }
+    else if (a === 'edit') { draft = null; viewProfile(); }
     else if (a === 'logout') { S = null; profile = null; store(null); if (dlg.open) dlg.close(); paintEntry(); }
     else if (a === 'google') { location.href = B.url + '/auth/v1/authorize?provider=google' + '&redirect_to=' + encodeURIComponent(location.origin + '/'); }
   });
@@ -131,7 +171,7 @@
   function requireLogin(cb) {
     session().then(function (s) {
       if (!s) { after = cb; state.email = ''; viewLogin(); return; }
-      getProfile().then(function (p) { if (!p || !p.name) { after = cb; viewProfile(); } else { paintEntry(); cb(); } }).catch(function () { after = cb; viewProfile(); });
+      getProfile().then(function (p) { if (!p || !p.name || !p.phone) { after = cb; draft = null; viewProfile(); } else { paintEntry(); cb(); } }).catch(function () { after = cb; viewProfile(); });
     });
   }
   window.ROCE_ACCT = { open: open, require: requireLogin, session: session, rest: rest, loggedIn: function () { return !!S; } };

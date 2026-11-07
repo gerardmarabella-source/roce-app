@@ -17,7 +17,7 @@ window.CARTA = {
           title: { es: 'Kitchen', en: 'Kitchen' }, force: true,
           blocks: [
             {
-              title: { es: 'Tostadas', en: 'Toasts' }, note: { es: 'Hasta las 12:00 · pan de masa madre', en: 'Until 12:00 · sourdough bread' },
+              title: { es: 'Tostadas', en: 'Toasts' }, note: { es: 'Pan de masa madre', en: 'Sourdough bread' },
               items: [
                 { code: '000', name: '000', al: [1], nut: [328, 8, 54, 10], price: 3.9, es: 'Pan de masa madre, tomate de rama triturado y AOVE.', en: 'Sourdough, grated vine tomato and extra virgin olive oil.' },
                 { code: '001', name: '001', al: [1, 11], nut: [482, 12, 49, 24], price: 7.5, es: 'Pan de masa madre, guacamole, pepino, rabanito y semillas.', en: 'Sourdough, guacamole, cucumber, radish and seeds.' },
@@ -39,7 +39,7 @@ window.CARTA = {
               extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Fruta', en: 'Fruit' }, 2], [{ es: 'Granola', en: 'Granola' }, 1.5], [{ es: 'Crema de cacahuete', en: 'Peanut cream' }, 1.5]] }
             },
             {
-              title: { es: 'Sándwiches', en: 'Sandwiches' }, note: { es: 'Desde las 12:00 · también en comidas', en: 'From 12:00 · also at lunch' },
+              title: { es: 'Sándwiches', en: 'Sandwiches' }, note: { es: 'También en comidas', en: 'Also at lunch' },
               items: [
                 { name: 'Chicken Joe', al: [1, 3], nut: [632, 38, 49, 28], price: 11.5, es: 'Pollo a la brasa, bacon, tomate, hojas verdes y mayonesa de ajo asado.', en: 'Grilled chicken, bacon, tomato, green leaves and roasted garlic mayo.' },
                 { name: 'Terra', al: [1, 11], nut: [460, 18, 52, 20], price: 10.5, es: 'Hummus de remolacha, berenjena y calabacín asados, tomate seco, rúcula, tomate, hojas verdes y aliño de limón.', en: 'Beetroot hummus, roasted aubergine and courgette, sun-dried tomato, rocket, tomato, green leaves and lemon dressing.' },
@@ -95,7 +95,7 @@ window.CARTA = {
               ]
             },
             {
-              title: { es: 'Extras', en: 'Extras' }, note: { es: 'Proteína', en: 'Protein' },
+              title: { es: 'Más proteína', en: 'More protein' }, key: 'Extras', note: { es: 'Todo el día', en: 'All day' },
               compact: true,
               items: [
                 { name: 'Huevo campero', al: [3], nut: [72, 6, 1, 5], price: 2 }, { name: 'Falafel', al: [11], nut: [188, 8, 24, 7], price: 3.5 }, { name: 'Cottage', al: [7], nut: [82, 11, 3, 3], price: 2.5 },
