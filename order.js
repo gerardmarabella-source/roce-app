@@ -6,15 +6,22 @@
   var UI = {
     es: { mesa: 'A mesa', mesa_s: 'Te lo llevamos', recoger: 'Recoger', recoger_s: 'Pasa a por él', mesa_n: 'Escanea el QR de tu mesa', where: 'Mesa', pick: 'Recoger', view: 'Ver pedido', your: 'Tu pedido', how: '¿Cómo lo quieres?',
       choose: 'Elige', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
+      paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
+      e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
       from: 'Desde las', until: 'Hasta las', prot: 'Más proteína', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
+      paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
+      e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
       from: 'From', until: 'Until', prot: 'More protein', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
-  var S = { mode: 'recoger', mesa: '', cart: [] };
-  try { var sv = JSON.parse(localStorage.getItem(LS) || '{}'); S.cart = Array.isArray(sv.cart) ? sv.cart : []; S.mesa = sv.mesa || ''; S.mode = sv.mode || 'recoger'; } catch (e) {}
+  var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [] };
+  var B = window.ROCE_BACKEND;
+  try { var sv = JSON.parse(localStorage.getItem(LS) || '{}'); S.cart = Array.isArray(sv.cart) ? sv.cart : []; S.mesa = sv.mesa || ''; S.mesaName = sv.mesaName || ''; S.mode = sv.mode || 'recoger'; } catch (e) {}
   var q = new URLSearchParams(location.search);
-  if (q.get('m')) { S.mesa = String(q.get('m')).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40); S.mode = S.mesa ? 'mesa' : 'recoger'; history.replaceState(null, '', '/' + location.hash); }
+  if (q.get('m')) { S.mesa = String(q.get('m')).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40); S.mesaName = ''; S.mode = S.mesa ? 'mesa' : 'recoger'; history.replaceState(null, '', '/' + location.hash); }
+  var ret = q.get('pago') ? { st: q.get('pago'), ref: String(q.get('ref') || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 12) } : null;
+  if (ret) history.replaceState(null, '', '/' + location.hash);
   if (!S.mesa && S.mode === 'mesa') S.mode = 'recoger';
   function save() { try { localStorage.setItem(LS, JSON.stringify(S)); } catch (e) {} }
 
@@ -54,7 +61,8 @@
   new MutationObserver(function () { mark(); }).observe($('cvSections'), { childList: true });
 
   /* Modo (mesa / recoger) en la barra */
-  function paintMode() { $('apModeBtn').textContent = S.mode === 'mesa' ? t('where') + ' ' + S.mesa : t('pick'); }
+  var mesaLabel = function () { return S.mesaName || S.mesa; };
+  function paintMode() { $('apModeBtn').textContent = S.mode === 'mesa' ? t('where') + ' ' + mesaLabel() : t('pick'); }
   new MutationObserver(function () { paintMode(); paintBar(); mark(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 
   /* Diálogo común */
@@ -65,7 +73,7 @@
 
   function openMode() {
     view = 'mode';
-    show('<h2>' + t('how') + '</h2><div class="cv-sheet-body"><button type="button" class="cv-pick" data-mode="mesa" aria-pressed="' + (S.mode === 'mesa') + '"' + (S.mesa ? '' : ' disabled') + '><i class="cv-radio"></i><span>' + t('mesa') + ' · ' + (S.mesa ? t('where') + ' ' + esc(S.mesa) : t('mesa_n')) + '</span></button>' +
+    show('<h2>' + t('how') + '</h2><div class="cv-sheet-body"><button type="button" class="cv-pick" data-mode="mesa" aria-pressed="' + (S.mode === 'mesa') + '"' + (S.mesa ? '' : ' disabled') + '><i class="cv-radio"></i><span>' + t('mesa') + ' · ' + (S.mesa ? t('where') + ' ' + esc(mesaLabel()) : t('mesa_n')) + '</span></button>' +
       '<button type="button" class="cv-pick" data-mode="recoger" aria-pressed="' + (S.mode === 'recoger') + '"><i class="cv-radio"></i><span>' + t('recoger') + ' · ' + t('recoger_s') + '</span></button></div>' +
       '<div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + t('done') + '</button></div>');
   }
@@ -110,10 +118,10 @@
   function totals() { var n = 0, c = 0; S.cart.forEach(function (l) { n += l.qty; c += l.qty * l.unit; }); return { n: n, c: c }; }
   function paintBar() { var s = totals(); $('apCartBar').hidden = !s.n; document.body.classList.toggle('ap-has-cart', !!s.n); $('apCartQty').textContent = s.n; $('apCartLbl').textContent = t('view'); $('apCartTot').textContent = money(s.c); }
   function openCart() {
-    view = 'cart'; var s = totals(), h = '<h2>' + t('your') + '</h2><div class="cv-sheet-body"><p>' + (S.mode === 'mesa' ? t('where') + ' ' + esc(S.mesa) + ' · ' + t('to_table') : t('to_pick')) + '</p>';
+    view = 'cart'; var s = totals(), h = '<h2>' + t('your') + '</h2><div class="cv-sheet-body"><p>' + (S.mode === 'mesa' ? t('where') + ' ' + esc(mesaLabel()) + ' · ' + t('to_table') : t('to_pick')) + '</p>';
     if (!S.cart.length) h += '<p>' + t('empty') + '</p>';
     else h += S.cart.map(function (l, i) { return '<div class="ap-line"><div class="ap-line-b"><b>' + esc(l.name) + '</b>' + (l.detail ? '<span>' + esc(l.detail) + '</span>' : '') + (l.note ? '<span>“' + esc(l.note) + '”</span>' : '') + '</div><div class="ap-line-r"><div>' + money(l.unit * l.qty) + '</div><div class="ap-qty"><button type="button" data-cq="' + i + ':-1" aria-label="-">−</button><b>' + l.qty + '</b><button type="button" data-cq="' + i + ':1" aria-label="+">+</button></div></div></div>'; }).join('') +
-      '<div class="ap-total"><span>' + t('total') + '</span><span>' + money(s.c) + '</span></div><p class="ap-info">' + t('soon') + '</p>';
+      '<div class="ap-total"><span>' + t('total') + '</span><span>' + money(s.c) + '</span></div>';
     h += '</div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button>' + (S.cart.length ? '<button type="button" class="cv-solid" data-pay>' + t('pay') + '</button>' : '') + '</div>';
     show(h);
   }
@@ -133,9 +141,79 @@
     else if (el.hasAttribute('data-addcart') && cur) addToCart();
     else if (el.hasAttribute('data-fold') && cur) { keepNote(); cur.protOpen = !cur.protOpen; paintItem(); }
     else if (el.dataset.pr !== undefined && cur) { keepNote(); var kp = +el.dataset.pr, ip = cur.prot.indexOf(kp); if (ip === -1) cur.prot.push(kp); else cur.prot.splice(ip, 1); paintItem(); }
-    else if (el.hasAttribute('data-pay')) { if (window.ROCE_ACCT) window.ROCE_ACCT.require(function () { openCart(); }); }
+    else if (el.hasAttribute('data-pay')) { if (window.ROCE_ACCT) window.ROCE_ACCT.require(function () { startCheckout(); }); }
   });
 
-  paintMode(); paintBar(); mark();
+
+  /* ── Cobro: crear el pedido (la base de datos calcula el total) → firmar con Redsys → ir al banco ── */
+  var paying = false;
+  function showMsg(h, p, ghost) { view = 'msg'; show('<h2>' + h + '</h2><div class="cv-sheet-body"><p>' + p + '</p></div><div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + t('close') + '</button></div>'); }
+  function errText(x) {
+    var m = String((x && x.message) || '');
+    if (/item_closed:(.*)/.test(m)) return RegExp.$1 + ' ' + t('e_closed').replace(/:$/, '.');
+    if (/item_unavailable|bad_variant|bad_extra/.test(m)) return t('e_unav') + ' ' + m.split(':').slice(1).join(':');
+    if (/bad_table/.test(m)) return t('e_table');
+    if (/too_many_pending/.test(m)) return t('e_pend');
+    if (x && x.status === undefined && /fetch|network|Failed/i.test(m)) return t('e_net');
+    return t('e_gen');
+  }
+  function payApp(orderId) {
+    return window.ROCE_ACCT.session().then(function (s) {
+      if (!s) throw new Error('no_session');
+      return fetch(B.url + '/functions/v1/redsys', { method: 'POST', headers: { apikey: B.anonKey, Authorization: 'Bearer ' + s.access_token, 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'pay_app', order_id: orderId, lang: L() }) })
+        .then(function (r) { return r.json().then(function (j) { if (!r.ok) { var e = new Error(j.error || 'pay_failed'); e.status = r.status; throw e; } return j; }); });
+    });
+  }
+  function postToBank(p) {
+    var f = document.createElement('form'); f.method = 'POST'; f.action = p.url; f.style.display = 'none';
+    ['Ds_SignatureVersion', 'Ds_MerchantParameters', 'Ds_Signature'].forEach(function (k) { var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = p[k]; f.appendChild(i); });
+    document.body.appendChild(f); f.submit();
+  }
+  function startCheckout() {
+    if (paying || !S.cart.length) return;
+    paying = true; view = 'msg'; show('<h2>' + t('paying') + '</h2><div class="cv-sheet-body"><p>&nbsp;</p></div>');
+    var items = S.cart.map(function (l) { return { key: l.item, qty: l.qty, variant: l.variant || '', extras: l.extras || [], note: l.note || '' }; });
+    window.ROCE_ACCT.rest('POST', '/rest/v1/rpc/app_create_order', { p_mode: S.mode, p_code: S.mode === 'mesa' ? S.mesa : '', p_notes: '', p_items: items })
+      .then(function (r) {
+        try { localStorage.setItem('roce_app_pending', JSON.stringify({ ref: r.ref, id: r.id, at: Date.now() })); } catch (e) {}
+        return payApp(r.id);
+      })
+      .then(function (p) { postToBank(p); })
+      .catch(function (x) { paying = false; showMsg(t('your'), (x && x.message === 'disabled') || (x && x.status === 503) ? t('e_dis') : errText(x)); });
+  }
+  /* Vuelta del banco: ?pago=ok|ko&ref=… */
+  function handleReturn() {
+    if (!ret) return;
+    if (ret.st !== 'ok') { showMsg(t('ko_h'), t('ko_p')); return; }
+    S.cart = []; save(); paintBar();
+    var tries = 0, shown = false;
+    function paint(o) {
+      var paid = o && o.payment_status === 'paid';
+      var where = o && o.mode === 'mesa' ? t('ok_table') + (o.table_name ? ' · ' + t('where') + ' ' + esc(o.table_name) : '') : t('ok_pick');
+      view = 'msg';
+      show('<h2>' + t('ok_h') + '</h2><div class="cv-sheet-body"><p><b>' + t('ok_ref') + ' ' + esc(ret.ref) + '</b></p><p>' + (paid ? t('ok_p') + '</p><p>' + where : t('ok_wait')) + '</p></div><div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + t('close') + '</button></div>');
+      shown = true;
+    }
+    function poll() {
+      window.ROCE_ACCT.rest('GET', '/rest/v1/app_orders?select=ref,mode,table_name,status,payment_status&ref=eq.' + encodeURIComponent(ret.ref) + '&limit=1').then(function (a) {
+        var o = a && a[0]; paint(o);
+        if ((!o || o.payment_status !== 'paid') && ++tries < 12) setTimeout(poll, 2500);
+      }).catch(function () { if (!shown) paint(null); if (++tries < 12) setTimeout(poll, 2500); });
+    }
+    poll();
+  }
+  /* El QR trae un código; se resuelve al nombre real de la mesa (si no existe, se ignora el QR). */
+  function resolveTable() {
+    if (!S.mesa) return;
+    fetch(B.url + '/rest/v1/rpc/app_resolve_table', { method: 'POST', headers: { apikey: B.anonKey, Authorization: 'Bearer ' + B.anonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_code: S.mesa }) })
+      .then(function (r) { return r.ok ? r.json() : undefined; })
+      .then(function (j) {
+        if (j === undefined) return;                       // sin conexión o error: se deja como está
+        if (j && j.name) { S.mesaName = j.name; } else { S.mesa = ''; S.mesaName = ''; if (S.mode === 'mesa') S.mode = 'recoger'; }
+        save(); paintMode();
+      }).catch(function () {});
+  }
+
+  paintMode(); paintBar(); mark(); resolveTable(); setTimeout(handleReturn, 400);
   window.ROCE_APP = { state: S };
 })();
