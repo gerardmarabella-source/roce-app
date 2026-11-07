@@ -8,12 +8,12 @@
       choose: 'Elige', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
       paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
-      from: 'Desde las', until: 'Hasta las', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
+      from: 'Desde las', until: 'Hasta las', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
       paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
-      from: 'From', until: 'Until', prot: 'More protein', side: 'Sides', na: 'Not available now', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
+      from: 'From', until: 'Until', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
   var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [] };
   var B = window.ROCE_BACKEND;
@@ -64,7 +64,7 @@
       var h = sec.querySelector('.ap-hours'), lab = hoursLabel(b), hd = sec.querySelector('.cv-cat-h');
       if (lab && !h) { h = document.createElement('span'); h.className = 'ap-hours'; }
       if (h) {
-        h.classList.toggle('is-na', !ok); h.textContent = ok ? lab : t('na') + ' · ' + lab;
+        h.classList.toggle('is-na', !ok); h.textContent = t('avail') + ' ' + lab.toLowerCase();
         if (hd) { if (!ok) sec.insertBefore(h, sec.firstChild); else hd.parentNode.insertBefore(h, hd.nextSibling); }
       }
     });
@@ -103,7 +103,7 @@
     if (b.extras) h += '<section class="cv-fs"><h3>' + esc(tx(b.extras.title)) + '</h3>' + b.extras.list.map(function (e, k) { var p = extraPrice(e[1]); return '<button type="button" class="cv-pick" data-x="' + k + '" aria-pressed="' + (cur.extras.indexOf(k) !== -1) + '"><i class="cv-radio"></i><span>' + esc(tx(e[0])) + '</span>' + (p ? '<span class="ap-pick-price">+' + money(cents(p)) + '</span>' : '') + '</button>'; }).join('') + '</section>';
     addonsFor(b).forEach(function (g) {
       var ab = addonBlock(g), sel = cur.sel[g.id], opn = cur.openG[g.id];
-      if (!open(ab)) { h += '<section class="cv-fs"><div class="ap-fold is-na"><span>' + t(g.label) + '</span><em>' + esc(t('na')) + ' · ' + esc(hoursLabel(ab)) + '</em></div></section>'; return; }
+      if (!open(ab)) { h += '<section class="cv-fs"><div class="ap-fold is-na"><span>' + t(g.label) + '</span><em>' + esc(t('avail')) + ' ' + esc(hoursLabel(ab).toLowerCase()) + '</em></div></section>'; return; }
       h += '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="' + g.id + '" aria-expanded="' + opn + '"><span>' + t(g.label) + (sel.length ? ' · ' + sel.length : '') + '</span><i></i></button>';
       if (opn) h += ab.items.map(function (p, k) { return '<button type="button" class="cv-pick" data-pr="' + g.id + ':' + k + '" aria-pressed="' + (sel.indexOf(k) !== -1) + '"><i class="cv-radio"></i><span>' + esc(p.name) + '</span><span class="ap-pick-price">+' + money(cents(p.price)) + '</span></button>'; }).join('');
       h += '</section>';
