@@ -1,0 +1,13 @@
+<!-- Plantilla del email con el código de acceso de la app (app.roce.es).
+     Pegar en Supabase → Authentication → Emails → "Magic link or OTP" y también en "Confirm signup" (misma plantilla en las dos).
+     Asunto sugerido: Tu código de ROCE: {{ .Token }}
+     Solo se puede editar cuando hay SMTP propio configurado (Brevo). -->
+<div style="margin:0;padding:24px 12px;background:#0a0a0a;font-family:Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;margin:0 auto;background:#0a0a0a;">
+    <tr><td style="padding:8px 8px 18px;color:#ffffff;font-size:34px;font-weight:700;letter-spacing:.04em;">ROCE</td></tr>
+    <tr><td style="padding:0 8px 6px;color:#ece7dd;font-size:16px;line-height:1.5;">Tu código para entrar en la app:</td></tr>
+    <tr><td style="padding:10px 8px 18px;color:#ffffff;font-size:44px;font-weight:700;letter-spacing:.35em;">{{ .Token }}</td></tr>
+    <tr><td style="padding:0 8px 22px;color:#bdb7ab;font-size:13px;line-height:1.5;">Caduca en unos minutos. Si no lo has pedido tú, ignora este mensaje.<br><br>Your sign-in code is above. It expires shortly; if you didn't request it, ignore this email.</td></tr>
+    <tr><td style="padding:14px 8px 0;border-top:1px solid #3a3a3a;color:#8a8478;font-size:11px;">ROCE · Gran Vía Marqués del Túria 16, Valencia</td></tr>
+  </table>
+</div>
