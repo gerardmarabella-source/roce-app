@@ -1,13 +1,17 @@
-<!-- Plantilla del email con el código de acceso de la app (app.roce.es).
+<!-- Plantilla del email con el código de acceso de la app (app.roce.es), con el mismo aspecto que los emails de reservas y entradas.
      Pegar en Supabase → Authentication → Emails → "Magic link or OTP" y también en "Confirm signup" (misma plantilla en las dos).
-     Asunto sugerido: Tu código de ROCE: {{ .Token }}
+     Asunto: Tu código de ROCE: {{ .Token }}
      Solo se puede editar cuando hay SMTP propio configurado (Brevo). -->
-<div style="margin:0;padding:24px 12px;background:#0a0a0a;font-family:Helvetica,Arial,sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;margin:0 auto;background:#0a0a0a;">
-    <tr><td style="padding:8px 8px 18px;color:#ffffff;font-size:34px;font-weight:700;letter-spacing:.04em;">ROCE</td></tr>
-    <tr><td style="padding:0 8px 6px;color:#ece7dd;font-size:16px;line-height:1.5;">Tu código para entrar en la app:</td></tr>
-    <tr><td style="padding:10px 8px 18px;color:#ffffff;font-size:44px;font-weight:700;letter-spacing:.35em;">{{ .Token }}</td></tr>
-    <tr><td style="padding:0 8px 22px;color:#bdb7ab;font-size:13px;line-height:1.5;">Caduca en unos minutos. Si no lo has pedido tú, ignora este mensaje.<br><br>Your sign-in code is above. It expires shortly; if you didn't request it, ignore this email.</td></tr>
-    <tr><td style="padding:14px 8px 0;border-top:1px solid #3a3a3a;color:#8a8478;font-size:11px;">ROCE · Gran Vía Marqués del Túria 16, Valencia</td></tr>
-  </table>
-</div>
+<!doctype html><html><body style="margin:0;background:#0a0a0a">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0a0a0a" style="background:#0a0a0a"><tr><td align="center" style="padding:24px 12px">
+<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%">
+<tr><td><img src="https://roce.es/assets/logo/roce-cabecera-email.png" width="560" alt="ROCE" style="display:block;width:100%;height:auto"></td></tr>
+<tr><td style="padding:28px 24px 8px;color:#fff;font:32px Arial,sans-serif;text-transform:uppercase">Tu código de acceso</td></tr>
+<tr><td style="padding:0 24px 18px;color:#ddd;font:16px/1.5 Arial,sans-serif">Escríbelo en la app de ROCE para entrar y pedir. Caduca en unos minutos.</td></tr>
+<tr><td style="padding:0 24px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:18px 8px;border:1px solid #444;color:#fff;font:bold 40px Arial,sans-serif;letter-spacing:10px">{{ .Token }}</td></tr></table></td></tr>
+<tr><td style="padding:14px 24px 0;color:#aaa;font:13px/1.5 Arial,sans-serif">Si no lo has pedido tú, ignora este mensaje.</td></tr>
+<tr><td style="padding:26px 24px 0;color:#ddd;font:16px/1.5 Arial,sans-serif">Your sign-in code is above. Enter it in the ROCE app to sign in and order. It expires in a few minutes; if you didn't request it, just ignore this email.</td></tr>
+<tr><td align="center" style="padding:28px 24px 0"><a href="https://www.instagram.com/somosroce" style="color:#aaa;font:13px Arial,sans-serif">@somosroce</a><span style="color:#555;font:13px Arial,sans-serif"> &nbsp;·&nbsp; </span><a href="https://roce.es" style="color:#aaa;font:13px Arial,sans-serif">roce.es</a></td></tr>
+<tr><td align="center" style="padding:8px 24px 0;color:#777;font:12px Arial,sans-serif">Gran Vía Marqués del Túria 16, Valencia</td></tr>
+<tr><td style="padding:22px 24px 32px;color:#777;font:11px/1.5 Arial,sans-serif">BRUNCH DINNER ETC. SL (ROCE) trata tus datos para gestionar tu cuenta y tus pedidos en la app. Más información y tus derechos en https://roce.es/privacidad.html o escribiendo a reservas@roce.es.<br><br>BRUNCH DINNER ETC. SL (ROCE) processes your data to manage your account and orders in the app. More information and your rights at https://roce.es/privacidad.html or by writing to reservas@roce.es.</td></tr>
+</table></td></tr></table></body></html>
