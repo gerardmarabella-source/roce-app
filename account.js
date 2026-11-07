@@ -7,10 +7,10 @@
   var PROVIDERS = { google: true };      // proveedores sociales activados en Supabase → Authentication → Providers
   var UI = {
     es: { acct: 'Mi cuenta', login: 'Entrar', login_h: 'Entra para pedir', login_p: 'Te enviamos un código a tu email. Sin contraseñas.', email: 'Tu email', send: 'Enviar código', code_h: 'Introduce el código', code_p: 'Te lo hemos enviado a', code: 'Código', enter: 'Entrar', other: 'Cambiar email', resend: 'Reenviar código',
-      google: 'Continuar con Google', or: 'o', prof_h: 'Completa tu perfil', prof_p: 'Cuéntanos un poco sobre ti para atenderte mejor y avisarte cuando tu pedido esté listo. Lo marcado con * es obligatorio.', name: 'Nombre', phone: 'Teléfono (opcional)', mkt: 'Quiero recibir novedades y ventajas de ROCE por email (puedes darte de baja cuando quieras).',
+      google: 'Continuar con Google', or: 'o', guest: 'Continuar sin cuenta', guest_h: 'Continuar sin cuenta', guest_p: 'Solo necesitamos tu nombre para avisarte cuando tu pedido esté listo. No creamos ninguna cuenta ni te pedimos el email.', guest_name: 'Tu nombre', guest_go: 'Continuar', back: 'Volver', err_name: 'Escribe tu nombre.', err_guest: 'No hemos podido continuar sin cuenta. Inténtalo de nuevo o entra con tu email.', guest_tag: 'Pedido sin cuenta', prof_h: 'Completa tu perfil', prof_p: 'Cuéntanos un poco sobre ti para atenderte mejor y avisarte cuando tu pedido esté listo. Lo marcado con * es obligatorio.', name: 'Nombre', phone: 'Teléfono (opcional)', mkt: 'Quiero recibir novedades y ventajas de ROCE por email (puedes darte de baja cuando quieras).',
       save: 'Guardar', hello: 'Hola', sec_gen: 'General', sec_contact: 'Contacto', sec_comm: 'Comunicaciones', sec_bill: 'Facturación', last: 'Apellidos', birthday: 'Cumpleaños', gender: 'Género (para conocerte mejor)', g_m: 'Masculino', g_f: 'Femenino', g_o: 'Otro', g_n: 'Prefiero no decirlo', postal: 'Código postal', diet: 'Dieta', d_none: 'Ninguna', d_veg: 'Vegetariana', d_vegan: 'Vegana', d_pesc: 'Pescetariana', d_gf: 'Sin gluten', d_lf: 'Sin lactosa', d_keto: 'Keto', allergies: 'Alergias e intolerancias', email_ro: 'Email', mk_email: 'Quiero recibir novedades y ventajas de ROCE por email.', mk_wa: 'Quiero recibir novedades y ventajas de ROCE por WhatsApp.', heard: 'Cómo nos conociste', h_ig: 'Instagram', h_gg: 'Google', h_fr: 'Un amigo', h_walk: 'Pasaba por la puerta', h_ev: 'Un evento de ROCE', h_other: 'Otro', pick: 'Elige', bill_note: 'Solo si quieres factura con datos de empresa.', bill_name: 'Razón social', bill_tax: 'NIF / CIF', bill_addr: 'Dirección fiscal', bill_cp: 'Código postal', bill_city: 'Ciudad', err_phone: 'Escribe un teléfono válido.', del: 'Eliminar cuenta', del_h: '¿Eliminar tu cuenta?', del_p: 'Borraremos tu perfil y tu acceso. Tus pedidos se conservan sin datos personales (obligación fiscal). No se puede deshacer.', del_yes: 'Sí, eliminar', back: 'Volver', hello2: 'Hola', logout: 'Cerrar sesión', edit: 'Editar perfil', close: 'Cerrar', legal: 'Al continuar aceptas nuestra', privacy: 'política de privacidad', err_email: 'Escribe un email válido.', err_code: 'El código no es válido o ha caducado.', err_send: 'No hemos podido enviar el código. Inténtalo de nuevo en un minuto.', err_google: 'No hemos podido entrar con Google. Inténtalo de nuevo o usa el código por email.', err_name: 'Escribe tu nombre.', err_net: 'Sin conexión. Inténtalo de nuevo.', sent: 'Código enviado.', ok_in: 'Sesión iniciada.' },
     en: { acct: 'My account', login: 'Sign in', login_h: 'Sign in to order', login_p: "We'll email you a code. No passwords.", email: 'Your email', send: 'Send code', code_h: 'Enter the code', code_p: 'We sent it to', code: 'Code', enter: 'Sign in', other: 'Change email', resend: 'Resend code',
-      google: 'Continue with Google', or: 'or', prof_h: 'Complete your profile', prof_p: 'Tell us a bit about you so we can serve you better and let you know when your order is ready. Fields marked * are required.', name: 'Name', phone: 'Phone (optional)', mkt: 'I want to receive ROCE news and perks by email (unsubscribe any time).',
+      google: 'Continue with Google', or: 'or', guest: 'Continue without an account', guest_h: 'Continue without an account', guest_p: "We only need your name to let you know when your order is ready. We don't create an account or ask for your email.", guest_name: 'Your name', guest_go: 'Continue', back: 'Back', err_name: 'Enter your name.', err_guest: "We couldn't continue without an account. Try again or sign in with your email.", guest_tag: 'Order without an account', prof_h: 'Complete your profile', prof_p: 'Tell us a bit about you so we can serve you better and let you know when your order is ready. Fields marked * are required.', name: 'Name', phone: 'Phone (optional)', mkt: 'I want to receive ROCE news and perks by email (unsubscribe any time).',
       save: 'Save', hello: 'Hi', sec_gen: 'General', sec_contact: 'Contact', sec_comm: 'Communications', sec_bill: 'Billing', last: 'Last name', birthday: 'Birthday', gender: 'Gender (to know you better)', g_m: 'Male', g_f: 'Female', g_o: 'Other', g_n: 'Prefer not to say', postal: 'Postcode', diet: 'Diet', d_none: 'None', d_veg: 'Vegetarian', d_vegan: 'Vegan', d_pesc: 'Pescatarian', d_gf: 'Gluten-free', d_lf: 'Lactose-free', d_keto: 'Keto', allergies: 'Allergies and intolerances', email_ro: 'Email', mk_email: 'I want to receive ROCE news and perks by email.', mk_wa: 'I want to receive ROCE news and perks by WhatsApp.', heard: 'How did you find us', h_ig: 'Instagram', h_gg: 'Google', h_fr: 'A friend', h_walk: 'Walked past', h_ev: 'A ROCE event', h_other: 'Other', pick: 'Choose', bill_note: 'Only if you want an invoice with company details.', bill_name: 'Company name', bill_tax: 'Tax ID', bill_addr: 'Billing address', bill_cp: 'Postcode', bill_city: 'City', err_phone: 'Enter a valid phone number.', del: 'Delete account', del_h: 'Delete your account?', del_p: "We'll delete your profile and access. Your orders are kept without personal data (tax requirement). This can't be undone.", del_yes: 'Yes, delete', back: 'Back', hello2: 'Hi', logout: 'Sign out', edit: 'Edit profile', close: 'Close', legal: 'By continuing you accept our', privacy: 'privacy policy', err_email: 'Enter a valid email.', err_code: 'The code is invalid or has expired.', err_send: "We couldn't send the code. Try again in a minute.", err_google: "We couldn't sign you in with Google. Try again or use the email code.", err_name: 'Enter your name.', err_net: 'No connection. Try again.', sent: 'Code sent.', ok_in: 'Signed in.' }
   };
   var L = function () { return document.documentElement.lang === 'en' ? 'en' : 'es'; };
@@ -20,7 +20,7 @@
   /* ── Sesión ── */
   function load() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
   function store(s) { try { if (s) localStorage.setItem(KEY, JSON.stringify(s)); else localStorage.removeItem(KEY); } catch (e) {} }
-  function fromTokens(r) { return r && r.access_token ? { access_token: r.access_token, refresh_token: r.refresh_token, expires_at: Date.now() + ((r.expires_in || 3600) * 1000), user: r.user ? { id: r.user.id, email: r.user.email } : null } : null; }
+  function fromTokens(r) { return r && r.access_token ? { access_token: r.access_token, refresh_token: r.refresh_token, expires_at: Date.now() + ((r.expires_in || 3600) * 1000), user: r.user ? { id: r.user.id, email: r.user.email } : null, anon: !!(r.user && r.user.is_anonymous) } : null; }
   function api(path, body, token) {
     return fetch(B.url + path, { method: 'POST', headers: { apikey: B.anonKey, Authorization: 'Bearer ' + (token || B.anonKey), 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) })
       .then(function (r) { return r.text().then(function (x) { var j = {}; try { j = x ? JSON.parse(x) : {}; } catch (e) {} if (!r.ok) { var e = new Error(j.msg || j.message || j.error_description || ('http_' + r.status)); e.status = r.status; e.body = j; throw e; } return j; }); });
@@ -102,6 +102,24 @@
       '<section class="cv-fs"><h3>' + t('email') + '</h3><input class="ap-in" id="apAcEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" value="' + esc(state.email) + '"></section><p class="ap-msg" id="apAcMsg"></p>' + legal() + '</div>' +
       '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="close">' + t('close') + '</button><button type="button" class="cv-solid" data-acct="send">' + t('send') + '</button></div>');
     if (PROVIDERS.google) renderGoogle();
+    if (after) { var gb = box.querySelector('.cv-sheet-body'); if (gb) { var gp = document.createElement('p'); gp.className = 'ap-guest'; gp.innerHTML = '<button type="button" class="ap-link" data-acct="guest">' + esc(t('guest')) + '</button>'; gb.appendChild(gp); } }
+  }
+  /* Pedir sin cuenta: sesión anónima de Supabase (usuario sin email) + solo el nombre. El pedido y el pago funcionan igual que con cuenta. */
+  function viewGuest() {
+    show('<h2>' + t('guest_h') + '</h2><div class="cv-sheet-body"><p>' + t('guest_p') + '</p>' +
+      '<section class="cv-fs"><h3>' + t('guest_name') + '</h3><input class="ap-in" id="apGuestName" autocomplete="given-name" maxlength="80" value="' + esc(state.gname || (profile && profile.name) || '') + '"></section><p class="ap-msg" id="apAcMsg"></p>' + legal() + '</div>' +
+      '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="guestback">' + t('back') + '</button><button type="button" class="cv-solid" data-acct="guestgo">' + t('guest_go') + '</button></div>');
+    var gi = document.getElementById('apGuestName'); if (gi) setTimeout(function () { gi.focus(); }, 50);
+  }
+  function guestGo(btn) {
+    var name = ((document.getElementById('apGuestName') || {}).value || '').trim();
+    if (name.length < 2) { msg(t('err_name')); return; }
+    state.gname = name; busy(btn, true);
+    var open = S && S.anon ? Promise.resolve() : api('/auth/v1/signup', { data: { app: 'roce-app', guest: true } }).then(function (r) { S = fromTokens(r); if (!S || !S.anon) throw new Error('no_guest'); store(S); });
+    open.then(function () { return rest('POST', '/rest/v1/rpc/app_customer_save', { p_name: name, p_phone: '', p_lang: L(), p_marketing: false }); })
+      .then(function () { return getProfile(); })
+      .then(function () { if (dlg.open) dlg.close(); var cb = after; after = null; paintEntry(); if (cb) cb(); })
+      .catch(function () { msg(t('err_guest')); busy(btn, false); });
   }
   function viewCode() {
     show('<h2>' + t('code_h') + '</h2><div class="cv-sheet-body"><p>' + t('code_p') + ' <b>' + esc(state.email) + '</b></p>' +
@@ -149,7 +167,7 @@
   }
   function viewAccount() {
     draft = null;
-    var p = profile || {}, em = (S && S.user && S.user.email) || p.email || '';
+    var p = profile || {}, em = (S && S.anon) ? t('guest_tag') : ((S && S.user && S.user.email) || p.email || '');
     show('<h2>' + t('hello') + (p.name ? ', ' + esc(p.name) : '') + '</h2><div class="cv-sheet-body"><p>' + esc(em) + '</p>' +
       '<p><button type="button" class="ap-link" data-acct="edit">' + t('edit') + '</button></p><p><button type="button" class="ap-link" data-acct="delete">' + t('del') + '</button></p></div>' +
       '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="logout">' + t('logout') + '</button><button type="button" class="cv-solid" data-acct="close">' + t('close') + '</button></div>');
@@ -157,7 +175,7 @@
 
   function afterLogin() {
     return getProfile().then(function (p) {
-      if (!p || !p.name || !p.phone) { draft = null; viewProfile(); return; }
+      if (!p || !p.name || (!p.phone && !(S && S.anon))) { draft = null; viewProfile(); return; }
       if (dlg.open) dlg.close(); var cb = after; after = null; paintEntry(); if (cb) cb();
     }).catch(function () { viewProfile(); });
   }
@@ -167,6 +185,9 @@
     var el = e.target.closest('[data-acct]'); if (!el || el.disabled) return;
     var a = el.dataset.acct;
     if (a === 'close') { if (dlg.open) dlg.close(); after = null; }
+    else if (a === 'guest') { viewGuest(); }
+    else if (a === 'guestback') { viewLogin(); }
+    else if (a === 'guestgo') { guestGo(el); }
     else if (a === 'send' || a === 'resend') {
       var em = a === 'send' ? ((document.getElementById('apAcEmail') || {}).value || '').trim().toLowerCase() : state.email;
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { msg(t('err_email')); return; }
@@ -219,7 +240,7 @@
   function requireLogin(cb) {
     session().then(function (s) {
       if (!s) { after = cb; state.email = ''; viewLogin(); return; }
-      getProfile().then(function (p) { if (!p || !p.name || !p.phone) { after = cb; draft = null; viewProfile(); } else { paintEntry(); cb(); } }).catch(function () { after = cb; viewProfile(); });
+      getProfile().then(function (p) { if (!p || !p.name || (!p.phone && !(S && S.anon))) { after = cb; draft = null; if (S && S.anon) viewGuest(); else viewProfile(); } else { paintEntry(); cb(); } }).catch(function () { after = cb; viewProfile(); });
     });
   }
   window.ROCE_ACCT = { open: open, require: requireLogin, session: session, rest: rest, loggedIn: function () { return !!S; } };
