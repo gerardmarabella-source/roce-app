@@ -58,9 +58,9 @@
     function plus(a, b) { return { k: a.k + b.k, p: a.p + b.p, c: a.c + b.c, f: a.f + b.f }; }
     function times(a, n) { return { k: a.k * n, p: a.p * n, c: a.c * n, f: a.f * n }; }
     function priceOf(it) { var p = it.price; return Array.isArray(p) ? p[0] : (p || 0); }
-    function macroLine(M) {
+    function macroLine(M, est) {
       var l = X(['Kcal', 'P', 'C', 'G'], ['Kcal', 'P', 'C', 'F']);
-      return '<p class="ap-mac"><span><b>' + l[0] + '</b> ' + nm(M.k) + '</span><span><b>' + l[1] + '</b> ' + nm(M.p) + ' g</span><span><b>' + l[2] + '</b> ' + nm(M.c) + ' g</span><span><b>' + l[3] + '</b> ' + nm(M.f) + ' g</span></p>';
+      return '<p class="ap-mac">' + (est ? '<span class="ap-est" title="' + esc(X('Aproximado', 'Approximate')) + '">≈</span>' : '') + '<span><b>' + l[0] + '</b> ' + nm(M.k) + '</span><span><b>' + l[1] + '</b> ' + nm(M.p) + ' g</span><span><b>' + l[2] + '</b> ' + nm(M.c) + ' g</span><span><b>' + l[3] + '</b> ' + nm(M.f) + ' g</span></p>';
     }
     /* Reparto de la energía entre proteína, hidratos y grasa (4, 4 y 9 kcal por gramo). */
     function split(M) {
@@ -236,6 +236,8 @@
         if (hungry && ['main', 'sandwich'].indexOf(c.kind) !== -1) s += 2;
         if (sweet && (c.kind === 'sweet' || c.kind === 'smoothie' || c.kind === 'juice')) s += 2;
         if (salty && ['sweet', 'smoothie'].indexOf(c.kind) === -1) s += 1;
+        if (DRINK.indexOf(c.kind) !== -1) { var dn = norm(c.it.name); if (dn.length >= 4 && norm(st.text).indexOf(dn) !== -1) s += 3 + dn.length / 4; }
+        if (DRINK.indexOf(c.kind) !== -1 && c.nv && (W.protein || f.protein)) s += c.nv.p * 0.5;
         if (c.pend) s -= 2;
         if (W.eMax && c.plan) { var bud = W.eMax / people * 0.8; if (c.plan.price > bud) s -= (c.plan.price - bud) * 2; }
         if (c.plan) s += c.plan.s * (W.numeric || W.protein || W.lowcarb || W.lowfat || W.cut || W.energy ? 1 : 0.35);
@@ -252,7 +254,7 @@
         for (var i = 0; i < (n || 1) && pool.length; i++) { var c = pool.splice((seed + (off || 0) + i) % pool.length, 1)[0]; used[c.id] = 1; out.push(c); }
         return { label: label, items: out };
       }
-      var slots = [], drinkKinds = f.juice ? ['juice'] : f.smoothie ? ['smoothie'] : f.coffee ? ['coffee'] : f.tea ? ['tea'] : (sweet ? ['smoothie', 'juice'] : DRINK);
+      var slots = [], drinkKinds = f.juice ? ['juice'] : f.smoothie ? ['smoothie'] : (f.tea && /matcha/.test(norm(st.text))) ? ['tea'] : f.coffee ? ['coffee'] : f.tea ? ['tea'] : (sweet ? ['smoothie', 'juice'] : DRINK);
       var share = Math.max(1, Math.ceil(people / 2));
       if (when === 'drink') { var d = pick(drinkKinds.length < 4 && !f.drinkAny ? DRINK : drinkKinds, 'drink', Math.max(3, people), 0); if (d) slots.push(d); }
       else {
@@ -271,6 +273,17 @@
         slots.push(pick(drinkKinds, 'drink', people, 1));
       }
       slots = slots.filter(function (s) { return s && s.items.length; });
+      if (W.kMax) {
+        var dsl = slots.filter(function (z) { return z.label === 'drink'; })[0];
+        if (dsl) {
+          var foodK = 0; slots.forEach(function (z) { if (z.label !== 'drink') z.items.forEach(function (c) { foodK += c.plan ? c.plan.M.k : (c.nv ? c.nv.k : 0); }); });
+          var room = W.kMax - foodK / people, pool = cat.filter(function (c) { return DRINK.indexOf(c.kind) !== -1 && c.nv; });
+          var fits = pool.filter(function (c) { return c.nv.k <= room; });
+          if (!fits.length) fits = pool.slice().sort(function (a, b) { return a.nv.k - b.nv.k; }).slice(0, 4);
+          else fits = fits.map(function (c) { c.s = score(c); return c; }).sort(function (a, b) { return b.s - a.s || a.nv.k - b.nv.k; }).slice(0, 4);
+          dsl.items = []; for (var di = 0; di < people && fits.length; di++) dsl.items.push(fits[(seed + di) % fits.length]);
+        }
+      }
       if (W.eMax) {
         var cost = function () { var z = 0; slots.forEach(function (s) { s.items.forEach(function (c) { z += c.plan ? c.plan.price : priceOf(c.it); }); }); return z; };
         ['drink', 'starter', 'side', 'sweet'].forEach(function (lab) { if (cost() <= W.eMax) return; slots = slots.filter(function (s) { return s.label !== lab || slots.length < 2; }); });
@@ -313,7 +326,8 @@
     function filtersNow(P) { var G = A.F(); return { al: G.al, diet: G.diet.concat(P.diets), ing: (G.ing.m === 'sin' ? G.ing.k : []).concat(P.excl) }; }
     function answer(text) {
       var n = ' ' + norm(text) + ' ', P = parse(text), FF = filtersNow(P);
-      var foods = catalogue(true).filter(function (c) { return c.nv && DRINK.indexOf(c.kind) === -1; });
+      var foods = catalogue(true).filter(function (c) { return c.nv; });
+      var asks = /cuant|calori|kcal|macro|prote|hidrat|grasa|nutri|que lleva|how many|calories|protein|carbs|fat|nutrition|what.?s in/.test(n);
       var seen = {}, hits = [];
       foods.forEach(function (c) {
         var nn = norm(c.it.name).replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -323,6 +337,8 @@
       // «Tostada 003» (las tostadas se piden por su número).
       var cm = /tostada\s*(?:n[ouº°]?\.?\s*)?(00\d)/.exec(n);
       if (cm) { var tc = foods.filter(function (c) { return c.it.code === cm[1]; })[0]; if (tc && hits.indexOf(tc) === -1) hits.push(tc); }
+      hits = hits.filter(function (c) { return DRINK.indexOf(c.kind) === -1 || asks; });
+      hits = hits.filter(function (c) { var nn = norm(c.it.name); return !hits.some(function (o) { var on = norm(o.it.name); return o !== c && on.length > nn.length && on.indexOf(nn) !== -1; }); });
       if (hits.length) { hits.sort(function (a, b) { return norm(b.it.name).length - norm(a.it.name).length; }); return hits.length === 1 ? { kind: 'dish', c: hits[0], FF: FF } : { kind: 'compare', list: hits.slice(0, 3), FF: FF }; }
       var m, metric = '', dir = 'desc';
       if ((m = /\b(mas|mayor|maximo|top|highest|most|best|mejor)\s+(?:\w+\s+){0,3}?(prote|calor|kcal)/.exec(n))) metric = /prote/.test(m[2]) ? 'p' : 'k';
@@ -362,7 +378,7 @@
 
     /* Lo que «piensa» el asistente, en una o dos frases con los números reales. */
     function say(R) {
-      var foods = []; R.slots.forEach(function (s) { s.items.forEach(function (c) { if (c.plan || c.nv) foods.push(c); }); });
+      var foods = []; R.slots.forEach(function (s) { s.items.forEach(function (c) { if ((c.plan || c.nv) && DRINK.indexOf(c.kind) === -1) foods.push(c); }); });
       if (!foods.length) return '';
       var per = R.per, W = R.W, names = foods.slice(0, 3).map(function (c) { return c.it.name; }).join(', ');
       var tot = X('En total salen ', 'It comes to ') + nm(per.k) + ' kcal, ' + nm(per.p) + ' g ' + X('de proteína', 'of protein') + ', ' + nm(per.c) + ' g ' + X('de hidratos y ', 'of carbs and ') + nm(per.f) + ' g ' + X('de grasa', 'of fat') + (R.people > 1 ? X(' por persona', ' per person') : '') + '.';
@@ -405,7 +421,7 @@
       var M = c.plan ? c.plan.M : c.nv, p = c.plan ? c.plan.price : price(c);
       return '<li class="cv-slot-' + label + '"><p class="cv-pl-slot"><span class="cv-pl-n">' + idx + '</span>' + esc(t('slots')[label]) + '</p><div class="cv-pl-top"><b>' + esc(dishName(c)) + '</b><span>' + esc(A.money(c.it.price)) + '</span></div>' +
         (c.it.es ? '<p class="cv-pl-desc">' + esc(A.tx({ es: c.it.es, en: c.it.en })) + '</p>' : '') +
-        (M ? macroLine(M) : '') +
+        (M ? macroLine(M, c.it.nutEst) : '') +
         (reason(c, R) ? '<p class="cv-pl-why">' + esc(reason(c, R)) + '</p>' : '') + (pendTxt(c) ? '<p class="cv-fs-note">' + esc(pendTxt(c)) + '</p>' : '') + allergenLine(c) + addonLine(c) +
         orderBtn(c, addAttr(c)) + '</li>';
     }
@@ -421,7 +437,7 @@
       if (R.totals.k) {
         h += '<section class="ap-sum"><h3>' + esc(X('Resumen nutricional', 'Nutrition summary')) + (R.people > 1 ? ' · ' + esc(X('por persona', 'per person')) : '') + '</h3>' + macroLine(R.per) + bar(R.per);
         if (R.checks.length) h += '<ul class="ap-checks">' + R.checks.map(function (x) { return '<li class="' + (x.ok ? 'ap-ok' : 'ap-ko') + '"><span aria-hidden="true">' + (x.ok ? '✓' : '✕') + '</span> ' + esc(x.txt) + '</li>'; }).join('') + '</ul>';
-        if (R.hasDrink) h += '<p class="cv-fs-note">' + esc(X('Las bebidas no están en el total: todavía no tienen datos nutricionales.', 'Drinks are not in the total: they do not have nutrition data yet.')) + '</p>';
+        if (R.hasDrink) h += '<p class="cv-fs-note">' + esc(X('Los valores de las bebidas son aproximados (ración estándar e ingredientes de la carta).', 'Drink values are approximate (standard serving and menu ingredients).')) + '</p>';
         h += '</section>';
       }
       h += '<p class="cv-pl-total">' + esc(t('total')) + (R.people > 1 ? ' (' + R.people + ')' : '') + ': <b>' + esc(A.money(Math.round(R.price * 100) / 100)) + '</b></p><p class="cv-fs-note">' + esc(t('note')) + '</p>';
@@ -430,7 +446,7 @@
     function dishView() {
       var R = st.result, c = R.c, FF = R.FF, h = '<h2 id="cvChefTitle">' + esc(dishName(c)) + '</h2>';
       if (c.off) h += '<p class="cv-fs-note">' + esc(X('Ahora mismo no está disponible (horario o agotado).', 'Not available right now (hours or sold out).')) + '</p>';
-      h += (c.it.es ? '<p class="cv-chef-p">' + esc(A.tx({ es: c.it.es, en: c.it.en })) + '</p>' : '') + macroLine(c.nv) + bar(c.nv);
+      h += (c.it.es ? '<p class="cv-chef-p">' + esc(A.tx({ es: c.it.es, en: c.it.en })) + '</p>' : '') + macroLine(c.nv, c.it.nutEst) + bar(c.nv) + (c.it.nutEst ? '<p class="cv-fs-note">' + esc(X('Valores aproximados: ración estándar e ingredientes de la carta.', 'Approximate values: standard serving and menu ingredients.')) + '</p>' : '');
       var a = A.analyze(c.it, c.blk); if (a.ing.length) h += '<p class="cv-pl-why">' + esc(X('Ingredientes que detecto: ', 'Ingredients I can see: ')) + esc(a.ing.map(ingName).join(', ').toLowerCase()) + '</p>';
       h += allergenLine(c);
       var e = ev(c.it, c.blk, FF); if (e.hide) h += '<p class="cv-fs-note ap-warn">' + esc(X('Ojo: este plato no encaja con tus filtros activos.', 'Heads-up: this dish does not match your active filters.')) + '</p>';
@@ -446,7 +462,7 @@
     function compareView() {
       var R = st.result, L = R.list, h = '<h2 id="cvChefTitle">' + esc(X('Comparación', 'Comparison')) + '</h2><ul class="cv-pick-list">';
       L.forEach(function (c, i) {
-        h += '<li><div class="cv-pl-top"><b>' + esc(dishName(c)) + '</b><span>' + esc(A.money(c.it.price)) + '</span></div>' + macroLine(c.nv) + bar(c.nv) + allergenLine(c) + orderBtn(c) + '</li>';
+        h += '<li><div class="cv-pl-top"><b>' + esc(dishName(c)) + '</b><span>' + esc(A.money(c.it.price)) + '</span></div>' + macroLine(c.nv, c.it.nutEst) + bar(c.nv) + allergenLine(c) + orderBtn(c) + '</li>';
       });
       h += '</ul>';
       function best(key, dir, es, en) { var s = L.slice().sort(function (a, b) { return (dir === 'asc' ? 1 : -1) * (a.nv[key] - b.nv[key]); }); return '<li>' + esc(X(es, en)) + ': <b>' + esc(s[0].it.name) + '</b> (' + nm(s[0].nv[key]) + (key === 'k' ? ' kcal' : ' g') + ')</li>'; }

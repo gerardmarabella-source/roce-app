@@ -78,9 +78,9 @@
   var secById = function (id) { return D.sections.filter(function (s) { return s.id === id; })[0]; };
 
   /* Valores nutricionales por ración: [kcal, proteínas, hidratos, grasas]. */
-  function nut(n) {
+  function nut(n, est) {
     var l = L === 'en' ? ['Kcal', 'P', 'C', 'F'] : ['Kcal', 'P', 'C', 'G'];
-    return '<p class="cv-nut" aria-label="' + esc(ui('nutri')) + '"><span><b>' + l[0] + '</b> ' + n[0] + '</span><span><b>' + l[1] + '</b> ' + n[1] + ' g</span><span><b>' + l[2] + '</b> ' + n[2] + ' g</span><span><b>' + l[3] + '</b> ' + n[3] + ' g</span></p>';
+    return '<p class="cv-nut" aria-label="' + esc(ui('nutri')) + '">' + (est ? '<span class="cv-nut-est" title="' + esc(L === 'en' ? 'Approximate' : 'Aproximado') + '">≈</span>' : '') + '<span><b>' + l[0] + '</b> ' + n[0] + '</span><span><b>' + l[1] + '</b> ' + n[1] + ' g</span><span><b>' + l[2] + '</b> ' + n[2] + ' g</span><span><b>' + l[3] + '</b> ' + n[3] + ' g</span></p>';
   }
   /* ── Platos y listas ── */
   function item(it, blk, n) {
@@ -90,7 +90,7 @@
       (blk.alPending ? '<span class="cv-pend">' + esc(ui('pending')) + '</span>' : '') + '</span><span class="cv-price">' + money(it.price) + '</span></div>';
     if (it.es) h += '<p class="cv-i-desc">' + esc(tx({ es: it.es, en: it.en })) + '</p>';
     if (it.tag) h += '<p class="cv-i-desc cv-i-tag">' + esc(tx(it.tag)) + '</p>';
-    if (it.nut) h += nut(it.nut);
+    if (it.nut) h += nut(it.nut, it.nutEst);
     if (it.variants) h += '<ul class="cv-variants">' + it.variants.map(function (v) { return '<li><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span>' + als(v.al) + '</li>'; }).join('') + '</ul>';
     h += '</div>' + (it.img ? '<img class="cv-thumb" loading="lazy" src="' + esc(it.img) + '" alt="">' : '') + '</li>';
     return h;
