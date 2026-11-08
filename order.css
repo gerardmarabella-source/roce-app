@@ -242,3 +242,8 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-pair-det summary { cursor: pointer; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.7rem; opacity: 0.75; }
 .ap-pair-det p { margin: 0.3rem 0 0; font-size: 0.82rem; line-height: 1.35; opacity: 0.8; }
 .ap-pair-det .ap-pair-al { font-size: 0.76rem; opacity: 0.65; }
+
+/* Botones «+» y «−» de cantidad y de las sugerencias: dibujados con CSS (no con el glifo del texto) para que queden exactamente centrados */
+.ap-qty button { font-size: 0; background: linear-gradient(var(--black), var(--black)) center / 40% 2px no-repeat, linear-gradient(var(--black), var(--black)) center / 2px 40% no-repeat, #fff; }
+.ap-qty button[data-q="-1"], .ap-qty button[data-party="-1"], .ap-qty button[data-cq$=":-1"] { background: linear-gradient(var(--black), var(--black)) center / 40% 2px no-repeat, #fff; }
+.ap-pair-p i { font-size: 0; background: linear-gradient(#fff, #fff) center / 56% 2px no-repeat, linear-gradient(#fff, #fff) center / 2px 56% no-repeat, var(--black); }
