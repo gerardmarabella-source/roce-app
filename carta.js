@@ -137,7 +137,7 @@
   }
 
   /* ── Cambiar de hoja: la hoja se abre / se cierra como en una carpeta ── */
-  var flipping = null;
+  var flipping = null, TOUCH = window.matchMedia('(pointer: coarse)');
   function endFlip() {
     if (!flipping) return;
     clearTimeout(flipping.t);
@@ -160,9 +160,16 @@
     try { history.replaceState(null, '', '#' + id); } catch (e) {}
     current = ''; onScroll(); paintNext();
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { endFlip(); return; }
-    (forward ? from : to).classList.add(forward ? 'flip-away' : 'flip-in');
-    flipping = { t: setTimeout(endFlip, 1000) };
+    var anim = forward ? from : to, dur = TOUCH.matches ? 650 : 1000;
+    anim.classList.add(forward ? 'flip-away' : 'flip-in');
+    flipping = { t: setTimeout(endFlip, dur), at: Date.now(), dur: dur };
+    anim.addEventListener('animationend', endFlip, { once: true });
   }
+  /* Si la animación no ha terminado a tiempo (el Safari del iPhone aplaza los temporizadores mientras se toca o se desplaza la página),
+     cualquier toque, scroll o vuelta a la pestaña la cierra: nunca pueden quedar dos cartas superpuestas. */
+  ['touchstart', 'touchend', 'scroll', 'visibilitychange', 'pageshow'].forEach(function (ev) {
+    (ev === 'visibilitychange' ? document : window).addEventListener(ev, function () { if (flipping && Date.now() - flipping.at >= flipping.dur) endFlip(); }, { passive: true });
+  });
 
   /* ── Pie: leyenda para elegir a qué carta ir (nada automático al llegar abajo ni arriba) ── */
   function renderFootNav() {

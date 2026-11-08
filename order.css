@@ -185,3 +185,9 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 /* Las fichas (entrar, mi cuenta, pedido, ayuda…) miden lo que necesita su contenido, no toda la pantalla.
    Un diálogo modal con top y bottom a 0 y «height: auto» se estira hasta su altura máxima; fit-content lo evita. */
 .cv-sheet[open] { height: fit-content !important; }
+
+/* Táctil: el cambio de hoja dura menos (menos tiempo con dos cartas a la vez) */
+@media (pointer: coarse) {
+  .cv-paper.flip-away { animation-duration: 0.6s; }
+  .cv-paper.flip-in { animation-duration: 0.6s; }
+}
