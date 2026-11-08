@@ -299,7 +299,6 @@
     pairList.forEach(function (x, i) {
       var desc = x.it.es ? tx({ es: x.it.es, en: x.it.en }) : '', als = (x.it.al || []).length ? (t('pair_al') + ': ' + allergenNames(x.it.al)) : '';
       h += '<div class="ap-pair-row' + (x.done ? ' is-done' : '') + '">' +
-        (x.it.img ? '<img class="ap-pair-img" loading="lazy" src="' + esc(x.it.img) + '" alt="">' : '') +
         '<div class="ap-pair-t"><b>' + esc(x.it.name) + '</b>' + (x.why ? '<em>' + esc(tx(x.why)) + '</em>' : '') +
         (desc || als ? '<details class="ap-pair-det" data-pairdet="' + i + '"' + (x.open ? ' open' : '') + '><summary>' + esc(t('pair_ing')) + '</summary>' + (desc ? '<p>' + esc(desc) + '</p>' : '') + (als ? '<p class="ap-pair-al">' + esc(als) + '</p>' : '') + '</details>' : '') +
         '</div><button type="button" class="ap-pair-add" data-pair="' + i + '"' + (x.done ? ' disabled' : '') + ' aria-label="' + esc(t('add')) + ' ' + esc(x.it.name) + '"><span class="ap-pair-p">' + (x.done ? '✓' : money(cents(x.it.price)) + ' <i>+</i>') + '</span></button></div>';

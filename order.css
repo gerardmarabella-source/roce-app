@@ -233,9 +233,8 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .cv-vgl { display: inline-grid; place-items: center; width: 1.2rem; height: 1.2rem; margin-left: 0.15rem; opacity: 0.85; }
 .cv-vgl .cv-leaf { width: 1.1rem; height: 1.1rem; }
 
-/* Sugerencias para acompañar: ingredientes desplegables e imagen si la hay */
+/* Sugerencias para acompañar: ingredientes desplegables */
 .ap-pair-row { display: flex; align-items: flex-start; gap: 0.7rem; width: 100%; padding: 0.7rem 0.8rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); }
-.ap-pair-img { flex: 0 0 auto; width: 3.6rem; height: 3.6rem; object-fit: cover; }
 .ap-pair-t { flex: 1; min-width: 0; }
 .ap-pair-add { flex: 0 0 auto; align-self: center; padding: 0.3rem 0; border: 0; background: transparent; color: inherit; font: inherit; }
 .ap-pair-add:disabled { opacity: 1; }
