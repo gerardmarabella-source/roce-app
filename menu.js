@@ -57,7 +57,7 @@ window.CARTA = {
               items: [
                 { name: 'Bloody Moon', img: '/assets/dishes/bloody-moon.webp', al: [7, 8, 11], nut: [612, 24, 36, 42], price: 14.5, es: 'Burrata inyectada con coulis de granada y frambuesa, carpaccio de tomate cherry confitado, higos baby, nuez caramelizada, DUKA ROCE y salsa chili berry.', en: 'Burrata injected with pomegranate and raspberry coulis, candied cherry tomato carpaccio, baby figs, caramelised walnut, ROCE DUKA and chili berry sauce.' },
                 {
-                  name: 'El Trío', img: '/assets/dishes/el-trio.webp', note: { es: '3 uds', en: '3 pcs' }, al: [1, 3, 6, 7, 11], nut: [498, 28, 48, 22], price: 13.5, es: 'Tortilla de maíz, cebolla encurtida y nuestras salsas.', en: 'Corn tortilla, pickled onion and our sauces.',
+                  name: 'El Trío', pick: 3, img: '/assets/dishes/el-trio.webp', note: { es: '3 uds', en: '3 pcs' }, al: [1, 3, 6, 7, 11], nut: [498, 28, 48, 22], price: 13.5, es: 'Tortilla de maíz, cebolla encurtida y nuestras salsas.', en: 'Corn tortilla, pickled onion and our sauces.',
                   variants: [
                     { name: 'Pollo', al: [7], es: 'Pollo desmechado, piña, salsa yogur limón.', en: 'Pulled chicken, pineapple, lemon yogurt sauce.' },
                     { name: 'Pato Pekín', al: [1, 6, 11], es: 'Magret de pato, mango, salsa pekín.', en: 'Duck breast, mango, Peking sauce.' },

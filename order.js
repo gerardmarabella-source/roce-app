@@ -5,7 +5,7 @@
   var D = window.CARTA, LS = 'roce_app_v1';
   var UI = {
     es: { mesa: 'A mesa', mesa_s: 'Te lo llevamos', recoger: 'Recoger', recoger_s: 'Pasa a por él', mesa_n: 'Escanea el QR de tu mesa', where: 'Mesa', pick: 'Recoger', view: 'Ver pedido', your: 'Tu pedido', how: '¿Cómo lo quieres?',
-      choose: 'Elige', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', note_bar: 'Nota para barra', note_ph_bakery: 'Calentar, para llevar, alergias…', note_ph_coffee: 'Leche de avena, sin azúcar, bien caliente…', note_ph_fresh: 'Sin hielo, sin azúcar, alergias…', note_ph_drinks: 'Sin hielo, con limón…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
+      choose: 'Elige', pick_h: 'Elige {n} sabores', pick_left: 'Faltan {k}', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', note_bar: 'Nota para barra', note_ph_bakery: 'Calentar, para llevar, alergias…', note_ph_coffee: 'Leche de avena, sin azúcar, bien caliente…', note_ph_fresh: 'Sin hielo, sin azúcar, alergias…', note_ph_drinks: 'Sin hielo, con limón…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
       paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
       warn_h: 'Cuidado: alérgenos', warn_contains: 'contiene', warn_p: 'Son alérgenos que has marcado en tu perfil o en los filtros de la carta.', warn_team: 'Si lo pides, avisa también a nuestro equipo de tu alergia. ¿Quieres añadirlo igualmente?', warn_back: 'Volver', warn_ok: 'Añadir igualmente',
@@ -13,7 +13,7 @@
       pair_h: '¿Algo para acompañar?', pair_p: 'Esto le pega a tu', pair_no: 'No, gracias', pair_done: 'Listo',
       from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
-      choose: 'Choose', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', note_bar: 'Note for the bar', note_ph_bakery: 'Warm it up, to go, allergies…', note_ph_coffee: 'Oat milk, no sugar, extra hot…', note_ph_fresh: 'No ice, no sugar, allergies…', note_ph_drinks: 'No ice, with lemon…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
+      choose: 'Choose', pick_h: 'Choose {n} flavours', pick_left: '{k} to go', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', note_bar: 'Note for the bar', note_ph_bakery: 'Warm it up, to go, allergies…', note_ph_coffee: 'Oat milk, no sugar, extra hot…', note_ph_fresh: 'No ice, no sugar, allergies…', note_ph_drinks: 'No ice, with lemon…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
       paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
       warn_h: 'Careful: allergens', warn_contains: 'contains', warn_p: 'These are allergens you marked in your profile or in the menu filters.', warn_team: 'If you order it, please also tell our team about your allergy. Do you still want to add it?', warn_back: 'Back', warn_ok: 'Add anyway',
@@ -193,16 +193,22 @@
     }).catch(function () { scanMsg(t('scan_deny')); });
   }
   /* Plato */
+  /* Platos de «elige N» (El Trío): el cliente reparte N unidades entre los sabores (variants); la variante que viaja al servidor es el reparto, p. ej. «2× Pollo + 1× Costilla». */
+  function mixDefault(it) { if (!it.pick || !it.variants) return null; var m = it.variants.map(function () { return 0; }); for (var i = 0; i < it.pick; i++) m[i % m.length]++; return m; }
+  function mixSum() { return cur.mix ? cur.mix.reduce(function (a, b) { return a + b; }, 0) : 0; }
+  function mixStr() { return cur.it.variants.map(function (v, k) { return cur.mix[k] ? cur.mix[k] + '× ' + v.name : ''; }).filter(Boolean).join(' + '); }
+  function curVar() { return cur.it.pick ? mixStr() : (cur.variant >= 0 ? cur.it.variants[cur.variant].name : ''); }
   function openItem(li) {
     var m = /^it-(.+)-(\d+)$/.exec(li.id || ''); if (!m) return; var b = blockOf(m[1]); if (!b) return; var it = b.items[+m[2]];
-    cur = { b: b, it: it, qty: 1, variant: it.variants ? 0 : -1, extras: [], sel: { side: [], prot: [] }, openG: { side: false, prot: false }, note: '', ok: open(b) }; view = 'item'; paintItem();
+    cur = { b: b, it: it, qty: 1, variant: it.variants && !it.pick ? 0 : -1, mix: mixDefault(it), extras: [], sel: { side: [], prot: [] }, openG: { side: false, prot: false }, note: '', ok: open(b) }; view = 'item'; paintItem();
   }
   function unit() { var u = cents(cur.it.price); if (cur.b.extras) cur.b.extras.list.forEach(function (e, k) { if (cur.extras.indexOf(k) !== -1) u += cents(extraPrice(e[1])); }); return u; }
   function protTotal() { var s = 0; ADDON.forEach(function (g) { var ab = addonBlock(g); if (ab) (cur.sel[g.id] || []).forEach(function (k) { s += cents(ab.items[k].price); }); }); return s; }
   function keepNote() { var n = $('apNote'); if (n) cur.note = n.value; }
   function paintItem() {
     var it = cur.it, b = cur.b, h = '<h2>' + esc(it.name) + '</h2><div class="cv-sheet-body">' + (it.img ? '<img class="ap-photo" src="' + esc(it.img) + '" alt="' + esc(it.name) + '">' : '') + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '');
-    if (it.variants) h += '<section class="cv-fs"><h3>' + t('choose') + '</h3>' + it.variants.map(function (v, k) { return '<button type="button" class="cv-pick" data-v="' + k + '" aria-pressed="' + (cur.variant === k) + '"><i class="cv-radio"></i><span>' + esc(v.name) + '</span></button>'; }).join('') + '</section>';
+    if (it.variants && it.pick) h += '<section class="cv-fs ap-mix"><h3>' + esc(t('pick_h').replace('{n}', it.pick)) + ' · ' + mixSum() + '/' + it.pick + '</h3>' + it.variants.map(function (v, k) { return '<div class="ap-mix-row"><div><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span></div><div class="ap-qty"><button type="button" data-mx="' + k + ':-1" aria-label="-"' + (cur.mix[k] ? '' : ' disabled') + '>−</button><b>' + cur.mix[k] + '</b><button type="button" data-mx="' + k + ':1" aria-label="+"' + (mixSum() >= it.pick ? ' disabled' : '') + '>+</button></div></div>'; }).join('') + '</section>';
+    else if (it.variants) h += '<section class="cv-fs"><h3>' + t('choose') + '</h3>' + it.variants.map(function (v, k) { return '<button type="button" class="cv-pick" data-v="' + k + '" aria-pressed="' + (cur.variant === k) + '"><i class="cv-radio"></i><span>' + esc(v.name) + '</span></button>'; }).join('') + '</section>';
     if (b.extras) h += '<section class="cv-fs"><h3>' + esc(tx(b.extras.title)) + '</h3>' + b.extras.list.map(function (e, k) { var p = extraPrice(e[1]); return '<button type="button" class="cv-pick" data-x="' + k + '" aria-pressed="' + (cur.extras.indexOf(k) !== -1) + '"><i class="cv-radio"></i><span>' + esc(tx(e[0])) + '</span>' + (p ? '<span class="ap-pick-price">+' + money(cents(p)) + '</span>' : '') + '</button>'; }).join('') + '</section>';
     addonsFor(b).forEach(function (g) {
       var ab = addonBlock(g), sel = cur.sel[g.id], opn = cur.openG[g.id];
@@ -214,18 +220,18 @@
     var nt = noteTexts(b);
     h += '<section class="cv-fs"><h3>' + nt.title + '</h3><textarea class="ap-note" id="apNote" maxlength="200" placeholder="' + esc(nt.ph) + '">' + esc(cur.note) + '</textarea></section>';
     h += '<div class="ap-qty"><button type="button" data-q="-1" aria-label="-">−</button><b>' + cur.qty + '</b><button type="button" data-q="1" aria-label="+">+</button></div></div>';
-    h += '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button><button type="button" class="cv-solid" data-addcart' + (cur.ok ? '' : ' disabled') + '>' + (cur.ok ? t('add') + ' · ' + money((unit() + protTotal()) * cur.qty) : t('off')) + '</button></div>';
+    h += '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button><button type="button" class="cv-solid" data-addcart' + (cur.ok && (!it.pick || mixSum() === it.pick) ? '' : ' disabled') + '>' + (!cur.ok ? t('off') : (it.pick && mixSum() !== it.pick ? t('pick_left').replace('{k}', it.pick - mixSum()) : t('add') + ' · ' + money((unit() + protTotal()) * cur.qty))) + '</button></div>';
     var sc = (dlg.querySelector('.cv-sheet-body') || {}).scrollTop || 0; show(h); var bd = dlg.querySelector('.cv-sheet-body'); if (bd) bd.scrollTop = sc;
   }
   function addToCart() {
-    keepNote(); var it = cur.it, b = cur.b, key = [bk(b), it.name, cur.variant, cur.extras.slice().sort().join('+'), cur.sel.side.slice().sort().join('+'), cur.sel.prot.slice().sort().join('+'), cur.note].join('|'), parts = [];
-    if (cur.variant >= 0) parts.push(it.variants[cur.variant].name); cur.extras.forEach(function (k) { parts.push('+ ' + tx(b.extras.list[k][0])); });
+    keepNote(); var it = cur.it, b = cur.b, key = [bk(b), it.name, curVar(), cur.extras.slice().sort().join('+'), cur.sel.side.slice().sort().join('+'), cur.sel.prot.slice().sort().join('+'), cur.note].join('|'), parts = [];
+    if (curVar()) parts.push(curVar()); cur.extras.forEach(function (k) { parts.push('+ ' + tx(b.extras.list[k][0])); });
     var f = S.cart.filter(function (l) { return l.key === key; })[0];
-    if (f) f.qty += cur.qty; else S.cart.push({ key: key, item: bk(b) + '|' + (it.code || it.name), name: it.name, variant: cur.variant >= 0 ? it.variants[cur.variant].name : '', extras: cur.extras.map(function (k) { return b.extras.list[k][0].es; }), unit: unit(), qty: cur.qty, note: cur.note, detail: parts.join(' · ') });
+    if (f) f.qty += cur.qty; else S.cart.push({ key: key, item: bk(b) + '|' + (it.code || it.name), name: it.name, variant: curVar(), extras: cur.extras.map(function (k) { return b.extras.list[k][0].es; }), unit: unit(), qty: cur.qty, note: cur.note, detail: parts.join(' · ') });
     ADDON.forEach(function (g) {
       var ab = addonBlock(g); if (!ab || !open(ab)) return;
       cur.sel[g.id].forEach(function (k) {
-        var p = ab.items[k], k2 = [bk(ab), p.name, 'con', it.name, cur.variant].join('|'), f2 = S.cart.filter(function (l) { return l.key === k2; })[0];
+        var p = ab.items[k], k2 = [bk(ab), p.name, 'con', it.name, curVar()].join('|'), f2 = S.cart.filter(function (l) { return l.key === k2; })[0];
         if (f2) f2.qty += cur.qty; else S.cart.push({ key: k2, item: bk(ab) + '|' + (p.code || p.name), name: p.name, variant: '', extras: [], unit: cents(p.price), qty: cur.qty, note: '', detail: t('with_') + ' ' + it.name });
       });
     });
@@ -326,7 +332,9 @@
   function allergenNames(ns) { return ns.map(function (n) { var a = D.allergens.filter(function (x) { return x.n === n; })[0]; return a ? tx(a) : String(n); }).join(', '); }
   function uniq(a) { return a.filter(function (x, i) { return a.indexOf(x) === i; }); }
   function itemAllergenHits() {
-    var it = cur.it, als = (cur.variant >= 0 && it.variants && it.variants[cur.variant] && it.variants[cur.variant].al) ? it.variants[cur.variant].al : (it.al || []), hits = allergenHits(als);
+    var it = cur.it, als = (cur.variant >= 0 && it.variants && it.variants[cur.variant] && it.variants[cur.variant].al) ? it.variants[cur.variant].al : (it.al || []);
+    if (it.pick && cur.mix) { als = []; it.variants.forEach(function (v, k) { if (cur.mix[k]) als = als.concat(v.al || []); }); }
+    var hits = allergenHits(als);
     ADDON.forEach(function (g) { var ab = addonBlock(g); if (!ab || !open(ab)) return; (cur.sel[g.id] || []).forEach(function (k) { hits = hits.concat(allergenHits(ab.items[k].al)); }); });
     return uniq(hits).sort(function (a, b) { return a - b; });
   }
@@ -367,10 +375,11 @@
   $('apModeBtn').addEventListener('click', openMode);
   $('apCartOpen').addEventListener('click', openCart);
   dlg.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairno],[data-warnback],[data-warnok]'); if (!el || el.disabled) return;
+    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-mx],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairno],[data-warnback],[data-warnok]'); if (!el || el.disabled) return;
     if (el.hasAttribute('data-close')) hide();
     else if (el.dataset.mode) { S.mode = el.dataset.mode; save(); paintMode(); openMode(); }
     else if (el.dataset.v !== undefined && cur) { keepNote(); cur.variant = +el.dataset.v; paintItem(); }
+    else if (el.dataset.mx !== undefined && cur) { keepNote(); var mm2 = el.dataset.mx.split(':'), k3 = +mm2[0], d3 = +mm2[1], n3 = cur.mix[k3] + d3; if (n3 >= 0 && mixSum() + d3 <= cur.it.pick) cur.mix[k3] = n3; paintItem(); }
     else if (el.dataset.x !== undefined && cur) { keepNote(); var k = +el.dataset.x, i = cur.extras.indexOf(k); if (i === -1) cur.extras.push(k); else cur.extras.splice(i, 1); paintItem(); }
     else if (el.dataset.q && cur) { keepNote(); cur.qty = Math.max(1, Math.min(20, cur.qty + (+el.dataset.q))); paintItem(); }
     else if (el.dataset.cq) { var a = el.dataset.cq.split(':'), l = S.cart[+a[0]]; l.qty += +a[1]; if (l.qty < 1) S.cart.splice(+a[0], 1); save(); paintBar(); openCart(); }
