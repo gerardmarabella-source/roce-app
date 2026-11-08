@@ -123,10 +123,10 @@
   }
 
   var LEGAL = [['aviso-legal', 'Aviso legal', 'Legal notice'], ['terminos', 'Términos y condiciones', 'Terms & conditions'], ['cookies', 'Cookies', 'Cookies'], ['privacidad', 'Política de privacidad', 'Privacy policy']];
-  function legalHtml() { return LEGAL.map(function (x) { return '<a href="https://roce.es/' + x[0] + '.html" target="_blank" rel="noopener">' + (L === 'en' ? x[2] : x[1]) + '</a>'; }).join(''); }
+  function legalHtml() { return LEGAL.map(function (x) { return '<a href="https://roce.es/' + x[0] + '.html" target="_blank" rel="noopener">' + (L === 'en' ? x[2] : x[1]) + '</a>'; }).join(' · '); }
   function render() {
     document.documentElement.lang = L;
-    $('cvLegalM').innerHTML = legalHtml(); $('cvLegalF').innerHTML = legalHtml();
+    $('cvLegalF').innerHTML = legalHtml();
     $('cvAlLabel').textContent = ui('filters'); $('cvMenuLabel').textContent = ui('menu_btn'); $('cvCloseLabel').textContent = ui('close');
     $('cvDisclaimer').textContent = ui('note');
     $('cvSheetTitle').textContent = ui('f_h'); $('cvSheetText').textContent = ui('f_p'); $('cvAlClear').textContent = ui('clear'); $('cvAlDone').textContent = ui('done');
