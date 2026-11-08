@@ -234,7 +234,7 @@
   /* ── Para acompañar: al añadir comida se ofrece café, bebida o bakery que le pega (y se deja fuera lo que no le pega) ──
      Cada plato tiene su lista según la hora: por la mañana café y zumo; a mediodía bebidas frescas y, para terminar, café solo o infusión.
      Lo que no aparece en la lista es porque no pega: café con leche o mocca con platos salados de comida, zumos o smoothies con el açaí
-     (ya lleva fruta), bakery con tostadas o açaí (ya son pan o dulce). Se ofrece una vez por pedido y solo si aún no hay bebida. */
+     (ya lleva fruta), bakery con tostadas o açaí (ya son pan o dulce). Se ofrece SIEMPRE que se añade un plato (venta cruzada): «No, gracias» solo cierra esa sugerencia. */
   var DRINK_BLOCKS = ['Cafés', 'Matcha & Tés', 'Smoothies', 'Zumos naturales'];
   var WHY = {
     'flat white': { es: 'Con leche, suave: le pega a lo salado', en: 'Milky and smooth: great with savoury' },
@@ -275,13 +275,9 @@
     var f = null; D.sections.forEach(function (sec) { if (sec.id !== 'bakery') return; (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (blk) { blk.items.forEach(function (x) { if (!f && !soldOut[itemKey(blk, x)]) f = { b: blk, it: x, bakery: true }; }); }); }); });
     return f;
   }
-  function hasDrink() { return S.cart.some(function (l) { return DRINK_BLOCKS.some(function (d) { return l.item.indexOf(d + '|') === 0; }) || /^Bakery/i.test(l.item); }); }
   var pairList = [], pairFood = '';
-  /* «No, gracias» silencia las sugerencias solo 20 minutos y solo para este pedido: si se vacía el carrito (pedido nuevo) vuelven a salir. */
-  function pairMuted() { try { var m = JSON.parse(sessionStorage.getItem('roce_pair_off') || 'null'); return !!(m && Date.now() - m.t < 20 * 60000 && S.cart.length >= m.n); } catch (e) { return false; } }
   function offerPair(b, it) {
-    var rule = PAIR[bk(b)]; if (!rule || hasDrink()) return;
-    if (pairMuted()) return;
+    var rule = PAIR[bk(b)]; if (!rule) return;
     var list = rule[nowHM() < '12:00' ? 'bf' : 'lunch'];
     if (!list) return;
     var out = [];
@@ -372,7 +368,7 @@
     else if (el.dataset.q && cur) { keepNote(); cur.qty = Math.max(1, Math.min(20, cur.qty + (+el.dataset.q))); paintItem(); }
     else if (el.dataset.cq) { var a = el.dataset.cq.split(':'), l = S.cart[+a[0]]; l.qty += +a[1]; if (l.qty < 1) S.cart.splice(+a[0], 1); save(); paintBar(); openCart(); }
     else if (el.dataset.pair !== undefined) addPair(+el.dataset.pair);
-    else if (el.hasAttribute('data-pairno')) { try { sessionStorage.setItem('roce_pair_off', JSON.stringify({ t: Date.now(), n: S.cart.length })); } catch (e) {} hide(); }
+    else if (el.hasAttribute('data-pairno')) { hide(); }
     else if (el.hasAttribute('data-addcart') && cur) { keepNote(); var hh = itemAllergenHits(); if (hh.length) warnAllergens(cur.it.name, hh, function () { paintItem(); }, addToCart); else addToCart(); }
     else if (el.hasAttribute('data-warnback')) { var wb = warnBack; warnBack = warnGo = null; if (wb) wb(); else hide(); }
     else if (el.hasAttribute('data-warnok')) { var wg = warnGo; warnBack = warnGo = null; if (wg) wg(); }
