@@ -158,3 +158,19 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .ap-help-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
 .ap-help-btn { display: inline-block; padding: 0.35rem 0.8rem; border: 1.5px solid var(--black, #0a0a0a); color: var(--black, #0a0a0a); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; }
 .ap-help-btn:active { background: var(--black, #0a0a0a); color: #fff; }
+
+/* Móvil: más ancho para el texto de la carta (el título vertical y los márgenes se estrechan) */
+@media (max-width: 560px) {
+  .cv-paper { --spine: 2.7rem; }
+  .cv-run i { font-size: 2.5rem; }
+  .cv-paper-in { --lpad: 1.05rem; padding-right: 0.8rem; }
+  .cv-item { padding-right: 2.9rem; gap: 0.6rem; }
+  .cv-item::after { width: 2rem; height: 2rem; }
+  .cv-i-top { gap: 0.6rem; }
+  .cv-i-name { font-size: 0.98rem; letter-spacing: 0.01em; }
+  .cv-i-desc { font-size: 0.9rem; line-height: 1.38; opacity: 0.72; }
+  .cv-nut { flex-wrap: nowrap; gap: 0 0.45rem; font-size: 0.68rem; letter-spacing: 0; white-space: nowrap; }
+  .cv-nut span + span { padding-left: 0.45rem; }
+  .cv-cat-h { gap: 0.6rem; }
+  .cv-cat-h h3 { font-size: clamp(1.2rem, 5.6vw, 1.5rem); }
+}
