@@ -174,3 +174,12 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
   .cv-cat-h { gap: 0.6rem; }
   .cv-cat-h h3 { font-size: clamp(1.2rem, 5.6vw, 1.5rem); }
 }
+
+/* Avisos legales bajo el logo (menú y pie de la carta) */
+.cv-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.15rem 0.9rem; margin: 0.9rem auto 0; font-size: 0.72rem; letter-spacing: 0.03em; line-height: 1.5; text-align: center; }
+.cv-legal a { color: inherit; opacity: 0.7; text-decoration: underline; text-underline-offset: 2px; }
+.cv-legal a:hover, .cv-legal a:focus-visible { opacity: 1; }
+.cv-menu-foot .cv-legal { color: var(--black); margin-top: 0.7rem; margin-bottom: 0.4rem; }
+.cv-legal-w { color: rgba(255, 255, 255, 0.85); }
+/* El pie deja sitio a la barra «Ver pedido» y al botón Ayuda para que los avisos legales no queden tapados */
+.cv-foot { padding-bottom: calc(6.8rem + env(safe-area-inset-bottom)); }
