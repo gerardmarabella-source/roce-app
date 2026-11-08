@@ -32,16 +32,16 @@ window.CARTA = {
             {
               title: { es: 'Açaí & Yogur', en: 'Açaí & Yogurt' }, note: { es: 'Todo el día', en: 'All day' },
               items: [
-                { name: 'Dark Açaí', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [5, 8], nut: [412, 10, 56, 16], price: 10.5, es: 'Açaí, plátano, granola, crema de cacahuete y nibs de cacao.', en: 'Açaí, banana, granola, peanut cream and cacao nibs.' },
-                { name: 'Shaka Açaí', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [8], nut: [398, 8, 62, 14], price: 10.5, es: 'Açaí, mango, plátano, coco y granola.', en: 'Açaí, mango, banana, coconut and granola.' },
-                { name: 'Greek Freak', al: [7, 8], nut: [368, 16, 48, 12], price: 7.5, es: 'Yogur griego, fruta de temporada, granola y miel.', en: 'Greek yogurt, seasonal fruit, granola and honey.' }
+                { name: 'Dark Açaí', img: '/assets/dishes/dark-acai.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [5, 8], nut: [412, 10, 56, 16], price: 10.5, es: 'Açaí, plátano, granola, crema de cacahuete y nibs de cacao.', en: 'Açaí, banana, granola, peanut cream and cacao nibs.' },
+                { name: 'Shaka Açaí', img: '/assets/dishes/shaka-acai.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [8], nut: [398, 8, 62, 14], price: 10.5, es: 'Açaí, mango, plátano, coco y granola.', en: 'Açaí, mango, banana, coconut and granola.' },
+                { name: 'Greek Freak', img: '/assets/dishes/greek-freak.webp', al: [7, 8], nut: [368, 16, 48, 12], price: 7.5, es: 'Yogur griego, fruta de temporada, granola y miel.', en: 'Greek yogurt, seasonal fruit, granola and honey.' }
               ],
               extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Fruta', en: 'Fruit' }, 2], [{ es: 'Granola', en: 'Granola' }, 1.5], [{ es: 'Crema de cacahuete', en: 'Peanut cream' }, 1.5]] }
             },
             {
               title: { es: 'Sándwiches', en: 'Sandwiches' }, note: { es: 'Todo el día', en: 'All day' },
               items: [
-                { name: 'Chicken Joe', al: [1, 3], nut: [632, 38, 49, 28], price: 12.5, es: 'Pollo a la brasa, bacon, tomate, hojas verdes y mayonesa de ajo asado.', en: 'Grilled chicken, bacon, tomato, green leaves and roasted garlic mayo.' },
+                { name: 'Chicken Joe', img: '/assets/dishes/chicken-joe.webp', al: [1, 3], nut: [632, 38, 49, 28], price: 12.5, es: 'Pollo a la brasa, bacon, tomate, hojas verdes y mayonesa de ajo asado.', en: 'Grilled chicken, bacon, tomato, green leaves and roasted garlic mayo.' },
                 { name: 'Terra', img: '/assets/dishes/terra.webp', diet: ['veg', 'pesc', 'lf'], al: [1, 11], nut: [460, 18, 52, 20], price: 10.5, es: 'Hummus de remolacha, berenjena y calabacín asados, tomate seco, rúcula, tomate, hojas verdes y aliño de limón.', en: 'Beetroot hummus, roasted aubergine and courgette, sun-dried tomato, rocket, tomato, green leaves and lemon dressing.' },
                 { name: 'New York 1888', img: '/assets/dishes/new-york-1888.webp', al: [1, 7, 10], nut: [712, 36, 54, 38], price: 13.5, es: 'Pastrami, queso suizo, pepinillos, mostaza ROCE y rúcula.', en: 'Pastrami, Swiss cheese, pickles, ROCE mustard and rocket.' },
                 { name: 'Liguria', img: '/assets/dishes/liguria.webp', al: [1, 7, 8], nut: [676, 40, 50, 36], price: 13.5, es: 'Pollo a la brasa, pesto verde, queso cheddar y queso Edam, rúcula.', en: 'Grilled chicken, green pesto, cheddar and Edam cheese, rocket.' }
