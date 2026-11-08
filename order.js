@@ -9,6 +9,7 @@
       paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
       warn_h: 'Cuidado: alérgenos', warn_contains: 'contiene', warn_p: 'Son alérgenos que has marcado en tu perfil o en los filtros de la carta.', warn_team: 'Si lo pides, avisa también a nuestro equipo de tu alergia. ¿Quieres añadirlo igualmente?', warn_back: 'Volver', warn_ok: 'Añadir igualmente',
+      pair_ing: 'Ingredientes', pair_al: 'Alérgenos',
       pair_h: '¿Algo para acompañar?', pair_p: 'Esto le pega a tu', pair_no: 'No, gracias', pair_done: 'Listo',
       from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
@@ -16,6 +17,7 @@
       paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
       warn_h: 'Careful: allergens', warn_contains: 'contains', warn_p: 'These are allergens you marked in your profile or in the menu filters.', warn_team: 'If you order it, please also tell our team about your allergy. Do you still want to add it?', warn_back: 'Back', warn_ok: 'Add anyway',
+      pair_ing: 'Ingredients', pair_al: 'Allergens',
       pair_h: 'Something to go with it?', pair_p: 'These go well with your', pair_no: 'No, thanks', pair_done: 'Done',
       from: 'From', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
@@ -295,11 +297,17 @@
   function paintPair() {
     var h = '<h2>' + esc(t('pair_h')) + '</h2><div class="cv-sheet-body"><p>' + esc(t('pair_p')) + ' ' + esc(pairFood) + '.</p><div class="ap-pair">';
     pairList.forEach(function (x, i) {
-      h += '<button type="button" class="ap-pair-row' + (x.done ? ' is-done' : '') + '" data-pair="' + i + '"' + (x.done ? ' disabled' : '') + '><span class="ap-pair-t"><b>' + esc(x.it.name) + '</b>' + (x.why ? '<em>' + esc(tx(x.why)) + '</em>' : '') + '</span><span class="ap-pair-p">' + (x.done ? '✓' : money(cents(x.it.price)) + ' <i>+</i>') + '</span></button>';
+      var desc = x.it.es ? tx({ es: x.it.es, en: x.it.en }) : '', als = (x.it.al || []).length ? (t('pair_al') + ': ' + allergenNames(x.it.al)) : '';
+      h += '<div class="ap-pair-row' + (x.done ? ' is-done' : '') + '">' +
+        (x.it.img ? '<img class="ap-pair-img" loading="lazy" src="' + esc(x.it.img) + '" alt="">' : '') +
+        '<div class="ap-pair-t"><b>' + esc(x.it.name) + '</b>' + (x.why ? '<em>' + esc(tx(x.why)) + '</em>' : '') +
+        (desc || als ? '<details class="ap-pair-det" data-pairdet="' + i + '"' + (x.open ? ' open' : '') + '><summary>' + esc(t('pair_ing')) + '</summary>' + (desc ? '<p>' + esc(desc) + '</p>' : '') + (als ? '<p class="ap-pair-al">' + esc(als) + '</p>' : '') + '</details>' : '') +
+        '</div><button type="button" class="ap-pair-add" data-pair="' + i + '"' + (x.done ? ' disabled' : '') + ' aria-label="' + esc(t('add')) + ' ' + esc(x.it.name) + '"><span class="ap-pair-p">' + (x.done ? '✓' : money(cents(x.it.price)) + ' <i>+</i>') + '</span></button></div>';
     });
     h += '</div></div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-pairno>' + esc(t('pair_no')) + '</button><button type="button" class="cv-solid" data-close>' + esc(pairList.some(function (x) { return x.done; }) ? t('pair_done') : t('close')) + '</button></div>';
     show(h);
   }
+  dlg.addEventListener('toggle', function (e) { var d = e.target; if (d && d.dataset && d.dataset.pairdet !== undefined && pairList[+d.dataset.pairdet]) pairList[+d.dataset.pairdet].open = d.open; }, true);
   function addPair(i) {
     var x = pairList[i]; if (!x || x.done) return;
     var ph = allergenHits(pairAl(x.it)); if (ph.length && !addPair.ok) { warnAllergens(x.it.name, ph, function () { paintPair(); }, function () { addPair.ok = true; addPair(i); addPair.ok = false; }); return; }

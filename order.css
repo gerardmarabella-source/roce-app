@@ -206,7 +206,6 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 
 /* Para acompañar: sugerencias de café, bebida o bakery al añadir comida */
 .ap-pair { display: grid; gap: 0.5rem; margin-top: 0.4rem; }
-.ap-pair-row { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; width: 100%; padding: 0.7rem 0.8rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); text-align: left; font: inherit; }
 .ap-pair-row:active { background: var(--cream); }
 .ap-pair-t { display: grid; gap: 0.1rem; min-width: 0; }
 .ap-pair-t b { font-size: 0.98rem; text-transform: uppercase; letter-spacing: 0.02em; }
@@ -233,3 +232,14 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 /* Hoja de «vegano»: junto a los alérgenos, sin insignia */
 .cv-vgl { display: inline-grid; place-items: center; width: 1.2rem; height: 1.2rem; margin-left: 0.15rem; opacity: 0.85; }
 .cv-vgl .cv-leaf { width: 1.1rem; height: 1.1rem; }
+
+/* Sugerencias para acompañar: ingredientes desplegables e imagen si la hay */
+.ap-pair-row { display: flex; align-items: flex-start; gap: 0.7rem; width: 100%; padding: 0.7rem 0.8rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); }
+.ap-pair-img { flex: 0 0 auto; width: 3.6rem; height: 3.6rem; object-fit: cover; }
+.ap-pair-t { flex: 1; min-width: 0; }
+.ap-pair-add { flex: 0 0 auto; align-self: center; padding: 0.3rem 0; border: 0; background: transparent; color: inherit; font: inherit; }
+.ap-pair-add:disabled { opacity: 1; }
+.ap-pair-det { margin-top: 0.35rem; font-size: 0.8rem; }
+.ap-pair-det summary { cursor: pointer; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.7rem; opacity: 0.75; }
+.ap-pair-det p { margin: 0.3rem 0 0; font-size: 0.82rem; line-height: 1.35; opacity: 0.8; }
+.ap-pair-det .ap-pair-al { font-size: 0.76rem; opacity: 0.65; }
