@@ -215,3 +215,6 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-pair-p i { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--black); color: #fff; font-style: normal; font-size: 1.1rem; line-height: 1; }
 .ap-pair-row.is-done { background: var(--cream); opacity: 0.75; }
 .ap-pair-row.is-done .ap-pair-p { font-size: 1.2rem; }
+
+/* Insignia «High protein» (platos con al menos el 20 % de la energía en proteínas) */
+.cv-hp { display: inline-block; align-self: center; padding: 0.12rem 0.4rem 0.1rem; border: 1.5px solid currentColor; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; line-height: 1.25; text-transform: uppercase; white-space: nowrap; }
