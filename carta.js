@@ -111,7 +111,7 @@
     if (it.tag) h += '<p class="cv-i-desc cv-i-tag">' + esc(tx(it.tag)) + '</p>';
     if (it.nut) h += nut(it.nut, it.nutEst);
     if (it.variants) h += '<ul class="cv-variants">' + it.variants.map(function (v) { return '<li><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span>' + als(v.al) + '</li>'; }).join('') + '</ul>';
-    h += '</div>' + (it.img ? '<img class="cv-thumb" loading="lazy" src="' + esc(it.img) + '" alt="">' : '') + '</li>';
+    h += '</div></li>'; /* la foto (it.img) solo se enseña dentro del diálogo del plato */
     return h;
   }
   function extras(b) {
