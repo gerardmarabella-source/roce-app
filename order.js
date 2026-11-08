@@ -10,7 +10,7 @@
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
       warn_h: 'Cuidado: alérgenos', warn_contains: 'contiene', warn_p: 'Son alérgenos que has marcado en tu perfil o en los filtros de la carta.', warn_team: 'Si lo pides, avisa también a nuestro equipo de tu alergia. ¿Quieres añadirlo igualmente?', warn_back: 'Volver', warn_ok: 'Añadir igualmente',
       pair_ing: 'Ingredientes', pair_al: 'Alérgenos',
-      pair_h: '¿Algo para acompañar?', pair_p: 'Esto le pega a tu', pair_no: 'No, gracias', pair_done: 'Listo',
+      pair_h: '¿Algo para acompañar?', pair_all: 'Ver toda la carta de', pair_p: 'Esto le pega a tu', pair_no: 'No, gracias', pair_done: 'Listo',
       from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', pick_h: 'Choose {n} flavours', pick_left: '{k} to go', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Any allergy or special request…', note_bar: 'Note for the bar', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
@@ -18,7 +18,7 @@
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
       warn_h: 'Careful: allergens', warn_contains: 'contains', warn_p: 'These are allergens you marked in your profile or in the menu filters.', warn_team: 'If you order it, please also tell our team about your allergy. Do you still want to add it?', warn_back: 'Back', warn_ok: 'Add anyway',
       pair_ing: 'Ingredients', pair_al: 'Allergens',
-      pair_h: 'Something to go with it?', pair_p: 'These go well with your', pair_no: 'No, thanks', pair_done: 'Done',
+      pair_h: 'Something to go with it?', pair_all: 'See the full', pair_p: 'These go well with your', pair_no: 'No, thanks', pair_done: 'Done',
       from: 'From', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
   var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [], party: 2 };
@@ -306,7 +306,8 @@
         (desc || als ? '<details class="ap-pair-det" data-pairdet="' + i + '"' + (x.open ? ' open' : '') + '><summary>' + esc(t('pair_ing')) + '</summary>' + (desc ? '<p>' + esc(desc) + '</p>' : '') + (als ? '<p class="ap-pair-al">' + esc(als) + '</p>' : '') + '</details>' : '') +
         '</div><button type="button" class="ap-pair-add" data-pair="' + i + '"' + (x.done ? ' disabled' : '') + ' aria-label="' + esc(t('add')) + ' ' + esc(x.it.name) + '"><span class="ap-pair-p">' + (x.done ? '✓' : money(cents(x.it.price)) + ' <i>+</i>') + '</span></button></div>';
     });
-    h += '</div></div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-pairno>' + esc(t('pair_no')) + '</button><button type="button" class="cv-solid" data-close>' + esc(pairList.some(function (x) { return x.done; }) ? t('pair_done') : t('close')) + '</button></div>';
+    var cs = D.sections.filter(function (z) { return z.id === 'coffee'; })[0];
+    h += '</div>' + (cs ? '<button type="button" class="ap-pair-all" data-pairsheet="coffee">' + esc(t('pair_all')) + ' ' + esc(tx(cs.title)) + (L() === 'en' ? ' menu' : '') + ' →</button>' : '') + '</div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-pairno>' + esc(t('pair_no')) + '</button><button type="button" class="cv-solid" data-close>' + esc(pairList.some(function (x) { return x.done; }) ? t('pair_done') : t('close')) + '</button></div>';
     show(h);
   }
   dlg.addEventListener('toggle', function (e) { var d = e.target; if (d && d.dataset && d.dataset.pairdet !== undefined && pairList[+d.dataset.pairdet]) pairList[+d.dataset.pairdet].open = d.open; }, true);
@@ -369,7 +370,7 @@
   $('apModeBtn').addEventListener('click', openMode);
   $('apCartOpen').addEventListener('click', openCart);
   dlg.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-mx],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairno],[data-warnback],[data-warnok]'); if (!el || el.disabled) return;
+    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-mx],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairsheet],[data-pairno],[data-warnback],[data-warnok]'); if (!el || el.disabled) return;
     if (el.hasAttribute('data-close')) hide();
     else if (el.dataset.mode) { S.mode = el.dataset.mode; save(); paintMode(); openMode(); }
     else if (el.dataset.v !== undefined && cur) { keepNote(); cur.variant = +el.dataset.v; paintItem(); }
@@ -379,6 +380,7 @@
     else if (el.dataset.cq) { var a = el.dataset.cq.split(':'), l = S.cart[+a[0]]; l.qty += +a[1]; if (l.qty < 1) S.cart.splice(+a[0], 1); save(); paintBar(); openCart(); }
     else if (el.dataset.pair !== undefined) addPair(+el.dataset.pair);
     else if (el.hasAttribute('data-pairno')) { hide(); }
+    else if (el.dataset.pairsheet) { hide(); var nb = document.querySelector('#cvFootNav .cv-fn[data-sec="' + el.dataset.pairsheet + '"]'); if (nb) nb.click(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     else if (el.hasAttribute('data-addcart') && cur) { keepNote(); var hh = itemAllergenHits(); if (hh.length) warnAllergens(cur.it.name, hh, function () { paintItem(); }, addToCart); else addToCart(); }
     else if (el.hasAttribute('data-warnback')) { var wb = warnBack; warnBack = warnGo = null; if (wb) wb(); else hide(); }
     else if (el.hasAttribute('data-warnok')) { var wg = warnGo; warnBack = warnGo = null; if (wg) wg(); }
