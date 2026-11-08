@@ -42,9 +42,9 @@ window.CARTA = {
               title: { es: 'Sándwiches', en: 'Sandwiches' }, note: { es: 'Todo el día', en: 'All day' },
               items: [
                 { name: 'Chicken Joe', al: [1, 3], nut: [632, 38, 49, 28], price: 12.5, es: 'Pollo a la brasa, bacon, tomate, hojas verdes y mayonesa de ajo asado.', en: 'Grilled chicken, bacon, tomato, green leaves and roasted garlic mayo.' },
-                { name: 'Terra', diet: ['veg', 'pesc', 'lf'], al: [1, 11], nut: [460, 18, 52, 20], price: 10.5, es: 'Hummus de remolacha, berenjena y calabacín asados, tomate seco, rúcula, tomate, hojas verdes y aliño de limón.', en: 'Beetroot hummus, roasted aubergine and courgette, sun-dried tomato, rocket, tomato, green leaves and lemon dressing.' },
-                { name: 'New York 1888', al: [1, 7, 10], nut: [712, 36, 54, 38], price: 13.5, es: 'Pastrami, queso suizo, pepinillos, mostaza ROCE y rúcula.', en: 'Pastrami, Swiss cheese, pickles, ROCE mustard and rocket.' },
-                { name: 'Liguria', al: [1, 7, 8], nut: [676, 40, 50, 36], price: 13.5, es: 'Pollo a la brasa, pesto verde, queso cheddar y queso Edam, rúcula.', en: 'Grilled chicken, green pesto, cheddar and Edam cheese, rocket.' }
+                { name: 'Terra', img: '/assets/dishes/terra.webp', diet: ['veg', 'pesc', 'lf'], al: [1, 11], nut: [460, 18, 52, 20], price: 10.5, es: 'Hummus de remolacha, berenjena y calabacín asados, tomate seco, rúcula, tomate, hojas verdes y aliño de limón.', en: 'Beetroot hummus, roasted aubergine and courgette, sun-dried tomato, rocket, tomato, green leaves and lemon dressing.' },
+                { name: 'New York 1888', img: '/assets/dishes/new-york-1888.webp', al: [1, 7, 10], nut: [712, 36, 54, 38], price: 13.5, es: 'Pastrami, queso suizo, pepinillos, mostaza ROCE y rúcula.', en: 'Pastrami, Swiss cheese, pickles, ROCE mustard and rocket.' },
+                { name: 'Liguria', img: '/assets/dishes/liguria.webp', al: [1, 7, 8], nut: [676, 40, 50, 36], price: 13.5, es: 'Pollo a la brasa, pesto verde, queso cheddar y queso Edam, rúcula.', en: 'Grilled chicken, green pesto, cheddar and Edam cheese, rocket.' }
               ]
             }
           ]
@@ -55,43 +55,43 @@ window.CARTA = {
             {
               title: { es: 'Starters', en: 'Starters' },
               items: [
-                { name: 'Bloody Moon', al: [7, 8, 11], nut: [612, 24, 36, 42], price: 14.5, es: 'Burrata inyectada con coulis de granada y frambuesa, carpaccio de tomate cherry confitado, higos baby, nuez caramelizada, DUKA ROCE y salsa chili berry.', en: 'Burrata injected with pomegranate and raspberry coulis, candied cherry tomato carpaccio, baby figs, caramelised walnut, ROCE DUKA and chili berry sauce.' },
+                { name: 'Bloody Moon', img: '/assets/dishes/bloody-moon.webp', al: [7, 8, 11], nut: [612, 24, 36, 42], price: 14.5, es: 'Burrata inyectada con coulis de granada y frambuesa, carpaccio de tomate cherry confitado, higos baby, nuez caramelizada, DUKA ROCE y salsa chili berry.', en: 'Burrata injected with pomegranate and raspberry coulis, candied cherry tomato carpaccio, baby figs, caramelised walnut, ROCE DUKA and chili berry sauce.' },
                 {
-                  name: 'El Trío', note: { es: '3 uds', en: '3 pcs' }, al: [1, 3, 6, 7, 11], nut: [498, 28, 48, 22], price: 13.5, es: 'Tortilla de maíz, cebolla encurtida y nuestras salsas.', en: 'Corn tortilla, pickled onion and our sauces.',
+                  name: 'El Trío', img: '/assets/dishes/el-trio.webp', note: { es: '3 uds', en: '3 pcs' }, al: [1, 3, 6, 7, 11], nut: [498, 28, 48, 22], price: 13.5, es: 'Tortilla de maíz, cebolla encurtida y nuestras salsas.', en: 'Corn tortilla, pickled onion and our sauces.',
                   variants: [
                     { name: 'Pollo', al: [7], es: 'Pollo desmechado, piña, salsa yogur limón.', en: 'Pulled chicken, pineapple, lemon yogurt sauce.' },
                     { name: 'Pato Pekín', al: [1, 6, 11], es: 'Magret de pato, mango, salsa pekín.', en: 'Duck breast, mango, Peking sauce.' },
                     { name: 'Costilla', al: [3], es: 'Costilla de vaca a baja temperatura, aguacate y mayonesa ahumada.', en: 'Slow-cooked beef rib, avocado and smoked mayo.' }
                   ]
                 },
-                { name: 'Patatas Artesanas', al: [3, 7], nut: [562, 10, 64, 28], price: 9.5, es: 'Patata agria en doble cocción, crujiente al centro, con 4 salsas ROCE (más icónicas).', en: 'Double-cooked potato, crispy in the centre, with 4 ROCE sauces (the most iconic).' }
+                { name: 'Patatas Artesanas', img: '/assets/dishes/patatas-artesanas.webp', al: [3, 7], nut: [562, 10, 64, 28], price: 9.5, es: 'Patata agria en doble cocción, crujiente al centro, con 4 salsas ROCE (más icónicas).', en: 'Double-cooked potato, crispy in the centre, with 4 ROCE sauces (the most iconic).' }
               ]
             },
             {
               title: { es: 'Pokes', en: 'Pokes' }, note: { es: 'Platos completos en bowl', en: 'Complete bowls' },
               items: [
-                { name: 'Black Rice Chicken', al: [6, 11], nut: [562, 36, 64, 18], price: 13.5, es: 'Arroz salvaje, pollo, edamame, aguacate, pepino, encurtidos, cebolla encurtida, mezcla verde, sésamo y salsa ROCE.', en: 'Wild rice, chicken, edamame, avocado, cucumber, pickles, pickled onion, mixed greens, sesame and ROCE sauce.' },
-                { name: 'Black Rice Tuna', al: [4, 6, 11], nut: [606, 40, 62, 20], price: 16.5, es: 'Arroz salvaje, atún, edamame, aguacate, pepino, encurtidos, cebolla encurtida, mezcla verde, sésamo y salsa ROCE.', en: 'Wild rice, tuna, edamame, avocado, cucumber, pickles, pickled onion, mixed greens, sesame and ROCE sauce.' },
-                { name: 'Forest Walk', al: [6, 11], nut: [532, 18, 68, 20], price: 12.5, es: 'Quinoa, kale, espinaca, aguacate, edamame, pepino, manzana, semillas, cebolla encurtida y hierbas frescas.', en: 'Quinoa, kale, spinach, avocado, edamame, cucumber, apple, seeds, pickled onion and fresh herbs.' }
+                { name: 'Black Rice Chicken', img: '/assets/dishes/black-rice-chicken.webp', al: [6, 11], nut: [562, 36, 64, 18], price: 13.5, es: 'Arroz salvaje, pollo, edamame, aguacate, pepino, encurtidos, cebolla encurtida, mezcla verde, sésamo y salsa ROCE.', en: 'Wild rice, chicken, edamame, avocado, cucumber, pickles, pickled onion, mixed greens, sesame and ROCE sauce.' },
+                { name: 'Black Rice Tuna', img: '/assets/dishes/black-rice-tuna.webp', al: [4, 6, 11], nut: [606, 40, 62, 20], price: 16.5, es: 'Arroz salvaje, atún, edamame, aguacate, pepino, encurtidos, cebolla encurtida, mezcla verde, sésamo y salsa ROCE.', en: 'Wild rice, tuna, edamame, avocado, cucumber, pickles, pickled onion, mixed greens, sesame and ROCE sauce.' },
+                { name: 'Forest Walk', img: '/assets/dishes/forest-walk.webp', al: [6, 11], nut: [532, 18, 68, 20], price: 12.5, es: 'Quinoa, kale, espinaca, aguacate, edamame, pepino, manzana, semillas, cebolla encurtida y hierbas frescas.', en: 'Quinoa, kale, spinach, avocado, edamame, cucumber, apple, seeds, pickled onion and fresh herbs.' }
               ]
             },
             {
               title: { es: 'Platos ROCE', en: 'ROCE plates' },
               items: [
-                { name: 'Egg & Egg', al: [3, 11], nut: [448, 24, 50, 18], price: 10.5, es: 'Huevos camperos, cecina, quinoa, mezcla verde, pepino brunoise, tomate cherry, bacon crujiente, semillas y salsa cítrica.', en: 'Free-range eggs, cured beef, quinoa, mixed greens, diced cucumber, cherry tomato, crispy bacon, seeds and citrus sauce.' },
-                { name: 'Primitive Chicken', al: [3], nut: [632, 42, 62, 24], price: 15.5, es: 'Pollo a la brasa, arroz salvaje, mango, pepino, mezcla verde, garbanzo artesano, maíz, cebolla encurtida, especias ROCE y mayonesa de ajo ahumado.', en: 'Grilled chicken, wild rice, mango, cucumber, mixed greens, artisan chickpeas, corn, pickled onion, ROCE spices and smoked garlic mayo.' },
-                { name: 'Citric Nordic', al: [4, 11], nut: [682, 38, 56, 32], price: 17.5, es: 'Salmón a la brasa, arroz salvaje, aguacate, pepino, cebolla encurtida, mezcla verde, sésamo, hierbas frescas y vinagreta cítrica.', en: 'Grilled salmon, wild rice, avocado, cucumber, pickled onion, mixed greens, sesame, fresh herbs and citrus vinaigrette.' },
-                { name: 'Muuuuuucho Beef', al: [7], nut: [756, 48, 60, 36], price: 18.5, es: 'Filete de ternera, patata, maíz, rúcula, cebolla encurtida, kikos, especias ahumadas y chimichurri verde.', en: 'Beef fillet, potato, corn, rocket, pickled onion, toasted corn, smoked spices and green chimichurri.' },
-                { name: 'Falafel & Hummus', al: [11], nut: [618, 22, 68, 28], price: 13.5, es: 'Falafel, hummus de remolacha, pepino, granada, col, mezcla verde, lenteja beluga, sésamo, tahini de limón y salsa yogur limón.', en: 'Falafel, beetroot hummus, cucumber, pomegranate, cabbage, mixed greens, beluga lentils, sesame, lemon tahini and lemon yogurt sauce.' },
-                { name: 'La Huerta', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [11], nut: [548, 16, 66, 26], price: 12.5, es: 'Hummus de remolacha, arándanos, berenjena y calabacín asados, mezcla verde, brotes, albahaca, vinagreta cítrica, cebolla encurtida asada, DUKA ROCE y sal / oliva.', en: 'Beetroot hummus, blueberries, roasted aubergine and courgette, mixed greens, sprouts, basil, citrus vinaigrette, roasted pickled onion, ROCE DUKA and salt / olive oil.' }
+                { name: 'Egg & Egg', img: '/assets/dishes/egg-egg.webp', al: [3, 11], nut: [448, 24, 50, 18], price: 10.5, es: 'Huevos camperos, cecina, quinoa, mezcla verde, pepino brunoise, tomate cherry, bacon crujiente, semillas y salsa cítrica.', en: 'Free-range eggs, cured beef, quinoa, mixed greens, diced cucumber, cherry tomato, crispy bacon, seeds and citrus sauce.' },
+                { name: 'Primitive Chicken', img: '/assets/dishes/primitive-chicken.webp', al: [3], nut: [632, 42, 62, 24], price: 15.5, es: 'Pollo a la brasa, arroz salvaje, mango, pepino, mezcla verde, garbanzo artesano, maíz, cebolla encurtida, especias ROCE y mayonesa de ajo ahumado.', en: 'Grilled chicken, wild rice, mango, cucumber, mixed greens, artisan chickpeas, corn, pickled onion, ROCE spices and smoked garlic mayo.' },
+                { name: 'Citric Nordic', img: '/assets/dishes/citric-nordic.webp', al: [4, 11], nut: [682, 38, 56, 32], price: 17.5, es: 'Salmón a la brasa, arroz salvaje, aguacate, pepino, cebolla encurtida, mezcla verde, sésamo, hierbas frescas y vinagreta cítrica.', en: 'Grilled salmon, wild rice, avocado, cucumber, pickled onion, mixed greens, sesame, fresh herbs and citrus vinaigrette.' },
+                { name: 'Muuuuuucho Beef', img: '/assets/dishes/muuuuuucho-beef.webp', al: [7], nut: [756, 48, 60, 36], price: 18.5, es: 'Filete de ternera, patata, maíz, rúcula, cebolla encurtida, kikos, especias ahumadas y chimichurri verde.', en: 'Beef fillet, potato, corn, rocket, pickled onion, toasted corn, smoked spices and green chimichurri.' },
+                { name: 'Falafel & Hummus', img: '/assets/dishes/falafel-hummus.webp', al: [11], nut: [618, 22, 68, 28], price: 13.5, es: 'Falafel, hummus de remolacha, pepino, granada, col, mezcla verde, lenteja beluga, sésamo, tahini de limón y salsa yogur limón.', en: 'Falafel, beetroot hummus, cucumber, pomegranate, cabbage, mixed greens, beluga lentils, sesame, lemon tahini and lemon yogurt sauce.' },
+                { name: 'La Huerta', img: '/assets/dishes/la-huerta.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [11], nut: [548, 16, 66, 26], price: 12.5, es: 'Hummus de remolacha, arándanos, berenjena y calabacín asados, mezcla verde, brotes, albahaca, vinagreta cítrica, cebolla encurtida asada, DUKA ROCE y sal / oliva.', en: 'Beetroot hummus, blueberries, roasted aubergine and courgette, mixed greens, sprouts, basil, citrus vinaigrette, roasted pickled onion, ROCE DUKA and salt / olive oil.' }
               ]
             },
             {
               title: { es: 'Acompañamientos', en: 'Sides' },
               compact: true,
               items: [
-                { name: 'Patatas artesanas', al: [3, 7], nut: [306, 4, 46, 12], price: 3.5 }, { name: 'Garbanzo artesano', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], nut: [218, 9, 32, 6], price: 3.5 }, { name: 'Frijoles marinados', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], nut: [176, 8, 28, 4], price: 3.5 },
-                { name: 'Maíz especiado', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], nut: [196, 5, 30, 6], price: 3.5 }, { name: 'Boniato al carbón', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], nut: [224, 3, 44, 5], price: 3.5 }
+                { name: 'Patatas artesanas', img: '/assets/dishes/patatas-acomp.webp', al: [3, 7], nut: [306, 4, 46, 12], price: 3.5 }, { name: 'Garbanzo artesano', img: '/assets/dishes/garbanzo-artesano.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], nut: [218, 9, 32, 6], price: 3.5 }, { name: 'Frijoles marinados', img: '/assets/dishes/frijoles-marinados.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], nut: [176, 8, 28, 4], price: 3.5 },
+                { name: 'Maíz especiado', img: '/assets/dishes/maiz-especiado.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], nut: [196, 5, 30, 6], price: 3.5 }, { name: 'Boniato al carbón', img: '/assets/dishes/boniato-al-carbon.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], nut: [224, 3, 44, 5], price: 3.5 }
               ]
             },
             {
