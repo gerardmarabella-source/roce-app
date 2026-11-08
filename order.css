@@ -262,3 +262,6 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 
 /* Que el glifo del texto nunca se vea: el «+» y el «−» están dibujados con el fondo (las reglas del carrito y de «¿Cuántos sois?» subían el tamaño de letra) */
 .ap-qty button, .ap-party .ap-qty button, .ap-line-r .ap-qty button, .ap-mix-row .ap-qty button { font-size: 0; }
+
+/* Plato fuera de horario / agotado: aviso en el diálogo */
+.ap-na { margin: 0 0 0.8rem; padding: 0.5rem 0.7rem; border: 1.5px dashed var(--black); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }

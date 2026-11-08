@@ -201,15 +201,16 @@
   function mixSum() { return cur.mix ? cur.mix.reduce(function (a, b) { return a + b; }, 0) : 0; }
   function mixStr() { return cur.it.variants.map(function (v, k) { return cur.mix[k] ? cur.mix[k] + '× ' + v.name : ''; }).filter(Boolean).join(' + '); }
   function curVar() { return cur.it.pick ? mixStr() : (cur.variant >= 0 ? cur.it.variants[cur.variant].name : ''); }
+  function soldTxt() { return L() === 'en' ? 'Sold out for today' : 'Agotado por hoy'; }
   function openItem(li) {
     var m = /^it-(.+)-(\d+)$/.exec(li.id || ''); if (!m) return; var b = blockOf(m[1]); if (!b) return; var it = b.items[+m[2]];
-    cur = { b: b, it: it, qty: 1, variant: it.variants && !it.pick ? 0 : -1, mix: mixDefault(it), extras: [], sel: { side: [], prot: [] }, openG: { side: false, prot: false }, note: '', ok: open(b) }; view = 'item'; paintItem();
+    cur = { b: b, it: it, qty: 1, variant: it.variants && !it.pick ? 0 : -1, mix: mixDefault(it), extras: [], sel: { side: [], prot: [] }, openG: { side: false, prot: false }, note: '', ok: open(b) && !soldOut[itemKey(b, it)], sold: !!soldOut[itemKey(b, it)] }; view = 'item'; paintItem();
   }
   function unit() { var u = cents(cur.it.price); if (cur.b.extras) cur.b.extras.list.forEach(function (e, k) { if (cur.extras.indexOf(k) !== -1) u += cents(extraPrice(e[1])); }); return u; }
   function protTotal() { var s = 0; ADDON.forEach(function (g) { var ab = addonBlock(g); if (ab) (cur.sel[g.id] || []).forEach(function (k) { s += cents(ab.items[k].price); }); }); return s; }
   function keepNote() { var n = $('apNote'); if (n) cur.note = n.value; }
   function paintItem() {
-    var it = cur.it, b = cur.b, h = '<h2>' + esc(it.name) + '</h2><div class="cv-sheet-body">' + (it.img ? '<img class="ap-photo" src="' + esc(it.img) + '" alt="' + esc(it.name) + '">' : '') + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '');
+    var it = cur.it, b = cur.b, h = '<h2>' + esc(it.name) + '</h2><div class="cv-sheet-body">' + (it.img ? '<img class="ap-photo" src="' + esc(it.img) + '" alt="' + esc(it.name) + '">' : '') + (cur.ok ? '' : '<p class="ap-na">' + esc(cur.sold ? soldTxt() : t('avail') + ' ' + hoursLabel(b).toLowerCase()) + '</p>') + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '');
     if (it.variants && it.pick) h += '<section class="cv-fs ap-mix"><h3>' + esc(t('pick_h').replace('{n}', it.pick)) + ' · ' + mixSum() + '/' + it.pick + '</h3>' + it.variants.map(function (v, k) { return '<div class="ap-mix-row"><div><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span></div><div class="ap-qty"><button type="button" data-mx="' + k + ':-1" aria-label="-"' + (cur.mix[k] ? '' : ' disabled') + '>−</button><b>' + cur.mix[k] + '</b><button type="button" data-mx="' + k + ':1" aria-label="+"' + (mixSum() >= it.pick ? ' disabled' : '') + '>+</button></div></div>'; }).join('') + '</section>';
     else if (it.variants) h += '<section class="cv-fs"><h3>' + t('choose') + '</h3>' + it.variants.map(function (v, k) { return '<button type="button" class="cv-pick" data-v="' + k + '" aria-pressed="' + (cur.variant === k) + '"><i class="cv-radio"></i><span>' + esc(v.name) + '</span></button>'; }).join('') + '</section>';
     if (b.extras) h += '<section class="cv-fs"><h3>' + esc(tx(b.extras.title)) + '</h3>' + b.extras.list.map(function (e, k) { var p = extraPrice(e[1]); return '<button type="button" class="cv-pick" data-x="' + k + '" aria-pressed="' + (cur.extras.indexOf(k) !== -1) + '"><i class="cv-radio"></i><span>' + esc(tx(e[0])) + '</span>' + (p ? '<span class="ap-pick-price">+' + money(cents(p)) + '</span>' : '') + '</button>'; }).join('') + '</section>';
@@ -223,7 +224,7 @@
     var nt = noteTexts(b);
     h += '<section class="cv-fs"><h3>' + nt.title + '</h3><textarea class="ap-note" id="apNote" maxlength="200" placeholder="' + esc(nt.ph) + '">' + esc(cur.note) + '</textarea></section>';
     h += '<div class="ap-qty"><button type="button" data-q="-1" aria-label="-">−</button><b>' + cur.qty + '</b><button type="button" data-q="1" aria-label="+">+</button></div></div>';
-    h += '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button><button type="button" class="cv-solid" data-addcart' + (cur.ok && (!it.pick || mixSum() === it.pick) ? '' : ' disabled') + '>' + (!cur.ok ? t('off') : (it.pick && mixSum() !== it.pick ? t('pick_left').replace('{k}', it.pick - mixSum()) : t('add') + ' · ' + money((unit() + protTotal()) * cur.qty))) + '</button></div>';
+    h += '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button><button type="button" class="cv-solid" data-addcart' + (cur.ok && (!it.pick || mixSum() === it.pick) ? '' : ' disabled') + '>' + (!cur.ok ? (cur.sold ? soldTxt() : t('off')) : (it.pick && mixSum() !== it.pick ? t('pick_left').replace('{k}', it.pick - mixSum()) : t('add') + ' · ' + money((unit() + protTotal()) * cur.qty))) + '</button></div>';
     var sc = (dlg.querySelector('.cv-sheet-body') || {}).scrollTop || 0; show(h); var bd = dlg.querySelector('.cv-sheet-body'); if (bd) bd.scrollTop = sc;
   }
   function addToCart() {
@@ -369,10 +370,7 @@
   }
   $('cvSections').addEventListener('click', function (e) {
     var li = e.target.closest('.cv-item'); if (!li) return;
-    if (li.hasAttribute('data-off')) {
-      var mm = /^it-(.+)-(\d+)$/.exec(li.id || ''), b = mm && blockOf(mm[1]);
-      toast(li.hasAttribute('data-sold') ? (L() === 'en' ? 'Sold out for today' : 'Agotado por hoy') : (b ? t('avail') + ' ' + hoursLabel(b).toLowerCase() : t('off'))); return;
-    }
+    /* Fuera de horario o agotado: se deja abrir para ver la foto y los ingredientes; el botón de añadir sale desactivado. */
     openItem(li);
   });
   $('apModeBtn').addEventListener('click', openMode);
