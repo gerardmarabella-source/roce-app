@@ -304,6 +304,32 @@
     }, 80);
   }
   window.CARTA_API = { D: D, ING: ING, DIETS: DIETS, RE: RE, F: function () { return F; }, L: function () { return L; }, tx: tx, esc: esc, money: money, als: als, norm: norm, analyze: analyze, goTo: goTo, openFilters: openAl, setF: function (x) { setF(x); } };
+  /* ── Solo en móvil: deslizar a izquierda/derecha cambia de carta (Kitchen, Bakery, Coffee & Matcha, Fresh Juices, Drinks) ── */
+  (function () {
+    var mq = window.matchMedia('(max-width: 767px) and (pointer: coarse)');
+    var x0 = 0, y0 = 0, t0 = 0, ok = false;
+    function blocked(el) {
+      // no se desliza dentro de fichas, menú, campos de texto ni zonas con desplazamiento horizontal propio
+      if (!el || !el.closest) return false;
+      if (el.closest('dialog, .cv-menu, input, textarea, select, [contenteditable], .ap-cartbar')) return true;
+      for (var n = el; n && n !== document.body; n = n.parentElement) { if (n.scrollWidth > n.clientWidth + 2 && /(auto|scroll)/.test(getComputedStyle(n).overflowX)) return true; }
+      return false;
+    }
+    document.addEventListener('touchstart', function (e) {
+      ok = mq.matches && e.touches.length === 1 && $('cvMenu').hidden && !blocked(e.target);
+      if (!ok) return;
+      var t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; t0 = Date.now();
+      if (x0 < 24) ok = false;   // el borde izquierdo es del gesto «atrás» del navegador
+    }, { passive: true });
+    document.addEventListener('touchend', function (e) {
+      if (!ok) return; ok = false;
+      var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+      if (Date.now() - t0 > 700 || Math.abs(dx) < 70 || Math.abs(dx) < 1.8 * Math.abs(dy)) return;
+      var ids = D.sections.map(function (s) { return s.id; }), i = ids.indexOf(cur), n = i + (dx < 0 ? 1 : -1);
+      if (i < 0 || n < 0 || n >= ids.length) return;
+      setSheet(ids[n]);
+    }, { passive: true });
+  })();
   render();
   if (landing) openMenu();
   document.dispatchEvent(new Event('carta:ready'));
