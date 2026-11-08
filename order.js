@@ -79,7 +79,6 @@
       return out;
     }
   };
-  function secOf(b) { var f = ''; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (x) { if (x === b) f = s.id; }); }); }); return f; }
   /* Complementos que se ofrecen (plegados) al pedir un plato: primero acompañamientos, luego más proteína. */
   var ADDON = [
     { id: 'side', key: 'Acompañamientos', label: 'side', forCats: ['Sándwiches', 'Pokes', 'Platos ROCE'] },
@@ -87,7 +86,6 @@
   ];
   function addonBlock(g) { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (gr) { gr.blocks.forEach(function (x) { if (bk(x) === g.key) f = x; }); }); }); return f; }
   function addonsFor(b) { return ADDON.filter(function (g) { var ab = addonBlock(g); return ab && ab !== b && g.forCats.indexOf(bk(b)) !== -1; }); }
-  function protBlock() { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (x) { if (x.key === 'Extras') f = x; }); }); }); return f; }
   /* Carta a la que pertenece un bloque: kitchen, bakery, coffee, fresh o drinks. */
   function sectionIdOf(b) { var f = ''; D.sections.forEach(function (s) { s.groups.forEach(function (g) { if (g.blocks.indexOf(b) !== -1) f = s.id; }); }); return f; }
   /* El texto de ayuda de la nota cambia según el producto: no se le sugiere «sin cebolla» a un café. */

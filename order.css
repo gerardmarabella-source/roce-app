@@ -34,7 +34,6 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .ap-line-r .ap-qty button { width: 1.9rem; height: 1.9rem; font-size: 1.1rem; }
 .ap-line-r .ap-qty b { min-width: 1rem; font-size: 0.95rem; }
 .ap-total { display: flex; justify-content: space-between; padding-top: 0.8rem; border-top: 1.5px solid var(--black); font-size: 1.15rem; font-weight: 700; }
-.ap-info { margin: 0.8rem 0 0; padding: 0.7rem 0.8rem; background: var(--cream); font-size: 0.85rem; opacity: 1; }
 .cv-solid[disabled] { opacity: 0.4; cursor: not-allowed; }
 .cv-sheet .cv-fs .cv-pick { width: 100%; }
 
