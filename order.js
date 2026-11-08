@@ -277,9 +277,11 @@
   }
   function hasDrink() { return S.cart.some(function (l) { return DRINK_BLOCKS.some(function (d) { return l.item.indexOf(d + '|') === 0; }) || /^Bakery/i.test(l.item); }); }
   var pairList = [], pairFood = '';
+  /* «No, gracias» silencia las sugerencias solo 20 minutos y solo para este pedido: si se vacía el carrito (pedido nuevo) vuelven a salir. */
+  function pairMuted() { try { var m = JSON.parse(sessionStorage.getItem('roce_pair_off') || 'null'); return !!(m && Date.now() - m.t < 20 * 60000 && S.cart.length >= m.n); } catch (e) { return false; } }
   function offerPair(b, it) {
     var rule = PAIR[bk(b)]; if (!rule || hasDrink()) return;
-    try { if (sessionStorage.getItem('roce_pair_off') === '1') return; } catch (e) {}
+    if (pairMuted()) return;
     var list = rule[nowHM() < '12:00' ? 'bf' : 'lunch'];
     if (!list) return;
     var out = [];
@@ -370,7 +372,7 @@
     else if (el.dataset.q && cur) { keepNote(); cur.qty = Math.max(1, Math.min(20, cur.qty + (+el.dataset.q))); paintItem(); }
     else if (el.dataset.cq) { var a = el.dataset.cq.split(':'), l = S.cart[+a[0]]; l.qty += +a[1]; if (l.qty < 1) S.cart.splice(+a[0], 1); save(); paintBar(); openCart(); }
     else if (el.dataset.pair !== undefined) addPair(+el.dataset.pair);
-    else if (el.hasAttribute('data-pairno')) { try { sessionStorage.setItem('roce_pair_off', '1'); } catch (e) {} hide(); }
+    else if (el.hasAttribute('data-pairno')) { try { sessionStorage.setItem('roce_pair_off', JSON.stringify({ t: Date.now(), n: S.cart.length })); } catch (e) {} hide(); }
     else if (el.hasAttribute('data-addcart') && cur) { keepNote(); var hh = itemAllergenHits(); if (hh.length) warnAllergens(cur.it.name, hh, function () { paintItem(); }, addToCart); else addToCart(); }
     else if (el.hasAttribute('data-warnback')) { var wb = warnBack; warnBack = warnGo = null; if (wb) wb(); else hide(); }
     else if (el.hasAttribute('data-warnok')) { var wg = warnGo; warnBack = warnGo = null; if (wg) wg(); }
