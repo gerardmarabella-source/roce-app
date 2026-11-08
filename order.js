@@ -8,11 +8,13 @@
       choose: 'Elige', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', note_bar: 'Nota para barra', note_ph_bakery: 'Calentar, para llevar, alergias…', note_ph_coffee: 'Leche de avena, sin azúcar, bien caliente…', note_ph_fresh: 'Sin hielo, sin azúcar, alergias…', note_ph_drinks: 'Sin hielo, con limón…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
       paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
+      pair_h: '¿Algo para acompañar?', pair_p: 'Esto le pega a tu', pair_no: 'No, gracias', pair_done: 'Listo',
       from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', note_bar: 'Note for the bar', note_ph_bakery: 'Warm it up, to go, allergies…', note_ph_coffee: 'Oat milk, no sugar, extra hot…', note_ph_fresh: 'No ice, no sugar, allergies…', note_ph_drinks: 'No ice, with lemon…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
       paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
+      pair_h: 'Something to go with it?', pair_p: 'These go well with your', pair_no: 'No, thanks', pair_done: 'Done',
       from: 'From', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
   var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [], party: 2 };
@@ -224,6 +226,82 @@
       });
     });
     save(); hide(); paintBar();
+    offerPair(b, it);
+  }
+
+  /* ── Para acompañar: al añadir comida se ofrece café, bebida o bakery que le pega (y se deja fuera lo que no le pega) ──
+     Cada plato tiene su lista según la hora: por la mañana café y zumo; a mediodía bebidas frescas y, para terminar, café solo o infusión.
+     Lo que no aparece en la lista es porque no pega: café con leche o mocca con platos salados de comida, zumos o smoothies con el açaí
+     (ya lleva fruta), bakery con tostadas o açaí (ya son pan o dulce). Se ofrece una vez por pedido y solo si aún no hay bebida. */
+  var DRINK_BLOCKS = ['Cafés', 'Matcha & Tés', 'Smoothies', 'Zumos naturales'];
+  var WHY = {
+    'flat white': { es: 'Con leche, suave: le pega a lo salado', en: 'Milky and smooth: great with savoury' },
+    'cortado': { es: 'Un café corto con un toque de leche', en: 'A short coffee with a touch of milk' },
+    'latte': { es: 'Cremoso, para acompañar el desayuno', en: 'Creamy, a classic with breakfast' },
+    'americano': { es: 'Ligero, no pelea con el sabor', en: 'Light, it does not compete with the flavour' },
+    'espresso': { es: 'Para terminar', en: 'To finish' },
+    'matcha': { es: 'Ligero y vegetal', en: 'Light and green' },
+    'matcha latte': { es: 'Suave y con leche', en: 'Smooth and creamy' },
+    'iced matcha latte': { es: 'Fresco, para la comida', en: 'Cool, perfect with lunch' },
+    'té verde': { es: 'Limpia el paladar', en: 'Cleanses the palate' },
+    'rooibos': { es: 'Dulce y sin cafeína', en: 'Naturally sweet, caffeine-free' },
+    'digestivo': { es: 'Para terminar, ayuda a la digestión', en: 'To finish, helps digestion' },
+    'vitality': { es: 'Zumo fresco y equilibrado', en: 'Fresh, balanced juice' },
+    'depure': { es: 'Fresco y depurativo', en: 'Fresh and cleansing' },
+    'immunity': { es: 'Cítrico y fresco, para compartir mesa', en: 'Citrusy and fresh' },
+    'anti-inflammatory': { es: 'Fresco, va con platos con fuerza', en: 'Fresh, stands up to bold flavours' },
+    'probiotic': { es: 'Fresco y ligero', en: 'Fresh and light' }
+  };
+  var CAFE = 'Cafés|', TEA = 'Matcha & Tés|', JUICE = 'Zumos naturales|';
+  var PAIR = {
+    'Tostadas': { bf: [CAFE + 'Flat white', CAFE + 'Cortado', JUICE + 'Vitality', TEA + 'Matcha latte'] },
+    'Açaí & Yogur': { bf: [CAFE + 'Americano', TEA + 'Matcha', TEA + 'Té verde', TEA + 'Rooibos'], lunch: [CAFE + 'Americano', TEA + 'Matcha', TEA + 'Té verde', TEA + 'Rooibos'] },
+    'Sándwiches': { bf: [CAFE + 'Latte', CAFE + 'Cortado', CAFE + 'Americano', JUICE + 'Vitality'], lunch: [JUICE + 'Vitality', TEA + 'Iced matcha latte', TEA + 'Té verde', CAFE + 'Espresso'], sweet: true },
+    'Starters': { lunch: [JUICE + 'Immunity', TEA + 'Iced matcha latte', TEA + 'Té verde'] },
+    'Pokes': { lunch: [JUICE + 'Depure', JUICE + 'Probiotic', TEA + 'Té verde', CAFE + 'Espresso'], sweet: true },
+    'Platos ROCE': { lunch: [JUICE + 'Anti-inflammatory', TEA + 'Té verde', CAFE + 'Espresso', TEA + 'Digestivo'], sweet: true }
+  };
+  function findItem(key) {
+    var a = key.split('|'), f = null;
+    D.sections.forEach(function (sec) { (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (blk) { if (bk(blk) === a[0]) blk.items.forEach(function (x) { if (x.name === a[1]) f = { b: blk, it: x }; }); }); }); });
+    return f;
+  }
+  function bakeryPick() {
+    var f = null; D.sections.forEach(function (sec) { if (sec.id !== 'bakery') return; (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (blk) { blk.items.forEach(function (x) { if (!f && !soldOut[itemKey(blk, x)]) f = { b: blk, it: x, bakery: true }; }); }); }); });
+    return f;
+  }
+  function hasDrink() { return S.cart.some(function (l) { return DRINK_BLOCKS.some(function (d) { return l.item.indexOf(d + '|') === 0; }) || /^Bakery/i.test(l.item); }); }
+  var pairList = [], pairFood = '';
+  function offerPair(b, it) {
+    var rule = PAIR[bk(b)]; if (!rule || hasDrink()) return;
+    try { if (sessionStorage.getItem('roce_pair_off') === '1') return; } catch (e) {}
+    var list = rule[nowHM() < '12:00' ? 'bf' : 'lunch'];
+    if (!list) return;
+    var out = [];
+    list.forEach(function (k) {
+      var f = findItem(k); if (!f || soldOut[itemKey(f.b, f.it)]) return;
+      var w = WHY[f.it.name.toLowerCase()] || null;
+      out.push({ b: f.b, it: f.it, why: w, done: false });
+    });
+    var bp = rule.sweet && nowHM() >= '12:00' ? bakeryPick() : null;
+    out = out.slice(0, bp ? 3 : 4);
+    if (bp) out.push({ b: bp.b, it: bp.it, why: { es: 'Algo dulce para acabar', en: 'Something sweet to finish' }, done: false });
+    if (!out.length) return;
+    pairList = out; pairFood = it.name; view = 'pair'; paintPair();
+  }
+  function paintPair() {
+    var h = '<h2>' + esc(t('pair_h')) + '</h2><div class="cv-sheet-body"><p>' + esc(t('pair_p')) + ' ' + esc(pairFood) + '.</p><div class="ap-pair">';
+    pairList.forEach(function (x, i) {
+      h += '<button type="button" class="ap-pair-row' + (x.done ? ' is-done' : '') + '" data-pair="' + i + '"' + (x.done ? ' disabled' : '') + '><span class="ap-pair-t"><b>' + esc(x.it.name) + '</b>' + (x.why ? '<em>' + esc(tx(x.why)) + '</em>' : '') + '</span><span class="ap-pair-p">' + (x.done ? '✓' : money(cents(x.it.price)) + ' <i>+</i>') + '</span></button>';
+    });
+    h += '</div></div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-pairno>' + esc(t('pair_no')) + '</button><button type="button" class="cv-solid" data-close>' + esc(pairList.some(function (x) { return x.done; }) ? t('pair_done') : t('close')) + '</button></div>';
+    show(h);
+  }
+  function addPair(i) {
+    var x = pairList[i]; if (!x || x.done) return;
+    var key = [bk(x.b), x.it.name, -1, '', '', '', ''].join('|'), f = S.cart.filter(function (l) { return l.key === key; })[0];
+    if (f) f.qty += 1; else S.cart.push({ key: key, item: bk(x.b) + '|' + (x.it.code || x.it.name), name: x.it.name, variant: '', extras: [], unit: cents(x.it.price), qty: 1, note: '', detail: t('with_') + ' ' + pairFood });
+    x.done = true; save(); paintBar(); paintPair();
   }
 
   /* Pedido */
@@ -256,13 +334,15 @@
   $('apModeBtn').addEventListener('click', openMode);
   $('apCartOpen').addEventListener('click', openCart);
   dlg.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan]'); if (!el || el.disabled) return;
+    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairno]'); if (!el || el.disabled) return;
     if (el.hasAttribute('data-close')) hide();
     else if (el.dataset.mode) { S.mode = el.dataset.mode; save(); paintMode(); openMode(); }
     else if (el.dataset.v !== undefined && cur) { keepNote(); cur.variant = +el.dataset.v; paintItem(); }
     else if (el.dataset.x !== undefined && cur) { keepNote(); var k = +el.dataset.x, i = cur.extras.indexOf(k); if (i === -1) cur.extras.push(k); else cur.extras.splice(i, 1); paintItem(); }
     else if (el.dataset.q && cur) { keepNote(); cur.qty = Math.max(1, Math.min(20, cur.qty + (+el.dataset.q))); paintItem(); }
     else if (el.dataset.cq) { var a = el.dataset.cq.split(':'), l = S.cart[+a[0]]; l.qty += +a[1]; if (l.qty < 1) S.cart.splice(+a[0], 1); save(); paintBar(); openCart(); }
+    else if (el.dataset.pair !== undefined) addPair(+el.dataset.pair);
+    else if (el.hasAttribute('data-pairno')) { try { sessionStorage.setItem('roce_pair_off', '1'); } catch (e) {} hide(); }
     else if (el.hasAttribute('data-addcart') && cur) addToCart();
     else if (el.hasAttribute('data-scan')) { openScan(); }
     else if (el.dataset.party) { S.party = Math.max(1, Math.min(20, S.party + (+el.dataset.party))); save(); openCart(); }
