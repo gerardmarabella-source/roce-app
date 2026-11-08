@@ -91,8 +91,8 @@
   /* Vegano (hoja): solo platos con descripción, que salen veganos del análisis de ingredientes y alérgenos, o confirmados a mano con
      `diet: ['vegan']` en menu.js. Sin descripción no hay forma de saberlo; con granola (puede llevar miel) se exige confirmación a mano. */
   function isVegan(it, blk) {
+    if (Array.isArray(it.diet)) return it.diet.indexOf('vegan') !== -1;   // confirmado a mano (cocina): vale en cualquier bloque
     if (HP_BLOCKS.indexOf(blk.key || (blk.title && blk.title.es)) === -1) return false;
-    if (Array.isArray(it.diet)) return it.diet.indexOf('vegan') !== -1;
     return !!it.es && analyze(it, blk).dt.vegan === 'y' && !/granola/.test(norm([it.name, it.es].join(' ')));
   }
   var LEAF = '<svg class="cv-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5C4.5 10 10 4 20 4c0 10-6 15.500-15.500 15.500Z"/><path d="M4.5 19.500 13 11"/></svg>';
