@@ -108,7 +108,7 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .cv-item[data-sold] .cv-i-name::after { content: " · AGOTADO"; font-size: 0.7rem; letter-spacing: 0.12em; }
 
 /* Comensales en el pedido a mesa */
-.ap-party { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0.8rem 0 0.4rem; padding: 0.7rem 0; border-top: 1.5px solid var(--black); border-bottom: 1px solid rgba(10, 10, 10, 0.18); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.ap-party { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0.8rem 0 0.8rem; padding: 0.6rem 0.8rem; border: 1.5px solid var(--black); background: #fff; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
 .ap-party .ap-qty { margin: 0; gap: 0.8rem; }
 .ap-party .ap-qty button { width: 2.2rem; height: 2.2rem; font-size: 1.2rem; }
 
@@ -259,3 +259,6 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-mix-row .ap-qty { margin: 0; gap: 0.6rem; flex: 0 0 auto; }
 .ap-mix-row .ap-qty button { width: 2.1rem; height: 2.1rem; }
 .ap-mix-row .ap-qty button[disabled] { opacity: 0.3; }
+
+/* Que el glifo del texto nunca se vea: el «+» y el «−» están dibujados con el fondo (las reglas del carrito y de «¿Cuántos sois?» subían el tamaño de letra) */
+.ap-qty button, .ap-party .ap-qty button, .ap-line-r .ap-qty button, .ap-mix-row .ap-qty button { font-size: 0; }
