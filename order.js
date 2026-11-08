@@ -8,12 +8,14 @@
       choose: 'Elige', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alergias, sin cebolla…', note_bar: 'Nota para barra', note_ph_bakery: 'Calentar, para llevar, alergias…', note_ph_coffee: 'Leche de avena, sin azúcar, bien caliente…', note_ph_fresh: 'Sin hielo, sin azúcar, alergias…', note_ph_drinks: 'Sin hielo, con limón…', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
       paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
+      warn_h: 'Cuidado: alérgenos', warn_contains: 'contiene', warn_p: 'Son alérgenos que has marcado en tu perfil o en los filtros de la carta.', warn_team: 'Si lo pides, avisa también a nuestro equipo de tu alergia. ¿Quieres añadirlo igualmente?', warn_back: 'Volver', warn_ok: 'Añadir igualmente',
       pair_h: '¿Algo para acompañar?', pair_p: 'Esto le pega a tu', pair_no: 'No, gracias', pair_done: 'Listo',
       from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Allergies, no onion…', note_bar: 'Note for the bar', note_ph_bakery: 'Warm it up, to go, allergies…', note_ph_coffee: 'Oat milk, no sugar, extra hot…', note_ph_fresh: 'No ice, no sugar, allergies…', note_ph_drinks: 'No ice, with lemon…', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
       paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
+      warn_h: 'Careful: allergens', warn_contains: 'contains', warn_p: 'These are allergens you marked in your profile or in the menu filters.', warn_team: 'If you order it, please also tell our team about your allergy. Do you still want to add it?', warn_back: 'Back', warn_ok: 'Add anyway',
       pair_h: 'Something to go with it?', pair_p: 'These go well with your', pair_no: 'No, thanks', pair_done: 'Done',
       from: 'From', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
@@ -261,6 +263,9 @@
     'Pokes': { lunch: [JUICE + 'Depure', JUICE + 'Probiotic', TEA + 'Té verde', CAFE + 'Espresso'], sweet: true },
     'Platos ROCE': { lunch: [JUICE + 'Anti-inflammatory', TEA + 'Té verde', CAFE + 'Espresso', TEA + 'Digestivo'], sweet: true }
   };
+  /* Bebidas con leche por defecto (la carta no lleva sus alérgenos): se tratan como «leche» al sugerir, para no ofrecerlas a quien es alérgico. */
+  var MILKY = ['Flat white', 'Cortado', 'Latte', 'Mocca latte', 'Matcha latte', 'Iced matcha latte'];
+  function pairAl(it) { return (it.al || []).concat(MILKY.indexOf(it.name) !== -1 && (it.al || []).indexOf(7) === -1 ? [7] : []); }
   function findItem(key) {
     var a = key.split('|'), f = null;
     D.sections.forEach(function (sec) { (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (blk) { if (bk(blk) === a[0]) blk.items.forEach(function (x) { if (x.name === a[1]) f = { b: blk, it: x }; }); }); }); });
@@ -279,7 +284,7 @@
     if (!list) return;
     var out = [];
     list.forEach(function (k) {
-      var f = findItem(k); if (!f || soldOut[itemKey(f.b, f.it)]) return;
+      var f = findItem(k); if (!f || soldOut[itemKey(f.b, f.it)] || allergenHits(pairAl(f.it)).length) return;
       var w = WHY[f.it.name.toLowerCase()] || null;
       out.push({ b: f.b, it: f.it, why: w, done: false });
     });
@@ -299,9 +304,32 @@
   }
   function addPair(i) {
     var x = pairList[i]; if (!x || x.done) return;
+    var ph = allergenHits(pairAl(x.it)); if (ph.length && !addPair.ok) { warnAllergens(x.it.name, ph, function () { paintPair(); }, function () { addPair.ok = true; addPair(i); addPair.ok = false; }); return; }
     var key = [bk(x.b), x.it.name, -1, '', '', '', ''].join('|'), f = S.cart.filter(function (l) { return l.key === key; })[0];
     if (f) f.qty += 1; else S.cart.push({ key: key, item: bk(x.b) + '|' + (x.it.code || x.it.name), name: x.it.name, variant: '', extras: [], unit: cents(x.it.price), qty: 1, note: '', detail: t('with_') + ' ' + pairFood });
     x.done = true; save(); paintBar(); paintPair();
+  }
+
+  /* ── Aviso de alérgenos: si el plato (o algo que se le añade) contiene un alérgeno que el cliente tiene marcado en su perfil o en los
+     filtros de la carta, se avisa antes de añadirlo y hay que confirmarlo. No sustituye al aviso al equipo. ── */
+  function userAllergies() {
+    var a = (window.ROCE_ACCT && window.ROCE_ACCT.allergies ? window.ROCE_ACCT.allergies() : []).slice();
+    try { var f = window.CARTA_API && window.CARTA_API.F(); ((f && f.al) || []).forEach(function (n) { if (a.indexOf(n) === -1) a.push(n); }); } catch (e) {}
+    return a;
+  }
+  function allergenHits(als) { var u = userAllergies(); return (als || []).filter(function (n) { return u.indexOf(n) !== -1; }); }
+  function allergenNames(ns) { return ns.map(function (n) { var a = D.allergens.filter(function (x) { return x.n === n; })[0]; return a ? tx(a) : String(n); }).join(', '); }
+  function uniq(a) { return a.filter(function (x, i) { return a.indexOf(x) === i; }); }
+  function itemAllergenHits() {
+    var it = cur.it, als = (cur.variant >= 0 && it.variants && it.variants[cur.variant] && it.variants[cur.variant].al) ? it.variants[cur.variant].al : (it.al || []), hits = allergenHits(als);
+    ADDON.forEach(function (g) { var ab = addonBlock(g); if (!ab || !open(ab)) return; (cur.sel[g.id] || []).forEach(function (k) { hits = hits.concat(allergenHits(ab.items[k].al)); }); });
+    return uniq(hits).sort(function (a, b) { return a - b; });
+  }
+  var warnBack = null, warnGo = null;
+  function warnAllergens(dish, hits, back, go) {
+    warnBack = back; warnGo = go; view = 'warn';
+    show('<h2>⚠ ' + esc(t('warn_h')) + '</h2><div class="cv-sheet-body"><div class="ap-warn"><p><b>' + esc(dish) + '</b> ' + esc(t('warn_contains')) + ' <b>' + esc(allergenNames(hits)) + '</b>. ' + esc(t('warn_p')) + '</p><p>' + esc(t('warn_team')) + '</p></div></div>' +
+      '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-warnback>' + esc(t('warn_back')) + '</button><button type="button" class="cv-solid" data-warnok>' + esc(t('warn_ok')) + '</button></div>');
   }
 
   /* Pedido */
@@ -334,7 +362,7 @@
   $('apModeBtn').addEventListener('click', openMode);
   $('apCartOpen').addEventListener('click', openCart);
   dlg.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairno]'); if (!el || el.disabled) return;
+    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairno],[data-warnback],[data-warnok]'); if (!el || el.disabled) return;
     if (el.hasAttribute('data-close')) hide();
     else if (el.dataset.mode) { S.mode = el.dataset.mode; save(); paintMode(); openMode(); }
     else if (el.dataset.v !== undefined && cur) { keepNote(); cur.variant = +el.dataset.v; paintItem(); }
@@ -343,7 +371,9 @@
     else if (el.dataset.cq) { var a = el.dataset.cq.split(':'), l = S.cart[+a[0]]; l.qty += +a[1]; if (l.qty < 1) S.cart.splice(+a[0], 1); save(); paintBar(); openCart(); }
     else if (el.dataset.pair !== undefined) addPair(+el.dataset.pair);
     else if (el.hasAttribute('data-pairno')) { try { sessionStorage.setItem('roce_pair_off', '1'); } catch (e) {} hide(); }
-    else if (el.hasAttribute('data-addcart') && cur) addToCart();
+    else if (el.hasAttribute('data-addcart') && cur) { keepNote(); var hh = itemAllergenHits(); if (hh.length) warnAllergens(cur.it.name, hh, function () { paintItem(); }, addToCart); else addToCart(); }
+    else if (el.hasAttribute('data-warnback')) { var wb = warnBack; warnBack = warnGo = null; if (wb) wb(); else hide(); }
+    else if (el.hasAttribute('data-warnok')) { var wg = warnGo; warnBack = warnGo = null; if (wg) wg(); }
     else if (el.hasAttribute('data-scan')) { openScan(); }
     else if (el.dataset.party) { S.party = Math.max(1, Math.min(20, S.party + (+el.dataset.party))); save(); openCart(); }
     else if (el.hasAttribute('data-fold') && cur) { keepNote(); cur.openG[el.dataset.fold] = !cur.openG[el.dataset.fold]; paintItem(); }

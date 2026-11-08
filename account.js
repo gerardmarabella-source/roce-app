@@ -268,6 +268,6 @@
       getProfile().then(function (p) { if (!p || !p.name || (!p.phone && !(S && S.anon))) { after = cb; draft = null; if (S && S.anon) viewGuest(); else viewProfile(); } else { paintEntry(); cb(); } }).catch(function () { after = cb; viewProfile(); });
     });
   }
-  window.ROCE_ACCT = { open: open, require: requireLogin, session: session, rest: rest, loggedIn: function () { return !!S; } };
+  window.ROCE_ACCT = { open: open, require: requireLogin, session: session, rest: rest, loggedIn: function () { return !!S; }, allergies: function () { return (profile && profile.allergies) ? profile.allergies.slice() : []; } };
   if (S) getProfile().then(paintEntry).catch(function () {});
 })();
