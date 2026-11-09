@@ -124,7 +124,7 @@ window.CARTA = {
             {
               title: { es: 'Matcha & Tés', en: 'Matcha & Teas' }, compact: true, alPending: true,
               items: [
-                { name: 'Matcha', img: '/assets/dishes/matcha.webp', price: 3.5 }, { name: 'Matcha latte', img: '/assets/dishes/matcha-latte.webp', price: 4.5 }, { name: 'Iced matcha latte', price: 4.9 }, { name: 'Té verde', img: '/assets/dishes/te-verde.webp', price: 2.8 },
+                { name: 'Matcha', img: '/assets/dishes/matcha.webp', price: 3.5 }, { name: 'Matcha latte', img: '/assets/dishes/matcha-latte.webp', price: 4.5 }, { name: 'Iced matcha latte', img: '/assets/dishes/iced-matcha-latte.webp', price: 4.9 }, { name: 'Té verde', img: '/assets/dishes/te-verde.webp', price: 2.8 },
                 { name: 'Té negro', img: '/assets/dishes/te-negro.webp', price: 2.8 }, { name: 'Té rojo', img: '/assets/dishes/te-rojo.webp', price: 2.8 }, { name: 'Rooibos', img: '/assets/dishes/rooibos.webp', price: 2.8 }, { name: 'Manzanilla', img: '/assets/dishes/manzanilla.webp', price: 2.5 },
                 { name: 'Menta poleo', img: '/assets/dishes/menta-poleo.webp', price: 2.5 }, { name: 'Digestivo', img: '/assets/dishes/digestivo.webp', price: 2.5 }
               ]
