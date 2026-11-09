@@ -268,3 +268,7 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 /* Sugerencias: salida a toda la carta de Coffee & Matcha por si no cuadra lo propuesto */
 .ap-pair-all { display: block; width: 100%; margin: 0.9rem 0 0; padding: 0.7rem 0.8rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-align: center; cursor: pointer; }
 .ap-pair-all:active { background: var(--black); color: #fff; }
+
+/* foto pequeña de un extra dentro del plato */
+.ap-xth { width: 2.6rem; height: 2.6rem; flex: none; object-fit: cover; border: 1.5px solid var(--black); border-radius: 0.4rem; }
+.cv-pick .ap-xth + span { flex: 1; }

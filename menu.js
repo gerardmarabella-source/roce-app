@@ -27,7 +27,7 @@ window.CARTA = {
                 { code: '005', name: '005', img: '/assets/dishes/tostada-005.webp', al: [1, 11], nut: [436, 14, 55, 16], price: 6.5, es: 'Pan de masa madre, hummus de remolacha, berenjena asada, rúcula y semillas.', en: 'Sourdough, beetroot hummus, roasted aubergine, rocket and seeds.' },
                 { code: '006', name: '006', img: '/assets/dishes/tostada-006.webp', al: [1, 3], nut: [520, 20, 60, 22], price: 7.5, es: 'Pan artesano con mermelada y 2 huevos a elegir (revueltos, pochados o fritos).', en: 'Artisan bread with jam and 2 eggs your way (scrambled, poached or fried).' }
               ],
-              extras: { title: { es: 'Extras para tostadas', en: 'Toast extras' }, list: [[{ es: 'Bacon', en: 'Bacon' }, 2.5], [{ es: 'Aguacate', en: 'Avocado' }, 2.5], [{ es: 'Salmón', en: 'Salmon' }, 3.5], [{ es: 'Huevo', en: 'Egg' }, 2], [{ es: 'Jamón', en: 'Ham' }, 3]] }
+              extras: { title: { es: 'Extras para tostadas', en: 'Toast extras' }, list: [[{ es: 'Bacon', en: 'Bacon' }, 2.5, '/assets/dishes/bacon.webp'], [{ es: 'Aguacate', en: 'Avocado' }, 2.5, '/assets/dishes/aguacate.webp'], [{ es: 'Salmón', en: 'Salmon' }, 3.5], [{ es: 'Huevo', en: 'Egg' }, 2, '/assets/dishes/huevo.webp'], [{ es: 'Jamón', en: 'Ham' }, 3, '/assets/dishes/jamon.webp']] }
             },
             {
               title: { es: 'Açaí & Yogur', en: 'Açaí & Yogurt' }, note: { es: 'Todo el día', en: 'All day' },
@@ -98,9 +98,9 @@ window.CARTA = {
               title: { es: 'Más proteína', en: 'More protein' }, key: 'Extras', note: { es: 'Todo el día', en: 'All day' },
               compact: true,
               items: [
-                { name: 'Huevo campero', al: [3], nut: [72, 6, 1, 5], price: 2 }, { name: 'Falafel', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [11], nut: [188, 8, 24, 7], price: 3.5 }, { name: 'Cottage', al: [7], nut: [82, 11, 3, 3], price: 2.5 },
-                { name: 'Pollo marinado', nut: [166, 27, 4, 5], price: 4.5 }, { name: 'Atún rojo', al: [4], nut: [164, 32, 0, 4], price: 6.5 }, { name: 'Salmón', al: [4], nut: [226, 34, 0, 10], price: 6.5 },
-                { name: 'Filete de ternera', nut: [324, 42, 0, 16], price: 9.5 }, { name: 'Entrecot madurado', nut: [418, 46, 0, 24], price: 15 }, { name: 'Bacon crujiente', nut: [126, 8, 1, 10], price: 2.5 }, { name: 'Hummus de remolacha', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [11], nut: [118, 4, 12, 6], price: 2.5 }
+                { name: 'Huevo campero', img: '/assets/dishes/huevo.webp', al: [3], nut: [72, 6, 1, 5], price: 2 }, { name: 'Falafel', img: '/assets/dishes/falafel.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [11], nut: [188, 8, 24, 7], price: 3.5 }, { name: 'Cottage', img: '/assets/dishes/cottage.webp', al: [7], nut: [82, 11, 3, 3], price: 2.5 },
+                { name: 'Pollo marinado', img: '/assets/dishes/pollo-marinado.webp', nut: [166, 27, 4, 5], price: 4.5 }, { name: 'Atún rojo', img: '/assets/dishes/atun-rojo.webp', al: [4], nut: [164, 32, 0, 4], price: 6.5 }, { name: 'Salmón', img: '/assets/dishes/salmon.webp', al: [4], nut: [226, 34, 0, 10], price: 6.5 },
+                { name: 'Filete de ternera', img: '/assets/dishes/filete-ternera.webp', nut: [324, 42, 0, 16], price: 9.5 }, { name: 'Entrecot madurado', img: '/assets/dishes/entrecot.webp', nut: [418, 46, 0, 24], price: 15 }, { name: 'Bacon crujiente', img: '/assets/dishes/bacon.webp', nut: [126, 8, 1, 10], price: 2.5 }, { name: 'Hummus de remolacha', img: '/assets/dishes/hummus-remolacha.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [11], nut: [118, 4, 12, 6], price: 2.5 }
               ]
             }
           ]
@@ -116,15 +116,15 @@ window.CARTA = {
             {
               title: { es: 'Cafés', en: 'Coffees' }, compact: true, alPending: true,
               items: [
-                { name: 'Espresso', price: 2.2 }, { name: 'Double espresso', price: 3 }, { name: 'Cortado', price: 2.4 }, { name: 'Americano', price: 2.7 },
-                { name: 'Latte', price: 3.5 }, { name: 'Flat white', price: 3.8 }, { name: 'Mocca latte', price: 4.5 }
+                { name: 'Espresso', img: '/assets/dishes/espresso.webp', price: 2.2 }, { name: 'Double espresso', img: '/assets/dishes/double-espresso.webp', price: 3 }, { name: 'Cortado', img: '/assets/dishes/cortado.webp', price: 2.4 }, { name: 'Americano', img: '/assets/dishes/americano.webp', price: 2.7 },
+                { name: 'Latte', img: '/assets/dishes/latte.webp', price: 3.5 }, { name: 'Flat white', img: '/assets/dishes/flat-white.webp', price: 3.8 }, { name: 'Mocca latte', price: 4.5 }
               ],
               extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Iced', en: 'Iced' }, '+0,50'], [{ es: 'Doble carga', en: 'Double shot' }, '+1,00'], [{ es: 'Vegetal barista', en: 'Barista plant milk' }, '+0,50'], [{ es: 'Con hielo', en: 'On ice' }, '+0,15'], [{ es: 'Descafeinado', en: 'Decaf' }, '']] }
             },
             {
               title: { es: 'Matcha & Tés', en: 'Matcha & Teas' }, compact: true, alPending: true,
               items: [
-                { name: 'Matcha', price: 3.5 }, { name: 'Matcha latte', price: 4.5 }, { name: 'Iced matcha latte', price: 4.9 }, { name: 'Té verde', price: 2.8 },
+                { name: 'Matcha', img: '/assets/dishes/matcha.webp', price: 3.5 }, { name: 'Matcha latte', img: '/assets/dishes/matcha-latte.webp', price: 4.5 }, { name: 'Iced matcha latte', price: 4.9 }, { name: 'Té verde', price: 2.8 },
                 { name: 'Té negro', price: 2.8 }, { name: 'Té rojo', price: 2.8 }, { name: 'Rooibos', price: 2.8 }, { name: 'Manzanilla', price: 2.5 },
                 { name: 'Menta poleo', price: 2.5 }, { name: 'Digestivo', price: 2.5 }
               ]
