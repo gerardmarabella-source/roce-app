@@ -27,7 +27,7 @@ window.CARTA = {
                 { code: '005', name: '005', img: '/assets/dishes/tostada-005.webp', al: [1, 11], nut: [436, 14, 55, 16], price: 6.5, es: 'Pan de masa madre, hummus de remolacha, berenjena asada, rúcula y semillas.', en: 'Sourdough, beetroot hummus, roasted aubergine, rocket and seeds.' },
                 { code: '006', name: '006', img: '/assets/dishes/tostada-006.webp', al: [1, 3], nut: [520, 20, 60, 22], price: 7.5, es: 'Pan artesano con mermelada y 2 huevos a elegir (revueltos, pochados o fritos).', en: 'Artisan bread with jam and 2 eggs your way (scrambled, poached or fried).' }
               ],
-              extras: { title: { es: 'Extras para tostadas', en: 'Toast extras' }, list: [[{ es: 'Bacon', en: 'Bacon' }, 2.5, '/assets/dishes/bacon.webp'], [{ es: 'Aguacate', en: 'Avocado' }, 2.5, '/assets/dishes/aguacate.webp'], [{ es: 'Salmón', en: 'Salmon' }, 3.5], [{ es: 'Huevo', en: 'Egg' }, 2, '/assets/dishes/huevo.webp'], [{ es: 'Jamón', en: 'Ham' }, 3, '/assets/dishes/jamon.webp']] }
+              extras: { title: { es: 'Extras para tostadas', en: 'Toast extras' }, list: [[{ es: 'Bacon', en: 'Bacon' }, 2.5, '/assets/dishes/bacon.webp'], [{ es: 'Aguacate', en: 'Avocado' }, 2.5, '/assets/dishes/aguacate.webp'], [{ es: 'Salmón', en: 'Salmon' }, 3.5, '/assets/dishes/salmon-ahumado.webp'], [{ es: 'Huevo', en: 'Egg' }, 2, '/assets/dishes/huevo.webp'], [{ es: 'Jamón', en: 'Ham' }, 3, '/assets/dishes/jamon.webp']] }
             },
             {
               title: { es: 'Açaí & Yogur', en: 'Açaí & Yogurt' }, note: { es: 'Todo el día', en: 'All day' },
@@ -36,7 +36,7 @@ window.CARTA = {
                 { name: 'Shaka Açaí', img: '/assets/dishes/shaka-acai.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [8], nut: [398, 8, 62, 14], price: 10.5, es: 'Açaí, mango, plátano, coco y granola.', en: 'Açaí, mango, banana, coconut and granola.' },
                 { name: 'Greek Freak', img: '/assets/dishes/greek-freak.webp', al: [7, 8], nut: [368, 16, 48, 12], price: 7.5, es: 'Yogur griego, fruta de temporada, granola y miel.', en: 'Greek yogurt, seasonal fruit, granola and honey.' }
               ],
-              extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Fruta', en: 'Fruit' }, 2], [{ es: 'Granola', en: 'Granola' }, 1.5], [{ es: 'Crema de cacahuete', en: 'Peanut cream' }, 1.5]] }
+              extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Fruta', en: 'Fruit' }, 2, '/assets/dishes/fruta.webp'], [{ es: 'Granola', en: 'Granola' }, 1.5, '/assets/dishes/granola.webp'], [{ es: 'Crema de cacahuete', en: 'Peanut cream' }, 1.5, '/assets/dishes/crema-cacahuete.webp']] }
             },
             {
               title: { es: 'Sándwiches', en: 'Sandwiches' }, note: { es: 'Todo el día', en: 'All day' },
@@ -117,16 +117,16 @@ window.CARTA = {
               title: { es: 'Cafés', en: 'Coffees' }, compact: true, alPending: true,
               items: [
                 { name: 'Espresso', img: '/assets/dishes/espresso.webp', price: 2.2 }, { name: 'Double espresso', img: '/assets/dishes/double-espresso.webp', price: 3 }, { name: 'Cortado', img: '/assets/dishes/cortado.webp', price: 2.4 }, { name: 'Americano', img: '/assets/dishes/americano.webp', price: 2.7 },
-                { name: 'Latte', img: '/assets/dishes/latte.webp', price: 3.5 }, { name: 'Flat white', img: '/assets/dishes/flat-white.webp', price: 3.8 }, { name: 'Mocca latte', price: 4.5 }
+                { name: 'Latte', img: '/assets/dishes/latte.webp', price: 3.5 }, { name: 'Flat white', img: '/assets/dishes/flat-white.webp', price: 3.8 }, { name: 'Mocca latte', img: '/assets/dishes/mocca-latte.webp', price: 4.5 }
               ],
               extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Iced', en: 'Iced' }, '+0,50'], [{ es: 'Doble carga', en: 'Double shot' }, '+1,00'], [{ es: 'Vegetal barista', en: 'Barista plant milk' }, '+0,50'], [{ es: 'Con hielo', en: 'On ice' }, '+0,15'], [{ es: 'Descafeinado', en: 'Decaf' }, '']] }
             },
             {
               title: { es: 'Matcha & Tés', en: 'Matcha & Teas' }, compact: true, alPending: true,
               items: [
-                { name: 'Matcha', img: '/assets/dishes/matcha.webp', price: 3.5 }, { name: 'Matcha latte', img: '/assets/dishes/matcha-latte.webp', price: 4.5 }, { name: 'Iced matcha latte', price: 4.9 }, { name: 'Té verde', price: 2.8 },
-                { name: 'Té negro', price: 2.8 }, { name: 'Té rojo', price: 2.8 }, { name: 'Rooibos', price: 2.8 }, { name: 'Manzanilla', price: 2.5 },
-                { name: 'Menta poleo', price: 2.5 }, { name: 'Digestivo', price: 2.5 }
+                { name: 'Matcha', img: '/assets/dishes/matcha.webp', price: 3.5 }, { name: 'Matcha latte', img: '/assets/dishes/matcha-latte.webp', price: 4.5 }, { name: 'Iced matcha latte', price: 4.9 }, { name: 'Té verde', img: '/assets/dishes/te-verde.webp', price: 2.8 },
+                { name: 'Té negro', img: '/assets/dishes/te-negro.webp', price: 2.8 }, { name: 'Té rojo', img: '/assets/dishes/te-rojo.webp', price: 2.8 }, { name: 'Rooibos', img: '/assets/dishes/rooibos.webp', price: 2.8 }, { name: 'Manzanilla', img: '/assets/dishes/manzanilla.webp', price: 2.5 },
+                { name: 'Menta poleo', img: '/assets/dishes/menta-poleo.webp', price: 2.5 }, { name: 'Digestivo', img: '/assets/dishes/digestivo.webp', price: 2.5 }
               ]
             },
             {
