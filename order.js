@@ -416,9 +416,9 @@
     ['Ds_SignatureVersion', 'Ds_MerchantParameters', 'Ds_Signature'].forEach(function (k) { var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = p[k]; f.appendChild(i); });
     document.body.appendChild(f); f.submit();
   }
-  /* El cobro está listo (SQL y función ya en producción) pero Redsys está en modo REAL: el cobro solo se activa en el móvil de quien abre
-     la app con ?pay=1 (queda recordado); con ?pay=0 se apaga. Para abrirlo a todos, pon PAY_LIVE = true cuando haya pantalla de cocina. */
-  var PAY_LIVE = false;
+  /* Cobro abierto a todos (Redsys en modo REAL). PAY_LIVE = false lo vuelve a limitar al móvil de quien abre la app con ?pay=1
+     (queda recordado); con ?pay=0 se apaga en ese móvil. */
+  var PAY_LIVE = true;
   try { if (q.get('pay') === '1') localStorage.setItem('roce_app_testpay', '1'); if (q.get('pay') === '0') localStorage.removeItem('roce_app_testpay'); } catch (e) {}
   var PAY_TEST = false; try { PAY_TEST = localStorage.getItem('roce_app_testpay') === '1'; } catch (e) {}
   function startCheckout() {
