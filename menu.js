@@ -132,7 +132,7 @@ window.CARTA = {
             {
               title: { es: 'Smoothies', en: 'Smoothies' }, note: { es: 'Con fruta natural', en: 'Made with real fruit' }, alPending: true,
               items: [
-                { code: '01', name: 'Marathon Rat', nut: [172, 3, 42, 1], price: 6, es: 'Mango · Piña · Maracuyá · Zumo de naranja', en: 'Mango · Pineapple · Passion fruit · Orange juice', tag: { es: 'Aporta energía de forma natural.', en: 'Natural energy.' } },
+                { code: '01', name: 'Marathon Rat', img: '/assets/dishes/marathon-rat.webp', nut: [172, 3, 42, 1], price: 6, es: 'Mango · Piña · Maracuyá · Zumo de naranja', en: 'Mango · Pineapple · Passion fruit · Orange juice', tag: { es: 'Aporta energía de forma natural.', en: 'Natural energy.' } },
                 { code: '02', name: 'Purple Haze', nut: [166, 3, 33, 4], price: 7, es: 'Açaí · Fresa · Plátano · Frutos rojos', en: 'Açaí · Strawberry · Banana · Red berries', tag: { es: 'Rico en antioxidantes y vitaminas.', en: 'Rich in antioxidants and vitamins.' } },
                 { code: '03', name: 'Out of the F*cking Office', nut: [270, 9, 36, 11], price: 6, es: 'Piña · Plátano · Coco · Yogur griego', en: 'Pineapple · Banana · Coconut · Greek yogurt', tag: { es: 'Cremoso, nutritivo y refrescante.', en: 'Creamy, nourishing and refreshing.' } },
                 { code: '04', name: '404 Error Not Found', nut: [90, 2, 23, 1], price: 6, es: 'Espinaca · Manzana verde · Pepino · Limón · Jengibre', en: 'Spinach · Green apple · Cucumber · Lemon · Ginger', tag: { es: 'Limpia, refresca y aporta fibra.', en: 'Cleansing, refreshing and full of fibre.' } },
