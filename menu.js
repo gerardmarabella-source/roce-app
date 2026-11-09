@@ -147,7 +147,7 @@ window.CARTA = {
                 { code: '08', name: 'Vitality', img: '/assets/dishes/vitality.webp', nut: [160, 3, 37, 1], price: 5.5, es: 'Naranja · Zanahoria · Manzana · Jengibre', en: 'Orange · Carrot · Apple · Ginger', tag: { es: 'Aporta vitaminas y combate el cansancio.', en: 'Vitamins to fight tiredness.' } },
                 { code: '09', name: 'Anti-inflammatory', img: '/assets/dishes/anti-inflammatory.webp', nut: [120, 1, 30, 0], price: 6, es: 'Piña · Cúrcuma · Manzana · Limón · Jengibre', en: 'Pineapple · Turmeric · Apple · Lemon · Ginger', tag: { es: 'Contribuye a reducir la inflamación.', en: 'Helps reduce inflammation.' } },
                 { code: '10', name: 'Immunity', img: '/assets/dishes/immunity.webp', nut: [135, 2, 32, 1], price: 6, es: 'Naranja · Pomelo · Zanahoria · Jengibre', en: 'Orange · Grapefruit · Carrot · Ginger', tag: { es: 'Rico en vitamina C y fortalece las defensas.', en: 'Rich in vitamin C, boosts your defences.' } },
-                { code: '11', name: 'Probiotic', nut: [150, 4, 30, 3], price: 6, es: 'Piña · Manzana · Limón · Kéfir natural', en: 'Pineapple · Apple · Lemon · Natural kefir', tag: { es: 'Mejora la digestión y cuida la microbiota.', en: 'Improves digestion and cares for your gut.' } }
+                { code: '11', name: 'Probiotic', img: '/assets/dishes/probiotic.webp', nut: [150, 4, 30, 3], price: 6, es: 'Piña · Manzana · Limón · Kéfir natural', en: 'Pineapple · Apple · Lemon · Natural kefir', tag: { es: 'Mejora la digestión y cuida la microbiota.', en: 'Improves digestion and cares for your gut.' } }
               ]
             }
           ]
