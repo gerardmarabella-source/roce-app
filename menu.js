@@ -137,7 +137,7 @@ window.CARTA = {
                 { code: '03', name: 'Out of the F*cking Office', img: '/assets/dishes/out-of-the-office.webp', nut: [270, 9, 36, 11], price: 6, es: 'Piña · Plátano · Coco · Yogur griego', en: 'Pineapple · Banana · Coconut · Greek yogurt', tag: { es: 'Cremoso, nutritivo y refrescante.', en: 'Creamy, nourishing and refreshing.' } },
                 { code: '04', name: '404 Error Not Found', img: '/assets/dishes/404-error-not-found.webp', nut: [90, 2, 23, 1], price: 6, es: 'Espinaca · Manzana verde · Pepino · Limón · Jengibre', en: 'Spinach · Green apple · Cucumber · Lemon · Ginger', tag: { es: 'Limpia, refresca y aporta fibra.', en: 'Cleansing, refreshing and full of fibre.' } },
                 { code: '05', name: 'Red Lips', img: '/assets/dishes/red-lips.webp', nut: [261, 11, 41, 6], price: 6, es: 'Frutos rojos · Plátano · Avena · Yogur griego · Canela', en: 'Red berries · Banana · Oats · Greek yogurt · Cinnamon', tag: { es: 'Equilibrio y bienestar.', en: 'Balance and wellbeing.' } },
-                { code: '06', name: '6AM in Kyoto', nut: [225, 9, 32, 7], price: 7, es: 'Té matcha · Plátano · Yogur griego · Bebida de avena', en: 'Matcha tea · Banana · Greek yogurt · Oat drink', tag: { es: 'Energía sostenida y concentración.', en: 'Steady energy and focus.' } }
+                { code: '06', name: '6AM in Kyoto', img: '/assets/dishes/6am-in-kyoto.webp', nut: [225, 9, 32, 7], price: 7, es: 'Té matcha · Plátano · Yogur griego · Bebida de avena', en: 'Matcha tea · Banana · Greek yogurt · Oat drink', tag: { es: 'Energía sostenida y concentración.', en: 'Steady energy and focus.' } }
               ]
             },
             {
