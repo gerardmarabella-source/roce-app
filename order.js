@@ -48,13 +48,18 @@
   function hoursLabel(b) { var r = RULES[bk(b)]; return !r ? '' : r.from ? t('from') + ' ' + r.from : t('until') + ' ' + r.to; }
 
   /* Agotados: lo que el equipo apaga desde el panel (app_menu_items.active) */
-  var soldOut = {};
+  var soldOut = {}, dbPrice = {};   /* dbPrice: precio vigente por producto (lo sincroniza Ágora; manda sobre el de menu.js) */
   var itemKey = function (b, it) { return bk(b) + '|' + (it.code || it.name); };
   function loadAvail() {
-    fetch(B.url + '/rest/v1/app_menu_items?select=key,active', { headers: { apikey: B.anonKey, Authorization: 'Bearer ' + B.anonKey } })
+    fetch(B.url + '/rest/v1/app_menu_items?select=key,active,price_cents', { headers: { apikey: B.anonKey, Authorization: 'Bearer ' + B.anonKey } })
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (rows) { if (!rows) return; soldOut = {}; rows.forEach(function (x) { if (x.active === false) soldOut[x.key] = true; }); mark(); })
+      .then(function (rows) { if (!rows) return; soldOut = {}; rows.forEach(function (x) { if (x.active === false) soldOut[x.key] = true; if (typeof x.price_cents === 'number') dbPrice[x.key] = x.price_cents; }); applyPrices(); mark(); })
       .catch(function () {});
+  }
+  function applyPrices() {
+    D.sections.forEach(function (sec) { (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (b) { (b.items || []).forEach(function (it) {
+      var c = dbPrice[itemKey(b, it)]; if (c != null && typeof it.price === 'number') it.price = c / 100;
+    }); }); }); });
   }
   window.ROCE_AVAIL = {
     item: function (b, it) { return open(b) && !soldOut[itemKey(b, it)]; },
@@ -104,6 +109,7 @@
       if (!ok && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
       [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) {
         var mm = /^it-(.+)-(\d+)$/.exec(li.id || ''), it = mm && b.items[+mm[2]], sold = !!(it && soldOut[itemKey(b, it)]);
+        var pe = it && typeof it.price === 'number' && li.querySelector('.cv-price'), pt = pe && it.price.toFixed(2).replace('.', ',') + ' €'; if (pe && pe.textContent !== pt) pe.textContent = pt;
         if (ok && !sold) { li.removeAttribute('data-off'); li.removeAttribute('data-sold'); } else { li.setAttribute('data-off', ''); if (sold) li.setAttribute('data-sold', ''); else li.removeAttribute('data-sold'); }
       });
       sec.classList.toggle('is-na', !ok);
