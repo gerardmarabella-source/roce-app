@@ -59,7 +59,7 @@
   function applyPrices() {
     D.sections.forEach(function (sec) { (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (b) { (b.items || []).forEach(function (it) {
       var k = itemKey(b, it), c = dbPrice[k]; if (c != null && typeof it.price === 'number') it.price = c / 100;
-      var ex = dbExtras[k]; if (ex && b.extras) ex.forEach(function (x) { b.extras.list.forEach(function (e) { if (e[0].es === x.k && typeof e[1] === 'number' && typeof x.cents === 'number') e[1] = x.cents / 100; }); });
+      var ex = dbExtras[k]; if (ex && b.extras) ex.forEach(function (x) { b.extras.list.forEach(function (e) { if (e[0].es !== x.k || typeof x.cents !== 'number') return; if (typeof e[1] === 'number') e[1] = x.cents / 100; else if (typeof e[1] === 'string') e[1] = x.cents ? '+' + (x.cents / 100).toFixed(2).replace('.', ',') : ''; }); });
     }); }); }); });
   }
   window.ROCE_AVAIL = {
