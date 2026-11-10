@@ -48,17 +48,18 @@
   function hoursLabel(b) { var r = RULES[bk(b)]; return !r ? '' : r.from ? t('from') + ' ' + r.from : t('until') + ' ' + r.to; }
 
   /* Agotados: lo que el equipo apaga desde el panel (app_menu_items.active) */
-  var soldOut = {}, dbPrice = {};   /* dbPrice: precio vigente por producto (lo sincroniza Ágora; manda sobre el de menu.js) */
+  var soldOut = {}, dbPrice = {}, dbExtras = {};   /* dbPrice: precio vigente por producto (lo sincroniza Ágora; manda sobre el de menu.js) */
   var itemKey = function (b, it) { return bk(b) + '|' + (it.code || it.name); };
   function loadAvail() {
-    fetch(B.url + '/rest/v1/app_menu_items?select=key,active,price_cents', { headers: { apikey: B.anonKey, Authorization: 'Bearer ' + B.anonKey } })
+    fetch(B.url + '/rest/v1/app_menu_items?select=key,active,price_cents,extras', { headers: { apikey: B.anonKey, Authorization: 'Bearer ' + B.anonKey } })
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (rows) { if (!rows) return; soldOut = {}; rows.forEach(function (x) { if (x.active === false) soldOut[x.key] = true; if (typeof x.price_cents === 'number') dbPrice[x.key] = x.price_cents; }); applyPrices(); mark(); })
+      .then(function (rows) { if (!rows) return; soldOut = {}; rows.forEach(function (x) { if (x.active === false) soldOut[x.key] = true; if (typeof x.price_cents === 'number') dbPrice[x.key] = x.price_cents; if (Array.isArray(x.extras)) dbExtras[x.key] = x.extras; }); applyPrices(); mark(); })
       .catch(function () {});
   }
   function applyPrices() {
     D.sections.forEach(function (sec) { (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (b) { (b.items || []).forEach(function (it) {
-      var c = dbPrice[itemKey(b, it)]; if (c != null && typeof it.price === 'number') it.price = c / 100;
+      var k = itemKey(b, it), c = dbPrice[k]; if (c != null && typeof it.price === 'number') it.price = c / 100;
+      var ex = dbExtras[k]; if (ex && b.extras) ex.forEach(function (x) { b.extras.list.forEach(function (e) { if (e[0].es === x.k && typeof e[1] === 'number' && typeof x.cents === 'number') e[1] = x.cents / 100; }); });
     }); }); }); });
   }
   window.ROCE_AVAIL = {
@@ -475,6 +476,9 @@
   }
 
   paintMode(); paintBar(); mark(); loadAvail(); resolveTable(); setTimeout(handleReturn, 400);
+  /* Precios y agotados al día: Ágora manda en los precios (se sincronizan cada pocos minutos en la base de datos), así que la app los vuelve a leer sola. */
+  setInterval(function () { if (!document.hidden) loadAvail(); }, 120000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) loadAvail(); });
   window.ROCE_APP = { state: S, openItemById: function (id, preset) {
     var li = document.getElementById(id); if (!li || li.hasAttribute('data-off')) return;
     openItem(li); if (!cur) return;
