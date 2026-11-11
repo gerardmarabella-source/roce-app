@@ -38,7 +38,9 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .cv-sheet .cv-fs .cv-pick { width: 100%; }
 
 /* Cuenta */
-.ap-acct { display: block; width: 100%; margin-top: 1.2rem; padding: 0.9rem 0; border: 1.5px solid var(--black); background: transparent; color: var(--black); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.ap-acct { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; margin-top: 1.4rem; padding: 1rem 0.8rem; border: 1.5px solid var(--black); background: var(--black); color: #fff; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.ap-acct span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ap-acct:active { opacity: 0.85; }
 .ap-in { width: 100%; padding: 0.8rem 0.7rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); font: inherit; font-size: 1rem; border-radius: 0; }
 .ap-code { letter-spacing: 0.5em; font-size: 1.4rem; text-align: center; }
 .ap-msg { min-height: 1.2rem; margin: 0.5rem 0 0; font-size: 0.85rem; color: #a02020; opacity: 1; }
@@ -345,9 +347,10 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-pm-o small { font-size: 0.76rem; opacity: 0.75; line-height: 1.3; }
 
 /* Botones del carrito */
-.ap-c-act .cv-ghost { flex: 0 0 auto; padding-left: 0.9rem; padding-right: 0.9rem; border-color: transparent; text-decoration: underline; text-underline-offset: 4px; letter-spacing: 0.06em; }
-.ap-c-act .ap-c-pay { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.95rem 1rem; white-space: nowrap; }
-.ap-c-pay b { font-weight: 900; font-variant-numeric: tabular-nums; }
+.ap-c-act .cv-ghost { flex: 0 0 auto; padding-left: 0.6rem; padding-right: 0.6rem; border-color: transparent; white-space: nowrap; text-decoration: underline; text-underline-offset: 4px; letter-spacing: 0.06em; }
+.ap-c-act .ap-c-pay { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.95rem 1rem; white-space: nowrap; }
+.ap-c-pay span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.ap-c-pay b { flex: none; font-weight: 900; font-variant-numeric: tabular-nums; }
 
 /* Cómo lo quieres (mesa / recoger) */
 .ap-md { margin-top: 0.5rem; }
@@ -358,3 +361,71 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 #apDlg input.ap-in::placeholder { color: rgba(10, 10, 10, 0.4); }
 #apDlg input.ap-in:focus { outline: none; box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.18); }
 .ap-c-act .cv-solid[data-acct] { flex: 1.4; }
+
+/* Cuenta en la cabecera */
+.ap-hdr-acct { margin-left: auto; display: inline-grid; place-items: center; width: 2.2rem; height: 2.2rem; padding: 0; border: 1.5px solid rgba(255, 255, 255, 0.55); border-radius: 50%; background: transparent; color: #fff; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+.ap-hdr-acct.is-in { background: #fff; border-color: #fff; color: var(--black); }
+.ap-hdr-acct .ap-ini { font-style: normal; font-size: 0.9rem; font-weight: 800; }
+.ap-hdr-acct + .cv-menu-btn { margin-left: 0; }
+/* Campos de email y de nombre igual que el botón de Google (alto, borde fino, esquinas suaves) */
+#apDlg input.ap-in.ap-in-g { height: 2.5rem; padding: 0 0.9rem; border: 1px solid #dadce0; border-radius: 4px; }
+#apDlg input.ap-in.ap-in-g:focus { border-color: var(--black); box-shadow: 0 0 0 1px var(--black); }
+.ap-gwrap { margin: 0.4rem 0 0.2rem; }
+
+/* Tutorial: desliza para cambiar de carta */
+#apTour { position: fixed; left: 0; right: 0; bottom: calc(9.2rem + env(safe-area-inset-bottom)); z-index: 60; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; padding: 0 1rem; opacity: 0; transform: translateY(14px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
+#apTour.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.ap-tour-card { display: flex; align-items: center; gap: 0.9rem; width: min(24rem, 100%); padding: 0.9rem 1rem; border: 1.5px solid #fff; background: var(--black); color: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35); }
+.ap-tour-hand { position: relative; flex: none; width: 4rem; height: 2.5rem; }
+.ap-tour-hand i { position: absolute; top: 50%; left: 50%; width: 1.1rem; height: 1.1rem; margin: -0.55rem 0 0 -0.55rem; border-radius: 50%; background: #fff; animation: apSwipe 1.6s ease-in-out infinite; }
+@keyframes apSwipe { 0% { transform: translateX(-1.3rem); opacity: 0; } 15% { opacity: 1; } 70% { opacity: 1; } 100% { transform: translateX(1.3rem); opacity: 0; } }
+.ap-tour-t { display: grid; gap: 0.2rem; min-width: 0; }
+.ap-tour-t b { font-size: 1rem; font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; }
+.ap-tour-t span { font-size: 0.82rem; line-height: 1.35; opacity: 0.85; }
+.ap-tour-ok { padding: 0.45rem 1.2rem; border: 1.5px solid #fff; background: #fff; color: var(--black); font: inherit; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .ap-tour-hand i { animation: none; opacity: 1; } #apTour { transition: none; } }
+
+/* ── Móvil: las fichas suben desde abajo como hojas de una app (con asa y esquinas redondeadas) ── */
+@keyframes apSheetUp { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes apFade { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 560px) {
+  .cv-sheet, #apDlg, #cvSheet, #cvChef { width: 100% !important; max-width: 100% !important; margin: auto 0 0 0 !important; border: 0 !important; border-top: 2px solid var(--black) !important; border-radius: 18px 18px 0 0 !important; box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25); }
+  .cv-sheet[open] { animation: apSheetUp 0.3s cubic-bezier(0.22, 0.9, 0.3, 1); }
+  .cv-sheet[open]::backdrop { animation: apFade 0.25s ease-out; }
+  .cv-sheet .cv-sheet-in { position: relative; padding-top: 1.5rem !important; }
+  .cv-sheet .cv-sheet-in::before { content: ""; position: absolute; top: 0.55rem; left: 50%; width: 2.6rem; height: 4px; margin-left: -1.3rem; border-radius: 4px; background: rgba(10, 10, 10, 0.22); }
+  .cv-sheet-actions { padding-bottom: calc(0.2rem + env(safe-area-inset-bottom)) !important; }
+}
+@media (prefers-reduced-motion: reduce) { .cv-sheet[open], .cv-sheet[open]::backdrop { animation: none; } }
+/* Pulsaciones con respuesta, como en una app */
+.cv-solid:active, .cv-ghost:active, .ap-pm-o:active, .ap-acct:active, .ap-c-qty button:active, .ap-cartbar button:active { transform: scale(0.98); transition: transform 0.08s; }
+
+/* Mi cuenta */
+.ap-prof { display: flex; align-items: center; gap: 0.85rem; margin: 0.3rem 0 0.2rem; padding: 0.85rem; border: 1.5px solid var(--black); background: #faf8f3; }
+.ap-av { flex: none; display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 50%; background: var(--black); color: #fff; font-style: normal; font-size: 1.2rem; font-weight: 800; }
+.ap-prof-t { flex: 1; min-width: 0; display: grid; gap: 0.1rem; }
+.ap-prof-t b { font-size: 1rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ap-prof-t span { font-size: 0.8rem; opacity: 0.65; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ap-pill { flex: none; padding: 0.45rem 0.85rem; border: 1.5px solid var(--black); border-radius: 999px; background: #fff; color: var(--black); font: inherit; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+.ap-pill:active { background: var(--black); color: #fff; }
+.ap-orders { margin-top: 1.2rem; }
+.ap-orders-h { margin: 0 0 0.6rem; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.7; }
+.ap-order { margin: 0 0 0.6rem; padding: 0.8rem 0.9rem; border: 1.5px solid var(--black); background: #fff; }
+.ap-order-top b { font-weight: 800; letter-spacing: 0.04em; }
+.ap-order-top span { font-weight: 800; font-variant-numeric: tabular-nums; }
+.cv-sheet p.ap-chips { margin: 0.45rem 0 0.4rem; opacity: 1; }
+.ap-chip { display: inline-block; padding: 0.18rem 0.6rem; border-radius: 999px; background: var(--black); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 1; }
+.ap-chip.is-table { background: #fff; color: var(--black); border: 1.5px solid var(--black); }
+.ap-chip.is-ref { background: #e9e6df; color: var(--black); }
+
+.ap-order-help { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin: 0.55rem 0 0; }
+.ap-order-help > span { grid-column: 1 / -1; font-size: 0.74rem; opacity: 0.65; }
+.ap-order-help .ap-help-btn { text-align: center; padding: 0.45rem 0.4rem; }
+
+/* Todos los campos de la cuenta con el mismo aire que el del email */
+#apDlg input.ap-in, #apDlg select.ap-in { min-height: 2.75rem; border: 1px solid #c9c6bd; border-radius: 6px; }
+#apDlg input.ap-in:focus, #apDlg select.ap-in:focus { border-color: var(--black); box-shadow: 0 0 0 1px var(--black); }
+#apDlg input.ap-in.ap-in-g { min-height: 0; border-color: #dadce0; border-radius: 4px; }
+.ap-gbtn { min-height: 2.5rem; padding-top: 0.3rem; padding-bottom: 0.3rem; }
+#apDlg .ap-msg:empty + p { margin-top: 0.8rem; }
+#apDlg .cv-fs + .ap-msg + p, #apDlg .cv-fs + p { margin-top: 0.8rem; }
