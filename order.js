@@ -476,8 +476,8 @@
   }
 
   paintMode(); paintBar(); mark(); loadAvail(); resolveTable(); setTimeout(handleReturn, 400);
-  /* Precios y agotados al día: Ágora manda en los precios (se sincronizan cada pocos minutos en la base de datos), así que la app los vuelve a leer sola. */
-  setInterval(function () { if (!document.hidden) loadAvail(); }, 120000);
+  /* Precios y agotados al día: Ágora manda en los precios (se sincronizan cada minuto en la base de datos), así que la app los vuelve a leer sola cada 5 segundos mientras la pantalla está abierta. */
+  setInterval(function () { if (!document.hidden) loadAvail(); }, 5000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) loadAvail(); });
   window.ROCE_APP = { state: S, openItemById: function (id, preset) {
     var li = document.getElementById(id); if (!li || li.hasAttribute('data-off')) return;
