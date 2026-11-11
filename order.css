@@ -272,3 +272,34 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 /* foto pequeña de un extra dentro del plato */
 .ap-xth { width: 2.6rem; height: 2.6rem; flex: none; object-fit: cover; border: 1.5px solid var(--black); border-radius: 0.4rem; }
 .cv-pick .ap-xth + span { flex: 1; }
+
+/* ── Pedido recibido ── */
+.ap-danger { color: #b3261e; }
+.ap-ok-h { font-size: clamp(1.6rem, 7vw, 2.1rem); line-height: 1; }
+.ap-ok-top { display: flex; align-items: center; gap: 0.8rem; margin: 0.2rem 0 1rem; }
+.ap-ok-top p { margin: 0; font-size: 0.98rem; line-height: 1.35; }
+.ap-ok-badge { flex: none; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--black, #0a0a0a); color: #fff; }
+.ap-ok-steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; margin: 0 0 1.1rem; padding: 0; }
+.ap-ok-steps li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding-top: 0.1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; opacity: 0.45; }
+.ap-ok-steps li i { position: relative; z-index: 1; width: 0.95rem; height: 0.95rem; border-radius: 50%; border: 2px solid var(--black, #0a0a0a); background: #fff; }
+.ap-ok-steps li::before { content: ""; position: absolute; top: 0.55rem; left: -50%; width: 100%; height: 2px; background: var(--black, #0a0a0a); }
+.ap-ok-steps li:first-child::before { display: none; }
+.ap-ok-steps li.is-done, .ap-ok-steps li.is-now { opacity: 1; }
+.ap-ok-steps li.is-done i { background: var(--black, #0a0a0a); }
+.ap-ok-steps li.is-now i { background: #ffd84d; box-shadow: 0 0 0 4px rgba(255, 216, 77, 0.45); }
+.ap-ok-card { border: 1.5px solid var(--black, #0a0a0a); background: #fff; }
+.ap-ok-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(4.5rem, 1fr)); gap: 0.5rem; padding: 0.7rem 0.8rem; border-bottom: 1.5px solid var(--black, #0a0a0a); }
+.ap-ok-meta small { display: block; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
+.ap-ok-meta b { font-size: 1.05rem; letter-spacing: 0.02em; }
+.ap-ok-list { list-style: none; margin: 0; padding: 0.4rem 0.8rem; }
+.ap-ok-list li { display: grid; grid-template-columns: 2.2rem 1fr auto; gap: 0.4rem; padding: 0.4rem 0; border-top: 1px solid rgba(10, 10, 10, 0.13); font-size: 0.92rem; }
+.ap-ok-list li:first-child { border-top: 0; }
+.ap-ok-q { font-weight: 700; font-variant-numeric: tabular-nums; }
+.ap-ok-n em { display: block; font-style: normal; font-size: 0.78rem; opacity: 0.65; }
+.ap-ok-n i { font-style: normal; opacity: 0.7; }
+.ap-ok-p { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ap-ok-total { display: flex; justify-content: space-between; align-items: baseline; margin: 0; padding: 0.7rem 0.8rem; border-top: 1.5px solid var(--black, #0a0a0a); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.ap-ok-total b { font-size: 1.25rem; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.ap-ok-note { margin: 0.9rem 0 0.3rem; font-size: 0.9rem; line-height: 1.4; }
+.ap-ok-help { margin: 0.4rem 0 0; font-size: 0.82rem; opacity: 0.85; }
+.ap-ok-help a { color: inherit; font-weight: 700; text-underline-offset: 3px; }

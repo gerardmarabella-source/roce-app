@@ -6,7 +6,7 @@
   var UI = {
     es: { mesa: 'A mesa', mesa_s: 'Te lo llevamos', recoger: 'Recoger', recoger_s: 'Pasa a por él', mesa_n: 'Escanea el QR de tu mesa', where: 'Mesa', pick: 'Recoger', view: 'Ver pedido', your: 'Tu pedido', how: '¿Cómo lo quieres?',
       choose: 'Elige', pick_h: 'Elige {n} sabores', pick_left: 'Faltan {k}', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alguna alergia o petición especial…', note_bar: 'Nota para barra', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
-      paying: 'Preparando el pago…', ok_h: 'Pedido recibido', ok_p: 'Gracias. Tu pedido ya está en cocina.', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
+      paying: 'Preparando el pago…', ok_h: '¡Pedido recibido!', ok_p: 'Tu pedido ya está en cocina.', ok_thanks: 'Gracias', ok_when: 'Hora', ok_total: 'Total', ok_s_paid: 'Pagado', ok_s_kitchen: 'En cocina', ok_s_table: 'En tu mesa', ok_s_pick: 'Listo para recoger', ok_mail: 'Te hemos enviado el resumen a', ok_help: '¿Algún problema con tu pedido?', ok_wa: 'Escríbenos por WhatsApp', ok_orders: 'Mis pedidos', ok_back: 'Volver a la carta', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
       warn_h: 'Cuidado: alérgenos', warn_contains: 'contiene', warn_p: 'Son alérgenos que has marcado en tu perfil o en los filtros de la carta.', warn_team: 'Si lo pides, avisa también a nuestro equipo de tu alergia. ¿Quieres añadirlo igualmente?', warn_back: 'Volver', warn_ok: 'Añadir igualmente',
       pair_ing: 'Ingredientes', pair_al: 'Alérgenos',
@@ -14,7 +14,7 @@
       from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', pick_h: 'Choose {n} flavours', pick_left: '{k} to go', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Any allergy or special request…', note_bar: 'Note for the bar', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
-      paying: 'Preparing payment…', ok_h: 'Order received', ok_p: 'Thank you. Your order is in the kitchen.', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
+      paying: 'Preparing payment…', ok_h: 'Order received!', ok_p: 'Your order is in the kitchen.', ok_thanks: 'Thank you', ok_when: 'Time', ok_total: 'Total', ok_s_paid: 'Paid', ok_s_kitchen: 'In the kitchen', ok_s_table: 'At your table', ok_s_pick: 'Ready to collect', ok_mail: 'We have emailed the summary to', ok_help: 'Any problem with your order?', ok_wa: 'Message us on WhatsApp', ok_orders: 'My orders', ok_back: 'Back to the menu', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
       warn_h: 'Careful: allergens', warn_contains: 'contains', warn_p: 'These are allergens you marked in your profile or in the menu filters.', warn_team: 'If you order it, please also tell our team about your allergy. Do you still want to add it?', warn_back: 'Back', warn_ok: 'Add anyway',
       pair_ing: 'Ingredients', pair_al: 'Allergens',
@@ -377,8 +377,9 @@
   $('apModeBtn').addEventListener('click', openMode);
   $('apCartOpen').addEventListener('click', openCart);
   dlg.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-close],[data-mode],[data-v],[data-mx],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairsheet],[data-pairno],[data-warnback],[data-warnok]'); if (!el || el.disabled) return;
+    var el = e.target.closest('[data-close],[data-okorders],[data-mode],[data-v],[data-mx],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairsheet],[data-pairno],[data-warnback],[data-warnok]'); if (!el || el.disabled) return;
     if (el.hasAttribute('data-close')) hide();
+    else if (el.hasAttribute('data-okorders')) { hide(); if (window.ROCE_ACCT) window.ROCE_ACCT.open(); }
     else if (el.dataset.mode) { S.mode = el.dataset.mode; save(); paintMode(); openMode(); }
     else if (el.dataset.v !== undefined && cur) { keepNote(); cur.variant = +el.dataset.v; paintItem(); }
     else if (el.dataset.mx !== undefined && cur) { keepNote(); var mm2 = el.dataset.mx.split(':'), k3 = +mm2[0], d3 = +mm2[1], n3 = cur.mix[k3] + d3; if (n3 >= 0 && mixSum() + d3 <= cur.it.pick) cur.mix[k3] = n3; paintItem(); }
@@ -449,13 +450,32 @@
     var tries = 0, shown = false;
     function paint(o) {
       var paid = o && o.payment_status === 'paid';
-      var where = o && o.mode === 'mesa' ? t('ok_table') + (o.table_name ? ' · ' + t('where') + ' ' + esc(o.table_name) : '') : t('ok_pick');
       view = 'msg';
-      show('<h2>' + t('ok_h') + '</h2><div class="cv-sheet-body"><p><b>' + t('ok_ref') + ' ' + esc(ret.ref) + '</b></p><p>' + (paid ? t('ok_p') + '</p><p>' + where : t('ok_wait')) + '</p></div><div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + t('close') + '</button></div>');
+      if (!paid) {
+        show('<h2>' + t('ok_h') + '</h2><div class="cv-sheet-body"><p><b>' + t('ok_ref') + ' ' + esc(ret.ref) + '</b></p><p>' + t('ok_wait') + '</p></div><div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + t('close') + '</button></div>');
+        shown = true; return;
+      }
+      var mesa = o.mode === 'mesa', first = String(o.name || '').trim().split(/\s+/)[0];
+      var hm = o.paid_at ? new Intl.DateTimeFormat(L() === 'en' ? 'en-GB' : 'es-ES', { timeZone: 'Europe/Madrid', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(o.paid_at)) : '';
+      var rows = (o.app_order_items || []).map(function (l) {
+        var ex = Array.isArray(l.extras) && l.extras.length ? l.extras.join(', ') : '';
+        return '<li><span class="ap-ok-q">' + l.qty + '×</span><span class="ap-ok-n">' + esc(l.name) + (l.variant ? ' <i>(' + esc(l.variant) + ')</i>' : '') + (ex ? '<em>+ ' + esc(ex) + '</em>' : '') + (l.note ? '<em>' + esc(l.note) + '</em>' : '') + '</span><span class="ap-ok-p">' + money(l.unit_cents * l.qty) + '</span></li>';
+      }).join('');
+      var wa = 'https://wa.me/34614073163?text=' + encodeURIComponent((L() === 'en' ? 'Hi, I need help with my order ' : 'Hola, necesito ayuda con mi pedido ') + ret.ref);
+      show('<h2 class="ap-ok-h">' + t('ok_h') + '</h2><div class="cv-sheet-body">' +
+        '<div class="ap-ok-top"><span class="ap-ok-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>' +
+        '<p>' + t('ok_thanks') + (first ? ', ' + esc(first) : '') + '. ' + t('ok_p') + '</p></div>' +
+        '<ol class="ap-ok-steps"><li class="is-done"><i></i><span>' + t('ok_s_paid') + '</span></li><li class="is-now"><i></i><span>' + t('ok_s_kitchen') + '</span></li><li><i></i><span>' + (mesa ? t('ok_s_table') : t('ok_s_pick')) + '</span></li></ol>' +
+        '<div class="ap-ok-card"><div class="ap-ok-meta"><div><small>' + t('ok_ref') + '</small><b>' + esc(ret.ref) + '</b></div><div><small>' + (mesa ? t('where') : t('recoger')) + '</small><b>' + (mesa ? esc(o.table_name || '') : '·') + '</b></div>' + (hm ? '<div><small>' + t('ok_when') + '</small><b>' + hm + '</b></div>' : '') + '</div>' +
+        (rows ? '<ul class="ap-ok-list">' + rows + '</ul>' : '') +
+        '<p class="ap-ok-total"><span>' + t('ok_total') + '</span><b>' + money(o.total_cents) + '</b></p></div>' +
+        '<p class="ap-ok-note">' + (mesa ? t('ok_table') + ' ' + esc(o.table_name || '') + '.' : t('ok_pick') + '.') + (o.email ? ' ' + t('ok_mail') + ' <b>' + esc(o.email) + '</b>.' : '') + '</p>' +
+        '<p class="ap-ok-help">' + t('ok_help') + ' <a href="' + wa + '" target="_blank" rel="noopener">' + t('ok_wa') + '</a></p>' +
+        '</div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-okorders>' + t('ok_orders') + '</button><button type="button" class="cv-solid" data-close>' + t('ok_back') + '</button></div>');
       shown = true;
     }
     function poll() {
-      window.ROCE_ACCT.rest('GET', '/rest/v1/app_orders?select=ref,mode,table_name,status,payment_status&ref=eq.' + encodeURIComponent(ret.ref) + '&limit=1').then(function (a) {
+      window.ROCE_ACCT.rest('GET', '/rest/v1/app_orders?select=ref,mode,table_name,status,payment_status,total_cents,name,email,paid_at,app_order_items(name,qty,variant,extras,unit_cents,note)&ref=eq.' + encodeURIComponent(ret.ref) + '&limit=1').then(function (a) {
         var o = a && a[0]; paint(o);
         if ((!o || o.payment_status !== 'paid') && ++tries < 12) setTimeout(poll, 2500);
       }).catch(function () { if (!shown) paint(null); if (++tries < 12) setTimeout(poll, 2500); });
