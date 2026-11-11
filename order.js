@@ -6,7 +6,7 @@
   var UI = {
     es: { mesa: 'A mesa', mesa_s: 'Te lo llevamos', recoger: 'Recoger', recoger_s: 'Pasa a por él', mesa_n: 'Escanea el QR de tu mesa', where: 'Mesa', pick: 'Recoger', view: 'Ver pedido', your: 'Tu pedido', how: '¿Cómo lo quieres?',
       choose: 'Elige', pick_h: 'Elige {n} sabores', pick_left: 'Faltan {k}', extras: 'Extras', note: 'Nota para cocina', note_ph: 'Alguna alergia o petición especial…', note_bar: 'Nota para barra', add: 'Añadir', off: 'No disponible', close: 'Cerrar', total: 'Total', pay: 'Continuar al pago', soon: 'El pago llega en el siguiente paso.', empty: 'Todavía no has añadido nada.',
-      paying: 'Preparando el pago…', ok_h: '¡Pedido recibido!', ok_p: 'Tu pedido ya está en cocina.', ok_thanks: 'Gracias', ok_when: 'Hora', ok_total: 'Total', ok_s_paid: 'Pagado', ok_s_kitchen: 'En cocina', ok_s_table: 'En tu mesa', ok_s_pick: 'Listo para recoger', ok_mail: 'Te hemos enviado el resumen a', ok_help: '¿Algún problema con tu pedido?', ok_wa: 'Escríbenos por WhatsApp', ok_orders: 'Mis pedidos', ok_back: 'Volver a la carta', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
+      paying: 'Preparando el pago…', pm_h: 'Cómo quieres pagar', pm_card: 'Tarjeta', pm_card_s: 'Pagas ahora, al instante', pm_table: 'Pagar en mesa', pm_table_s: 'Un camarero te cobra al servirte (efectivo o tarjeta)', pay_table: 'Enviar pedido a cocina', paying_t: 'Enviando tu pedido…', ok_h_t: '¡Pedido enviado!', ok_p_t: 'Tu pedido ya está en cocina.', ok_s_sent: 'Enviado', ok_s_table_pay: 'En tu mesa y te cobramos', ok_total_t: 'A pagar en mesa', ok_pay_t: 'Un camarero te cobrará cuando te lo sirva. Puedes pagar en efectivo o con tarjeta.', e_pt_off: 'El pago en mesa no está disponible ahora. Paga con tarjeta.', e_pt_big: 'Para pedidos de más de 150 € el pago es con tarjeta.', e_pt_many: 'Ya tienes varios pedidos pendientes de cobro en esta mesa. Avisa a un camarero.', ok_h: '¡Pedido recibido!', ok_p: 'Tu pedido ya está en cocina.', ok_thanks: 'Gracias', ok_when: 'Hora', ok_total: 'Total', ok_s_paid: 'Pagado', ok_s_kitchen: 'En cocina', ok_s_table: 'En tu mesa', ok_s_pick: 'Listo para recoger', ok_mail: 'Te hemos enviado el resumen a', ok_help: '¿Algún problema con tu pedido?', ok_wa: 'Escríbenos por WhatsApp', ok_orders: 'Mis pedidos', ok_back: 'Volver a la carta', ok_wait: 'Estamos confirmando tu pago…', ok_ref: 'Pedido', ok_table: 'Te lo llevamos a la mesa', ok_pick: 'Pasa a recogerlo cuando te avisemos', ko_h: 'Pago no completado', ko_p: 'No se ha cobrado nada. Tu pedido sigue en el carrito para que lo intentes de nuevo.',
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
       warn_h: 'Cuidado: alérgenos', warn_contains: 'contiene', warn_p: 'Son alérgenos que has marcado en tu perfil o en los filtros de la carta.', warn_team: 'Si lo pides, avisa también a nuestro equipo de tu alergia. ¿Quieres añadirlo igualmente?', warn_back: 'Volver', warn_ok: 'Añadir igualmente',
       pair_ing: 'Ingredientes', pair_al: 'Alérgenos',
@@ -14,16 +14,16 @@
       from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', pick_h: 'Choose {n} flavours', pick_left: '{k} to go', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Any allergy or special request…', note_bar: 'Note for the bar', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Continue to payment', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
-      paying: 'Preparing payment…', ok_h: 'Order received!', ok_p: 'Your order is in the kitchen.', ok_thanks: 'Thank you', ok_when: 'Time', ok_total: 'Total', ok_s_paid: 'Paid', ok_s_kitchen: 'In the kitchen', ok_s_table: 'At your table', ok_s_pick: 'Ready to collect', ok_mail: 'We have emailed the summary to', ok_help: 'Any problem with your order?', ok_wa: 'Message us on WhatsApp', ok_orders: 'My orders', ok_back: 'Back to the menu', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
+      paying: 'Preparing payment…', pm_h: 'How would you like to pay', pm_card: 'Card', pm_card_s: 'Pay now, instantly', pm_table: 'Pay at the table', pm_table_s: 'A waiter charges you when serving (cash or card)', pay_table: 'Send order to the kitchen', paying_t: 'Sending your order…', ok_h_t: 'Order sent!', ok_p_t: 'Your order is in the kitchen.', ok_s_sent: 'Sent', ok_s_table_pay: 'At your table, then we charge you', ok_total_t: 'To pay at the table', ok_pay_t: 'A waiter will charge you when serving. You can pay in cash or by card.', e_pt_off: 'Pay at the table is not available right now. Please pay by card.', e_pt_big: 'Orders over €150 must be paid by card.', e_pt_many: 'You already have several orders waiting to be paid at this table. Please call a waiter.', ok_h: 'Order received!', ok_p: 'Your order is in the kitchen.', ok_thanks: 'Thank you', ok_when: 'Time', ok_total: 'Total', ok_s_paid: 'Paid', ok_s_kitchen: 'In the kitchen', ok_s_table: 'At your table', ok_s_pick: 'Ready to collect', ok_mail: 'We have emailed the summary to', ok_help: 'Any problem with your order?', ok_wa: 'Message us on WhatsApp', ok_orders: 'My orders', ok_back: 'Back to the menu', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
       warn_h: 'Careful: allergens', warn_contains: 'contains', warn_p: 'These are allergens you marked in your profile or in the menu filters.', warn_team: 'If you order it, please also tell our team about your allergy. Do you still want to add it?', warn_back: 'Back', warn_ok: 'Add anyway',
       pair_ing: 'Ingredients', pair_al: 'Allergens',
       pair_h: 'Something to go with it?', pair_all: 'See the full', pair_p: 'These go well with your', pair_no: 'No, thanks', pair_done: 'Done',
       from: 'From', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
-  var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [], party: 2 };
+  var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [], party: 2, pm: 'card' };
   var B = window.ROCE_BACKEND;
-  try { var sv = JSON.parse(localStorage.getItem(LS) || '{}'); S.cart = Array.isArray(sv.cart) ? sv.cart : []; S.mesa = sv.mesa || ''; S.mesaName = sv.mesaName || ''; S.party = Math.max(1, Math.min(20, +sv.party || 2)); S.mode = sv.mode || 'recoger'; } catch (e) {}
+  try { var sv = JSON.parse(localStorage.getItem(LS) || '{}'); S.cart = Array.isArray(sv.cart) ? sv.cart : []; S.mesa = sv.mesa || ''; S.mesaName = sv.mesaName || ''; S.party = Math.max(1, Math.min(20, +sv.party || 2)); S.mode = sv.mode || 'recoger'; S.pm = sv.pm === 'table' ? 'table' : 'card'; } catch (e) {}
   var q = new URLSearchParams(location.search);
   if (q.get('m')) { S.mesa = String(q.get('m')).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40); S.mesaName = ''; S.mode = S.mesa ? 'mesa' : 'recoger'; history.replaceState(null, '', '/' + location.hash); }
   var ret = q.get('pago') ? { st: q.get('pago'), ref: String(q.get('ref') || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 12) } : null;
@@ -353,13 +353,19 @@
   /* Pedido */
   function totals() { var n = 0, c = 0; S.cart.forEach(function (l) { n += l.qty; c += l.qty * l.unit; }); return { n: n, c: c }; }
   function paintBar() { var s = totals(); $('apCartBar').hidden = !s.n; document.body.classList.toggle('ap-has-cart', !!s.n); $('apCartQty').textContent = s.n; $('apCartLbl').textContent = t('view'); $('apCartTot').textContent = money(s.c); }
+  /* Pago en mesa: solo para pedidos a mesa y hasta 150 € (la base de datos lo vuelve a comprobar). */
+  function canTable(c) { return S.mode === 'mesa' && !!S.mesa && c > 0 && c <= 15000; }
   function openCart() {
     view = 'cart'; var s = totals(), h = '<h2>' + t('your') + '</h2><div class="cv-sheet-body"><p>' + (S.mode === 'mesa' ? t('where') + ' ' + esc(mesaLabel()) + ' · ' + t('to_table') : t('to_pick')) + '</p>';
     if (S.mode === 'mesa' && S.cart.length) h += '<div class="ap-party"><span>' + t('party') + '</span><div class="ap-qty"><button type="button" data-party="-1" aria-label="-">−</button><b>' + S.party + '</b><button type="button" data-party="1" aria-label="+">+</button></div></div>';
     if (!S.cart.length) h += '<p>' + t('empty') + '</p>';
     else h += S.cart.map(function (l, i) { return '<div class="ap-line"><div class="ap-line-b"><b>' + esc(l.name) + '</b>' + (l.detail ? '<span>' + esc(l.detail) + '</span>' : '') + (l.note ? '<span>“' + esc(l.note) + '”</span>' : '') + '</div><div class="ap-line-r"><div>' + money(l.unit * l.qty) + '</div><div class="ap-qty"><button type="button" data-cq="' + i + ':-1" aria-label="-">−</button><b>' + l.qty + '</b><button type="button" data-cq="' + i + ':1" aria-label="+">+</button></div></div></div>'; }).join('') +
       '<div class="ap-total"><span>' + t('total') + '</span><span>' + money(s.c) + '</span></div>';
-    h += '</div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button>' + (S.cart.length ? '<button type="button" class="cv-solid" data-pay>' + t('pay') + '</button>' : '') + '</div>';
+    var tbl = canTable(s.c);
+    if (tbl) h += '<div class="ap-pm" role="radiogroup" aria-label="' + esc(t('pm_h')) + '"><p class="ap-pm-h">' + t('pm_h') + '</p>' +
+      '<button type="button" role="radio" aria-checked="' + (S.pm !== 'table') + '" class="ap-pm-o' + (S.pm !== 'table' ? ' is-on' : '') + '" data-pm="card"><i></i><span><b>' + t('pm_card') + '</b><small>' + t('pm_card_s') + '</small></span></button>' +
+      '<button type="button" role="radio" aria-checked="' + (S.pm === 'table') + '" class="ap-pm-o' + (S.pm === 'table' ? ' is-on' : '') + '" data-pm="table"><i></i><span><b>' + t('pm_table') + '</b><small>' + t('pm_table_s') + '</small></span></button></div>';
+    h += '</div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button>' + (S.cart.length ? '<button type="button" class="cv-solid" data-pay>' + (tbl && S.pm === 'table' ? t('pay_table') : t('pay')) + '</button>' : '') + '</div>';
     show(h);
   }
 
@@ -377,7 +383,7 @@
   $('apModeBtn').addEventListener('click', openMode);
   $('apCartOpen').addEventListener('click', openCart);
   dlg.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-close],[data-okorders],[data-mode],[data-v],[data-mx],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairsheet],[data-pairno],[data-warnback],[data-warnok]'); if (!el || el.disabled) return;
+    var el = e.target.closest('[data-close],[data-okorders],[data-mode],[data-v],[data-mx],[data-x],[data-q],[data-cq],[data-addcart],[data-pay],[data-pm],[data-fold],[data-pr],[data-party],[data-scan],[data-pair],[data-pairsheet],[data-pairno],[data-warnback],[data-warnok]'); if (!el || el.disabled) return;
     if (el.hasAttribute('data-close')) hide();
     else if (el.hasAttribute('data-okorders')) { hide(); if (window.ROCE_ACCT) window.ROCE_ACCT.open(); }
     else if (el.dataset.mode) { S.mode = el.dataset.mode; save(); paintMode(); openMode(); }
@@ -396,7 +402,8 @@
     else if (el.dataset.party) { S.party = Math.max(1, Math.min(20, S.party + (+el.dataset.party))); save(); openCart(); }
     else if (el.hasAttribute('data-fold') && cur) { keepNote(); cur.openG[el.dataset.fold] = !cur.openG[el.dataset.fold]; paintItem(); }
     else if (el.dataset.pr !== undefined && cur) { keepNote(); var pp = el.dataset.pr.split(':'), arr = cur.sel[pp[0]], kp = +pp[1], ip = arr.indexOf(kp); if (ip === -1) arr.push(kp); else arr.splice(ip, 1); paintItem(); }
-    else if (el.hasAttribute('data-pay')) { if (window.ROCE_ACCT) window.ROCE_ACCT.require(function () { startCheckout(); }); }
+    else if (el.dataset.pm) { S.pm = el.dataset.pm === 'table' ? 'table' : 'card'; save(); openCart(); }
+    else if (el.hasAttribute('data-pay')) { var useT = S.pm === 'table' && canTable(totals().c); if (window.ROCE_ACCT) window.ROCE_ACCT.require(function () { if (useT) startTablePay(); else startCheckout(); }); }
   });
 
 
@@ -409,6 +416,9 @@
     if (/item_unavailable|bad_variant|bad_extra/.test(m)) return t('e_unav') + ' ' + m.split(':').slice(1).join(':');
     if (/bad_table/.test(m)) return t('e_table');
     if (/too_many_pending/.test(m)) return t('e_pend');
+    if (/pay_table_off|table_only/.test(m)) return t('e_pt_off');
+    if (/too_big/.test(m)) return t('e_pt_big');
+    if (/too_many_table/.test(m)) return t('e_pt_many');
     if (x && x.status === undefined && /fetch|network|Failed/i.test(m)) return t('e_net');
     return t('e_gen');
   }
@@ -442,14 +452,26 @@
       .then(function (p) { postToBank(p); })
       .catch(function (x) { paying = false; showMsg(t('your'), (x && x.message === 'disabled') || (x && x.status === 503) ? t('e_dis') : errText(x)); });
   }
-  /* Vuelta del banco: ?pago=ok|ko&ref=… */
-  function handleReturn() {
-    if (!ret) return;
+  /* Pago en mesa: se crea el pedido y se marca «a cobrar en mesa»; entra en cocina sin pasar por el banco. */
+  function startTablePay() {
+    if (paying || !S.cart.length || !canTable(totals().c)) return;
+    paying = true; view = 'msg'; show('<h2>' + t('paying_t') + '</h2><div class="cv-sheet-body"><p>&nbsp;</p></div>');
+    var items = S.cart.map(function (l) { return { key: l.item, qty: l.qty, variant: l.variant || '', extras: l.extras || [], note: l.note || '' }; });
+    window.ROCE_ACCT.rest('POST', '/rest/v1/rpc/app_create_order', { p_mode: S.mode, p_code: S.mesa, p_notes: '', p_items: items, p_party: S.party })
+      .then(function (r) {
+        return window.ROCE_ACCT.rest('POST', '/rest/v1/rpc/app_order_pay_at_table', { p_order: r.id }).then(function (x) { return { ref: (x && x.ref) || r.ref }; });
+      })
+      .then(function (r) { paying = false; handleReturn({ st: 'ok', ref: String(r.ref).replace(/[^A-Za-z0-9]/g, '').slice(0, 12) }); })
+      .catch(function (x) { paying = false; showMsg(t('your'), errText(x)); });
+  }
+  /* Vuelta del banco: ?pago=ok|ko&ref=… (o, en pago en mesa, llamada directa) */
+  function handleReturn(rr) {
+    var ret = rr; if (!ret) return;
     if (ret.st !== 'ok') { showMsg(t('ko_h'), t('ko_p')); return; }
     S.cart = []; save(); paintBar();
     var tries = 0, shown = false;
     function paint(o) {
-      var paid = o && o.payment_status === 'paid';
+      var paid = o && (o.payment_status === 'paid' || o.payment_status === 'table'), isT = !!(o && o.payment_status === 'table');
       view = 'msg';
       if (!paid) {
         show('<h2>' + t('ok_h') + '</h2><div class="cv-sheet-body"><p><b>' + t('ok_ref') + ' ' + esc(ret.ref) + '</b></p><p>' + t('ok_wait') + '</p></div><div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + t('close') + '</button></div>');
@@ -462,14 +484,14 @@
         return '<li><span class="ap-ok-q">' + l.qty + '×</span><span class="ap-ok-n">' + esc(l.name) + (l.variant ? ' <i>(' + esc(l.variant) + ')</i>' : '') + (ex ? '<em>+ ' + esc(ex) + '</em>' : '') + (l.note ? '<em>' + esc(l.note) + '</em>' : '') + '</span><span class="ap-ok-p">' + money(l.unit_cents * l.qty) + '</span></li>';
       }).join('');
       var wa = 'https://wa.me/34614073163?text=' + encodeURIComponent((L() === 'en' ? 'Hi, I need help with my order ' : 'Hola, necesito ayuda con mi pedido ') + ret.ref);
-      show('<h2 class="ap-ok-h">' + t('ok_h') + '</h2><div class="cv-sheet-body">' +
+      show('<h2 class="ap-ok-h">' + t(isT ? 'ok_h_t' : 'ok_h') + '</h2><div class="cv-sheet-body">' +
         '<div class="ap-ok-top"><span class="ap-ok-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>' +
-        '<p>' + t('ok_thanks') + (first ? ', ' + esc(first) : '') + '. ' + t('ok_p') + '</p></div>' +
-        '<ol class="ap-ok-steps"><li class="is-done"><i></i><span>' + t('ok_s_paid') + '</span></li><li class="is-now"><i></i><span>' + t('ok_s_kitchen') + '</span></li><li><i></i><span>' + (mesa ? t('ok_s_table') : t('ok_s_pick')) + '</span></li></ol>' +
+        '<p>' + t('ok_thanks') + (first ? ', ' + esc(first) : '') + '. ' + t(isT ? 'ok_p_t' : 'ok_p') + '</p></div>' +
+        '<ol class="ap-ok-steps"><li class="is-done"><i></i><span>' + t(isT ? 'ok_s_sent' : 'ok_s_paid') + '</span></li><li class="is-now"><i></i><span>' + t('ok_s_kitchen') + '</span></li><li><i></i><span>' + (isT ? t('ok_s_table_pay') : mesa ? t('ok_s_table') : t('ok_s_pick')) + '</span></li></ol>' +
         '<div class="ap-ok-card"><div class="ap-ok-meta"><div><small>' + t('ok_ref') + '</small><b>' + esc(ret.ref) + '</b></div><div><small>' + (mesa ? t('where') : t('recoger')) + '</small><b>' + (mesa ? esc(o.table_name || '') : '·') + '</b></div>' + (hm ? '<div><small>' + t('ok_when') + '</small><b>' + hm + '</b></div>' : '') + '</div>' +
         (rows ? '<ul class="ap-ok-list">' + rows + '</ul>' : '') +
-        '<p class="ap-ok-total"><span>' + t('ok_total') + '</span><b>' + money(o.total_cents) + '</b></p></div>' +
-        '<p class="ap-ok-note">' + (mesa ? t('ok_table') + ' ' + esc(o.table_name || '') + '.' : t('ok_pick') + '.') + (o.email ? ' ' + t('ok_mail') + ' <b>' + esc(o.email) + '</b>.' : '') + '</p>' +
+        '<p class="ap-ok-total"><span>' + t(isT ? 'ok_total_t' : 'ok_total') + '</span><b>' + money(o.total_cents) + '</b></p></div>' +
+        '<p class="ap-ok-note">' + (isT ? t('ok_pay_t') : mesa ? t('ok_table') + ' ' + esc(o.table_name || '') + '.' : t('ok_pick') + '.') + (o.email && !isT ? ' ' + t('ok_mail') + ' <b>' + esc(o.email) + '</b>.' : '') + '</p>' +
         '<p class="ap-ok-help">' + t('ok_help') + ' <a href="' + wa + '" target="_blank" rel="noopener">' + t('ok_wa') + '</a></p>' +
         '</div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-okorders>' + t('ok_orders') + '</button><button type="button" class="cv-solid" data-close>' + t('ok_back') + '</button></div>');
       shown = true;
@@ -477,7 +499,7 @@
     function poll() {
       window.ROCE_ACCT.rest('GET', '/rest/v1/app_orders?select=ref,mode,table_name,status,payment_status,total_cents,name,email,paid_at,app_order_items(name,qty,variant,extras,unit_cents,note)&ref=eq.' + encodeURIComponent(ret.ref) + '&limit=1').then(function (a) {
         var o = a && a[0]; paint(o);
-        if ((!o || o.payment_status !== 'paid') && ++tries < 12) setTimeout(poll, 2500);
+        if ((!o || (o.payment_status !== 'paid' && o.payment_status !== 'table')) && ++tries < 12) setTimeout(poll, 2500);
       }).catch(function () { if (!shown) paint(null); if (++tries < 12) setTimeout(poll, 2500); });
     }
     poll();
@@ -495,7 +517,7 @@
       }).catch(function () { return null; });
   }
 
-  paintMode(); paintBar(); mark(); loadAvail(); resolveTable(); setTimeout(handleReturn, 400);
+  paintMode(); paintBar(); mark(); loadAvail(); resolveTable(); setTimeout(function () { handleReturn(ret); }, 400);
   /* Precios y agotados al día: Ágora manda en los precios (se sincronizan cada minuto en la base de datos), así que la app los vuelve a leer sola cada 5 segundos mientras la pantalla está abierta. */
   setInterval(function () { if (!document.hidden) loadAvail(); }, 5000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) loadAvail(); });

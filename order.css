@@ -248,7 +248,7 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-pair-p i { font-size: 0; background: linear-gradient(#fff, #fff) center / 56% 2px no-repeat, linear-gradient(#fff, #fff) center / 2px 56% no-repeat, var(--black); }
 
 /* Foto del plato en el diálogo */
-.ap-photo { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin: 0 0 0.8rem; background: #1a1a1a; }
+.ap-photo { display: block; width: auto; max-width: 100%; height: auto; max-height: min(58vh, 28rem); margin: 0 auto 0.9rem; background: transparent; }
 
 /* El Trío: reparto de 3 tacos entre sabores */
 .ap-mix-row { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.55rem 0; border-bottom: 1px solid rgba(10, 10, 10, 0.18); }
@@ -303,3 +303,15 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-ok-note { margin: 0.9rem 0 0.3rem; font-size: 0.9rem; line-height: 1.4; }
 .ap-ok-help { margin: 0.4rem 0 0; font-size: 0.82rem; opacity: 0.85; }
 .ap-ok-help a { color: inherit; font-weight: 700; text-underline-offset: 3px; }
+
+/* Cómo pagar (carrito) */
+.ap-pm { margin: 1rem 0 0; display: grid; gap: 0.5rem; }
+.ap-pm-h { margin: 0 0 0.1rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.ap-pm-o { display: flex; align-items: center; gap: 0.8rem; width: 100%; padding: 0.75rem 0.85rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); font: inherit; text-align: left; cursor: pointer; }
+.ap-pm-o i { flex: none; width: 1.15rem; height: 1.15rem; border: 1.5px solid var(--black); border-radius: 50%; position: relative; }
+.ap-pm-o.is-on { background: var(--black); color: #fff; }
+.ap-pm-o.is-on i { border-color: #fff; }
+.ap-pm-o.is-on i::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: #fff; }
+.ap-pm-o span { display: grid; gap: 0.1rem; min-width: 0; }
+.ap-pm-o b { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.02em; }
+.ap-pm-o small { font-size: 0.78rem; opacity: 0.75; line-height: 1.3; }
