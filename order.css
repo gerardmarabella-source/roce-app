@@ -434,3 +434,19 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-narrow { max-width: 400px; margin: 0 auto; }
 .ap-narrow .ap-gwrap { width: 100%; }
 .ap-narrow .ap-in-g { width: 100%; }
+
+/* Confirmar el pedido en 10 segundos */
+.cv-sheet p.ap-cf-p { margin: 0.3rem 0 0.8rem; font-size: 0.9rem; opacity: 0.8; }
+.ap-cf-list { list-style: none; margin: 0 0 0.4rem; padding: 0; max-height: 11rem; overflow-y: auto; border-top: 1px solid rgba(10, 10, 10, 0.16); }
+.ap-cf-list li { display: flex; gap: 0.6rem; align-items: baseline; padding: 0.5rem 0; border-bottom: 1px solid rgba(10, 10, 10, 0.1); font-size: 0.92rem; }
+.ap-cf-q { flex: none; min-width: 1.6rem; font-weight: 800; }
+.ap-cf-n { flex: 1; min-width: 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; }
+.ap-cf-n em { display: block; margin-top: 0.1rem; font-style: normal; font-weight: 400; font-size: 0.76rem; text-transform: none; opacity: 0.65; }
+.ap-cf-list b { flex: none; font-variant-numeric: tabular-nums; }
+.ap-cf-bar { height: 0.55rem; margin: 0.9rem 0 0.5rem; background: #e4e1d9; overflow: hidden; }
+.ap-cf-bar i { display: block; height: 100%; width: 100%; background: var(--black); transform-origin: left center; animation-name: apCfDrain; animation-timing-function: linear; animation-fill-mode: forwards; }
+@keyframes apCfDrain { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+.cv-sheet p.ap-cf-n2 { margin: 0 0 0.4rem; text-align: center; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 1; }
+.ap-cf-n2 b { display: inline-block; min-width: 1.4ch; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.ap-c-act .ap-cf-no { flex: 1; border-color: var(--black); text-decoration: none; padding-left: 0.9rem; padding-right: 0.9rem; }
+.ap-c-act .ap-cf-no + .cv-solid { flex: 1.3; }
