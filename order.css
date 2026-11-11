@@ -429,3 +429,8 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-gbtn { min-height: 2.5rem; padding-top: 0.3rem; padding-bottom: 0.3rem; }
 #apDlg .ap-msg:empty + p { margin-top: 0.8rem; }
 #apDlg .cv-fs + .ap-msg + p, #apDlg .cv-fs + p { margin-top: 0.8rem; }
+
+/* Entrada: Google y email con exactamente el mismo ancho (el botón de Google no pasa de 400 px) */
+.ap-narrow { max-width: 400px; margin: 0 auto; }
+.ap-narrow .ap-gwrap { width: 100%; }
+.ap-narrow .ap-in-g { width: 100%; }
