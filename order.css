@@ -298,8 +298,8 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-ok-n em { display: block; font-style: normal; font-size: 0.78rem; opacity: 0.65; }
 .ap-ok-n i { font-style: normal; opacity: 0.7; }
 .ap-ok-p { font-variant-numeric: tabular-nums; white-space: nowrap; }
-.ap-ok-total { display: flex; justify-content: space-between; align-items: baseline; margin: 0; padding: 0.7rem 0.8rem; border-top: 1.5px solid var(--black, #0a0a0a); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
-.ap-ok-total b { font-size: 1.25rem; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.ap-ok-total { color: var(--black, #0a0a0a); opacity: 1; display: flex; justify-content: space-between; align-items: baseline; margin: 0; padding: 0.7rem 0.8rem; border-top: 1.5px solid var(--black, #0a0a0a); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.ap-ok-total b { color: var(--black, #0a0a0a); font-size: 1.25rem; letter-spacing: 0; font-variant-numeric: tabular-nums; }
 .ap-ok-note { margin: 0.9rem 0 0.3rem; font-size: 0.9rem; line-height: 1.4; }
 .ap-ok-help { margin: 0.4rem 0 0; font-size: 0.82rem; opacity: 0.85; }
 .ap-ok-help a { color: inherit; font-weight: 700; text-underline-offset: 3px; }
