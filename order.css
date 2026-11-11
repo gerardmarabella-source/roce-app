@@ -348,3 +348,13 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-c-act .cv-ghost { flex: 0 0 auto; padding-left: 0.9rem; padding-right: 0.9rem; border-color: transparent; text-decoration: underline; text-underline-offset: 4px; letter-spacing: 0.06em; }
 .ap-c-act .ap-c-pay { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.95rem 1rem; white-space: nowrap; }
 .ap-c-pay b { font-weight: 900; font-variant-numeric: tabular-nums; }
+
+/* Cómo lo quieres (mesa / recoger) */
+.ap-md { margin-top: 0.5rem; }
+.ap-md .ap-scanbtn { justify-self: start; width: auto; padding: 0.3rem 0; margin: 0 0 0.3rem 0.2rem; }
+
+/* Mensajes vacíos sin hueco; campo de email con más aire */
+#apDlg .ap-msg:empty { display: none; }
+#apDlg input.ap-in::placeholder { color: rgba(10, 10, 10, 0.4); }
+#apDlg input.ap-in:focus { outline: none; box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.18); }
+.ap-c-act .cv-solid[data-acct] { flex: 1.4; }

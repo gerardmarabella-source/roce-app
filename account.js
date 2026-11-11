@@ -98,17 +98,17 @@
   function viewLogin() {
     var soc = '';
     if (PROVIDERS.google) soc += '<div class="ap-gwrap" id="apGoogle"></div>';
-    show('<h2>' + t('login_h') + '</h2><div class="cv-sheet-body"><p>' + t('login_p') + '</p>' + (soc ? soc + '<p class="ap-or">' + t('or') + '</p>' : '') +
-      '<section class="cv-fs"><h3>' + t('email') + '</h3><input class="ap-in" id="apAcEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" value="' + esc(state.email) + '"></section><p class="ap-msg" id="apAcMsg"></p>' + legal() + '</div>' +
-      '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="close">' + t('close') + '</button><button type="button" class="cv-solid" data-acct="send">' + t('send') + '</button></div>');
+    show('<h2 class="ap-c-h">' + t('login_h') + '</h2><div class="cv-sheet-body"><p>' + t('login_p') + '</p>' + (soc ? soc + '<p class="ap-or">' + t('or') + '</p>' : '') +
+      '<section class="cv-fs"><h3>' + t('email') + '</h3><input class="ap-in" id="apAcEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" placeholder="nombre@email.com" value="' + esc(state.email) + '"></section><p class="ap-msg" id="apAcMsg"></p>' + legal() + '</div>' +
+      '<div class="cv-sheet-actions ap-c-act"><button type="button" class="cv-ghost" data-acct="close">' + t('close') + '</button><button type="button" class="cv-solid" data-acct="send">' + t('send') + '</button></div>');
     if (PROVIDERS.google) renderGoogle();
     if (after) { var gb = box.querySelector('.cv-sheet-body'); if (gb) { var gp = document.createElement('p'); gp.className = 'ap-guest'; gp.innerHTML = '<button type="button" class="ap-link" data-acct="guest">' + esc(t('guest')) + '</button>'; gb.appendChild(gp); } }
   }
   /* Pedir sin cuenta: sesión anónima de Supabase (usuario sin email) + solo el nombre. El pedido y el pago funcionan igual que con cuenta. */
   function viewGuest() {
-    show('<h2>' + t('guest_h') + '</h2><div class="cv-sheet-body"><p>' + t('guest_p') + '</p>' +
+    show('<h2 class="ap-c-h">' + t('guest_h') + '</h2><div class="cv-sheet-body"><p>' + t('guest_p') + '</p>' +
       '<section class="cv-fs"><h3>' + t('guest_name') + '</h3><input class="ap-in" id="apGuestName" autocomplete="given-name" maxlength="80" value="' + esc(state.gname || (profile && profile.name) || '') + '"></section><p class="ap-msg" id="apAcMsg"></p>' + legal() + '</div>' +
-      '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="guestback">' + t('back') + '</button><button type="button" class="cv-solid" data-acct="guestgo">' + t('guest_go') + '</button></div>');
+      '<div class="cv-sheet-actions ap-c-act"><button type="button" class="cv-ghost" data-acct="guestback">' + t('back') + '</button><button type="button" class="cv-solid" data-acct="guestgo">' + t('guest_go') + '</button></div>');
     var gi = document.getElementById('apGuestName'); if (gi) setTimeout(function () { gi.focus(); }, 50);
   }
   function guestGo(btn) {

@@ -137,11 +137,14 @@
 
   function openMode() {
     view = 'mode';
+    var svg = function (d) { return '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
+    var icT = svg('<path d="M3 9h18M5 9v10M19 9v10M7 9V5h10v4"/>'), icB = svg('<path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/>');
+    var opt = function (attr, on, ic, b, sm) { return '<button type="button" role="radio" aria-checked="' + on + '" class="ap-pm-o' + (on ? ' is-on' : '') + '" ' + attr + '>' + ic + '<span><b>' + b + '</b><small>' + sm + '</small></span><i></i></button>'; };
     var mesaOpt = S.mesa
-      ? '<button type="button" class="cv-pick" data-mode="mesa" aria-pressed="' + (S.mode === 'mesa') + '"><i class="cv-radio"></i><span>' + t('mesa') + ' · ' + t('where') + ' ' + esc(mesaLabel()) + '</span></button><button type="button" class="ap-scanbtn" data-scan>' + t('scan_other') + '</button>'
-      : '<button type="button" class="cv-pick" data-scan><i class="cv-radio"></i><span>' + t('mesa') + ' · ' + t('scan') + '</span></button>';
-    show('<h2>' + t('how') + '</h2><div class="cv-sheet-body">' + mesaOpt +
-      '<button type="button" class="cv-pick" data-mode="recoger" aria-pressed="' + (S.mode === 'recoger') + '"><i class="cv-radio"></i><span>' + t('recoger') + ' · ' + t('recoger_s') + '</span></button></div>' +
+      ? opt('data-mode="mesa"', S.mode === 'mesa', icT, t('mesa'), t('where') + ' ' + esc(mesaLabel()) + ' · ' + t('mesa_s')) + '<button type="button" class="ap-scanbtn" data-scan>' + t('scan_other') + '</button>'
+      : opt('data-scan', false, icT, t('mesa'), t('scan'));
+    show('<h2>' + t('how') + '</h2><div class="cv-sheet-body"><div class="ap-pm ap-md" role="radiogroup" aria-label="' + esc(t('how')) + '">' + mesaOpt +
+      opt('data-mode="recoger"', S.mode === 'recoger', icB, t('recoger'), t('recoger_s')) + '</div></div>' +
       '<div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + t('done') + '</button></div>');
   }
 
