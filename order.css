@@ -304,14 +304,47 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-ok-help { margin: 0.4rem 0 0; font-size: 0.82rem; opacity: 0.85; }
 .ap-ok-help a { color: inherit; font-weight: 700; text-underline-offset: 3px; }
 
-/* Cómo pagar (carrito) */
-.ap-pm { margin: 1rem 0 0; display: grid; gap: 0.5rem; }
-.ap-pm-h { margin: 0 0 0.1rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
-.ap-pm-o { display: flex; align-items: center; gap: 0.8rem; width: 100%; padding: 0.75rem 0.85rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); font: inherit; text-align: left; cursor: pointer; }
-.ap-pm-o i { flex: none; width: 1.15rem; height: 1.15rem; border: 1.5px solid var(--black); border-radius: 50%; position: relative; }
+/* ── Carrito rediseñado ── */
+#apDlg h2.ap-c-h { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; font-size: 1.55rem; font-weight: 900; letter-spacing: -0.01em; }
+.ap-c-n { display: inline-grid; place-items: center; min-width: 1.9rem; height: 1.9rem; padding: 0 0.5rem; border-radius: 999px; background: var(--black); color: #fff; font-style: normal; font-size: 0.95rem; font-weight: 700; letter-spacing: 0; }
+.cv-sheet p.ap-c-where { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0.3rem 0 0.9rem; padding: 0.35rem 0.7rem; border: 1.5px solid var(--black); border-radius: 999px; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 1; }
+.cv-sheet p.ap-c-empty { padding: 1.4rem 0; text-align: center; font-size: 0.95rem; }
+.ap-c-list { list-style: none; margin: 0; padding: 0; }
+.ap-c-line { display: flex; gap: 0.8rem; padding: 0.65rem 0; border-top: 1px solid rgba(10, 10, 10, 0.16); }
+.ap-c-line:first-child { border-top: 0; padding-top: 0.2rem; }
+.ap-c-img { flex: none; width: 3.9rem; height: 3.9rem; object-fit: cover; background: #ece9e2; border: 1px solid rgba(10, 10, 10, 0.15); }
+.ap-c-img.is-none { display: block; }
+.ap-c-b { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ap-c-top { display: flex; justify-content: space-between; align-items: baseline; gap: 0.6rem; }
+.ap-c-top b { font-size: 0.98rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.2; }
+.ap-c-p { flex: none; font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ap-c-d { display: block; margin-top: 0.15rem; font-size: 0.78rem; line-height: 1.35; opacity: 0.65; }
+.ap-c-note { font-style: italic; }
+.ap-c-qty { display: inline-flex; align-items: center; align-self: flex-start; margin-top: 0.4rem; border: 1.5px solid var(--black); }
+.ap-c-qty button { width: 2.2rem; height: 2.1rem; border: 0; background: #fff; font-size: 0; cursor: pointer; }
+.ap-c-qty button:active { background: #ece9e2; }
+.ap-c-qty b { min-width: 2rem; text-align: center; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+.ap-c-qty button[data-cq], .ap-c-qty button[data-party] { background: linear-gradient(var(--black), var(--black)) center / 0.75rem 2px no-repeat, linear-gradient(var(--black), var(--black)) center / 2px 0.75rem no-repeat, #fff; }
+.ap-c-qty button[data-cq$=":-1"], .ap-c-qty button[data-party="-1"] { background: linear-gradient(var(--black), var(--black)) center / 0.75rem 2px no-repeat, #fff; }
+.ap-c-party { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0.2rem 0 0; padding: 0.55rem 0; border-top: 1px solid rgba(10, 10, 10, 0.16); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.ap-c-party .ap-c-qty { margin: 0; }
+.ap-c-total { display: flex; align-items: baseline; justify-content: space-between; margin: 0.2rem 0 0; padding: 0.7rem 0 0.2rem; border-top: 2px solid var(--black); }
+.ap-c-total span { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.ap-c-total b { font-size: 1.55rem; font-weight: 900; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+
+/* Cómo pagar */
+.ap-pm { margin: 0.7rem 0 0.2rem; display: grid; gap: 0.4rem; }
+.cv-sheet p.ap-pm-h { margin: 0 0 0.1rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.7; }
+.ap-pm-o { display: flex; align-items: center; gap: 0.8rem; width: 100%; padding: 0.6rem 0.85rem; border: 1.5px solid var(--black); background: #fff; color: var(--black); font: inherit; text-align: left; cursor: pointer; }
+.ap-pm-o svg { flex: none; }
+.ap-pm-o > i { flex: none; margin-left: auto; width: 1.2rem; height: 1.2rem; border: 1.5px solid currentColor; border-radius: 50%; position: relative; }
 .ap-pm-o.is-on { background: var(--black); color: #fff; }
-.ap-pm-o.is-on i { border-color: #fff; }
-.ap-pm-o.is-on i::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: #fff; }
-.ap-pm-o span { display: grid; gap: 0.1rem; min-width: 0; }
-.ap-pm-o b { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.02em; }
-.ap-pm-o small { font-size: 0.78rem; opacity: 0.75; line-height: 1.3; }
+.ap-pm-o.is-on > i::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: #fff; }
+.ap-pm-o span { display: grid; gap: 0.12rem; min-width: 0; }
+.ap-pm-o b { font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+.ap-pm-o small { font-size: 0.76rem; opacity: 0.75; line-height: 1.3; }
+
+/* Botones del carrito */
+.ap-c-act .cv-ghost { flex: 0 0 auto; padding-left: 0.9rem; padding-right: 0.9rem; border-color: transparent; text-decoration: underline; text-underline-offset: 4px; letter-spacing: 0.06em; }
+.ap-c-act .ap-c-pay { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.95rem 1rem; white-space: nowrap; }
+.ap-c-pay b { font-weight: 900; font-variant-numeric: tabular-nums; }
