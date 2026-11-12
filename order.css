@@ -453,3 +453,14 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-cf-n2 b { display: inline-block; min-width: 1.4ch; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
 .ap-c-act .ap-cf-no { flex: 1; border-color: var(--black); text-decoration: none; padding-left: 0.9rem; padding-right: 0.9rem; }
 .ap-c-act .ap-cf-no + .cv-solid { flex: 1.3; }
+
+/* Complementos: pequeños y pegados bajo su plato */
+.ap-c-line.is-sub { padding: 0.15rem 0 0.55rem 4.7rem; border-top: 0; }
+.ap-c-line.is-sub .ap-c-top b { font-size: 0.86rem; font-weight: 700; text-transform: none; letter-spacing: 0; opacity: 0.85; }
+.ap-c-line.is-sub .ap-c-p { font-size: 0.82rem; font-weight: 600; }
+.ap-c-line.is-sub .ap-c-qty { margin-top: 0.3rem; }
+.ap-c-line.is-sub .ap-c-qty button { width: 1.8rem; height: 1.7rem; }
+.ap-c-line.is-sub .ap-c-qty b { min-width: 1.6rem; font-size: 0.82rem; }
+.ap-cf-list li.is-sub { padding-left: 1.6rem; font-size: 0.84rem; opacity: 0.85; border-bottom: 0; }
+.ap-cf-list li.is-sub .ap-cf-q { min-width: 1.6rem; font-weight: 600; }
+.ap-cf-list li.is-sub .ap-cf-n { font-weight: 600; text-transform: none; }

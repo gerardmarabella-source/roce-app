@@ -10,7 +10,7 @@
       e_closed: 'ya no está disponible ahora:', e_unav: 'no está disponible:', e_table: 'No reconocemos esta mesa. Escanea de nuevo el QR de tu mesa o elige recoger.', e_pend: 'Tienes demasiados pedidos sin pagar. Espera unos minutos.', e_gen: 'No hemos podido preparar el pago. Inténtalo de nuevo.', e_net: 'Sin conexión. Inténtalo de nuevo.', e_dis: 'El pago online no está disponible ahora mismo. Pide en barra, por favor.',
       warn_h: 'Cuidado: alérgenos', warn_contains: 'contiene', warn_p: 'Son alérgenos que has marcado en tu perfil o en los filtros de la carta.', warn_team: 'Si lo pides, avisa también a nuestro equipo de tu alergia. ¿Quieres añadirlo igualmente?', warn_back: 'Volver', warn_ok: 'Añadir igualmente',
       pair_ing: 'Ingredientes', pair_al: 'Alérgenos',
-      pair_h: '¿Algo para acompañar?', pair_all: 'Ver toda la carta de', pair_p: 'Esto le pega a tu', pair_no: 'No, gracias', pair_done: 'Listo',
+      pair_h: '¿Algo para acompañar?', pair_all: 'Ver toda la carta de', pair_p: 'Esto le pega a tu', pair_no: 'No, gracias', pair_none: 'Continuar sin complementos', pair_go: 'Listo, continuar', pair_done: 'Listo',
       from: 'Desde las', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', pick_h: 'Choose {n} flavours', pick_left: '{k} to go', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Any allergy or special request…', note_bar: 'Note for the bar', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Pay', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
@@ -18,7 +18,7 @@
       e_closed: 'is no longer available right now:', e_unav: 'is not available:', e_table: "We don't recognise this table. Scan your table's QR again or choose pick up.", e_pend: 'You have too many unpaid orders. Wait a few minutes.', e_gen: "We couldn't prepare the payment. Try again.", e_net: 'No connection. Try again.', e_dis: 'Online payment is not available right now. Please order at the counter.',
       warn_h: 'Careful: allergens', warn_contains: 'contains', warn_p: 'These are allergens you marked in your profile or in the menu filters.', warn_team: 'If you order it, please also tell our team about your allergy. Do you still want to add it?', warn_back: 'Back', warn_ok: 'Add anyway',
       pair_ing: 'Ingredients', pair_al: 'Allergens',
-      pair_h: 'Something to go with it?', pair_all: 'See the full', pair_p: 'These go well with your', pair_no: 'No, thanks', pair_done: 'Done',
+      pair_h: 'Something to go with it?', pair_all: 'See the full', pair_p: 'These go well with your', pair_no: 'No, thanks', pair_none: 'Continue without sides', pair_go: 'Done, continue', pair_done: 'Done',
       from: 'From', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
   var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [], party: 2, pm: 'card' };
@@ -317,7 +317,7 @@
         '</div><button type="button" class="ap-pair-add" data-pair="' + i + '" aria-pressed="' + (x.done ? 'true' : 'false') + '" aria-label="' + esc((x.done ? t('rm') : t('add')) + ' ' + x.it.name) + '"><span class="ap-pair-p">' + (x.done ? '✓' : money(cents(x.it.price)) + ' <i>+</i>') + '</span>' + (x.done ? '<small class="ap-pair-rm">' + esc(t('rm')) + '</small>' : '') + '</button></div>';
     });
     var cs = D.sections.filter(function (z) { return z.id === 'coffee'; })[0];
-    h += '</div>' + (cs ? '<button type="button" class="ap-pair-all" data-pairsheet="coffee">' + esc(t('pair_all')) + ' ' + esc(tx(cs.title)) + (L() === 'en' ? ' menu' : '') + ' →</button>' : '') + '</div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-pairno>' + esc(t('pair_no')) + '</button><button type="button" class="cv-solid" data-close>' + esc(pairList.some(function (x) { return x.done; }) ? t('pair_done') : t('close')) + '</button></div>';
+    h += '</div>' + (cs ? '<button type="button" class="ap-pair-all" data-pairsheet="coffee">' + esc(t('pair_all')) + ' ' + esc(tx(cs.title)) + (L() === 'en' ? ' menu' : '') + ' →</button>' : '') + '</div><div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + esc(pairList.some(function (x) { return x.done; }) ? t('pair_go') : t('pair_none')) + '</button></div>';
     show(h);
   }
   dlg.addEventListener('toggle', function (e) { var d = e.target; if (d && d.dataset && d.dataset.pairdet !== undefined && pairList[+d.dataset.pairdet]) pairList[+d.dataset.pairdet].open = d.open; }, true);
@@ -332,7 +332,7 @@
     if (x.done) { removePair(x); return; }      // tocar un acompañante ya añadido lo quita
     var ph = allergenHits(pairAl(x.it)); if (ph.length && !addPair.ok) { warnAllergens(x.it.name, ph, function () { paintPair(); }, function () { addPair.ok = true; addPair(i); addPair.ok = false; }); return; }
     var key = [bk(x.b), x.it.name, -1, '', '', '', ''].join('|'), f = S.cart.filter(function (l) { return l.key === key; })[0];
-    if (f) f.qty += 1; else S.cart.push({ key: key, item: bk(x.b) + '|' + (x.it.code || x.it.name), name: x.it.name, variant: '', extras: [], unit: cents(x.it.price), qty: 1, note: '', detail: t('with_') + ' ' + pairFood });
+    if (f) f.qty += 1; else S.cart.push({ key: key, item: bk(x.b) + '|' + (x.it.code || x.it.name), name: x.it.name, variant: '', extras: [], unit: cents(x.it.price), qty: 1, note: '', parent: pairFood, detail: t('with_') + ' ' + pairFood });
     x.done = true; save(); paintBar(); paintPair();
   }
 
@@ -365,17 +365,34 @@
   function paintBar() { var s = totals(); $('apCartBar').hidden = !s.n; document.body.classList.toggle('ap-has-cart', !!s.n); $('apCartQty').textContent = s.n; $('apCartLbl').textContent = t('view'); $('apCartTot').textContent = money(s.c); }
   /* Pago en mesa: solo para pedidos a mesa y hasta 150 € (la base de datos lo vuelve a comprobar). */
   function canTable(c) { return S.mode === 'mesa' && !!S.mesa && c > 0 && c <= 15000; }
+
+  /* Orden del pedido: cada plato seguido de sus complementos (que salen pequeños, debajo). Los carritos antiguos se reconocen por el «Con …» del detalle. */
+  function parentOf(l) {
+    if (l.parent) return l.parent;
+    var m = /^(Con|With) (.+)$/.exec(l.detail || ''); return m ? m[2] : '';
+  }
+  function cartOrder() {
+    var out = [], shown = {}, mains = S.cart.map(function (l, i) { return { l: l, i: i, p: parentOf(l) }; });
+    mains.forEach(function (m) {
+      if (m.p && mains.some(function (x) { return !x.p && x.l.name === m.p; })) return;      // se pinta bajo su plato
+      out.push({ l: m.l, i: m.i, sub: false });
+      if (!m.p) mains.forEach(function (c) { if (c.p === m.l.name && !shown[c.i]) { shown[c.i] = 1; out.push({ l: c.l, i: c.i, sub: true }); } });
+    });
+    return out;
+  }
   function openCart() {
     view = 'cart'; var s = totals(), tbl = canTable(s.c), pin = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg>';
     var h = '<h2 class="ap-c-h"><span>' + t('your') + '</span>' + (s.n ? '<i class="ap-c-n">' + s.n + '</i>' : '') + '</h2><div class="cv-sheet-body">' +
       '<p class="ap-c-where">' + pin + '<span>' + (S.mode === 'mesa' ? t('where') + ' ' + esc(mesaLabel()) + ' · ' + t('to_table') : t('to_pick')) + '</span></p>';
     if (!S.cart.length) h += '<p class="ap-c-empty">' + t('empty') + '</p>';
     else {
-      h += '<ul class="ap-c-list">' + S.cart.map(function (l, i) {
-        var f = findItem(l.item), img = f && f.it && f.it.img;
+      h += '<ul class="ap-c-list">' + cartOrder().map(function (o) {
+        var l = o.l, i = o.i;
+        if (o.sub) return '<li class="ap-c-line is-sub"><div class="ap-c-b"><div class="ap-c-top"><b>+ ' + esc(l.name) + '</b><span class="ap-c-p">' + money(l.unit * l.qty) + '</span></div><div class="ap-c-qty"><button type="button" data-cq="' + i + ':-1" aria-label="-">−</button><b>' + l.qty + '</b><button type="button" data-cq="' + i + ':1" aria-label="+">+</button></div></div></li>';
+        var f = findItem(l.item), img = f && f.it && f.it.img, par = parentOf(l);
         return '<li class="ap-c-line">' + (img ? '<img class="ap-c-img" src="' + esc(img) + '" alt="" loading="lazy">' : '<span class="ap-c-img is-none" aria-hidden="true"></span>') +
           '<div class="ap-c-b"><div class="ap-c-top"><b>' + esc(l.name) + '</b><span class="ap-c-p">' + money(l.unit * l.qty) + '</span></div>' +
-          (l.detail ? '<span class="ap-c-d">' + esc(l.detail) + '</span>' : '') + (l.note ? '<span class="ap-c-d ap-c-note">“' + esc(l.note) + '”</span>' : '') +
+          (par ? '<span class="ap-c-d">' + esc(t('with_')) + ' ' + esc(par) + '</span>' : (l.detail ? '<span class="ap-c-d">' + esc(l.detail) + '</span>' : '')) + (l.note ? '<span class="ap-c-d ap-c-note">“' + esc(l.note) + '”</span>' : '') +
           '<div class="ap-c-qty"><button type="button" data-cq="' + i + ':-1" aria-label="-">−</button><b>' + l.qty + '</b><button type="button" data-cq="' + i + ':1" aria-label="+">+</button></div></div></li>';
       }).join('') + '</ul>';
       if (S.mode === 'mesa') h += '<div class="ap-c-party"><span>' + t('party') + '</span><div class="ap-c-qty"><button type="button" data-party="-1" aria-label="-">−</button><b>' + S.party + '</b><button type="button" data-party="1" aria-label="+">+</button></div></div>';
@@ -466,7 +483,7 @@
   function confirmBar(go, isT) {
     cfClear(); if (paying || !S.cart.length) return;
     var SEC = 10, s = totals(), t0 = Date.now(); view = 'confirm'; cfGo = go;
-    var rows = S.cart.map(function (l) { return '<li><span class="ap-cf-q">' + l.qty + '×</span><span class="ap-cf-n">' + esc(l.name) + (l.detail ? '<em>' + esc(l.detail) + '</em>' : '') + '</span><b>' + money(l.unit * l.qty) + '</b></li>'; }).join('');
+    var rows = cartOrder().map(function (o) { var l = o.l; return '<li' + (o.sub ? ' class="is-sub"' : '') + '><span class="ap-cf-q">' + l.qty + '×</span><span class="ap-cf-n">' + (o.sub ? '+ ' : '') + esc(l.name) + (!o.sub && l.detail ? '<em>' + esc(l.detail) + '</em>' : '') + '</span><b>' + money(l.unit * l.qty) + '</b></li>'; }).join('');
     show('<h2 class="ap-c-h">' + t('cf_h') + '</h2><div class="cv-sheet-body"><p class="ap-cf-p">' + t('cf_p') + '</p><ul class="ap-cf-list">' + rows + '</ul>' +
       '<div class="ap-c-total"><span>' + (S.mode === 'mesa' ? t('where') + ' ' + esc(mesaLabel()) : t('to_pick')) + '</span><b>' + money(s.c) + '</b></div>' +
       '<div class="ap-cf-bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + SEC + '" aria-valuenow="' + SEC + '"><i style="animation-duration:' + SEC + 's"></i></div>' +
