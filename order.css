@@ -239,6 +239,9 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-pair-t { flex: 1; min-width: 0; }
 .ap-pair-add { flex: 0 0 auto; align-self: center; padding: 0.3rem 0; border: 0; background: transparent; color: inherit; font: inherit; }
 .ap-pair-add:disabled { opacity: 1; }
+.ap-pair-add { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; min-width: 3.4rem; cursor: pointer; }
+.ap-pair-rm { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 2px; }
+.ap-pair-row.is-done { opacity: 1; }
 .ap-pair-det { margin-top: 0.35rem; font-size: 0.8rem; }
 .ap-pair-det summary { cursor: pointer; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.7rem; opacity: 0.75; }
 .ap-pair-det p { margin: 0.3rem 0 0; font-size: 0.82rem; line-height: 1.35; opacity: 0.8; }

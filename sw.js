@@ -1,5 +1,5 @@
 /* ROCE · App de pedidos: caché sencilla del cascarón de la app (la carta y los pedidos siempre van a la red cuando hay conexión). */
-var V = 'roce-app-102';
+var V = 'roce-app-103';
 var SHELL = ['/', '/carta.css', '/carta.js', '/chef.js', '/menu.js', '/order.js', '/account.js', '/tour.js', '/sheet-drag.js', '/order.css', '/i18n.js', '/config.js', '/manifest.webmanifest', '/assets/fonts/HelveticaNeue-Regular.woff2', '/assets/fonts/HelveticaNeue-Bold.woff2'];
 self.addEventListener('install', function (e) { e.waitUntil(caches.open(V).then(function (c) { return c.addAll(SHELL); }).then(function () { return self.skipWaiting(); })); });
 self.addEventListener('activate', function (e) {
