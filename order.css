@@ -464,3 +464,10 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .ap-cf-list li.is-sub { padding-left: 1.6rem; font-size: 0.84rem; opacity: 0.85; border-bottom: 0; }
 .ap-cf-list li.is-sub .ap-cf-q { min-width: 1.6rem; font-weight: 600; }
 .ap-cf-list li.is-sub .ap-cf-n { font-weight: 600; text-transform: none; }
+
+/* Con el teclado abierto: la hoja sube al área visible y se ajusta a su altura */
+@media (max-width: 560px) {
+  html.kb-open #apDlg[open], html.kb-open #cvSheet[open], html.kb-open #cvChef[open] { margin: calc(var(--kb-top, 0px) + 0.5rem) 0 auto 0 !important; max-height: calc(var(--kb-h, 100dvh) - 1rem) !important; border-radius: 18px !important; border-bottom: 2px solid var(--black) !important; animation: none; }
+  html.kb-open #apDlg[open] .cv-sheet-in, html.kb-open #cvSheet[open] .cv-sheet-in, html.kb-open #cvChef[open] .cv-sheet-in { max-height: calc(var(--kb-h, 100dvh) - 1rem) !important; }
+  html.kb-open #apDlg[open] .cv-sheet-body, html.kb-open #cvSheet[open] .cv-sheet-body, html.kb-open #cvChef[open] .cv-sheet-body { max-height: calc(var(--kb-h, 100dvh) - 1rem - 6.5rem) !important; }
+}

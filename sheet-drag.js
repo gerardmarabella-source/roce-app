@@ -50,3 +50,23 @@
   }
   ['apDlg', 'cvSheet', 'cvChef'].forEach(function (id) { var d = document.getElementById(id); if (d) attach(d); });
 })();
+
+/* Teclado del móvil: con él abierto la hoja se coloca en la parte VISIBLE de la pantalla (si no, se queda abajo, detrás del teclado) y se encoge a esa altura.
+   En iPhone el teclado no cambia el tamaño de la página, solo el «viewport visual»; de ahí que se calcule con visualViewport. */
+(function () {
+  var vv = window.visualViewport, root = document.documentElement;
+  if (!vv) return;
+  function kb() {
+    var open = window.innerHeight - vv.height > 120;
+    root.classList.toggle('kb-open', open);
+    root.style.setProperty('--kb-top', Math.round(vv.offsetTop) + 'px');
+    root.style.setProperty('--kb-h', Math.round(vv.height) + 'px');
+  }
+  vv.addEventListener('resize', kb); vv.addEventListener('scroll', kb);
+  document.addEventListener('focusin', function (e) {
+    var t = e.target; if (!t || !t.closest || !t.closest('dialog') || !/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+    setTimeout(function () { kb(); try { t.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (x) { /* sin scroll */ } }, 300);
+  });
+  document.addEventListener('focusout', function () { setTimeout(kb, 200); });
+  kb();
+})();
