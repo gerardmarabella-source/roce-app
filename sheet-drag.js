@@ -13,7 +13,7 @@
     dlg.addEventListener('touchstart', function (e) {
       mode = 0;
       if (!mq.matches || !dlg.open || e.touches.length !== 1) return;
-      if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
+      if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable], [data-nodrag]')) return;
       var r = dlg.getBoundingClientRect(), y = e.touches[0].clientY - r.top, b = body();
       var inHeader = y < 70, onTopBody = b && b.contains(e.target) && b.scrollTop <= 0 && dlg.scrollTop <= 0;
       if (!inHeader && !onTopBody) return;

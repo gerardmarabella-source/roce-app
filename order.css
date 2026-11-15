@@ -471,3 +471,29 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
   html.kb-open #apDlg[open] .cv-sheet-in, html.kb-open #cvSheet[open] .cv-sheet-in, html.kb-open #cvChef[open] .cv-sheet-in { max-height: calc(var(--kb-h, 100dvh) - 1rem) !important; }
   html.kb-open #apDlg[open] .cv-sheet-body, html.kb-open #cvSheet[open] .cv-sheet-body, html.kb-open #cvChef[open] .cv-sheet-body { max-height: calc(var(--kb-h, 100dvh) - 1rem - 6.5rem) !important; }
 }
+
+/* Foto de perfil */
+.ap-av { overflow: hidden; }
+.ap-av img, .ap-ini img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
+.ap-hdr-acct.has-photo { padding: 0; overflow: hidden; border-width: 2px; }
+.ap-hdr-acct .ap-ini.has-img { display: block; width: 100%; height: 100%; }
+.ap-photo-ed { display: flex; align-items: center; gap: 0.9rem; margin: 0.4rem 0 0.6rem; }
+button.ap-av { position: relative; padding: 0; border: 0; cursor: pointer; font: inherit; }
+.ap-av-lg { flex: none; width: 4.6rem; height: 4.6rem; font-size: 1.9rem; }
+.ap-av-cam { position: absolute; right: -0.1rem; bottom: -0.1rem; display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: #fff; color: var(--black); border: 1.5px solid var(--black); }
+.ap-photo-btns { display: grid; gap: 0.45rem; min-width: 0; }
+.ap-photo-btns b { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
+.ap-photo-btns div { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.ap-pill-ghost { border-color: rgba(10, 10, 10, 0.35); opacity: 0.85; }
+.cv-sheet p.ap-crop-p { margin: 0.2rem 0 0.9rem; font-size: 0.86rem; opacity: 0.8; }
+.ap-crop { display: grid; place-items: center; padding: 0.3rem 0; }
+.ap-crop-stage { position: relative; width: min(17rem, 100%); aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: #1a1a1a; border: 2px solid var(--black); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; box-shadow: 0 0 0 6px #ece9e2; }
+.ap-crop-stage:active { cursor: grabbing; }
+.ap-crop-stage img { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; pointer-events: none; -webkit-user-drag: none; }
+.ap-crop-zoom { display: flex; align-items: center; gap: 0.7rem; margin: 1.1rem 0.4rem 0.2rem; }
+.ap-crop-zoom span { font-size: 1.3rem; font-weight: 700; line-height: 1; }
+.ap-crop-zoom input[type="range"] { flex: 1; accent-color: var(--black); height: 2rem; }
+.cv-sheet p.ap-crop-c { margin: 0.3rem 0 0; text-align: center; opacity: 1; }
+button.ap-av.has-img, button.ap-av { overflow: visible; }
+button.ap-av img { border-radius: 50%; }
+button.ap-av:not(.has-img) { overflow: visible; }

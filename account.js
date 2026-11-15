@@ -6,10 +6,10 @@
   var B = window.ROCE_BACKEND, KEY = 'roce_app_session';
   var PROVIDERS = { google: true };      // proveedores sociales activados en Supabase → Authentication → Providers
   var UI = {
-    es: { acct: 'Mi cuenta', login: 'Iniciar sesión', edit_s: 'Editar', login_h: 'Inicia sesión para pedir', login_p: 'Te enviamos un código a tu email. Sin contraseñas.', email: 'Tu email', send: 'Enviar código', code_h: 'Introduce el código', code_p: 'Te lo hemos enviado a', code: 'Código', enter: 'Entrar', other: 'Cambiar email', resend: 'Reenviar código',
+    es: { acct: 'Mi cuenta', login: 'Iniciar sesión', edit_s: 'Editar', photo_change: 'Cambiar foto', photo_add: 'Añadir foto', photo_rm: 'Quitar', photo_h: 'Foto de perfil', crop_p: 'Arrastra la foto para encuadrarla. Amplía con el control o pellizcando.', crop_center: 'Centrar', crop_ok: 'Usar foto', crop_err: 'No hemos podido abrir esa imagen.', crop_zoom: 'Zoom', login_h: 'Inicia sesión para pedir', login_p: 'Te enviamos un código a tu email. Sin contraseñas.', email: 'Tu email', send: 'Enviar código', code_h: 'Introduce el código', code_p: 'Te lo hemos enviado a', code: 'Código', enter: 'Entrar', other: 'Cambiar email', resend: 'Reenviar código',
       google: 'Continuar con Google', or: 'o', back_menu: 'Volver a la carta', orders_h: 'Mis pedidos', orders_none: 'Todavía no has hecho ningún pedido.', orders_err: 'No hemos podido cargar tus pedidos.', o_mesa: 'A mesa', o_pick: 'Recoger', o_paytable: 'Pago en mesa', o_st_paid: 'Recibido', o_st_preparing: 'En preparación', o_st_ready: 'Listo', o_st_served: 'Servido', o_st_cancelled: 'Anulado', o_refunded: 'Devuelto', o_refunded_part: 'Devuelto', help_h: '¿Necesitas ayuda?', help_p: 'Escríbenos y te ayudamos con tu pedido.', help_wa: 'WhatsApp', help_mail: 'Email', help_order: 'Ayuda con este pedido', help_msg: function (r) { return 'Hola, necesito ayuda con mi pedido ' + r; }, help_msg0: 'Hola, necesito ayuda con la app de ROCE.', guest: 'Continuar sin cuenta', guest_h: 'Continuar sin cuenta', guest_p: 'Solo necesitamos tu nombre para avisarte cuando tu pedido esté listo. No creamos ninguna cuenta ni te pedimos el email.', guest_name: 'Tu nombre', guest_go: 'Continuar', back: 'Volver', err_name: 'Escribe tu nombre.', err_guest: 'No hemos podido continuar sin cuenta. Inténtalo de nuevo o entra con tu email.', guest_tag: 'Pedido sin cuenta', prof_h: 'Completa tu perfil', prof_p: 'Cuéntanos un poco sobre ti para atenderte mejor y avisarte cuando tu pedido esté listo. Lo marcado con * es obligatorio.', name: 'Nombre', phone: 'Teléfono (opcional)', mkt: 'Quiero recibir novedades y ventajas de ROCE por email (puedes darte de baja cuando quieras).',
       save: 'Guardar', hello: 'Hola', sec_gen: 'General', sec_contact: 'Contacto', sec_comm: 'Comunicaciones', sec_bill: 'Facturación', sec_acct: 'Cuenta', last: 'Apellidos', birthday: 'Cumpleaños', gender: 'Género (para conocerte mejor)', g_m: 'Masculino', g_f: 'Femenino', g_o: 'Otro', g_n: 'Prefiero no decirlo', postal: 'Código postal', diet: 'Dieta', d_none: 'Ninguna', d_veg: 'Vegetariana', d_vegan: 'Vegana', d_pesc: 'Pescetariana', d_gf: 'Sin gluten', d_lf: 'Sin lactosa', d_keto: 'Keto', allergies: 'Alergias e intolerancias', email_ro: 'Email', mk_email: 'Quiero recibir novedades y ventajas de ROCE por email.', mk_wa: 'Quiero recibir novedades y ventajas de ROCE por WhatsApp.', heard: 'Cómo nos conociste', h_ig: 'Instagram', h_gg: 'Google', h_fr: 'Un amigo', h_walk: 'Pasaba por la puerta', h_ev: 'Un evento de ROCE', h_other: 'Otro', pick: 'Elige', bill_note: 'Solo si quieres factura con datos de empresa.', bill_name: 'Razón social', bill_tax: 'NIF / CIF', bill_addr: 'Dirección fiscal', bill_cp: 'Código postal', bill_city: 'Ciudad', err_phone: 'Escribe un teléfono válido.', del: 'Eliminar cuenta', del_h: '¿Eliminar tu cuenta?', del_p: 'Borraremos tu perfil y tu acceso. Tus pedidos se conservan sin datos personales (obligación fiscal). No se puede deshacer.', del_yes: 'Sí, eliminar', back: 'Volver', hello2: 'Hola', logout: 'Cerrar sesión', edit: 'Editar perfil', close: 'Cerrar', legal: 'Al continuar aceptas nuestra', privacy: 'política de privacidad', err_email: 'Escribe un email válido.', err_code: 'El código no es válido o ha caducado.', err_send: 'No hemos podido enviar el código. Inténtalo de nuevo en un minuto.', err_google: 'No hemos podido entrar con Google. Inténtalo de nuevo o usa el código por email.', err_name: 'Escribe tu nombre.', err_net: 'Sin conexión. Inténtalo de nuevo.', sent: 'Código enviado.', ok_in: 'Sesión iniciada.' },
-    en: { acct: 'My account', login: 'Sign in', edit_s: 'Edit', login_h: 'Sign in to order', login_p: "We'll email you a code. No passwords.", email: 'Your email', send: 'Send code', code_h: 'Enter the code', code_p: 'We sent it to', code: 'Code', enter: 'Sign in', other: 'Change email', resend: 'Resend code',
+    en: { acct: 'My account', login: 'Sign in', edit_s: 'Edit', photo_change: 'Change photo', photo_add: 'Add photo', photo_rm: 'Remove', photo_h: 'Profile photo', crop_p: 'Drag the photo to frame it. Zoom with the slider or by pinching.', crop_center: 'Center', crop_ok: 'Use photo', crop_err: "We couldn't open that image.", crop_zoom: 'Zoom', login_h: 'Sign in to order', login_p: "We'll email you a code. No passwords.", email: 'Your email', send: 'Send code', code_h: 'Enter the code', code_p: 'We sent it to', code: 'Code', enter: 'Sign in', other: 'Change email', resend: 'Resend code',
       google: 'Continue with Google', or: 'or', back_menu: 'Back to the menu', orders_h: 'My orders', orders_none: "You haven't placed any orders yet.", orders_err: "We couldn't load your orders.", o_mesa: 'Table', o_pick: 'Pickup', o_paytable: 'Pay at the table', o_st_paid: 'Received', o_st_preparing: 'Preparing', o_st_ready: 'Ready', o_st_served: 'Served', o_st_cancelled: 'Cancelled', o_refunded: 'Refunded', o_refunded_part: 'Refunded', help_h: 'Need help?', help_p: 'Message us and we will help you with your order.', help_wa: 'WhatsApp', help_mail: 'Email', help_order: 'Help with this order', help_msg: function (r) { return 'Hi, I need help with my order ' + r; }, help_msg0: 'Hi, I need help with the ROCE app.', guest: 'Continue without an account', guest_h: 'Continue without an account', guest_p: "We only need your name to let you know when your order is ready. We don't create an account or ask for your email.", guest_name: 'Your name', guest_go: 'Continue', back: 'Back', err_name: 'Enter your name.', err_guest: "We couldn't continue without an account. Try again or sign in with your email.", guest_tag: 'Order without an account', prof_h: 'Complete your profile', prof_p: 'Tell us a bit about you so we can serve you better and let you know when your order is ready. Fields marked * are required.', name: 'Name', phone: 'Phone (optional)', mkt: 'I want to receive ROCE news and perks by email (unsubscribe any time).',
       save: 'Save', hello: 'Hi', sec_gen: 'General', sec_contact: 'Contact', sec_comm: 'Communications', sec_bill: 'Billing', sec_acct: 'Account', last: 'Last name', birthday: 'Birthday', gender: 'Gender (to know you better)', g_m: 'Male', g_f: 'Female', g_o: 'Other', g_n: 'Prefer not to say', postal: 'Postcode', diet: 'Diet', d_none: 'None', d_veg: 'Vegetarian', d_vegan: 'Vegan', d_pesc: 'Pescatarian', d_gf: 'Gluten-free', d_lf: 'Lactose-free', d_keto: 'Keto', allergies: 'Allergies and intolerances', email_ro: 'Email', mk_email: 'I want to receive ROCE news and perks by email.', mk_wa: 'I want to receive ROCE news and perks by WhatsApp.', heard: 'How did you find us', h_ig: 'Instagram', h_gg: 'Google', h_fr: 'A friend', h_walk: 'Walked past', h_ev: 'A ROCE event', h_other: 'Other', pick: 'Choose', bill_note: 'Only if you want an invoice with company details.', bill_name: 'Company name', bill_tax: 'Tax ID', bill_addr: 'Billing address', bill_cp: 'Postcode', bill_city: 'City', err_phone: 'Enter a valid phone number.', del: 'Delete account', del_h: 'Delete your account?', del_p: "We'll delete your profile and access. Your orders are kept without personal data (tax requirement). This can't be undone.", del_yes: 'Yes, delete', back: 'Back', hello2: 'Hi', logout: 'Sign out', edit: 'Edit profile', close: 'Close', legal: 'By continuing you accept our', privacy: 'privacy policy', err_email: 'Enter a valid email.', err_code: 'The code is invalid or has expired.', err_send: "We couldn't send the code. Try again in a minute.", err_google: "We couldn't sign you in with Google. Try again or use the email code.", err_name: 'Enter your name.', err_net: 'No connection. Try again.', sent: 'Code sent.', ok_in: 'Signed in.' }
   };
@@ -139,14 +139,60 @@
     if (!document.getElementById('apPfName')) return;
     draft = { name: g('apPfName'), last_name: g('apPfLast'), birthday: g('apPfBday'), gender: g('apPfGender'), postal_code: g('apPfCp'), diet: g('apPfDiet'), allergies: draft ? draft.allergies : [],
       phone: g('apPfPhone'), marketing_optin: !!document.getElementById('apPfMk').checked, marketing_whatsapp: !!document.getElementById('apPfWa').checked, heard_from: g('apPfHeard'),
-      billing_name: g('apPfBn'), billing_tax_id: g('apPfBt'), billing_address: g('apPfBa'), billing_postal: g('apPfBc'), billing_city: g('apPfBy') };
+      billing_name: g('apPfBn'), billing_tax_id: g('apPfBt'), billing_address: g('apPfBa'), billing_postal: g('apPfBc'), billing_city: g('apPfBy'), avatar: draft ? draft.avatar : undefined };
   }
+  function photoBlock(p) {
+    var src = curAvatar(), ini = initialOf(p.name || (profile && profile.name));
+    return '<div class="ap-photo-ed"><button type="button" class="ap-av ap-av-lg' + (src ? ' has-img' : '') + '" data-acct="photo" aria-label="' + esc(t('photo_h')) + '">' + avInner(src, ini) + '<span class="ap-av-cam" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.4"/></svg></span></button>' +
+      '<div class="ap-photo-btns"><b>' + esc(t('photo_h')) + '</b><div><button type="button" class="ap-pill" data-acct="photo">' + esc(src ? t('photo_change') : t('photo_add')) + '</button>' + (src ? ' <button type="button" class="ap-pill ap-pill-ghost" data-acct="photo-rm">' + esc(t('photo_rm')) + '</button>' : '') + '</div></div>' +
+      '<input type="file" id="apPfFile" accept="image/*" hidden></div>';
+  }
+  /* Editor de encuadre: se arrastra la foto dentro del círculo y se amplía con el control o pellizcando; se guarda el cuadrado visible (320×320). */
+  function viewCrop(url) {
+    show('<h2 class="ap-c-h">' + t('photo_h') + '</h2><div class="cv-sheet-body"><p class="ap-crop-p">' + t('crop_p') + '</p>' +
+      '<div class="ap-crop" data-nodrag><div class="ap-crop-stage" id="apCropStage"><img id="apCropImg" alt="" draggable="false"></div></div>' +
+      '<div class="ap-crop-zoom"><span aria-hidden="true">−</span><input type="range" id="apCropZoom" min="1" max="4" step="0.01" value="1" aria-label="' + esc(t('crop_zoom')) + '"><span aria-hidden="true">+</span></div>' +
+      '<p class="ap-crop-c"><button type="button" class="ap-link" id="apCropReset">' + t('crop_center') + '</button></p><p class="ap-msg" id="apAcMsg"></p></div>' +
+      '<div class="cv-sheet-actions ap-c-act"><button type="button" class="cv-ghost" data-acct="crop-cancel">' + t('close') + '</button><button type="button" class="cv-solid" data-acct="crop-ok" id="apCropOk" disabled>' + t('crop_ok') + '</button></div>');
+    var st = document.getElementById('apCropStage'), im = document.getElementById('apCropImg'), zr = document.getElementById('apCropZoom'), ok = document.getElementById('apCropOk');
+    var D = 0, W = 0, H = 0, s0 = 1, z = 1, tx = 0, ty = 0, ptr = {}, pinch = 0;
+    function clamp() { var sc = s0 * z; tx = Math.min(0, Math.max(D - W * sc, tx)); ty = Math.min(0, Math.max(D - H * sc, ty)); }
+    function apply() { clamp(); var sc = s0 * z; im.style.width = (W * sc) + 'px'; im.style.height = (H * sc) + 'px'; im.style.transform = 'translate(' + tx + 'px,' + ty + 'px)'; zr.value = z; }
+    function zoomAt(nz, cx, cy) { nz = Math.max(1, Math.min(4, nz)); var k = nz / z; tx = cx - (cx - tx) * k; ty = cy - (cy - ty) * k; z = nz; apply(); }
+    function center() { z = 1; tx = (D - W * s0) / 2; ty = (D - H * s0) / 2; apply(); }
+    im.onload = function () { D = st.clientWidth; W = im.naturalWidth; H = im.naturalHeight; s0 = Math.max(D / W, D / H); center(); ok.disabled = false; };
+    im.onerror = function () { msg(t('crop_err')); };
+    im.src = url;
+    function pos(e) { var r = st.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    st.addEventListener('pointerdown', function (e) { try { st.setPointerCapture(e.pointerId); } catch (x) { /* sin captura */ } ptr[e.pointerId] = pos(e); pinch = 0; e.preventDefault(); });
+    st.addEventListener('pointermove', function (e) {
+      if (!ptr[e.pointerId]) return; var n = pos(e), ids = Object.keys(ptr);
+      if (ids.length >= 2) {
+        var o = ptr[ids[0]], o2 = ptr[ids[1]]; ptr[e.pointerId] = n; var a = ptr[ids[0]], b = ptr[ids[1]];
+        var d1 = Math.hypot(o.x - o2.x, o.y - o2.y), d2 = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d1 > 0) zoomAt(z * d2 / d1, (a.x + b.x) / 2, (a.y + b.y) / 2);
+      } else { tx += n.x - ptr[e.pointerId].x; ty += n.y - ptr[e.pointerId].y; ptr[e.pointerId] = n; apply(); }
+      e.preventDefault();
+    });
+    function up(e) { delete ptr[e.pointerId]; }
+    st.addEventListener('pointerup', up); st.addEventListener('pointercancel', up);
+    st.addEventListener('wheel', function (e) { e.preventDefault(); var p = pos(e); zoomAt(z * (e.deltaY < 0 ? 1.08 : 1 / 1.08), p.x, p.y); }, { passive: false });
+    zr.addEventListener('input', function () { zoomAt(parseFloat(zr.value), D / 2, D / 2); });
+    document.getElementById('apCropReset').addEventListener('click', center);
+    cropOut = function () {
+      var c = document.createElement('canvas'), N = 320, k = N / D, sc = s0 * z; c.width = c.height = N;
+      var x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, N, N); x.imageSmoothingQuality = 'high';
+      x.drawImage(im, tx * k, ty * k, W * sc * k, H * sc * k);
+      return c.toDataURL('image/jpeg', 0.86);
+    };
+  }
+  var cropOut = null;
   function viewProfile() {
     var p = draft || profile || {}, al = (draft ? draft.allergies : (profile && profile.allergies)) || [];
     if (!draft) draft = { allergies: al.slice() };
     var D = window.CARTA, em = (S && S.user && S.user.email) || p.email || '';
     var alh = (D && D.allergens ? D.allergens : []).map(function (a) { return '<button type="button" class="cv-pick" data-pfal="' + a.n + '" aria-pressed="' + (draft.allergies.indexOf(a.n) !== -1) + '"><i class="cv-radio"></i><span>' + esc(a[L()] || a.es) + '</span><span class="cv-al">' + a.n + '</span></button>'; }).join('');
-    show('<h2>' + (profile && profile.name ? t('edit') : t('prof_h')) + '</h2><div class="cv-sheet-body"><p>' + t('prof_p') + '</p>' +
+    show('<h2>' + (profile && profile.name ? t('edit') : t('prof_h')) + '</h2><div class="cv-sheet-body">' + photoBlock(p) +
       '<h3 class="ap-sech">' + t('sec_gen') + '</h3>' + fld('apPfName', t('name') + ' *', p.name, 'autocomplete="given-name" maxlength="80"') + fld('apPfLast', t('last'), p.last_name, 'autocomplete="family-name" maxlength="100"') +
       '<section class="cv-fs"><h3>' + t('birthday') + '</h3><input class="ap-in" id="apPfBday" type="date" value="' + esc(p.birthday || '') + '" max="' + new Date().toISOString().slice(0, 10) + '"></section>' +
       '<section class="cv-fs"><h3>' + t('gender') + '</h3><select class="ap-in" id="apPfGender">' + opts(GENDERS, p.gender) + '</select></section>' + fld('apPfCp', t('postal'), p.postal_code, 'inputmode="numeric" autocomplete="postal-code" maxlength="10"') +
@@ -169,9 +215,9 @@
   function viewAccount() {
     draft = null;
     var p = profile || {}, em = (S && S.anon) ? t('guest_tag') : ((S && S.user && S.user.email) || p.email || '');
-    var ini = p.name ? String(p.name).trim().charAt(0).toUpperCase() : '·';
+    var ini = initialOf(p.name);
     show('<h2 class="ap-c-h">' + t('hello') + (p.name ? ', ' + esc(String(p.name).trim().split(/\s+/)[0]) : '') + '</h2><div class="cv-sheet-body">' +
-      '<div class="ap-prof"><i class="ap-av" aria-hidden="true">' + esc(ini) + '</i><div class="ap-prof-t"><b>' + esc(p.name || '') + '</b><span>' + esc(em) + '</span></div><button type="button" class="ap-pill" data-acct="edit">' + t('edit_s') + '</button></div></div>' +
+      '<div class="ap-prof"><i class="ap-av' + (p.avatar ? ' has-img' : '') + '" aria-hidden="true">' + avInner(p.avatar, ini) + '</i><div class="ap-prof-t"><b>' + esc(p.name || '') + '</b><span>' + esc(em) + '</span></div><button type="button" class="ap-pill" data-acct="edit">' + t('edit_s') + '</button></div></div>' +
       '<div class="cv-sheet-actions ap-c-act"><button type="button" class="cv-ghost" data-acct="logout">' + t('logout') + '</button><button type="button" class="cv-solid" data-acct="close">' + t('back_menu') + '</button></div>');
     var bd = box.querySelector('.cv-sheet-body');
     if (bd) { var sec = document.createElement('section'); sec.className = 'ap-orders'; sec.innerHTML = '<h3 class="ap-orders-h">' + esc(t('orders_h')) + '</h3><div id="apOrders"><p class="ap-meta">…</p></div>'; bd.appendChild(sec); loadOrders(); }
@@ -200,6 +246,13 @@
         }).join('') + helpBlock();
       }).catch(function () { var el = document.getElementById('apOrders'); if (el) el.innerHTML = '<p class="ap-meta">' + esc(t('orders_err')) + '</p>' + helpBlock(); });
   }
+
+  document.addEventListener('change', function (e) {
+    var f = e.target; if (!f || f.id !== 'apPfFile' || !dlg.contains(f)) return;
+    var file = f.files && f.files[0]; if (!file) return;
+    if (!/^image\//.test(file.type) || file.size > 25 * 1024 * 1024) { msg(t('crop_err')); return; }
+    readDraft(); viewCrop(URL.createObjectURL(file));
+  });
 
   function afterLogin() {
     return getProfile().then(function (p) {
@@ -234,7 +287,9 @@
       if (!(d.name || '').trim()) { msg(t('err_name')); return; }
       if ((d.phone || '').replace(/\D/g, '').length < 9) { msg(t('err_phone')); return; }
       busy(el, true); d.lang = L();
-      rest('POST', '/rest/v1/rpc/app_profile_save', { p: d })
+      var av = d.avatar, pd = {}; Object.keys(d).forEach(function (k) { if (k !== 'avatar') pd[k] = d[k]; });
+      rest('POST', '/rest/v1/rpc/app_profile_save', { p: pd })
+        .then(function () { if (av === undefined || !(S && S.user && S.user.id)) return; return rest('PATCH', '/rest/v1/app_customers?id=eq.' + encodeURIComponent(S.user.id), { avatar: av || null }).catch(function () { /* la foto no impide guardar el perfil */ }); })
         .then(function () { draft = null; return getProfile(); }).then(function (r) { syncFilters(true); return r; }).then(function () { busy(el, false); if (dlg.open) dlg.close(); var cb = after; after = null; paintEntry(); if (cb) cb(); })
         .catch(function (x) { msg(/phone/.test(x.message || '') ? t('err_phone') : /name/.test(x.message || '') ? t('err_name') : t('err_net')); busy(el, false); });
     }
@@ -245,11 +300,19 @@
         .catch(function () { msg(t('err_net')); busy(el, false); });
     }
     else if (a === 'edit') { draft = null; viewProfile(); }
+    else if (a === 'photo') { var fi = document.getElementById('apPfFile'); if (fi) fi.click(); }
+    else if (a === 'photo-rm') { readDraft(); draft.avatar = ''; viewProfile(); }
+    else if (a === 'crop-cancel') { viewProfile(); }
+    else if (a === 'crop-ok') { if (cropOut) { draft = draft || { allergies: [] }; draft.avatar = cropOut(); } viewProfile(); }
     else if (a === 'logout') { S = null; profile = null; store(null); if (dlg.open) dlg.close(); paintEntry(); }
     else if (a === 'google') { location.href = B.url + '/auth/v1/authorize?provider=google' + '&redirect_to=' + encodeURIComponent(location.origin + '/'); }
   });
 
   /* ── Entrada en el menú (Entrar / Mi cuenta) ── */
+  /* Foto de perfil: el cliente la guarda como imagen cuadrada pequeña (JPEG) en su perfil. Sin foto, el círculo lleva su inicial. */
+  function curAvatar() { return draft && draft.avatar !== undefined ? draft.avatar : (profile && profile.avatar) || ''; }
+  function avInner(src, ini) { return src ? '<img src="' + esc(src) + '" alt="">' : esc(ini); }
+  function initialOf(name) { return name ? String(name).trim().charAt(0).toUpperCase() : '·'; }
   var ICON_USER = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.9-3.6 3.9-5.4 7.5-5.4s6.6 1.8 7.5 5.4"/></svg>';
   function paintEntry() {
     var b = document.getElementById('apAcctBtn');
@@ -258,7 +321,7 @@
     var h = document.getElementById('apHdrAcct');
     if (h) {
       var ini = S && profile && profile.name ? String(profile.name).trim().charAt(0).toUpperCase() : '';
-      h.innerHTML = ini ? '<i class="ap-ini">' + esc(ini) + '</i>' : ICON_USER; h.setAttribute('aria-label', label); h.title = label; h.classList.toggle('is-in', !!S);
+      h.innerHTML = S && profile && profile.avatar ? '<i class="ap-ini has-img"><img src="' + esc(profile.avatar) + '" alt=""></i>' : (ini ? '<i class="ap-ini">' + esc(ini) + '</i>' : ICON_USER); h.setAttribute('aria-label', label); h.title = label; h.classList.toggle('is-in', !!S); h.classList.toggle('has-photo', !!(S && profile && profile.avatar));
     }
   }
   function ensureEntry() {
