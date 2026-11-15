@@ -186,7 +186,15 @@
       return c.toDataURL('image/jpeg', 0.86);
     };
   }
-  var cropOut = null;
+  var cropOut = null, cropFrom = 'profile';
+  /* La foto se guarda en cuanto se acepta el encuadre (no depende de que el resto del perfil esté completo). */
+  function saveAvatar(val) {
+    return rest('PATCH', '/rest/v1/app_customers?id=eq.' + encodeURIComponent(S && S.user && S.user.id || ''), { avatar: val || null }).then(function (r) {
+      if (!r || !r.length) throw new Error('no_row');
+      if (profile) profile.avatar = val || ''; paintEntry();
+    });
+  }
+  function backFromCrop() { if (cropFrom === 'account') viewAccount(); else viewProfile(); }
   function viewProfile() {
     var p = draft || profile || {}, al = (draft ? draft.allergies : (profile && profile.allergies)) || [];
     if (!draft) draft = { allergies: al.slice() };
@@ -217,7 +225,7 @@
     var p = profile || {}, em = (S && S.anon) ? t('guest_tag') : ((S && S.user && S.user.email) || p.email || '');
     var ini = initialOf(p.name);
     show('<h2 class="ap-c-h">' + t('hello') + (p.name ? ', ' + esc(String(p.name).trim().split(/\s+/)[0]) : '') + '</h2><div class="cv-sheet-body">' +
-      '<div class="ap-prof"><i class="ap-av' + (p.avatar ? ' has-img' : '') + '" aria-hidden="true">' + avInner(p.avatar, ini) + '</i><div class="ap-prof-t"><b>' + esc(p.name || '') + '</b><span>' + esc(em) + '</span></div><button type="button" class="ap-pill" data-acct="edit">' + t('edit_s') + '</button></div></div>' +
+      '<div class="ap-prof"><button type="button" class="ap-av' + (p.avatar ? ' has-img' : '') + '" data-acct="photo" aria-label="' + esc(t('photo_change')) + '">' + avInner(p.avatar, ini) + '<span class="ap-av-cam" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.4"/></svg></span></button><input type="file" id="apPfFile" accept="image/*" hidden><div class="ap-prof-t"><b>' + esc(p.name || '') + '</b><span>' + esc(em) + '</span></div><button type="button" class="ap-pill" data-acct="edit">' + t('edit_s') + '</button></div></div>' +
       '<div class="cv-sheet-actions ap-c-act"><button type="button" class="cv-ghost" data-acct="logout">' + t('logout') + '</button><button type="button" class="cv-solid" data-acct="close">' + t('back_menu') + '</button></div>');
     var bd = box.querySelector('.cv-sheet-body');
     if (bd) { var sec = document.createElement('section'); sec.className = 'ap-orders'; sec.innerHTML = '<h3 class="ap-orders-h">' + esc(t('orders_h')) + '</h3><div id="apOrders"><p class="ap-meta">…</p></div>'; bd.appendChild(sec); loadOrders(); }
@@ -251,7 +259,7 @@
     var f = e.target; if (!f || f.id !== 'apPfFile' || !dlg.contains(f)) return;
     var file = f.files && f.files[0]; if (!file) return;
     if (!/^image\//.test(file.type) || file.size > 25 * 1024 * 1024) { msg(t('crop_err')); return; }
-    readDraft(); viewCrop(URL.createObjectURL(file));
+    cropFrom = document.getElementById('apPfName') ? 'profile' : 'account'; readDraft(); viewCrop(URL.createObjectURL(file)); f.value = '';
   });
 
   function afterLogin() {
@@ -301,9 +309,18 @@
     }
     else if (a === 'edit') { draft = null; viewProfile(); }
     else if (a === 'photo') { var fi = document.getElementById('apPfFile'); if (fi) fi.click(); }
-    else if (a === 'photo-rm') { readDraft(); draft.avatar = ''; viewProfile(); }
-    else if (a === 'crop-cancel') { viewProfile(); }
-    else if (a === 'crop-ok') { if (cropOut) { draft = draft || { allergies: [] }; draft.avatar = cropOut(); } viewProfile(); }
+    else if (a === 'photo-rm') {
+      readDraft(); draft = draft || { allergies: [] };
+      if (profile) { busy(el, true); saveAvatar('').then(function () { viewProfile(); }).catch(function () { busy(el, false); msg(t('err_net')); }); }
+      else { draft.avatar = ''; viewProfile(); }
+    }
+    else if (a === 'crop-cancel') { backFromCrop(); }
+    else if (a === 'crop-ok') {
+      if (!cropOut) { backFromCrop(); return; }
+      var out = cropOut();
+      if (profile) { busy(el, true); saveAvatar(out).then(backFromCrop).catch(function () { busy(el, false); msg(t('err_net')); }); }
+      else { draft = draft || { allergies: [] }; draft.avatar = out; backFromCrop(); }   // cliente sin perfil todavía: se guarda con el perfil
+    }
     else if (a === 'logout') { S = null; profile = null; store(null); if (dlg.open) dlg.close(); paintEntry(); }
     else if (a === 'google') { location.href = B.url + '/auth/v1/authorize?provider=google' + '&redirect_to=' + encodeURIComponent(location.origin + '/'); }
   });

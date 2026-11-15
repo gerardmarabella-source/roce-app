@@ -283,7 +283,7 @@
   function pairAl(it) { return (it.al || []).concat(MILKY.indexOf(it.name) !== -1 && (it.al || []).indexOf(7) === -1 ? [7] : []); }
   function findItem(key) {
     var a = key.split('|'), f = null;
-    D.sections.forEach(function (sec) { (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (blk) { if (bk(blk) === a[0]) blk.items.forEach(function (x) { if (x.name === a[1]) f = { b: blk, it: x }; }); }); }); });
+    D.sections.forEach(function (sec) { (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (blk) { if (bk(blk) === a[0]) blk.items.forEach(function (x) { if ((x.code || x.name) === a[1] || x.name === a[1]) f = { b: blk, it: x }; }); }); }); });
     return f;
   }
   function bakeryPick() {
@@ -390,7 +390,7 @@
         var l = o.l, i = o.i;
         if (o.sub) return '<li class="ap-c-line is-sub"><div class="ap-c-b"><div class="ap-c-top"><b>+ ' + esc(l.name) + '</b><span class="ap-c-p">' + money(l.unit * l.qty) + '</span></div><div class="ap-c-qty"><button type="button" data-cq="' + i + ':-1" aria-label="-">−</button><b>' + l.qty + '</b><button type="button" data-cq="' + i + ':1" aria-label="+">+</button></div></div></li>';
         var f = findItem(l.item), img = f && f.it && f.it.img, par = parentOf(l);
-        return '<li class="ap-c-line">' + (img ? '<img class="ap-c-img" src="' + esc(img) + '" alt="" loading="lazy">' : '<span class="ap-c-img is-none" aria-hidden="true"></span>') +
+        return '<li class="ap-c-line">' + (img ? '<img class="ap-c-img" src="' + esc(img) + '" alt="">' : '<span class="ap-c-img is-none" aria-hidden="true"></span>') +
           '<div class="ap-c-b"><div class="ap-c-top"><b>' + esc(l.name) + '</b><span class="ap-c-p">' + money(l.unit * l.qty) + '</span></div>' +
           (par ? '<span class="ap-c-d">' + esc(t('with_')) + ' ' + esc(par) + '</span>' : (l.detail ? '<span class="ap-c-d">' + esc(l.detail) + '</span>' : '')) + (l.note ? '<span class="ap-c-d ap-c-note">“' + esc(l.note) + '”</span>' : '') +
           '<div class="ap-c-qty"><button type="button" data-cq="' + i + ':-1" aria-label="-">−</button><b>' + l.qty + '</b><button type="button" data-cq="' + i + ':1" aria-label="+">+</button></div></div></li>';
