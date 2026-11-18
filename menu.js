@@ -247,5 +247,82 @@ window.CARTA = {
               ] }
       ]
     }] }
+    ,{ id: 'spirits', color: 'dark', title: { es: 'Spirits', en: 'Spirits' }, desc: { es: 'Copas y chupitos.', en: 'Spirits and shots.' }, groups: [{
+      title: { es: 'Spirits', en: 'Spirits' },
+      blocks: [
+              { title: { es: 'Ginebras', en: 'Gin' }, note: { es: 'Solo mayores de 18 años · Precio por copa · Combinados con Red Bull +1,50 €', en: '18+ only · Price per glass · Mixed with Red Bull +€1.50' }, view: true, alPending: true, items: [
+                { name: "Tanqueray", price: 10 },
+                { name: "Tanqueray Nº Ten", price: 12 },
+                { name: "Tanqueray 0,0", price: 10, tag: { es: "Sin alcohol", en: "Alcohol-free" } },
+                { name: "Bombay Sapphire", price: 10 },
+                { name: "Beefeater", price: 10 },
+                { name: "Larios 12", price: 9 },
+                { name: "Larios Rosé", price: 9 },
+                { name: "Puerto de Indias Fresa", price: 10 },
+                { name: "Puerto de Indias Mora", price: 10 },
+                { name: "Puerto de Indias Melón", price: 10 },
+                { name: "Hendrick's", price: 12 },
+                { name: "Nordés", price: 12 },
+                { name: "Bulldog", price: 12 },
+                { name: "Martin Miller's", price: 15 },
+                { name: "Roku", price: 15 },
+                { name: "Gin Mare", price: 15 }
+              ] },
+              { title: { es: 'Vodka', en: 'Vodka' }, note: { es: 'Solo mayores de 18 años · Precio por copa · Combinados con Red Bull +1,50 €', en: '18+ only · Price per glass · Mixed with Red Bull +€1.50' }, view: true, alPending: true, items: [
+                { name: "Smirnoff", price: 8 },
+                { name: "Absolut", price: 10, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
+                { name: "Cîroc", price: 12 },
+                { name: "Cîroc Apple", price: 13 },
+                { name: "Cîroc Pineapple", price: 13 },
+                { name: "Cîroc Coconut", price: 13 },
+                { name: "Cîroc Peach", price: 13 },
+                { name: "Cîroc Red Berry", price: 13 },
+                { name: "Grey Goose", price: 17, tag: { es: "Chupito 8,50 €", en: "Shot 8,50 €" } }
+              ] },
+              { title: { es: 'Licores', en: 'Liqueurs' }, note: { es: 'Solo mayores de 18 años · Precio por copa', en: '18+ only · Price per glass' }, view: true, alPending: true, items: [
+                { name: "Terry", price: 6 },
+                { name: "Amaretto", price: 6 },
+                { name: "Baileys", price: 6 },
+                { name: "Frangelico", price: 6 },
+                { name: "Licor 43", price: 6 },
+                { name: "Jägermeister", price: 6, tag: { es: "Con hielo", en: "On the rocks" } },
+                { name: "Jägermeister + Red Bull", price: 13 }
+              ] },
+              { title: { es: 'Whisky', en: 'Whisky' }, note: { es: 'Solo mayores de 18 años · Precio por copa · Combinados con Red Bull +1,50 €', en: '18+ only · Price per glass · Mixed with Red Bull +€1.50' }, view: true, alPending: true, items: [
+                { name: "DYC 8", price: 10, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
+                { name: "Jim Beam", price: 10, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
+                { name: "Johnnie Walker Red Label", price: 10, tag: { es: "Chupito 4,50 €", en: "Shot 4,50 €" } },
+                { name: "Jameson", price: 11, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
+                { name: "Jack Daniel's", price: 12, tag: { es: "Chupito 5,00 €", en: "Shot 5,00 €" } },
+                { name: "Johnnie Walker Black Label", price: 15, tag: { es: "Chupito 6,00 €", en: "Shot 6,00 €" } },
+                { name: "Toki", price: 17, tag: { es: "Chupito 8,00 €", en: "Shot 8,00 €" } },
+                { name: "The Macallan 12", price: 23, tag: { es: "Chupito 10,00 €", en: "Shot 10,00 €" } },
+                { name: "Laphroaig", price: 23, tag: { es: "Chupito 10,00 €", en: "Shot 10,00 €" } },
+                { name: "Hibiki", price: 25, tag: { es: "Chupito 12,00 €", en: "Shot 12,00 €" } }
+              ] },
+              { title: { es: 'Ron', en: 'Rum' }, note: { es: 'Solo mayores de 18 años · Precio por copa · Combinados con Red Bull +1,50 €', en: '18+ only · Price per glass · Mixed with Red Bull +€1.50' }, view: true, alPending: true, items: [
+                { name: "Malibú", price: 9 },
+                { name: "Negrita", price: 9, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
+                { name: "Brugal", price: 10, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
+                { name: "Barceló", price: 11, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
+                { name: "Havana Club 7", price: 11, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
+                { name: "Santa Teresa", price: 11, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
+                { name: "Brugal Doble Reserva", price: 12, tag: { es: "Chupito 5,00 €", en: "Shot 5,00 €" } },
+                { name: "Zacapa", price: 15, tag: { es: "Chupito 6,00 €", en: "Shot 6,00 €" } }
+              ] },
+              { title: { es: 'Otros chupitos', en: 'Other shots' }, note: { es: 'Solo mayores de 18 años · Precio por chupito', en: '18+ only · Price per shot' }, view: true, alPending: true, items: [
+                { name: "Limoncello", price: 3 },
+                { name: "Hierbas", price: 3 },
+                { name: "Mistela", price: 3 },
+                { name: "Cazalla", price: 3 },
+                { name: "Tequila de fresa", price: 3 },
+                { name: "Jägermeister", price: 5 },
+                { name: "Astral", price: 8, tag: { es: "Tequila", en: "Tequila" } },
+                { name: "Astral Reposado", price: 9, tag: { es: "Tequila", en: "Tequila" } },
+                { name: "Don Julio Blanco", price: 10, tag: { es: "Tequila", en: "Tequila" } },
+                { name: "Don Julio Reposado", price: 12, tag: { es: "Tequila", en: "Tequila" } }
+              ] }
+      ]
+    }] }
   ];
 })();
