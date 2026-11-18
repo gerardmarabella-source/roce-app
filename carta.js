@@ -179,7 +179,7 @@
     try { history.replaceState(null, '', '#' + id); } catch (e) {}
     current = ''; onScroll(); paintNext();
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { endFlip(); return; }
-    var anim = forward ? from : to, dur = TOUCH.matches ? 650 : 1000;
+    var anim = forward ? from : to, dur = TOUCH.matches ? 460 : 740;
     anim.classList.add(forward ? 'flip-away' : 'flip-in');
     flipping = { t: setTimeout(endFlip, dur), at: Date.now(), dur: dur };
     anim.addEventListener('animationend', endFlip, { once: true });

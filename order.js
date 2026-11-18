@@ -53,8 +53,10 @@
   function loadAvail() {
     fetch(B.url + '/rest/v1/app_menu_items?select=key,active,price_cents,extras', { headers: { apikey: B.anonKey, Authorization: 'Bearer ' + B.anonKey } })
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (rows) { if (!rows) return; soldOut = {}; rows.forEach(function (x) { if (x.active === false) soldOut[x.key] = true; if (typeof x.price_cents === 'number') dbPrice[x.key] = x.price_cents; if (Array.isArray(x.extras)) dbExtras[x.key] = x.extras; }); applyPrices(); mark(); })
+      .then(function (rows) { if (!rows) return; try { localStorage.setItem('roce_avail', JSON.stringify(rows)); } catch (e) {} paintAvail(rows); })
       .catch(function () {});
+  }
+  function paintAvail(rows) { soldOut = {}; rows.forEach(function (x) { if (x.active === false) soldOut[x.key] = true; if (typeof x.price_cents === 'number') dbPrice[x.key] = x.price_cents; if (Array.isArray(x.extras)) dbExtras[x.key] = x.extras; }); applyPrices(); mark();
   }
   function applyPrices() {
     D.sections.forEach(function (sec) { (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (b) { (b.items || []).forEach(function (it) {
@@ -578,6 +580,16 @@
       }).catch(function () { return null; });
   }
 
+  /* Lo último que se supo de agotados y precios se pinta al momento; la red lo corrige después sin parpadeos. */
+  try { var cachedRows = JSON.parse(localStorage.getItem('roce_avail') || 'null'); if (cachedRows && cachedRows.length) paintAvail(cachedRows); } catch (e) {}
+  /* Fotos de los platos: se precargan en segundo plano (con poca prisa y respetando el ahorro de datos) para que se vean al instante al abrir un plato. */
+  function warmPhotos() {
+    var c = navigator.connection || {}; if (c.saveData || /(^|-)2g$/.test(c.effectiveType || '')) return;
+    var urls = []; D.sections.forEach(function (sec) { (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (b) { (b.items || []).forEach(function (it) { if (it.img && urls.indexOf(it.img) < 0) urls.push(it.img); }); }); }); });
+    var i = 0, idle = window.requestIdleCallback || function (f) { return setTimeout(f, 200); };
+    (function next() { if (i >= urls.length) return; var im = new Image(); im.decoding = 'async'; im.onload = im.onerror = function () { idle(next); }; im.src = urls[i++]; })();
+  }
+  window.addEventListener('load', function () { setTimeout(warmPhotos, 1500); });
   paintMode(); paintBar(); mark(); loadAvail(); resolveTable(); setTimeout(function () { handleReturn(ret); }, 400);
   /* Precios y agotados al día: Ágora manda en los precios (se sincronizan cada minuto en la base de datos), así que la app los vuelve a leer sola cada 5 segundos mientras la pantalla está abierta. */
   setInterval(function () { if (!document.hidden) loadAvail(); }, 5000);
