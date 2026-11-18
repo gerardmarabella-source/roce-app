@@ -111,6 +111,7 @@
       var b = blockOf(sec.id); if (!b) return; var ok = open(b);
       if (!ok && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
       [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) {
+        if (b.view) { li.setAttribute('data-view', ''); return; }   /* carta de consulta (vinos): se ve, pero no se pide desde la app */
         var mm = /^it-(.+)-(\d+)$/.exec(li.id || ''), it = mm && b.items[+mm[2]], sold = !!(it && soldOut[itemKey(b, it)]);
         var pe = it && typeof it.price === 'number' && li.querySelector('.cv-price'), pt = pe && it.price.toFixed(2).replace('.', ',') + ' €'; if (pe && pe.textContent !== pt) pe.textContent = pt;
         if (ok && !sold) { li.removeAttribute('data-off'); li.removeAttribute('data-sold'); } else { li.setAttribute('data-off', ''); if (sold) li.setAttribute('data-sold', ''); else li.removeAttribute('data-sold'); }
@@ -418,7 +419,7 @@
     d.textContent = msg; d.classList.add('is-on'); clearTimeout(toastT); toastT = setTimeout(function () { d.classList.remove('is-on'); }, 2600);
   }
   $('cvSections').addEventListener('click', function (e) {
-    var li = e.target.closest('.cv-item'); if (!li) return;
+    var li = e.target.closest('.cv-item'); if (!li || li.hasAttribute('data-view')) return;
     /* Fuera de horario o agotado: se deja abrir para ver la foto y los ingredientes; el botón de añadir sale desactivado. */
     openItem(li);
   });
@@ -595,7 +596,7 @@
   setInterval(function () { if (!document.hidden) loadAvail(); }, 5000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) loadAvail(); });
   window.ROCE_APP = { state: S, openItemById: function (id, preset) {
-    var li = document.getElementById(id); if (!li || li.hasAttribute('data-off')) return;
+    var li = document.getElementById(id); if (!li || li.hasAttribute('data-off') || li.hasAttribute('data-view')) return;
     openItem(li); if (!cur) return;
     String(preset || '').split(',').forEach(function (x) { var p = x.split(':'); if (cur.sel[p[0]] && p[1] !== undefined) { cur.sel[p[0]].push(+p[1]); cur.openG[p[0]] = true; } });
     paintItem();

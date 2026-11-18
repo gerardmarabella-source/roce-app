@@ -198,6 +198,7 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .cv-paper.is-kraft { --sheet: var(--kraft); --ink: #0a0a0a; }
 .cv-paper.is-olive { --sheet: var(--olive); --ink: var(--cream); }
 .cv-paper.is-red { --sheet: var(--red); --ink: var(--cream); }
+.cv-paper.is-wine { --sheet: var(--wine); --ink: var(--cream); }
 .cv-paper.is-dark { --sheet: #262624; --ink: var(--cream); }
 .cv-paper.is-cream { --sheet: var(--cream); --ink: #0a0a0a; }
 /* Coffee & Matcha: gris clarito */
@@ -507,3 +508,7 @@ button.ap-av:not(.has-img) { overflow: visible; }
 
 /* Pasar de menú más ágil en pantallas con ratón */
 @media (pointer: fine) { .cv-paper.flip-away, .cv-paper.flip-in { animation-duration: 0.7s; } }
+
+/* Carta de consulta (vinos): sin botón + y sin cursor de pedido */
+.cv-item[data-view] { cursor: default; }
+.cv-item[data-view]::after { display: none; }
