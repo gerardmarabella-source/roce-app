@@ -11,10 +11,10 @@ window.CARTA = {
   ],
   sections: [
     {
-      id: 'kitchen', color: 'kraft', title: { es: 'Kitchen', en: 'Kitchen' },
+      id: 'kitchen', color: 'kraft', title: { es: 'Cocina', en: 'Kitchen' },
       groups: [
         {
-          title: { es: 'Kitchen', en: 'Kitchen' }, force: true,
+          title: { es: 'Cocina', en: 'Kitchen' }, force: true,
           blocks: [
             {
               title: { es: 'Tostadas', en: 'Toasts' }, note: { es: 'Pan de masa madre', en: 'Sourdough bread' },
@@ -154,7 +154,7 @@ window.CARTA = {
         }
       ]
     },
-    { id: 'bakery', color: 'dark', soon: true, title: { es: 'Bakery', en: 'Bakery' }, desc: { es: 'Bollería, dulces y horno.', en: 'Pastries, sweets and bakery.' }, groups: [] }
+    { id: 'bakery', color: 'dark', soon: true, title: { es: 'Bollería', en: 'Bakery' }, desc: { es: 'Bollería, dulces y horno.', en: 'Pastries, sweets and bakery.' }, groups: [] }
   ]
 };
 
@@ -171,11 +171,11 @@ window.CARTA = {
   function sheet(id, color, es, en, blocks) { return { id: id, color: color, title: { es: es, en: en }, groups: [{ title: { es: es, en: en }, blocks: blocks }] }; }
   C.sections = [
     by.kitchen,
-    sheet('fresh', 'red', 'Juices', 'Juices', [drinks[2], drinks[3]]),
+    sheet('fresh', 'red', 'Zumos', 'Juices', [drinks[2], drinks[3]]),
     by.bakery,
-    sheet('coffee', 'olive', 'Coffee & Matcha', 'Coffee & Matcha', [drinks[0], drinks[1]]),
-    { id: 'drinks', color: 'lgray', title: { es: 'Drinks', en: 'Drinks' }, desc: { es: 'Refrescos, aguas y cervezas.', en: 'Soft drinks, water and beers.' }, groups: [{
-      title: { es: 'Drinks', en: 'Drinks' },
+    sheet('coffee', 'olive', 'Café y Matcha', 'Coffee & Matcha', [drinks[0], drinks[1]]),
+    { id: 'drinks', color: 'lgray', title: { es: 'Bebidas', en: 'Drinks' }, desc: { es: 'Refrescos, aguas y cervezas.', en: 'Soft drinks, water and beers.' }, groups: [{
+      title: { es: 'Bebidas', en: 'Drinks' },
       blocks: [
               { title: { es: 'Cervezas', en: 'Beers' }, note: { es: 'Tercios · Solo mayores de 18 años', en: 'Tercios · 18+ only' }, compact: true, alPending: true, items: [
                 { name: 'Alhambra Reserva 1925', price: 3.5 }, { name: 'Alhambra Reserva Roja', price: 4 }, { name: 'Mahou 5 Estrellas', price: 3.3 }, { name: 'Mahou Reserva', price: 3.8 }, { name: 'Mahou Session IPA', price: 4 }, { name: 'Mahou Sin Gluten', price: 3.5 }, { name: 'Mahou 0,0 Tostada', price: 3.3 }
@@ -191,8 +191,8 @@ window.CARTA = {
               ] }
       ]
     }] }
-    ,{ id: 'wines', color: 'wine', title: { es: 'Wines', en: 'Wines' }, desc: { es: 'Carta de vinos.', en: 'Wine list.' }, groups: [{
-      title: { es: 'Wines', en: 'Wines' },
+    ,{ id: 'wines', color: 'wine', title: { es: 'Vinos', en: 'Wines' }, desc: { es: 'Carta de vinos.', en: 'Wine list.' }, groups: [{
+      title: { es: 'Vinos', en: 'Wines' },
       blocks: [
               { title: { es: 'Por copas', en: 'By the glass' }, note: { es: 'Solo mayores de 18 años · Precio por copa', en: '18+ only · Price per glass' }, items: [
                 { name: "Rippa Dorii", price: 4.5, tag: { es: "Verdejo · Rueda", en: "Verdejo · Rueda" }, desc: { es: "Verdejo y Viura de Rueda, de Bodegas Ontañón: un blanco fresco y fácil de beber.", en: "Verdejo and Viura from Rueda, by Bodegas Ontañón: a fresh, easy-drinking white." } },
@@ -251,8 +251,8 @@ window.CARTA = {
               ] }
       ]
     }] }
-    ,{ id: 'spirits', color: 'dark', title: { es: 'Spirits', en: 'Spirits' }, desc: { es: 'Copas y chupitos.', en: 'Spirits and shots.' }, groups: [{
-      title: { es: 'Spirits', en: 'Spirits' },
+    ,{ id: 'spirits', color: 'dark', title: { es: 'Destilados', en: 'Spirits' }, desc: { es: 'Copas y chupitos.', en: 'Spirits and shots.' }, groups: [{
+      title: { es: 'Destilados', en: 'Spirits' },
       blocks: [
               { title: { es: 'Ginebras', en: 'Gin' }, note: { es: 'Solo mayores de 18 años · Precio por copa', en: '18+ only · Price per glass' }, alPending: true, extras: RB, items: [
                 { name: "Tanqueray", price: 10, variants: MIXERS, req: true, vh: MIXH },
