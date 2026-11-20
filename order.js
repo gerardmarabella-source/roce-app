@@ -99,7 +99,7 @@
   /* El texto de ayuda de la nota cambia según el producto: no se le sugiere «sin cebolla» a un café. */
   function noteTexts(b) {
     var k = sectionIdOf(b);
-    return { title: (k === 'coffee' || k === 'fresh' || k === 'drinks') ? t('note_bar') : t('note'), ph: t('note_ph') };
+    return { title: (k === 'coffee' || k === 'fresh' || k === 'drinks' || k === 'wines') ? t('note_bar') : t('note'), ph: t('note_ph') };
   }
   function blockOf(id) { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (b) { if (b._id === id) f = b; }); }); }); return f; }
 

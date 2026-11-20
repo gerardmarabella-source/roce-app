@@ -190,7 +190,7 @@ window.CARTA = {
     ,{ id: 'wines', color: 'wine', title: { es: 'Wines', en: 'Wines' }, desc: { es: 'Carta de vinos.', en: 'Wine list.' }, groups: [{
       title: { es: 'Wines', en: 'Wines' },
       blocks: [
-              { title: { es: 'Por copas', en: 'By the glass' }, note: { es: 'Solo mayores de 18 años · Precio por copa', en: '18+ only · Price per glass' }, view: true, items: [
+              { title: { es: 'Por copas', en: 'By the glass' }, note: { es: 'Solo mayores de 18 años · Precio por copa', en: '18+ only · Price per glass' }, items: [
                 { name: "Rippa Dorii", price: 4.5, al: [12], tag: { es: "Verdejo · Rueda", en: "Verdejo · Rueda" } },
                 { name: "Viña Zorzal", price: 5, al: [12], tag: { es: "Chardonnay · Navarra", en: "Chardonnay · Navarra" } },
                 { name: "Brezo Blanco 2025", price: 5.5, al: [12], tag: { es: "Godello · Bierzo", en: "Godello · Bierzo" } },
@@ -198,7 +198,7 @@ window.CARTA = {
                 { name: "Mayela 2024", price: 5, al: [12], tag: { es: "Tempranillo · Rioja", en: "Tempranillo · Rioja" } },
                 { name: "Divina Clementia", price: 6, al: [12], tag: { es: "Mencía · Ribeira Sacra", en: "Mencía · Ribeira Sacra" } }
               ] },
-              { title: { es: 'Blancos', en: 'Whites' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, view: true, items: [
+              { title: { es: 'Blancos', en: 'Whites' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, items: [
                 { name: "Leirana 2025", price: 25.2, al: [12], tag: { es: "Albariño · Forjas del Salnés · Rodrigo Méndez y Raúl Pérez · D.O. Rías Baixas", en: "Albariño · Forjas del Salnés · Rodrigo Méndez y Raúl Pérez · D.O. Rías Baixas" } },
                 { name: "Brezo Blanco 2025", price: 22.4, al: [12], tag: { es: "Godello · Bodegas Mengoba · Gregory Pérez · D.O. Bierzo", en: "Godello · Bodegas Mengoba · Gregory Pérez · D.O. Bierzo" } },
                 { name: "Divina Clementia 2024", price: 24, al: [12], tag: { es: "Godello · Raúl Suárez · D.O. Ribeira Sacra", en: "Godello · Raúl Suárez · D.O. Ribeira Sacra" } },
@@ -209,10 +209,10 @@ window.CARTA = {
                 { name: "Chablis 2023", price: 47.6, al: [12], tag: { es: "Chardonnay · Domaine Corinne et Jean-Pierre Grossot · Bourgogne · Francia", en: "Chardonnay · Domaine Corinne et Jean-Pierre Grossot · Bourgogne · Francia" } },
                 { name: "Cullerot 2024", price: 27, al: [12], tag: { es: "Coupages mediterráneos · Celler del Roure · Pablo Calatayud · D.O. Valencia", en: "Coupages mediterráneos · Celler del Roure · Pablo Calatayud · D.O. Valencia" } }
               ] },
-              { title: { es: 'Rosado', en: 'Rosé' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, view: true, items: [
+              { title: { es: 'Rosado', en: 'Rosé' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, items: [
                 { name: "Zorzal Rosado 2025", price: 15.6, al: [12], tag: { es: "Garnacha · Zorzal · D.O. Navarra", en: "Garnacha · Zorzal · D.O. Navarra" } }
               ] },
-              { title: { es: 'Espumosos', en: 'Sparkling' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, view: true, items: [
+              { title: { es: 'Espumosos', en: 'Sparkling' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, items: [
                 { name: "Roger de Flor Brut Nature", price: 18, al: [12], tag: { es: "Cava · Macabeo, Xarel·lo, Parellada · Penedès · D.O. Cava", en: "Cava · Macabeo, Xarel·lo, Parellada · Penedès · D.O. Cava" } },
                 { name: "Ars Collecta Blanc de Noirs", price: 32, al: [12], tag: { es: "Cava · 85% Pinot Noir, 15% Xarel·lo y Macabeo · Codorníu · D.O. Cava", en: "Cava · 85% Pinot Noir, 15% Xarel·lo y Macabeo · Codorníu · D.O. Cava" } },
                 { name: "Clímax Brut Nature Rosat 2022", price: 39, al: [12], tag: { es: "Cava · 100% Pinot Noir · Can Ràfols dels Caus · D.O. Cava", en: "Cava · 100% Pinot Noir · Can Ràfols dels Caus · D.O. Cava" } },
@@ -223,7 +223,7 @@ window.CARTA = {
                 { name: "Dom Pérignon Vintage", price: 345, al: [12], tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" } },
                 { name: "Dom Pérignon Rosé Vintage", price: 535, al: [12], tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" } }
               ] },
-              { title: { es: 'Tintos', en: 'Reds' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, view: true, items: [
+              { title: { es: 'Tintos', en: 'Reds' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, items: [
                 { name: "Mayela 2024", price: 16, al: [12], tag: { es: "Tempranillo · Bodega Bideona · D.O.Ca. Rioja", en: "Tempranillo · Bodega Bideona · D.O.Ca. Rioja" } },
                 { name: "Caliel Joven 2025", price: 17, al: [12], tag: { es: "Tempranillo · Raúl Calvo · D.O. Ribera del Duero", en: "Tempranillo · Raúl Calvo · D.O. Ribera del Duero" } },
                 { name: "Selvanevada 2022", price: 22.5, al: [12], tag: { es: "Tempranillo · Tempranillo, Graciano, Garnacha, Mazuela · Villota · Jesús Madrazo y Carmen Pérez Garrigues · D.O.Ca. Rioja", en: "Tempranillo · Tempranillo, Graciano, Garnacha, Mazuela · Villota · Jesús Madrazo y Carmen Pérez Garrigues · D.O.Ca. Rioja" } },
