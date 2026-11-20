@@ -1,5 +1,5 @@
-@font-face { font-family: "Helvetica Neue Web"; src: url("/assets/fonts/HelveticaNeue-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Helvetica Neue Web"; src: url("/assets/fonts/HelveticaNeue-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Helvetica Neue Web"; src: url("/assets/fonts/HelveticaNeue-Regular.woff2?v=2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Helvetica Neue Web"; src: url("/assets/fonts/HelveticaNeue-Bold.woff2?v=2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 
 :root {
   --black: #0a0a0a; --paper: #f6f3ec; --cream: #ece7dd;
