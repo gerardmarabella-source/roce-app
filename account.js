@@ -355,7 +355,7 @@
     var h = document.getElementById('apHdrAcct');
     if (h) {
       var ini = S && profile && profile.name ? String(profile.name).trim().charAt(0).toUpperCase() : '';
-      h.innerHTML = S && profile && profile.avatar ? '<i class="ap-ini has-img"><img src="' + esc(profile.avatar) + '" alt=""></i>' : (ini ? '<i class="ap-ini">' + esc(ini) + '</i>' : ICON_USER); h.setAttribute('aria-label', label); h.title = label; h.classList.toggle('is-in', !!S); h.classList.toggle('has-photo', !!(S && profile && profile.avatar));
+      h.innerHTML = S && profile && profile.avatar ? '<i class="ap-ini has-img"><img src="' + esc(profile.avatar) + '" alt=""></i>' : (ini ? '<i class="ap-ini">' + esc(ini) + '</i>' : ICON_USER); h.setAttribute('aria-label', label); h.title = label; h.hidden = !!(S && S.anon);   /* el icono del perfil solo existe con cuenta: quien pide como invitado no lo ve */ h.classList.toggle('is-in', !!S); h.classList.toggle('has-photo', !!(S && profile && profile.avatar));
     }
   }
   function ensureEntry() {

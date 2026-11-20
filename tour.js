@@ -5,8 +5,8 @@
   var shown = false, timer = 0, auto = 0;
   function lang() { return (document.documentElement.lang || 'es').slice(0, 2) === 'en' ? 'en' : 'es'; }
   var TX = {
-    es: { h: 'Pasa la hoja', p: 'Desliza el dedo hacia los lados para cambiar de carta.', ok: 'Entendido', n: ['Kitchen', 'Fresh Juices', 'Bakery', 'Coffee & Matcha', 'Drinks'] },
-    en: { h: 'Turn the page', p: 'Swipe left or right to switch between menus.', ok: 'Got it', n: ['Kitchen', 'Fresh Juices', 'Bakery', 'Coffee & Matcha', 'Drinks'] }
+    es: { h: 'Pasa la hoja', p: 'Desliza el dedo hacia los lados para cambiar de carta.', ok: 'Entendido', n: ['Kitchen', 'Juices', 'Bakery', 'Coffee & Matcha', 'Drinks'] },
+    en: { h: 'Turn the page', p: 'Swipe left or right to switch between menus.', ok: 'Got it', n: ['Kitchen', 'Juices', 'Bakery', 'Coffee & Matcha', 'Drinks'] }
   };
   function done() {
     try { localStorage.setItem(KEY, '1'); } catch (e) {}

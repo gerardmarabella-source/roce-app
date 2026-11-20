@@ -512,3 +512,11 @@ button.ap-av:not(.has-img) { overflow: visible; }
 /* Carta de consulta (vinos): sin botón + y sin cursor de pedido */
 .cv-item[data-view] { cursor: default; }
 .cv-item[data-view]::after { display: none; }
+
+.ap-hdr-acct[hidden] { display: none; }
+
+/* Vinos: descripción y palabras clave */
+.cv-i-wd { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 0.25rem; font-size: 0.86rem; line-height: 1.35; opacity: 0.85; }
+.cv-i-kw { margin: 0.3rem 0 0; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
+.ap-meta { margin: 0 0 0.5rem; font-size: 0.82rem; opacity: 0.65; }
+.ap-kw { margin: 0.2rem 0 0.6rem; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.75; }

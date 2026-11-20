@@ -104,13 +104,15 @@
   function item(it, blk, n) {
     var dup = it.code && it.code === it.name;
     var h = '<li class="cv-item" id="it-' + blk._id + '-' + n + '"' + attrs(it, blk) + '><div class="cv-i-main"><div class="cv-i-top"><span class="cv-i-name">' +
-      (it.code && !dup ? '<em>' + esc(it.code) + '</em>' : '') + esc(it.name) + (isVegan(it, blk) ? '<span class="cv-vgl" role="img" aria-label="' + esc(L === 'en' ? 'Vegan' : 'Vegano') + '" title="' + esc(L === 'en' ? 'Vegan, based on the listed ingredients' : 'Vegano, según los ingredientes indicados') + '">' + LEAF + '</span>' : '') + (it.note ? ' <small>' + esc(tx(it.note)) + '</small>' : '') + als(it.al) +
+      (it.code && !dup && !blk.hideCode ? '<em>' + esc(it.code) + '</em>' : '') + esc(it.name) + (isVegan(it, blk) ? '<span class="cv-vgl" role="img" aria-label="' + esc(L === 'en' ? 'Vegan' : 'Vegano') + '" title="' + esc(L === 'en' ? 'Vegan, based on the listed ingredients' : 'Vegano, según los ingredientes indicados') + '">' + LEAF + '</span>' : '') + (it.note ? ' <small>' + esc(tx(it.note)) + '</small>' : '') + als(it.al) +
       (blk.alPending ? '<span class="cv-pend">' + esc(ui('pending')) + '</span>' : '') + '</span><span class="cv-price">' + money(it.price) + '</span></div>' +
       tags(it, blk);
     if (it.es) h += '<p class="cv-i-desc">' + esc(tx({ es: it.es, en: it.en })) + '</p>';
     if (it.tag) h += '<p class="cv-i-desc cv-i-tag">' + esc(tx(it.tag)) + '</p>';
+    if (it.desc) h += '<p class="cv-i-desc cv-i-wd">' + esc(tx(it.desc)) + '</p>';
+    if (it.kw) h += '<p class="cv-i-kw">' + esc(tx(it.kw)) + '</p>';
     if (it.nut) h += nut(it.nut, it.nutEst);
-    if (it.variants) h += '<ul class="cv-variants">' + it.variants.map(function (v) { return '<li><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span>' + als(v.al) + '</li>'; }).join('') + '</ul>';
+    if (it.variants && !it.req) h += '<ul class="cv-variants">' + it.variants.map(function (v) { return '<li><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span>' + als(v.al) + '</li>'; }).join('') + '</ul>';
     h += '</div></li>'; /* la foto (it.img) solo se enseña dentro del diálogo del plato */
     return h;
   }
@@ -330,7 +332,7 @@
     }, 80);
   }
   window.CARTA_API = { D: D, ING: ING, DIETS: DIETS, RE: RE, F: function () { return F; }, L: function () { return L; }, tx: tx, esc: esc, money: money, als: als, norm: norm, analyze: analyze, goTo: goTo, openFilters: openAl, setF: function (x) { setF(x); } };
-  /* ── Solo en móvil: deslizar a izquierda/derecha cambia de carta (Kitchen, Bakery, Coffee & Matcha, Fresh Juices, Drinks) ── */
+  /* ── Solo en móvil: deslizar a izquierda/derecha cambia de carta (Kitchen, Bakery, Coffee & Matcha, Juices, Drinks) ── */
   (function () {
     var mq = window.matchMedia('(max-width: 767px) and (pointer: coarse)');
     var x0 = 0, y0 = 0, t0 = 0, ok = false;

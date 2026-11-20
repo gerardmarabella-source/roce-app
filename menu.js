@@ -130,7 +130,7 @@ window.CARTA = {
               ]
             },
             {
-              title: { es: 'Smoothies', en: 'Smoothies' }, note: { es: 'Con fruta natural', en: 'Made with real fruit' }, alPending: true,
+              title: { es: 'Smoothies', en: 'Smoothies' }, hideCode: true, note: { es: 'Con fruta natural', en: 'Made with real fruit' }, alPending: true,
               items: [
                 { code: '01', name: 'Marathon Rat', img: '/assets/dishes/marathon-rat.webp', nut: [172, 3, 42, 1], price: 6, es: 'Mango · Piña · Maracuyá · Zumo de naranja', en: 'Mango · Pineapple · Passion fruit · Orange juice', tag: { es: 'Aporta energía de forma natural.', en: 'Natural energy.' } },
                 { code: '02', name: 'Purple Haze', img: '/assets/dishes/purple-haze.webp', nut: [166, 3, 33, 4], price: 7, es: 'Açaí · Fresa · Plátano · Frutos rojos', en: 'Açaí · Strawberry · Banana · Red berries', tag: { es: 'Rico en antioxidantes y vitaminas.', en: 'Rich in antioxidants and vitamins.' } },
@@ -141,7 +141,7 @@ window.CARTA = {
               ]
             },
             {
-              title: { es: 'Zumos naturales', en: 'Fresh juices' }, alPending: true,
+              title: { es: 'Zumos naturales', en: 'Fresh juices' }, hideCode: true, alPending: true,
               items: [
                 { code: '07', name: 'Depure', img: '/assets/dishes/depure.webp', nut: [105, 2, 26, 1], price: 5.5, es: 'Manzana verde · Pepino · Apio · Limón · Jengibre', en: 'Green apple · Cucumber · Celery · Lemon · Ginger', tag: { es: 'Ayuda a depurar el organismo.', en: 'Helps cleanse the body.' } },
                 { code: '08', name: 'Vitality', img: '/assets/dishes/vitality.webp', nut: [160, 3, 37, 1], price: 5.5, es: 'Naranja · Zanahoria · Manzana · Jengibre', en: 'Orange · Carrot · Apple · Ginger', tag: { es: 'Aporta vitaminas y combate el cansancio.', en: 'Vitamins to fight tiredness.' } },
@@ -158,16 +158,20 @@ window.CARTA = {
   ]
 };
 
-/* Las cinco cartas, en este orden: Kitchen · Fresh Juices · Bakery · Coffee & Matcha · Drinks.
-   Se componen a partir de los bloques de arriba (el bloque "Drinks" se reparte entre Coffee & Matcha y Fresh Juices). */
+/* Las cinco cartas, en este orden: Kitchen · Juices · Bakery · Coffee & Matcha · Drinks.
+   Se componen a partir de los bloques de arriba (el bloque "Drinks" se reparte entre Coffee & Matcha y Juices). */
 (function () {
+  /* Mezclas de las copas de ginebra, vodka, whisky y ron (van incluidas en el precio): refrescos de la carta + tónicas. El Red Bull suma 1,50 €. */
+  var MIXERS = [{ name: 'Solo' }, { name: 'Pepsi' }, { name: 'Pepsi 0' }, { name: '7UP' }, { name: 'Kas Limón' }, { name: 'Kas Naranja' }, { name: 'Tónica Schweppes' }, { name: 'Tónica Schweppes Zero' }];
+  var MIXH = { es: 'Con qué lo quieres', en: 'What to mix it with' };
+  var RB = { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Red Bull', en: 'Red Bull' }, '+1,50']] };
   var C = window.CARTA, by = {};
   C.sections.forEach(function (s) { by[s.id] = s; });
   var drinks = by.bebidas.groups[0].blocks;
   function sheet(id, color, es, en, blocks) { return { id: id, color: color, title: { es: es, en: en }, groups: [{ title: { es: es, en: en }, blocks: blocks }] }; }
   C.sections = [
     by.kitchen,
-    sheet('fresh', 'red', 'Fresh Juices', 'Fresh Juices', [drinks[2], drinks[3]]),
+    sheet('fresh', 'red', 'Juices', 'Juices', [drinks[2], drinks[3]]),
     by.bakery,
     sheet('coffee', 'olive', 'Coffee & Matcha', 'Coffee & Matcha', [drinks[0], drinks[1]]),
     { id: 'drinks', color: 'lgray', title: { es: 'Drinks', en: 'Drinks' }, desc: { es: 'Refrescos, aguas y cervezas.', en: 'Soft drinks, water and beers.' }, groups: [{
@@ -191,95 +195,95 @@ window.CARTA = {
       title: { es: 'Wines', en: 'Wines' },
       blocks: [
               { title: { es: 'Por copas', en: 'By the glass' }, note: { es: 'Solo mayores de 18 años · Precio por copa', en: '18+ only · Price per glass' }, items: [
-                { name: "Rippa Dorii", price: 4.5, al: [12], tag: { es: "Verdejo · Rueda", en: "Verdejo · Rueda" } },
-                { name: "Viña Zorzal", price: 5, al: [12], tag: { es: "Chardonnay · Navarra", en: "Chardonnay · Navarra" } },
-                { name: "Brezo Blanco 2025", price: 5.5, al: [12], tag: { es: "Godello · Bierzo", en: "Godello · Bierzo" } },
-                { name: "Casagrande 2021", price: 4, al: [12], tag: { es: "Bobal · Utiel-Requena", en: "Bobal · Utiel-Requena" } },
-                { name: "Mayela 2024", price: 5, al: [12], tag: { es: "Tempranillo · Rioja", en: "Tempranillo · Rioja" } },
-                { name: "Divina Clementia", price: 6, al: [12], tag: { es: "Mencía · Ribeira Sacra", en: "Mencía · Ribeira Sacra" } }
+                { name: "Rippa Dorii", price: 4.5, tag: { es: "Verdejo · Rueda", en: "Verdejo · Rueda" }, desc: { es: "Verdejo y Viura de Rueda, de Bodegas Ontañón: un blanco fresco y fácil de beber.", en: "Verdejo and Viura from Rueda, by Bodegas Ontañón: a fresh, easy-drinking white." } },
+                { name: "Viña Zorzal", price: 5, tag: { es: "Chardonnay · Navarra", en: "Chardonnay · Navarra" }, desc: { es: "Seco, con cítricos, fruta blanca y notas de fruta tropical. Ligero, fácil de beber y con buen volumen. Chardonnay navarro sin madera.", en: "Dry, with citrus, white fruit and tropical notes. Light, easy to drink, with good volume. Unoaked Chardonnay from Navarra." }, kw: { es: "CÍTRICO · LIGERO · DIRECTO", en: "CITRUS · LIGHT · DIRECT" } },
+                { name: "Brezo Blanco 2025", price: 5.5, tag: { es: "Godello · Bierzo", en: "Godello · Bierzo" }, desc: { es: "Piña, pomelo y fruta blanca, con notas minerales y herbales. Sabroso y expresivo, con buena acidez.", en: "Pineapple, grapefruit and white fruit with mineral and herbal notes. Tasty and expressive, with good acidity." }, kw: { es: "SABROSO · MINERAL · EXPRESIVO", en: "TASTY · MINERAL · EXPRESSIVE" } },
+                { name: "Casagrande 2021", price: 4, tag: { es: "Bobal · Utiel-Requena", en: "Bobal · Utiel-Requena" }, desc: { es: "Bobal de Utiel-Requena, de Vinícola Requenense.", en: "Bobal from Utiel-Requena, by Vinícola Requenense." } },
+                { name: "Mayela 2024", price: 5, tag: { es: "Tempranillo · Rioja", en: "Tempranillo · Rioja" }, desc: { es: "Fruta roja, ligero, jugoso y directo, pero con más profundidad de lo que cabría esperar de un tinto joven. Rioja Alavesa sin crianza en madera.", en: "Red fruit, light, juicy and direct, with more depth than you would expect from a young red. Rioja Alavesa with no oak ageing." }, kw: { es: "JOVEN · LIGERO · DIRECTO", en: "YOUNG · LIGHT · DIRECT" } },
+                { name: "Divina Clementia", price: 6, tag: { es: "Mencía · Ribeira Sacra", en: "Mencía · Ribeira Sacra" }, desc: { es: "Ciruela madura y frutos rojos, con fondo balsámico, especiado y vainilla fina. Estructurado, con cuerpo, taninos maduros y final largo. Mencía de cepas viejas de Ribeira Sacra.", en: "Ripe plum and red fruit with balsamic, spicy depth and fine vanilla. Structured, full-bodied, with ripe tannins and a long finish. Old-vine Mencía from Ribeira Sacra." }, kw: { es: "ESTRUCTURADO · ESPECIADO · PROFUNDO", en: "STRUCTURED · SPICED · DEEP" } }
               ] },
               { title: { es: 'Blancos', en: 'Whites' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, items: [
-                { name: "Leirana 2025", price: 25.2, al: [12], tag: { es: "Albariño · Forjas del Salnés · Rodrigo Méndez y Raúl Pérez · D.O. Rías Baixas", en: "Albariño · Forjas del Salnés · Rodrigo Méndez y Raúl Pérez · D.O. Rías Baixas" } },
-                { name: "Brezo Blanco 2025", price: 22.4, al: [12], tag: { es: "Godello · Bodegas Mengoba · Gregory Pérez · D.O. Bierzo", en: "Godello · Bodegas Mengoba · Gregory Pérez · D.O. Bierzo" } },
-                { name: "Divina Clementia 2024", price: 24, al: [12], tag: { es: "Godello · Raúl Suárez · D.O. Ribeira Sacra", en: "Godello · Raúl Suárez · D.O. Ribeira Sacra" } },
-                { name: "Rippa Dorii 2025", price: 14, al: [12], tag: { es: "Verdejo y Viura · Bodegas Ontañón · D.O. Rueda", en: "Verdejo y Viura · Bodegas Ontañón · D.O. Rueda" } },
-                { name: "Basa 2025", price: 17.5, al: [12], tag: { es: "Verdejo y Viura · Verdejo, Viura · Telmo Rodríguez · D.O. Rueda", en: "Verdejo y Viura · Verdejo, Viura · Telmo Rodríguez · D.O. Rueda" } },
-                { name: "Legaris Verdejo 2025", price: 23, al: [12], tag: { es: "Verdejo y Viura · Legaris · Valladolid · D.O. Rueda", en: "Verdejo y Viura · Legaris · Valladolid · D.O. Rueda" } },
-                { name: "Zorzal 2025", price: 15.6, al: [12], tag: { es: "Chardonnay · Zorzal · D.O. Navarra", en: "Chardonnay · Zorzal · D.O. Navarra" } },
-                { name: "Chablis 2023", price: 47.6, al: [12], tag: { es: "Chardonnay · Domaine Corinne et Jean-Pierre Grossot · Bourgogne · Francia", en: "Chardonnay · Domaine Corinne et Jean-Pierre Grossot · Bourgogne · Francia" } },
-                { name: "Cullerot 2024", price: 27, al: [12], tag: { es: "Coupages mediterráneos · Celler del Roure · Pablo Calatayud · D.O. Valencia", en: "Coupages mediterráneos · Celler del Roure · Pablo Calatayud · D.O. Valencia" } }
+                { name: "Leirana 2025", price: 25.2, tag: { es: "Albariño · Forjas del Salnés · Rodrigo Méndez y Raúl Pérez · D.O. Rías Baixas", en: "Albariño · Forjas del Salnés · Rodrigo Méndez y Raúl Pérez · D.O. Rías Baixas" }, desc: { es: "Cítricos, flores blancas y hierbas. Preciso, largo y con un final ligeramente salino. Albariño de viñas viejas del Val do Salnés.", en: "Citrus, white flowers and herbs. Precise, long, with a slightly saline finish. Old-vine Albariño from Val do Salnés." }, kw: { es: "ATLÁNTICO · SALINO · PRECISO", en: "ATLANTIC · SALINE · PRECISE" } },
+                { name: "Brezo Blanco 2025", price: 22.4, tag: { es: "Godello · Bodegas Mengoba · Gregory Pérez · D.O. Bierzo", en: "Godello · Bodegas Mengoba · Gregory Pérez · D.O. Bierzo" }, desc: { es: "Piña, pomelo y fruta blanca, con notas minerales y herbales. Sabroso y expresivo, con buena acidez.", en: "Pineapple, grapefruit and white fruit with mineral and herbal notes. Tasty and expressive, with good acidity." }, kw: { es: "SABROSO · MINERAL · EXPRESIVO", en: "TASTY · MINERAL · EXPRESSIVE" } },
+                { name: "Divina Clementia 2024", price: 24, tag: { es: "Godello · Raúl Suárez · D.O. Ribeira Sacra", en: "Godello · Raúl Suárez · D.O. Ribeira Sacra" }, desc: { es: "Godello de Ribeira Sacra, de Raúl Suárez.", en: "Godello from Ribeira Sacra, by Raúl Suárez." } },
+                { name: "Rippa Dorii 2025", price: 14, tag: { es: "Verdejo y Viura · Bodegas Ontañón · D.O. Rueda", en: "Verdejo y Viura · Bodegas Ontañón · D.O. Rueda" }, desc: { es: "Verdejo y Viura de Rueda, de Bodegas Ontañón: un blanco fresco y fácil de beber.", en: "Verdejo and Viura from Rueda, by Bodegas Ontañón: a fresh, easy-drinking white." } },
+                { name: "Basa 2025", price: 17.5, tag: { es: "Verdejo y Viura · Verdejo, Viura · Telmo Rodríguez · D.O. Rueda", en: "Verdejo y Viura · Verdejo, Viura · Telmo Rodríguez · D.O. Rueda" }, desc: { es: "Cítricos, hierbas y un toque tropical. Sabroso, aromático y con el ligero amargor característico del Verdejo.", en: "Citrus, herbs and a tropical touch. Tasty, aromatic, with the light bitterness typical of Verdejo." }, kw: { es: "AROMÁTICO · HERBAL · VIVAZ", en: "AROMATIC · HERBAL · LIVELY" } },
+                { name: "Legaris Verdejo 2025", price: 23, tag: { es: "Verdejo y Viura · Legaris · Valladolid · D.O. Rueda", en: "Verdejo y Viura · Legaris · Valladolid · D.O. Rueda" }, desc: { es: "Verdejo de Rueda de Legaris: fresco y aromático, con fruta y hierbas.", en: "Verdejo from Rueda by Legaris: fresh and aromatic, with fruit and herbs." } },
+                { name: "Zorzal 2025", price: 15.6, tag: { es: "Chardonnay · Zorzal · D.O. Navarra", en: "Chardonnay · Zorzal · D.O. Navarra" }, desc: { es: "Seco, con cítricos, fruta blanca y notas de fruta tropical. Ligero, fácil de beber y con buen volumen. Chardonnay navarro sin madera.", en: "Dry, with citrus, white fruit and tropical notes. Light, easy to drink, with good volume. Unoaked Chardonnay from Navarra." }, kw: { es: "CÍTRICO · LIGERO · DIRECTO", en: "CITRUS · LIGHT · DIRECT" } },
+                { name: "Chablis 2023", price: 47.6, tag: { es: "Chardonnay · Domaine Corinne et Jean-Pierre Grossot · Bourgogne · Francia", en: "Chardonnay · Domaine Corinne et Jean-Pierre Grossot · Bourgogne · Francia" }, desc: { es: "Chardonnay de Chablis, en el norte de Borgoña: un blanco seco, tenso y mineral.", en: "Chardonnay from Chablis in northern Burgundy: a dry, tense, mineral white." } },
+                { name: "Cullerot 2024", price: 27, tag: { es: "Coupages mediterráneos · Celler del Roure · Pablo Calatayud · D.O. Valencia", en: "Coupages mediterráneos · Celler del Roure · Pablo Calatayud · D.O. Valencia" }, desc: { es: "Blanco mediterráneo de Celler del Roure, elaborado con variedades de la zona (D.O. Valencia).", en: "Mediterranean white from Celler del Roure, made with local varieties (D.O. Valencia)." } }
               ] },
               { title: { es: 'Rosado', en: 'Rosé' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, items: [
-                { name: "Zorzal Rosado 2025", price: 15.6, al: [12], tag: { es: "Garnacha · Zorzal · D.O. Navarra", en: "Garnacha · Zorzal · D.O. Navarra" } }
+                { name: "Zorzal Rosado 2025", price: 15.6, tag: { es: "Garnacha · Zorzal · D.O. Navarra", en: "Garnacha · Zorzal · D.O. Navarra" }, desc: { es: "Fresa, frambuesa, melocotón y flores. Seco, ligero y con un final cítrico y refrescante. Garnacha rosada de Navarra.", en: "Strawberry, raspberry, peach and flowers. Dry, light, with a citrusy, refreshing finish. Rosé Garnacha from Navarra." }, kw: { es: "FLORAL · LIGERO · REFRESCANTE", en: "FLORAL · LIGHT · REFRESHING" } }
               ] },
               { title: { es: 'Espumosos', en: 'Sparkling' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, items: [
-                { name: "Roger de Flor Brut Nature", price: 18, al: [12], tag: { es: "Cava · Macabeo, Xarel·lo, Parellada · Penedès · D.O. Cava", en: "Cava · Macabeo, Xarel·lo, Parellada · Penedès · D.O. Cava" } },
-                { name: "Ars Collecta Blanc de Noirs", price: 32, al: [12], tag: { es: "Cava · 85% Pinot Noir, 15% Xarel·lo y Macabeo · Codorníu · D.O. Cava", en: "Cava · 85% Pinot Noir, 15% Xarel·lo y Macabeo · Codorníu · D.O. Cava" } },
-                { name: "Clímax Brut Nature Rosat 2022", price: 39, al: [12], tag: { es: "Cava · 100% Pinot Noir · Can Ràfols dels Caus · D.O. Cava", en: "Cava · 100% Pinot Noir · Can Ràfols dels Caus · D.O. Cava" } },
-                { name: "André Clouet Grande Réserve Blanc de Noirs", price: 57, al: [12], tag: { es: "Champagne · Pinot Noir · Grand Cru · André Clouet · Bouzy · Francia", en: "Champagne · Pinot Noir · Grand Cru · André Clouet · Bouzy · Francia" } },
-                { name: "Moët & Chandon Brut", price: 64, al: [12], tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" } },
-                { name: "Bollinger Special Cuvée", price: 105, al: [12], tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" } },
-                { name: "Perrier-Jouët Rosé", price: 117, al: [12], tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" } },
-                { name: "Dom Pérignon Vintage", price: 345, al: [12], tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" } },
-                { name: "Dom Pérignon Rosé Vintage", price: 535, al: [12], tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" } }
+                { name: "Roger de Flor Brut Nature", price: 18, tag: { es: "Cava · Macabeo, Xarel·lo, Parellada · Penedès · D.O. Cava", en: "Cava · Macabeo, Xarel·lo, Parellada · Penedès · D.O. Cava" }, desc: { es: "Cava Brut Nature del Penedès, de Macabeo, Xarel·lo y Parellada: seco, sin azúcar añadido.", en: "Brut Nature Cava from Penedès, made from Macabeo, Xarel·lo and Parellada: dry, with no added sugar." } },
+                { name: "Ars Collecta Blanc de Noirs", price: 32, tag: { es: "Cava · 85% Pinot Noir, 15% Xarel·lo y Macabeo · Codorníu · D.O. Cava", en: "Cava · 85% Pinot Noir, 15% Xarel·lo y Macabeo · Codorníu · D.O. Cava" }, desc: { es: "Cava de Codorníu con 85 % Pinot Noir y 15 % Xarel·lo y Macabeo: un blanco de tintas con cuerpo.", en: "Cava by Codorníu, 85% Pinot Noir and 15% Xarel·lo and Macabeo: a full-bodied blanc de noirs." } },
+                { name: "Clímax Brut Nature Rosat 2022", price: 39, tag: { es: "Cava · 100% Pinot Noir · Can Ràfols dels Caus · D.O. Cava", en: "Cava · 100% Pinot Noir · Can Ràfols dels Caus · D.O. Cava" }, desc: { es: "Cava rosado Brut Nature de Can Ràfols dels Caus, 100 % Pinot Noir.", en: "Brut Nature rosé Cava by Can Ràfols dels Caus, 100% Pinot Noir." } },
+                { name: "André Clouet Grande Réserve Blanc de Noirs", price: 57, tag: { es: "Champagne · Pinot Noir · Grand Cru · André Clouet · Bouzy · Francia", en: "Champagne · Pinot Noir · Grand Cru · André Clouet · Bouzy · Francia" }, desc: { es: "Fruta madura, cítricos y recuerdos de pan y brioche. Burbuja fina, con cuerpo y textura cremosa. Champagne Grand Cru de Bouzy, 100 % Pinot Noir.", en: "Ripe fruit, citrus and hints of bread and brioche. Fine bubbles, full-bodied and creamy. Grand Cru Champagne from Bouzy, 100% Pinot Noir." }, kw: { es: "VINOSO · CREMOSO · ELEGANTE", en: "VINOUS · CREAMY · ELEGANT" } },
+                { name: "Moët & Chandon Brut", price: 64, tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" }, desc: { es: "Champagne Brut de la casa Moët & Chandon, el clásico para brindar.", en: "Brut Champagne from Moët & Chandon, the classic for a toast." } },
+                { name: "Bollinger Special Cuvée", price: 105, tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" }, desc: { es: "Champagne Brut de la casa Bollinger, de estilo con cuerpo.", en: "Brut Champagne from the house of Bollinger, full in style." } },
+                { name: "Perrier-Jouët Rosé", price: 117, tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" }, desc: { es: "Champagne rosado de la casa Perrier-Jouët.", en: "Rosé Champagne from the house of Perrier-Jouët." } },
+                { name: "Dom Pérignon Vintage", price: 345, tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" }, desc: { es: "Champagne de añada de Dom Pérignon, la cuvée de prestigio de Moët & Chandon.", en: "Vintage Champagne by Dom Pérignon, Moët & Chandon's prestige cuvée." } },
+                { name: "Dom Pérignon Rosé Vintage", price: 535, tag: { es: "Champagne · Champagne · Francia", en: "Champagne · Champagne · Francia" }, desc: { es: "Champagne rosado de añada de Dom Pérignon.", en: "Vintage rosé Champagne by Dom Pérignon." } }
               ] },
               { title: { es: 'Tintos', en: 'Reds' }, note: { es: 'Solo mayores de 18 años · Precio por botella', en: '18+ only · Price per bottle' }, items: [
-                { name: "Mayela 2024", price: 16, al: [12], tag: { es: "Tempranillo · Bodega Bideona · D.O.Ca. Rioja", en: "Tempranillo · Bodega Bideona · D.O.Ca. Rioja" } },
-                { name: "Caliel Joven 2025", price: 17, al: [12], tag: { es: "Tempranillo · Raúl Calvo · D.O. Ribera del Duero", en: "Tempranillo · Raúl Calvo · D.O. Ribera del Duero" } },
-                { name: "Selvanevada 2022", price: 22.5, al: [12], tag: { es: "Tempranillo · Tempranillo, Graciano, Garnacha, Mazuela · Villota · Jesús Madrazo y Carmen Pérez Garrigues · D.O.Ca. Rioja", en: "Tempranillo · Tempranillo, Graciano, Garnacha, Mazuela · Villota · Jesús Madrazo y Carmen Pérez Garrigues · D.O.Ca. Rioja" } },
-                { name: "Viña Pomal Crianza 2022", price: 23, al: [12], tag: { es: "Tempranillo · Bodegas Bilbaínas · Haro · Rioja Alta · D.O.Ca. Rioja", en: "Tempranillo · Bodegas Bilbaínas · Haro · Rioja Alta · D.O.Ca. Rioja" } },
-                { name: "Legaris Crianza 2021", price: 28, al: [12], tag: { es: "Tempranillo · Legaris · Curiel de Duero · D.O. Ribera del Duero", en: "Tempranillo · Legaris · Curiel de Duero · D.O. Ribera del Duero" } },
-                { name: "San Cobate La Finca 2021", price: 31.5, al: [12], tag: { es: "Tempranillo · San Cobate · D.O. Ribera del Duero", en: "Tempranillo · San Cobate · D.O. Ribera del Duero" } },
-                { name: "Lanzaga 2021", price: 46.5, al: [12], tag: { es: "Tempranillo · Tempranillo, Garnacha, Graciano · Bodega Lanzaga · Telmo Rodríguez y Pablo Eguzkiza · D.O.Ca. Rioja", en: "Tempranillo · Tempranillo, Garnacha, Graciano · Bodega Lanzaga · Telmo Rodríguez y Pablo Eguzkiza · D.O.Ca. Rioja" } },
-                { name: "Clos Lojen 2025", price: 18, al: [12], tag: { es: "Monastrell, Bobal y mediterráneos · Bobal · Bodegas y Viñedos Ponce · Juan Antonio Ponce · D.O. Manchuela", en: "Monastrell, Bobal y mediterráneos · Bobal · Bodegas y Viñedos Ponce · Juan Antonio Ponce · D.O. Manchuela" } },
-                { name: "Vermell 2024", price: 18, al: [12], tag: { es: "Monastrell, Bobal y mediterráneos · Monastrell, Garnacha Tintorera, Mandó · Celler del Roure · Pablo Calatayud · D.O. Valencia", en: "Monastrell, Bobal y mediterráneos · Monastrell, Garnacha Tintorera, Mandó · Celler del Roure · Pablo Calatayud · D.O. Valencia" } },
-                { name: "Les Alcusses 2023", price: 19, al: [12], tag: { es: "Monastrell, Bobal y mediterráneos · Cabernet Sauvignon, Merlot, Monastrell, Tempranillo · Celler del Roure · Pablo Calatayud · D.O. Valencia", en: "Monastrell, Bobal y mediterráneos · Cabernet Sauvignon, Merlot, Monastrell, Tempranillo · Celler del Roure · Pablo Calatayud · D.O. Valencia" } },
-                { name: "Casagrande 2021", price: 20, al: [12], tag: { es: "Monastrell, Bobal y mediterráneos · Bobal · Vinícola Requenense · D.O. Utiel-Requena", en: "Monastrell, Bobal y mediterráneos · Bobal · Vinícola Requenense · D.O. Utiel-Requena" } },
-                { name: "El Tiempo que nos une 2025", price: 21, al: [12], tag: { es: "Monastrell, Bobal y mediterráneos · Monastrell · Bodega Cerrón · D.O. Jumilla", en: "Monastrell, Bobal y mediterráneos · Monastrell · Bodega Cerrón · D.O. Jumilla" } },
-                { name: "Las Cabañuelas 2021", price: 22, al: [12], tag: { es: "Garnacha · Viñedos del Jorco · César Ruiz, Nacho Jiménez, Flequi Berruti y Raúl Pérez · D.O.P. Cebreros · Sierra de Gredos", en: "Garnacha · Viñedos del Jorco · César Ruiz, Nacho Jiménez, Flequi Berruti y Raúl Pérez · D.O.P. Cebreros · Sierra de Gredos" } },
-                { name: "Châteauneuf-du-Pape Télégramme 2023", price: 69.5, al: [12], tag: { es: "Garnacha · Grenache, Mourvèdre · Domaine du Vieux Télégraphe · Rhône · Francia", en: "Garnacha · Grenache, Mourvèdre · Domaine du Vieux Télégraphe · Rhône · Francia" } },
-                { name: "Divina Clementia 2022", price: 24, al: [12], tag: { es: "Mencía · Raúl Suárez · D.O. Ribeira Sacra", en: "Mencía · Raúl Suárez · D.O. Ribeira Sacra" } },
-                { name: "Guímaro Finca Meixemán 2023", price: 41.6, al: [12], tag: { es: "Mencía · Guímaro · D.O. Ribeira Sacra", en: "Mencía · Guímaro · D.O. Ribeira Sacra" } },
-                { name: "Barolo Berri Comune di La Morra 2022", price: 78, al: [12], tag: { es: "Nebbiolo · Trediberri · Barolo · Italia", en: "Nebbiolo · Trediberri · Barolo · Italia" } },
-                { name: "Emilien 2020", price: 83, al: [12], tag: { es: "Merlot · Merlot, Cabernet Franc, Malbec, Carménère · Château Le Puy · Lussac-Saint-Émilion · Bordeaux · Francia", en: "Merlot · Merlot, Cabernet Franc, Malbec, Carménère · Château Le Puy · Lussac-Saint-Émilion · Bordeaux · Francia" } },
-                { name: "Gevrey-Chambertin Vieilles Vignes 2022", price: 98, al: [12], tag: { es: "Pinot Noir · Domaine Faiveley · Bourgogne · Francia", en: "Pinot Noir · Domaine Faiveley · Bourgogne · Francia" } },
-                { name: "Gevrey-Chambertin Cuvée de l'Aulne 2023", price: 145, al: [12], tag: { es: "Pinot Noir · Laurent Ponsot · Bourgogne · Francia", en: "Pinot Noir · Laurent Ponsot · Bourgogne · Francia" } }
+                { name: "Mayela 2024", price: 16, tag: { es: "Tempranillo · Bodega Bideona · D.O.Ca. Rioja", en: "Tempranillo · Bodega Bideona · D.O.Ca. Rioja" }, desc: { es: "Fruta roja, ligero, jugoso y directo, pero con más profundidad de lo que cabría esperar de un tinto joven. Rioja Alavesa sin crianza en madera.", en: "Red fruit, light, juicy and direct, with more depth than you would expect from a young red. Rioja Alavesa with no oak ageing." }, kw: { es: "JOVEN · LIGERO · DIRECTO", en: "YOUNG · LIGHT · DIRECT" } },
+                { name: "Caliel Joven 2025", price: 17, tag: { es: "Tempranillo · Raúl Calvo · D.O. Ribera del Duero", en: "Tempranillo · Raúl Calvo · D.O. Ribera del Duero" }, desc: { es: "Frutal, joven y directo, con un perfil redondo y pensado para beber con facilidad. Tempranillo de Ribera del Duero.", en: "Fruity, young and direct, with a round profile made for easy drinking. Tempranillo from Ribera del Duero." }, kw: { es: "JOVEN · REDONDO · PLACENTERO", en: "YOUNG · ROUND · PLEASANT" } },
+                { name: "Selvanevada 2022", price: 22.5, tag: { es: "Tempranillo · Tempranillo, Graciano, Garnacha, Mazuela · Villota · Jesús Madrazo y Carmen Pérez Garrigues · D.O.Ca. Rioja", en: "Tempranillo · Tempranillo, Graciano, Garnacha, Mazuela · Villota · Jesús Madrazo y Carmen Pérez Garrigues · D.O.Ca. Rioja" }, desc: { es: "Fruta, especias suaves, sotobosque y un toque terroso. Jugoso, estructurado y muy vivo. Rioja Alavesa moderno con crianza muy discreta.", en: "Fruit, soft spice, forest floor and an earthy touch. Juicy, structured and lively. A modern Rioja Alavesa with very discreet ageing." }, kw: { es: "JUGOSO · ESPECIADO · VIBRANTE", en: "JUICY · SPICED · VIBRANT" } },
+                { name: "Viña Pomal Crianza 2022", price: 23, tag: { es: "Tempranillo · Bodegas Bilbaínas · Haro · Rioja Alta · D.O.Ca. Rioja", en: "Tempranillo · Bodegas Bilbaínas · Haro · Rioja Alta · D.O.Ca. Rioja" }, desc: { es: "Tinto de crianza de Bodegas Bilbaínas, en Haro (Rioja Alta).", en: "Crianza red from Bodegas Bilbaínas, in Haro (Rioja Alta)." } },
+                { name: "Legaris Crianza 2021", price: 28, tag: { es: "Tempranillo · Legaris · Curiel de Duero · D.O. Ribera del Duero", en: "Tempranillo · Legaris · Curiel de Duero · D.O. Ribera del Duero" }, desc: { es: "Tinto de crianza de Legaris, en Curiel de Duero (Ribera del Duero).", en: "Crianza red from Legaris, in Curiel de Duero (Ribera del Duero)." } },
+                { name: "San Cobate La Finca 2021", price: 31.5, tag: { es: "Tempranillo · San Cobate · D.O. Ribera del Duero", en: "Tempranillo · San Cobate · D.O. Ribera del Duero" }, desc: { es: "Fruta roja y negra, regaliz, hierbas y especias. Estructurado, con taninos elegantes y buena tensión. Ribera del Duero serio, con la madera muy bien integrada.", en: "Red and black fruit, liquorice, herbs and spice. Structured, with elegant tannins and good tension. A serious Ribera del Duero with well-integrated oak." }, kw: { es: "SERIO · PROFUNDO · ELEGANTE", en: "SERIOUS · DEEP · ELEGANT" } },
+                { name: "Lanzaga 2021", price: 46.5, tag: { es: "Tempranillo · Tempranillo, Garnacha, Graciano · Bodega Lanzaga · Telmo Rodríguez y Pablo Eguzkiza · D.O.Ca. Rioja", en: "Tempranillo · Tempranillo, Garnacha, Graciano · Bodega Lanzaga · Telmo Rodríguez y Pablo Eguzkiza · D.O.Ca. Rioja" }, desc: { es: "Tinto de Rioja de Telmo Rodríguez y Pablo Eguzkiza, con Tempranillo, Garnacha y Graciano.", en: "Rioja red by Telmo Rodríguez and Pablo Eguzkiza, with Tempranillo, Garnacha and Graciano." } },
+                { name: "Clos Lojen 2025", price: 18, tag: { es: "Monastrell, Bobal y mediterráneos · Bobal · Bodegas y Viñedos Ponce · Juan Antonio Ponce · D.O. Manchuela", en: "Monastrell, Bobal y mediterráneos · Bobal · Bodegas y Viñedos Ponce · Juan Antonio Ponce · D.O. Manchuela" }, desc: { es: "Cereza, mora y especias. Muy jugoso, con taninos suaves y alcohol moderado. Bobal de Manchuela.", en: "Cherry, blackberry and spice. Very juicy, with soft tannins and moderate alcohol. Bobal from Manchuela." }, kw: { es: "JUGOSO · SUAVE · DESENFADADO", en: "JUICY · SOFT · EASYGOING" } },
+                { name: "Vermell 2024", price: 18, tag: { es: "Monastrell, Bobal y mediterráneos · Monastrell, Garnacha Tintorera, Mandó · Celler del Roure · Pablo Calatayud · D.O. Valencia", en: "Monastrell, Bobal y mediterráneos · Monastrell, Garnacha Tintorera, Mandó · Celler del Roure · Pablo Calatayud · D.O. Valencia" }, desc: { es: "Fruta roja, violetas, hierbas mediterráneas y un toque terroso. Ligero, fluido y de carácter silvestre. Variedades locales criadas en antiguas tinajas de barro.", en: "Red fruit, violets, Mediterranean herbs and an earthy touch. Light, fluid and wild in character. Local varieties aged in old clay amphorae." }, kw: { es: "MEDITERRÁNEO · FLUIDO · SILVESTRE", en: "MEDITERRANEAN · FLUID · WILD" } },
+                { name: "Les Alcusses 2023", price: 19, tag: { es: "Monastrell, Bobal y mediterráneos · Cabernet Sauvignon, Merlot, Monastrell, Tempranillo · Celler del Roure · Pablo Calatayud · D.O. Valencia", en: "Monastrell, Bobal y mediterráneos · Cabernet Sauvignon, Merlot, Monastrell, Tempranillo · Celler del Roure · Pablo Calatayud · D.O. Valencia" }, desc: { es: "Cabernet Sauvignon, Merlot, Monastrell y Tempranillo de Celler del Roure (D.O. Valencia).", en: "Cabernet Sauvignon, Merlot, Monastrell and Tempranillo from Celler del Roure (D.O. Valencia)." } },
+                { name: "Casagrande 2021", price: 20, tag: { es: "Monastrell, Bobal y mediterráneos · Bobal · Vinícola Requenense · D.O. Utiel-Requena", en: "Monastrell, Bobal y mediterráneos · Bobal · Vinícola Requenense · D.O. Utiel-Requena" }, desc: { es: "Bobal de Utiel-Requena, de Vinícola Requenense.", en: "Bobal from Utiel-Requena, by Vinícola Requenense." } },
+                { name: "El Tiempo que nos une 2025", price: 21, tag: { es: "Monastrell, Bobal y mediterráneos · Monastrell · Bodega Cerrón · D.O. Jumilla", en: "Monastrell, Bobal y mediterráneos · Monastrell · Bodega Cerrón · D.O. Jumilla" }, desc: { es: "Ciruela y fruta negra, pimienta y especias. Jugoso y fluido, con notas balsámicas. Monastrell de viñas viejas, con carácter mediterráneo y muy bebible.", en: "Plum and black fruit, pepper and spice. Juicy and fluid, with balsamic notes. Old-vine Monastrell, Mediterranean in character and very drinkable." }, kw: { es: "JUGOSO · ESPECIADO · BALSÁMICO", en: "JUICY · SPICED · BALSAMIC" } },
+                { name: "Las Cabañuelas 2021", price: 22, tag: { es: "Garnacha · Viñedos del Jorco · César Ruiz, Nacho Jiménez, Flequi Berruti y Raúl Pérez · D.O.P. Cebreros · Sierra de Gredos", en: "Garnacha · Viñedos del Jorco · César Ruiz, Nacho Jiménez, Flequi Berruti y Raúl Pérez · D.O.P. Cebreros · Sierra de Gredos" }, desc: { es: "Garnacha de Cebreros, en la Sierra de Gredos, de Viñedos del Jorco.", en: "Garnacha from Cebreros, in the Sierra de Gredos, by Viñedos del Jorco." } },
+                { name: "Châteauneuf-du-Pape Télégramme 2023", price: 69.5, tag: { es: "Garnacha · Grenache, Mourvèdre · Domaine du Vieux Télégraphe · Rhône · Francia", en: "Garnacha · Grenache, Mourvèdre · Domaine du Vieux Télégraphe · Rhône · Francia" }, desc: { es: "Garnacha y Mourvèdre del Rhône, del Domaine du Vieux Télégraphe: un clásico de Châteauneuf-du-Pape.", en: "Grenache and Mourvèdre from the Rhône, from Domaine du Vieux Télégraphe: a Châteauneuf-du-Pape classic." } },
+                { name: "Divina Clementia 2022", price: 24, tag: { es: "Mencía · Raúl Suárez · D.O. Ribeira Sacra", en: "Mencía · Raúl Suárez · D.O. Ribeira Sacra" }, desc: { es: "Ciruela madura y frutos rojos, con fondo balsámico, especiado y vainilla fina. Estructurado, con cuerpo, taninos maduros y final largo. Mencía de cepas viejas de Ribeira Sacra.", en: "Ripe plum and red fruit with balsamic, spicy depth and fine vanilla. Structured, full-bodied, with ripe tannins and a long finish. Old-vine Mencía from Ribeira Sacra." }, kw: { es: "ESTRUCTURADO · ESPECIADO · PROFUNDO", en: "STRUCTURED · SPICED · DEEP" } },
+                { name: "Guímaro Finca Meixemán 2023", price: 41.6, tag: { es: "Mencía · Guímaro · D.O. Ribeira Sacra", en: "Mencía · Guímaro · D.O. Ribeira Sacra" }, desc: { es: "Fruta roja, violetas y hierbas silvestres. Fino, jugoso y con un toque balsámico. Mencía de viñas viejas de Ribeira Sacra.", en: "Red fruit, violets and wild herbs. Fine, juicy, with a balsamic touch. Old-vine Mencía from Ribeira Sacra." }, kw: { es: "FLORAL · FINO · BALSÁMICO", en: "FLORAL · FINE · BALSAMIC" } },
+                { name: "Barolo Berri Comune di La Morra 2022", price: 78, tag: { es: "Nebbiolo · Trediberri · Barolo · Italia", en: "Nebbiolo · Trediberri · Barolo · Italia" }, desc: { es: "Nebbiolo de La Morra, en el Barolo (Piamonte): un tinto de estructura y taninos firmes, de Trediberri.", en: "Nebbiolo from La Morra in Barolo (Piedmont): a structured red with firm tannins, by Trediberri." } },
+                { name: "Emilien 2020", price: 83, tag: { es: "Merlot · Merlot, Cabernet Franc, Malbec, Carménère · Château Le Puy · Lussac-Saint-Émilion · Bordeaux · Francia", en: "Merlot · Merlot, Cabernet Franc, Malbec, Carménère · Château Le Puy · Lussac-Saint-Émilion · Bordeaux · Francia" }, desc: { es: "Tinto de Bordeaux de Château Le Puy (Lussac-Saint-Émilion), con Merlot, Cabernet Franc, Malbec y Carménère.", en: "Bordeaux red from Château Le Puy (Lussac-Saint-Émilion), with Merlot, Cabernet Franc, Malbec and Carménère." } },
+                { name: "Gevrey-Chambertin Vieilles Vignes 2022", price: 98, tag: { es: "Pinot Noir · Domaine Faiveley · Bourgogne · Francia", en: "Pinot Noir · Domaine Faiveley · Bourgogne · Francia" }, desc: { es: "Pinot Noir de Gevrey-Chambertin, en la Côte de Nuits (Borgoña), de Domaine Faiveley.", en: "Pinot Noir from Gevrey-Chambertin, in the Côte de Nuits (Burgundy), by Domaine Faiveley." } },
+                { name: "Gevrey-Chambertin Cuvée de l'Aulne 2023", price: 145, tag: { es: "Pinot Noir · Laurent Ponsot · Bourgogne · Francia", en: "Pinot Noir · Laurent Ponsot · Bourgogne · Francia" }, desc: { es: "Pinot Noir de Gevrey-Chambertin, en la Côte de Nuits (Borgoña), de Laurent Ponsot.", en: "Pinot Noir from Gevrey-Chambertin, in the Côte de Nuits (Burgundy), by Laurent Ponsot." } }
               ] }
       ]
     }] }
     ,{ id: 'spirits', color: 'dark', title: { es: 'Spirits', en: 'Spirits' }, desc: { es: 'Copas y chupitos.', en: 'Spirits and shots.' }, groups: [{
       title: { es: 'Spirits', en: 'Spirits' },
       blocks: [
-              { title: { es: 'Ginebras', en: 'Gin' }, note: { es: 'Solo mayores de 18 años · Precio por copa · Combinados con Red Bull +1,50 €', en: '18+ only · Price per glass · Mixed with Red Bull +€1.50' }, view: true, alPending: true, items: [
-                { name: "Tanqueray", price: 10 },
-                { name: "Tanqueray Nº Ten", price: 12 },
-                { name: "Tanqueray 0,0", price: 10, tag: { es: "Sin alcohol", en: "Alcohol-free" } },
-                { name: "Bombay Sapphire", price: 10 },
-                { name: "Beefeater", price: 10 },
-                { name: "Larios 12", price: 9 },
-                { name: "Larios Rosé", price: 9 },
-                { name: "Puerto de Indias Fresa", price: 10 },
-                { name: "Puerto de Indias Mora", price: 10 },
-                { name: "Puerto de Indias Melón", price: 10 },
-                { name: "Hendrick's", price: 12 },
-                { name: "Nordés", price: 12 },
-                { name: "Bulldog", price: 12 },
-                { name: "Martin Miller's", price: 15 },
-                { name: "Roku", price: 15 },
-                { name: "Gin Mare", price: 15 }
+              { title: { es: 'Ginebras', en: 'Gin' }, note: { es: 'Solo mayores de 18 años · Precio por copa', en: '18+ only · Price per glass' }, alPending: true, extras: RB, items: [
+                { name: "Tanqueray", price: 10, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Tanqueray Nº Ten", price: 12, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Tanqueray 0,0", price: 10, variants: MIXERS, req: true, vh: MIXH, tag: { es: "Sin alcohol", en: "Alcohol-free" } },
+                { name: "Bombay Sapphire", price: 10, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Beefeater", price: 10, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Larios 12", price: 9, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Larios Rosé", price: 9, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Puerto de Indias Fresa", price: 10, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Puerto de Indias Mora", price: 10, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Puerto de Indias Melón", price: 10, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Hendrick's", price: 12, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Nordés", price: 12, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Bulldog", price: 12, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Martin Miller's", price: 15, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Roku", price: 15, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Gin Mare", price: 15, variants: MIXERS, req: true, vh: MIXH }
               ] },
-              { title: { es: 'Vodka', en: 'Vodka' }, note: { es: 'Solo mayores de 18 años · Precio por copa · Combinados con Red Bull +1,50 €', en: '18+ only · Price per glass · Mixed with Red Bull +€1.50' }, view: true, alPending: true, items: [
-                { name: "Smirnoff", price: 8 },
-                { name: "Absolut", price: 10, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
-                { name: "Cîroc", price: 12 },
-                { name: "Cîroc Apple", price: 13 },
-                { name: "Cîroc Pineapple", price: 13 },
-                { name: "Cîroc Coconut", price: 13 },
-                { name: "Cîroc Peach", price: 13 },
-                { name: "Cîroc Red Berry", price: 13 },
-                { name: "Grey Goose", price: 17, tag: { es: "Chupito 8,50 €", en: "Shot 8,50 €" } }
+              { title: { es: 'Vodka', en: 'Vodka' }, note: { es: 'Solo mayores de 18 años · Copa y chupito', en: '18+ only · Glass and shot' }, alPending: true, extras: RB, items: [
+                { name: "Smirnoff", price: 8, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Absolut", price: 10, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Absolut · Chupito", price: 4 }, tag: { es: "Chupito 4,00 €", en: "Shot €4.00" } },
+                { name: "Cîroc", price: 12, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Cîroc Apple", price: 13, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Cîroc Pineapple", price: 13, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Cîroc Coconut", price: 13, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Cîroc Peach", price: 13, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Cîroc Red Berry", price: 13, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Grey Goose", price: 17, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Grey Goose · Chupito", price: 8.5 }, tag: { es: "Chupito 8,50 €", en: "Shot €8.50" } }
               ] },
-              { title: { es: 'Licores', en: 'Liqueurs' }, note: { es: 'Solo mayores de 18 años · Precio por copa', en: '18+ only · Price per glass' }, view: true, alPending: true, items: [
+              { title: { es: 'Licores', en: 'Liqueurs' }, note: { es: 'Solo mayores de 18 años · Precio por copa', en: '18+ only · Price per glass' }, alPending: true, items: [
                 { name: "Terry", price: 6 },
                 { name: "Amaretto", price: 6 },
                 { name: "Baileys", price: 6 },
@@ -288,29 +292,29 @@ window.CARTA = {
                 { name: "Jägermeister", price: 6, tag: { es: "Con hielo", en: "On the rocks" } },
                 { name: "Jägermeister + Red Bull", price: 13 }
               ] },
-              { title: { es: 'Whisky', en: 'Whisky' }, note: { es: 'Solo mayores de 18 años · Precio por copa · Combinados con Red Bull +1,50 €', en: '18+ only · Price per glass · Mixed with Red Bull +€1.50' }, view: true, alPending: true, items: [
-                { name: "DYC 8", price: 10, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
-                { name: "Jim Beam", price: 10, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
-                { name: "Johnnie Walker Red Label", price: 10, tag: { es: "Chupito 4,50 €", en: "Shot 4,50 €" } },
-                { name: "Jameson", price: 11, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
-                { name: "Jack Daniel's", price: 12, tag: { es: "Chupito 5,00 €", en: "Shot 5,00 €" } },
-                { name: "Johnnie Walker Black Label", price: 15, tag: { es: "Chupito 6,00 €", en: "Shot 6,00 €" } },
-                { name: "Toki", price: 17, tag: { es: "Chupito 8,00 €", en: "Shot 8,00 €" } },
-                { name: "The Macallan 12", price: 23, tag: { es: "Chupito 10,00 €", en: "Shot 10,00 €" } },
-                { name: "Laphroaig", price: 23, tag: { es: "Chupito 10,00 €", en: "Shot 10,00 €" } },
-                { name: "Hibiki", price: 25, tag: { es: "Chupito 12,00 €", en: "Shot 12,00 €" } }
+              { title: { es: 'Whisky', en: 'Whisky' }, note: { es: 'Solo mayores de 18 años · Copa y chupito', en: '18+ only · Glass and shot' }, alPending: true, extras: RB, items: [
+                { name: "DYC 8", price: 10, variants: MIXERS, req: true, vh: MIXH, alt: { name: "DYC 8 · Chupito", price: 4 }, tag: { es: "Chupito 4,00 €", en: "Shot €4.00" } },
+                { name: "Jim Beam", price: 10, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Jim Beam · Chupito", price: 4 }, tag: { es: "Chupito 4,00 €", en: "Shot €4.00" } },
+                { name: "Johnnie Walker Red Label", price: 10, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Johnnie Walker Red Label · Chupito", price: 4.5 }, tag: { es: "Chupito 4,50 €", en: "Shot €4.50" } },
+                { name: "Jameson", price: 11, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Jameson · Chupito", price: 4 }, tag: { es: "Chupito 4,00 €", en: "Shot €4.00" } },
+                { name: "Jack Daniel's", price: 12, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Jack Daniel's · Chupito", price: 5 }, tag: { es: "Chupito 5,00 €", en: "Shot €5.00" } },
+                { name: "Johnnie Walker Black Label", price: 15, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Johnnie Walker Black Label · Chupito", price: 6 }, tag: { es: "Chupito 6,00 €", en: "Shot €6.00" } },
+                { name: "Toki", price: 17, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Toki · Chupito", price: 8 }, tag: { es: "Chupito 8,00 €", en: "Shot €8.00" } },
+                { name: "The Macallan 12", price: 23, variants: MIXERS, req: true, vh: MIXH, alt: { name: "The Macallan 12 · Chupito", price: 10 }, tag: { es: "Chupito 10,00 €", en: "Shot €10.00" } },
+                { name: "Laphroaig", price: 23, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Laphroaig · Chupito", price: 10 }, tag: { es: "Chupito 10,00 €", en: "Shot €10.00" } },
+                { name: "Hibiki", price: 25, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Hibiki · Chupito", price: 12 }, tag: { es: "Chupito 12,00 €", en: "Shot €12.00" } }
               ] },
-              { title: { es: 'Ron', en: 'Rum' }, note: { es: 'Solo mayores de 18 años · Precio por copa · Combinados con Red Bull +1,50 €', en: '18+ only · Price per glass · Mixed with Red Bull +€1.50' }, view: true, alPending: true, items: [
-                { name: "Malibú", price: 9 },
-                { name: "Negrita", price: 9, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
-                { name: "Brugal", price: 10, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
-                { name: "Barceló", price: 11, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
-                { name: "Havana Club 7", price: 11, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
-                { name: "Santa Teresa", price: 11, tag: { es: "Chupito 4,00 €", en: "Shot 4,00 €" } },
-                { name: "Brugal Doble Reserva", price: 12, tag: { es: "Chupito 5,00 €", en: "Shot 5,00 €" } },
-                { name: "Zacapa", price: 15, tag: { es: "Chupito 6,00 €", en: "Shot 6,00 €" } }
+              { title: { es: 'Ron', en: 'Rum' }, note: { es: 'Solo mayores de 18 años · Copa y chupito', en: '18+ only · Glass and shot' }, alPending: true, extras: RB, items: [
+                { name: "Malibú", price: 9, variants: MIXERS, req: true, vh: MIXH },
+                { name: "Negrita", price: 9, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Negrita · Chupito", price: 4 }, tag: { es: "Chupito 4,00 €", en: "Shot €4.00" } },
+                { name: "Brugal", price: 10, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Brugal · Chupito", price: 4 }, tag: { es: "Chupito 4,00 €", en: "Shot €4.00" } },
+                { name: "Barceló", price: 11, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Barceló · Chupito", price: 4 }, tag: { es: "Chupito 4,00 €", en: "Shot €4.00" } },
+                { name: "Havana Club 7", price: 11, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Havana Club 7 · Chupito", price: 4 }, tag: { es: "Chupito 4,00 €", en: "Shot €4.00" } },
+                { name: "Santa Teresa", price: 11, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Santa Teresa · Chupito", price: 4 }, tag: { es: "Chupito 4,00 €", en: "Shot €4.00" } },
+                { name: "Brugal Doble Reserva", price: 12, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Brugal Doble Reserva · Chupito", price: 5 }, tag: { es: "Chupito 5,00 €", en: "Shot €5.00" } },
+                { name: "Zacapa", price: 15, variants: MIXERS, req: true, vh: MIXH, alt: { name: "Zacapa · Chupito", price: 6 }, tag: { es: "Chupito 6,00 €", en: "Shot €6.00" } }
               ] },
-              { title: { es: 'Otros chupitos', en: 'Other shots' }, note: { es: 'Solo mayores de 18 años · Precio por chupito', en: '18+ only · Price per shot' }, view: true, alPending: true, items: [
+              { title: { es: 'Otros chupitos', en: 'Other shots' }, note: { es: 'Solo mayores de 18 años · Precio por chupito', en: '18+ only · Price per shot' }, alPending: true, items: [
                 { name: "Limoncello", price: 3 },
                 { name: "Hierbas", price: 3 },
                 { name: "Mistela", price: 3 },
