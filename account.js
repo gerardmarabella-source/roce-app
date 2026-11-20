@@ -139,11 +139,25 @@
       .catch(function () { msg(t('err_guest')); busy(btn, false); });
   }
   function viewCode() {
-    show('<h2>' + t('code_h') + '</h2><div class="cv-sheet-body"><p>' + t('code_p') + ' <b>' + esc(state.email) + '</b></p>' +
-      '<section class="cv-fs"><h3>' + t('code') + '</h3><input class="ap-in ap-code" id="apAcCode" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*"></section><p class="ap-msg" id="apAcMsg"></p>' +
-      '<p><button type="button" class="ap-link" data-acct="resend">' + t('resend') + '</button> · <button type="button" class="ap-link" data-acct="other">' + t('other') + '</button></p></div>' +
-      '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-acct="close">' + t('close') + '</button><button type="button" class="cv-solid" data-acct="verify">' + t('enter') + '</button></div>');
-    var c = document.getElementById('apAcCode'); if (c) setTimeout(function () { c.focus(); }, 50);
+    var mail = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>';
+    show('<h2 class="ap-c-h">' + t('code_h') + '</h2><div class="cv-sheet-body"><div class="ap-narrow"><div class="ap-mail">' + mail + '<p>' + t('code_p') + ' <b>' + esc(state.email) + '</b></p></div>' +
+      '<section class="cv-fs"><h3>' + t('code') + '</h3><input class="ap-in ap-in-g ap-code" id="apAcCode" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" enterkeyhint="done" placeholder="······"></section><p class="ap-msg" id="apAcMsg"></p>' +
+      '<p class="ap-resend"><button type="button" class="ap-link" data-acct="resend" id="apResend">' + t('resend') + '</button> · <button type="button" class="ap-link" data-acct="other">' + t('other') + '</button></p></div></div>' +
+      '<div class="cv-sheet-actions ap-c-act"><button type="button" class="cv-ghost" data-acct="close">' + t('close') + '</button><button type="button" class="cv-solid" data-acct="verify">' + t('enter') + '</button></div>');
+    var c = document.getElementById('apAcCode');
+    if (c) {
+      setTimeout(function () { c.focus(); }, 50);
+      /* Con Intro en el teclado del móvil se entra directamente. */
+      c.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); var b = box.querySelector('[data-acct="verify"]'); if (b) b.click(); } });
+    }
+    var rb = document.getElementById('apResend'), left = 30, label = rb ? rb.textContent : '';
+    if (rb) {
+      rb.disabled = true; rb.textContent = label + ' (' + left + ')';
+      var tm = setInterval(function () {
+        var el = document.getElementById('apResend'); if (!el) { clearInterval(tm); return; }
+        left--; if (left <= 0) { clearInterval(tm); el.disabled = false; el.textContent = label; } else el.textContent = label + ' (' + left + ')';
+      }, 1000);
+    }
   }
   var DIETS = [['', 'd_none'], ['vegetariana', 'd_veg'], ['vegana', 'd_vegan'], ['pescetariana', 'd_pesc'], ['sin_gluten', 'd_gf'], ['sin_lactosa', 'd_lf'], ['keto', 'd_keto']];
   var GENDERS = [['', 'pick'], ['masculino', 'g_m'], ['femenino', 'g_f'], ['otro', 'g_o'], ['no_decir', 'g_n']];

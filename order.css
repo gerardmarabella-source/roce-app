@@ -520,3 +520,25 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .cv-i-kw { margin: 0.3rem 0 0; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
 .ap-meta { margin: 0 0 0.5rem; font-size: 0.82rem; opacity: 0.65; }
 .ap-kw { margin: 0.2rem 0 0.6rem; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.75; }
+
+/* Pasos del pedido (estilo checkout) */
+.ap-steps { display: flex; align-items: center; gap: 0.3rem; list-style: none; margin: 0.1rem 0 0.9rem; padding: 0; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.ap-steps li { display: flex; align-items: center; gap: 0.4rem; flex: 1 1 0; min-width: 0; opacity: 0.4; }
+.ap-steps li + li::before { content: ""; flex: 1 1 0.6rem; height: 1.5px; background: currentColor; opacity: 0.35; margin-right: 0.2rem; min-width: 0.5rem; }
+.ap-steps li i { flex: none; width: 1.4rem; height: 1.4rem; display: grid; place-items: center; border: 1.5px solid currentColor; border-radius: 50%; font-style: normal; font-size: 0.7rem; letter-spacing: 0; }
+.ap-steps li span { white-space: nowrap; }
+.ap-steps li.is-on, .ap-steps li.is-done { opacity: 1; }
+.ap-steps li.is-on i, .ap-steps li.is-done i { background: var(--black); color: #fff; border-color: var(--black); }
+@media (max-width: 380px) { .ap-steps li span { display: none; } .ap-steps li.is-on span { display: inline; } }
+.ap-sum { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; padding: 0.85rem 1rem; margin-bottom: 0.4rem; background: rgba(10, 10, 10, 0.06); font-size: 0.86rem; font-weight: 700; }
+.ap-sum b { font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.ap-pm { margin-top: 0.9rem; gap: 0.6rem; }
+.ap-pm-o { padding: 1rem 1rem; }
+.cv-sheet p.ap-pm-note { margin: 0.7rem 0 0; font-size: 0.8rem; line-height: 1.4; opacity: 0.7; }
+
+/* Código por email */
+.ap-mail { display: flex; align-items: center; gap: 0.8rem; padding: 0.85rem 1rem; margin-bottom: 0.9rem; background: rgba(10, 10, 10, 0.06); }
+.ap-mail svg { flex: none; }
+.cv-sheet .ap-mail p { margin: 0; font-size: 0.88rem; line-height: 1.35; }
+#apDlg input.ap-in.ap-in-g.ap-code { height: 3.4rem; font-size: 1.7rem; font-weight: 700; letter-spacing: 0.45em; text-indent: 0.45em; }
+.ap-resend .ap-link:disabled { opacity: 0.5; text-decoration: none; cursor: default; }
