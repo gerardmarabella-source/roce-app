@@ -522,9 +522,9 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .ap-kw { margin: 0.2rem 0 0.6rem; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.75; }
 
 /* Pasos del pedido (estilo checkout) */
-.ap-steps { display: flex; align-items: center; gap: 0.3rem; list-style: none; margin: 0.1rem 0 0.9rem; padding: 0; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
-.ap-steps li { display: flex; align-items: center; gap: 0.4rem; flex: 1 1 0; min-width: 0; opacity: 0.4; }
-.ap-steps li + li::before { content: ""; flex: 1 1 0.6rem; height: 1.5px; background: currentColor; opacity: 0.35; margin-right: 0.2rem; min-width: 0.5rem; }
+.ap-steps { display: flex; align-items: center; justify-content: center; gap: 0.5rem; list-style: none; margin: 0.1rem 0 0.9rem; padding: 0; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.ap-steps li { display: flex; align-items: center; justify-content: center; gap: 0.4rem; flex: 0 1 auto; min-width: 0; opacity: 0.4; }
+.ap-steps li + li::before { content: ""; flex: none; width: 1.6rem; height: 1.5px; background: currentColor; opacity: 0.35; margin-right: 0.1rem; }
 .ap-steps li i { flex: none; width: 1.4rem; height: 1.4rem; display: grid; place-items: center; border: 1.5px solid currentColor; border-radius: 50%; font-style: normal; font-size: 0.7rem; letter-spacing: 0; }
 .ap-steps li span { white-space: nowrap; }
 .ap-steps li.is-on, .ap-steps li.is-done { opacity: 1; }
