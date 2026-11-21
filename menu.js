@@ -174,9 +174,15 @@ window.CARTA = {
     sheet('fresh', 'red', 'Zumos', 'Juices', [drinks[2], drinks[3]]),
     by.bakery,
     sheet('coffee', 'olive', 'Café y Matcha', 'Coffee & Matcha', [drinks[0], drinks[1]]),
-    { id: 'drinks', color: 'lgray', title: { es: 'Bebidas', en: 'Drinks' }, desc: { es: 'Refrescos, aguas y cervezas.', en: 'Soft drinks, water and beers.' }, groups: [{
+    { id: 'drinks', color: 'lgray', title: { es: 'Bebidas', en: 'Drinks' }, desc: { es: 'Aguas, refrescos, cervezas, vermuts y energéticas.', en: 'Water, soft drinks, beers, vermouths and energy drinks.' }, groups: [{
       title: { es: 'Bebidas', en: 'Drinks' },
       blocks: [
+              { title: { es: 'Aguas', en: 'Water' }, compact: true, alPending: true, items: [
+                { name: 'Solán de Cabras 0,5 L', price: 2.5 }, { name: 'Solán de Cabras con gas 0,5 L', price: 2.8 }
+              ] },
+              { title: { es: 'Refrescos', en: 'Soft drinks' }, compact: true, alPending: true, items: [
+                { name: 'Pepsi', price: 3.5 }, { name: 'Pepsi Max', price: 3.5 }, { name: 'Kas Limón', price: 3.5 }, { name: 'Kas Naranja', price: 3.5 }, { name: 'Aquarade Limón', price: 3.5 }, { name: 'Aquarade Naranja', price: 3.5 }, { name: '7UP', price: 3.5 }, { name: 'Lipton', price: 3.5 }, { name: 'Tónica', price: 3.5 }
+              ] },
               { title: { es: 'Cervezas', en: 'Beers' }, note: { es: 'Tercios · Solo mayores de 18 años', en: 'Tercios · 18+ only' }, compact: true, alPending: true, items: [
                 { name: 'Alhambra Reserva 1925', price: 3.5 }, { name: 'Alhambra Reserva Roja', price: 4 }, { name: 'Mahou 5 Estrellas', price: 3.3 }, { name: 'Mahou Reserva', price: 3.8 }, { name: 'Mahou Session IPA', price: 4 }, { name: 'Mahou Sin Gluten', price: 3.5 }, { name: 'Mahou 0,0 Tostada', price: 3.3 }, { name: 'Coronita', price: 3.8 }, { name: 'Tinto de verano', price: 3.5 }
               ] },
@@ -186,11 +192,8 @@ window.CARTA = {
               { title: { es: 'Vermuts', en: 'Vermouths' }, note: { es: 'Solo mayores de 18 años', en: '18+ only' }, compact: true, alPending: true, items: [
                 { name: 'Vermut casero ROCE', price: 3.5 }, { name: 'Martini Rosso', price: 4.5 }, { name: 'Martini Bianco', price: 4.5 }, { name: 'Martini Fiero', price: 5 }, { name: 'Martini Rosato', price: 4.5 }
               ] },
-              { title: { es: 'Refrescos', en: 'Soft drinks' }, compact: true, alPending: true, items: [
-                { name: 'Pepsi', price: 3.5 }, { name: 'Pepsi Max', price: 3.5 }, { name: 'Kas Limón', price: 3.5 }, { name: 'Kas Naranja', price: 3.5 }, { name: 'Aquarade Limón', price: 3.5 }, { name: 'Aquarade Naranja', price: 3.5 }, { name: '7UP', price: 3.5 }, { name: 'Lipton', price: 3.5 }, { name: 'Tónica', price: 3.5 }, { name: 'Red Bull', price: 4.5, tag: { es: 'Sin azúcar, coco, albaricoque y sandía', en: 'Sugar-free, coconut, apricot and watermelon' } }
-              ] },
-              { title: { es: 'Aguas', en: 'Water' }, compact: true, alPending: true, items: [
-                { name: 'Solán de Cabras 0,5 L', price: 2.5 }, { name: 'Solán de Cabras con gas 0,5 L', price: 2.8 }
+              { title: { es: 'Energéticas', en: 'Energy drinks' }, compact: true, alPending: true, items: [
+                { name: 'Red Bull', price: 4.5 }, { name: 'Red Bull Sin azúcar', price: 4.5 }, { name: 'Red Bull Coco', price: 4.5 }, { name: 'Red Bull Albaricoque', price: 4.5 }, { name: 'Red Bull Sandía', price: 4.5 }
               ] }
       ]
     }] }
