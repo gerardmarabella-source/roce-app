@@ -3,6 +3,11 @@
 (function () {
   'use strict';
   var D = window.CARTA;
+  /* Los platos de Cocina sin foto propia llevan una foto genérica (plato cubierto con cloche). */
+  D.sections.forEach(function (s) {
+    if (s.id !== 'kitchen') return;
+    (s.groups || []).forEach(function (g) { g.blocks.forEach(function (b) { (b.items || []).forEach(function (it) { if (!it.img) it.img = '/assets/dishes/plato-cubierto.webp'; }); }); });
+  });
   var UI = {
     es: { nutri: 'Valores nutricionales por ración: calorías, proteínas, hidratos y grasas', allergies: 'Alergias', al_leg: 'Alérgenos', filters: 'Filtros', f_h: 'Filtra la carta', f_p: 'Marca alérgenos, tipo de dieta o ingredientes y te mostramos solo lo que encaja.', diet_h: 'Tipo de dieta', al_t: 'Alérgenos (ocultamos los platos que los llevan)', ing_h: 'Ingredientes', clear: 'Quitar todo', clear_sec: 'Borrar', done: 'Ver carta', without: 'Sin', with_: 'Con', pending: 'Consúltalo con el equipo', soon: 'Muy pronto', soon_p: 'Estamos preparando esta carta.',
       b_al: 'Sin alérgenos', b_diet: 'Dieta', diet_note: 'La dieta y los ingredientes son orientativos según lo que figura en la carta. Si tienes dudas, pregunta al equipo.',
