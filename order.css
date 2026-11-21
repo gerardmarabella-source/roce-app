@@ -614,3 +614,7 @@ button.ap-av:not(.has-img) { overflow: visible; }
   .cv-item.has-thumb[data-off] .cv-thumb { filter: grayscale(1); opacity: 0.6; }
   .cv-item.has-thumb[data-off]::after { background: linear-gradient(#fff, #fff) center / 0.95rem 2px no-repeat, rgba(255, 255, 255, 0.28); }
 }
+
+/* Mancuernas junto a «Más proteína» */
+.cv-dumb { flex: none; display: inline-block; vertical-align: -0.28em; margin-right: 0.5rem; }
+.cv-cat-t h3 .cv-dumb { width: 1.25em; height: 1.25em; vertical-align: -0.2em; margin-right: 0.45rem; }

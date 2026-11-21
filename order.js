@@ -89,6 +89,7 @@
     }
   };
   /* Complementos que se ofrecen (plegados) al pedir un plato: primero acompañamientos, luego más proteína. */
+  var DUMB = '<svg class="cv-dumb" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 12h9"/><rect x="4.5" y="7.5" width="3" height="9" rx="1"/><rect x="16.5" y="7.5" width="3" height="9" rx="1"/><path d="M2.5 10v4M21.5 10v4"/></svg>';
   var ADDON = [
     { id: 'side', key: 'Acompañamientos', label: 'side', forCats: ['Sándwiches', 'Pokes', 'Platos ROCE'] },
     { id: 'prot', key: 'Extras', label: 'prot', forCats: ['Tostadas', 'Sándwiches', 'Pokes', 'Platos ROCE'] }
@@ -253,7 +254,7 @@
     (cur.ok ? addonsFor(b) : []).forEach(function (g) {
       var ab = addonBlock(g), sel = cur.sel[g.id], opn = cur.openG[g.id];
       if (!open(ab)) { h += '<section class="cv-fs"><div class="ap-fold is-na"><span>' + t(g.label) + '</span><em>' + esc(t('avail')) + ' ' + esc(hoursLabel(ab).toLowerCase()) + '</em></div></section>'; return; }
-      h += '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="' + g.id + '" aria-expanded="' + opn + '"><span>' + t(g.label) + (sel.length ? '<b class="cnt">' + sel.length + '</b>' : '') + '</span><i></i></button>';
+      h += '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="' + g.id + '" aria-expanded="' + opn + '"><span>' + (g.id === 'prot' ? DUMB : '') + t(g.label) + (sel.length ? '<b class="cnt">' + sel.length + '</b>' : '') + '</span><i></i></button>';
       if (opn) h += '<div class="ap-fold-body">' + ab.items.map(function (p, k) { var off = soldOut[itemKey(ab, p)]; return '<button type="button" class="cv-pick" data-pr="' + g.id + ':' + k + '" aria-pressed="' + (sel.indexOf(k) !== -1) + '"' + (off ? ' disabled' : '') + '><i class="cv-radio"></i><span>' + esc(p.name) + (off ? ' · ' + (L() === 'en' ? 'sold out' : 'agotado') : '') + '</span><span class="ap-pick-price">+' + money(cents(p.price)) + '</span></button>'; }).join('') + '</div>';
       h += '</section>';
     });
