@@ -103,7 +103,7 @@
   }
   function item(it, blk, n) {
     var dup = it.code && it.code === it.name;
-    var h = '<li class="cv-item' + (it.img ? ' has-thumb' : '') + '" id="it-' + blk._id + '-' + n + '"' + attrs(it, blk) + '><div class="cv-i-main"><div class="cv-i-top"><span class="cv-i-name">' +
+    var h = '<li class="cv-item' + (it.img ? ' has-thumb' : '') + (dup ? ' is-coded' : '') + '" id="it-' + blk._id + '-' + n + '"' + attrs(it, blk) + '><div class="cv-i-main"><div class="cv-i-top"><span class="cv-i-name">' +
       (it.code && !dup && !blk.hideCode ? '<em>' + esc(it.code) + '</em>' : '') + esc(it.name) + (isVegan(it, blk) ? '<span class="cv-vgl" role="img" aria-label="' + esc(L === 'en' ? 'Vegan' : 'Vegano') + '" title="' + esc(L === 'en' ? 'Vegan, based on the listed ingredients' : 'Vegano, según los ingredientes indicados') + '">' + LEAF + '</span>' : '') + (it.note ? ' <small>' + esc(tx(it.note)) + '</small>' : '') + als(it.al) +
       (blk.alPending ? '<span class="cv-pend">' + esc(ui('pending')) + '</span>' : '') + '</span><span class="cv-price">' + money(it.price) + '</span></div>' +
       tags(it, blk);
