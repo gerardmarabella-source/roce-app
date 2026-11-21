@@ -635,3 +635,8 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb[data-off]::after { background: linear-gradient(#fff, #fff) center / 0.95rem 2px no-repeat, rgba(255, 255, 255, 0.28); }
 @media (min-width: 401px) { .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb { height: 12rem; } }
 @media (min-width: 700px) { .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb { height: 14rem; } .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-name { font-size: 1.2rem; } }
+
+/* Lista con foto pequeña (pantallas > 400 px): el «+» va siempre pegado a la esquina de la foto, aunque el plato tenga mucho texto o variantes */
+@media (min-width: 401px) {
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb::after { top: 4.55rem; bottom: auto; }
+}
