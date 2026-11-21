@@ -635,6 +635,8 @@ button.ap-av:not(.has-img) { overflow: visible; }
   .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb[data-off] .cv-thumb { filter: grayscale(1); opacity: 0.6; }
   .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb[data-off]::after { background: linear-gradient(#fff, #fff) center / 0.95rem 2px no-repeat, rgba(255, 255, 255, 0.28); }
 }
+/* Cafés y tés: se encuadra la taza (no la bandeja) */
+@media (max-width: 639px) { .cv-paper[data-sec="coffee"] .cv-item.has-thumb .cv-thumb { object-position: 50% 24%; } }
 @media (min-width: 401px) and (max-width: 639px) { .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb { height: 12rem; } }
 
 /* Lista con foto pequeña (pantallas > 400 px): el «+» va siempre pegado a la esquina de la foto, aunque el plato tenga mucho texto o variantes */
