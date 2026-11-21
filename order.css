@@ -554,3 +554,31 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .ux-chips[hidden] { display: none; }
 .ux-chips button { flex: none; padding: 0.42rem 0.9rem; border: 1.5px solid rgba(255, 255, 255, 0.35); border-radius: 999px; background: transparent; color: #fff; font: inherit; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; white-space: nowrap; transition: background 0.18s, color 0.18s, border-color 0.18s; }
 .ux-chips button.is-on { background: #fff; color: #0a0a0a; border-color: #fff; }
+
+/* Título vertical (COCINA COCINA…, ZUMOS ZUMOS…) a la izquierda, como el lomo de un libro: el contenido queda a la derecha, junto al pulgar */
+.cv-spine { order: -1; }
+.cv-paper-in { padding-left: 1rem; padding-right: calc(var(--pad) + 0.15rem); }
+@media (min-width: 640px) { .cv-paper-in { padding-left: 1.6rem; padding-right: 2rem; } }
+@media (min-width: 900px) { .cv-paper-in { padding-left: 2.4rem; padding-right: 3rem; } }
+/* Pantallas pequeñas (iPhone SE, móviles de 320–360 px): lomo más fino y fotos más pequeñas para que el texto no se apriete */
+@media (max-width: 380px) {
+  .cv-paper { --spine: 2.2rem; }
+  .cv-run i { font-size: 2.05rem; }
+  .cv-paper-in { padding-left: 0.75rem; padding-right: 0.85rem; }
+  .cv-item { gap: 0.55rem; }
+  .cv-thumb { width: 4.6rem; height: 4.6rem; border-radius: 0.65rem; }
+  .cv-item.has-thumb { min-height: 5.6rem; }
+  .cv-item.has-thumb::after { right: -0.2rem; width: 1.9rem; height: 1.9rem; }
+  .cv-i-name { font-size: 0.95rem; letter-spacing: 0.01em; }
+  /* La descripción de cada plato se lee al abrirlo: en la lista de un móvil pequeño solo estorba */
+  .cv-i-desc:not(.cv-i-tag), .cv-i-kw { display: none; }
+  /* Cabecera más baja: el recorrido ya lo dicen las píldoras, así que la miga de pan se esconde y solo queda el botón de recoger/mesa */
+  .cv-crumb { display: none; }
+  .cv-crumb-row { justify-content: flex-end; padding-top: 0.3rem; padding-bottom: 0.3rem; }
+  .ux-chips { padding-bottom: 0.5rem; }
+  .ux-chips button { padding: 0.32rem 0.75rem; font-size: 0.7rem; }
+  .cv-item.has-thumb .cv-i-main { padding-right: 0.45rem; }
+  .cv-nut { gap: 0.1rem 0.45rem; font-size: 0.68rem; }
+  .cv-nut span + span { padding-left: 0.45rem; }
+}
+@media (max-width: 330px) { .cv-paper { --spine: 1.9rem; } .cv-run i { font-size: 1.8rem; } .cv-thumb { width: 4rem; height: 4rem; } .cv-item.has-thumb { min-height: 5rem; } }
