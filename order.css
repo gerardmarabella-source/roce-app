@@ -619,24 +619,25 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .cv-dumb { flex: none; display: inline-block; vertical-align: -0.28em; margin-right: 0.5rem; }
 .cv-cat-t h3 .cv-dumb { width: 1.25em; height: 1.25em; vertical-align: -0.2em; margin-right: 0.45rem; }
 
-/* Café y Matcha, Bebidas y Horno: siempre en tarjetas con la foto grande y el título encima, en cualquier pantalla */
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-nut, .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-i-desc:not(.cv-i-tag), .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-i-kw { display: none; }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb { display: block; position: relative; height: 10.2rem; min-height: 0; margin: 0.55rem 0; padding: 0; border: 0; border-radius: 0.95rem; overflow: hidden; background: #222; }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-thumb { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; border-radius: 0; }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-main { z-index: 1; position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0.85rem 3.9rem 0.8rem 0.9rem; color: #fff; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36%, rgba(0, 0, 0, 0.82) 100%); }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-main > :not(.cv-i-top) { display: none; }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-top { display: flex; flex-direction: column; align-items: flex-start; gap: 0.12rem; }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-name { color: #fff; font-size: 1.05rem; line-height: 1.15; letter-spacing: 0.02em; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55); }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-name em { opacity: 0.85; }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-als, .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-vgl, .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-pend, .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-name small { display: none; }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-price { color: #fff; font-size: 0.95rem; font-weight: 700; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55); }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb::after { z-index: 2; right: 0.75rem; bottom: 0.7rem; width: 2.35rem; height: 2.35rem; box-shadow: none; border: 0; background: linear-gradient(#0a0a0a, #0a0a0a) center / 0.95rem 2px no-repeat, linear-gradient(#0a0a0a, #0a0a0a) center / 2px 0.95rem no-repeat, #fff; opacity: 1; }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb[data-off] .cv-thumb { filter: grayscale(1); opacity: 0.6; }
-.cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb[data-off]::after { background: linear-gradient(#fff, #fff) center / 0.95rem 2px no-repeat, rgba(255, 255, 255, 0.28); }
-@media (min-width: 401px) { .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb { height: 12rem; } }
-@media (min-width: 700px) { .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb { height: 14rem; } .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-name { font-size: 1.2rem; } }
+/* Café y Matcha, Bebidas y Horno: en el móvil, tarjetas con la foto grande y el título encima (en tablet y ordenador, lista normal) */
+@media (max-width: 639px) {
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-nut, .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-i-desc:not(.cv-i-tag), .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-i-kw { display: none; }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb { display: block; position: relative; height: 10.2rem; min-height: 0; margin: 0.55rem 0; padding: 0; border: 0; border-radius: 0.95rem; overflow: hidden; background: #222; }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-thumb { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; border-radius: 0; }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-main { z-index: 1; position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0.85rem 3.9rem 0.8rem 0.9rem; color: #fff; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36%, rgba(0, 0, 0, 0.82) 100%); }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-main > :not(.cv-i-top) { display: none; }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-top { display: flex; flex-direction: column; align-items: flex-start; gap: 0.12rem; }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-name { color: #fff; font-size: 1.05rem; line-height: 1.15; letter-spacing: 0.02em; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55); }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-name em { opacity: 0.85; }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-als, .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-vgl, .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-pend, .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-i-name small { display: none; }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb .cv-price { color: #fff; font-size: 0.95rem; font-weight: 700; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55); }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb::after { z-index: 2; top: auto; right: 0.75rem; bottom: 0.7rem; width: 2.35rem; height: 2.35rem; box-shadow: none; border: 0; background: linear-gradient(#0a0a0a, #0a0a0a) center / 0.95rem 2px no-repeat, linear-gradient(#0a0a0a, #0a0a0a) center / 2px 0.95rem no-repeat, #fff; opacity: 1; }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb[data-off] .cv-thumb { filter: grayscale(1); opacity: 0.6; }
+  .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb[data-off]::after { background: linear-gradient(#fff, #fff) center / 0.95rem 2px no-repeat, rgba(255, 255, 255, 0.28); }
+}
+@media (min-width: 401px) and (max-width: 639px) { .cv-paper:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"]) .cv-item.has-thumb { height: 12rem; } }
 
 /* Lista con foto pequeña (pantallas > 400 px): el «+» va siempre pegado a la esquina de la foto, aunque el plato tenga mucho texto o variantes */
 @media (min-width: 401px) {
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb::after { top: 4.55rem; bottom: auto; }
+  .cv-item.has-thumb::after { top: 4.55rem; bottom: auto; }
 }
