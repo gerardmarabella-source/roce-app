@@ -178,22 +178,22 @@ window.CARTA = {
       title: { es: 'Bebidas', en: 'Drinks' },
       blocks: [
               { title: { es: 'Aguas', en: 'Water' }, compact: true, alPending: true, items: [
-                { name: 'Solán de Cabras 0,5 L', price: 2.5 }, { name: 'Solán de Cabras con gas 0,5 L', price: 2.8 }
+                { name: 'Solán de Cabras 0,5 L', img: '/assets/dishes/bebida-solan-de-cabras.webp', price: 2.5 }, { name: 'Solán de Cabras con gas 0,5 L', img: '/assets/dishes/bebida-solan-de-cabras-gas.webp', price: 2.8 }
               ] },
               { title: { es: 'Refrescos', en: 'Soft drinks' }, compact: true, alPending: true, items: [
-                { name: 'Pepsi', price: 3.5 }, { name: 'Pepsi Max', price: 3.5 }, { name: 'Kas Limón', price: 3.5 }, { name: 'Kas Naranja', price: 3.5 }, { name: 'Aquarade Limón', price: 3.5 }, { name: 'Aquarade Naranja', price: 3.5 }, { name: '7UP', price: 3.5 }, { name: 'Lipton', price: 3.5 }, { name: 'Tónica', price: 3.5 }
+                { name: 'Pepsi', img: '/assets/dishes/bebida-pepsi.webp', price: 3.5 }, { name: 'Pepsi Max', img: '/assets/dishes/bebida-pepsi-max.webp', price: 3.5 }, { name: 'Kas Limón', img: '/assets/dishes/bebida-kas-limon.webp', price: 3.5 }, { name: 'Kas Naranja', img: '/assets/dishes/bebida-kas-naranja.webp', price: 3.5 }, { name: 'Aquarade Limón', img: '/assets/dishes/bebida-aquarade-limon.webp', price: 3.5 }, { name: 'Aquarade Naranja', img: '/assets/dishes/bebida-aquarade-naranja.webp', price: 3.5 }, { name: '7UP', img: '/assets/dishes/bebida-7up.webp', price: 3.5 }, { name: 'Lipton', img: '/assets/dishes/bebida-lipton.webp', price: 3.5 }, { name: 'Tónica', img: '/assets/dishes/bebida-tonica.webp', price: 3.5 }
               ] },
               { title: { es: 'Cervezas', en: 'Beers' }, note: { es: 'Tercios · Solo mayores de 18 años', en: 'Tercios · 18+ only' }, compact: true, alPending: true, items: [
-                { name: 'Alhambra Reserva 1925', price: 3.5 }, { name: 'Alhambra Reserva Roja', price: 4 }, { name: 'Mahou 5 Estrellas', price: 3.3 }, { name: 'Mahou Reserva', price: 3.8 }, { name: 'Mahou Session IPA', price: 4 }, { name: 'Mahou Sin Gluten', price: 3.5 }, { name: 'Mahou 0,0 Tostada', price: 3.3 }, { name: 'Coronita', price: 3.8 }, { name: 'Tinto de verano', price: 3.5 }
+                { name: 'Alhambra Reserva 1925', img: '/assets/dishes/bebida-alhambra-reserva-1925.webp', price: 3.5 }, { name: 'Alhambra Reserva Roja', img: '/assets/dishes/bebida-alhambra-reserva-roja.webp', price: 4 }, { name: 'Mahou 5 Estrellas', img: '/assets/dishes/bebida-mahou-5-estrellas.webp', price: 3.3 }, { name: 'Mahou Reserva', img: '/assets/dishes/bebida-mahou-reserva.webp', price: 3.8 }, { name: 'Mahou Session IPA', img: '/assets/dishes/bebida-mahou-session-ipa.webp', price: 4 }, { name: 'Mahou Sin Gluten', img: '/assets/dishes/bebida-mahou-sin-gluten.webp', price: 3.5 }, { name: 'Mahou 0,0 Tostada', img: '/assets/dishes/bebida-mahou-00-tostada.webp', price: 3.3 }, { name: 'Coronita', img: '/assets/dishes/bebida-coronita.webp', price: 3.8 }, { name: 'Tinto de verano', img: '/assets/dishes/bebida-tinto-de-verano.webp', price: 3.5 }
               ] },
               { title: { es: 'Dobles', en: 'Large beers' }, note: { es: 'Solo mayores de 18 años', en: '18+ only' }, compact: true, alPending: true, items: [
-                { name: 'Mahou Clásica', price: 3 }, { name: 'Mahou Maestra', price: 4.2 }, { name: 'Radler', price: 3 }
+                { name: 'Mahou Clásica', img: '/assets/dishes/bebida-mahou-clasica.webp', price: 3 }, { name: 'Mahou Maestra', img: '/assets/dishes/bebida-mahou-maestra.webp', price: 4.2 }, { name: 'Radler', img: '/assets/dishes/bebida-radler.webp', price: 3 }
               ] },
               { title: { es: 'Vermuts', en: 'Vermouths' }, note: { es: 'Solo mayores de 18 años', en: '18+ only' }, compact: true, alPending: true, items: [
-                { name: 'Vermut casero ROCE', price: 3.5 }, { name: 'Martini Rosso', price: 4.5 }, { name: 'Martini Bianco', price: 4.5 }, { name: 'Martini Fiero', price: 5 }, { name: 'Martini Rosato', price: 4.5 }
+                { name: 'Vermut casero ROCE', img: '/assets/dishes/bebida-vermut-casero-roce.webp', price: 3.5 }, { name: 'Martini Rosso', img: '/assets/dishes/bebida-martini-rosso.webp', price: 4.5 }, { name: 'Martini Bianco', img: '/assets/dishes/bebida-martini-bianco.webp', price: 4.5 }, { name: 'Martini Fiero', img: '/assets/dishes/bebida-martini-fiero.webp', price: 5 }, { name: 'Martini Rosato', img: '/assets/dishes/bebida-martini-rosato.webp', price: 4.5 }
               ] },
               { title: { es: 'Energéticas', en: 'Energy drinks' }, compact: true, alPending: true, items: [
-                { name: 'Red Bull', price: 4.5 }, { name: 'Red Bull Sin azúcar', price: 4.5 }, { name: 'Red Bull Coco', price: 4.5 }, { name: 'Red Bull Albaricoque', price: 4.5 }, { name: 'Red Bull Sandía', price: 4.5 }
+                { name: 'Red Bull', img: '/assets/dishes/bebida-red-bull.webp', price: 4.5 }, { name: 'Red Bull Sin azúcar', img: '/assets/dishes/bebida-red-bull-sin-azucar.webp', price: 4.5 }, { name: 'Red Bull Coco', img: '/assets/dishes/bebida-red-bull-coco.webp', price: 4.5 }, { name: 'Red Bull Albaricoque', img: '/assets/dishes/bebida-red-bull-albaricoque.webp', price: 4.5 }, { name: 'Red Bull Sandía', img: '/assets/dishes/bebida-red-bull-sandia.webp', price: 4.5 }
               ] }
       ]
     }] }
