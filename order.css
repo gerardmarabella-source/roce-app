@@ -582,3 +582,6 @@ button.ap-av:not(.has-img) { overflow: visible; }
   .cv-nut span + span { padding-left: 0.45rem; }
 }
 @media (max-width: 330px) { .cv-paper { --spine: 1.9rem; } .cv-run i { font-size: 1.8rem; } .cv-thumb { width: 4rem; height: 4rem; } .cv-item.has-thumb { min-height: 5rem; } }
+
+/* Sin encabezado repetido, el primer grupo sube (el título de la hoja ya está en el margen) */
+.cv-paper-in > .cv-group:first-of-type { margin-top: 0.9rem; }
