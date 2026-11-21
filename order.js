@@ -232,9 +232,10 @@
   }
   function toastUndo(msg, undo) {
     var d = document.getElementById('apToast'); if (!d) { d = document.createElement('div'); d.id = 'apToast'; d.className = 'ap-toast'; d.setAttribute('role', 'status'); document.body.appendChild(d); }
-    d.innerHTML = '<span></span><button type="button">' + esc(t('undo')) + '</button>'; d.firstChild.textContent = msg; d.classList.add('is-on', 'has-act');
-    d.lastChild.onclick = function () { undo(); d.classList.remove('is-on', 'has-act'); };
-    clearTimeout(toastT); toastT = setTimeout(function () { d.classList.remove('is-on', 'has-act'); }, 4200);
+    var MS = 4200;
+    d.innerHTML = '<span></span><button type="button">' + esc(t('undo')) + '</button><i class="ap-toast-bar" style="animation-duration:' + MS + 'ms"></i>'; d.firstChild.textContent = msg; d.classList.add('is-on', 'has-act');
+    d.querySelector('button').onclick = function () { undo(); d.classList.remove('is-on', 'has-act'); };
+    clearTimeout(toastT); toastT = setTimeout(function () { d.classList.remove('is-on', 'has-act'); }, MS);
   }
   function openItem(li) {
     var m = /^it-(.+)-(\d+)$/.exec(li.id || ''); if (!m) return; var b = blockOf(m[1]); if (!b) return; var it = b.items[+m[2]];

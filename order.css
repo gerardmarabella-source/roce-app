@@ -585,3 +585,15 @@ button.ap-av:not(.has-img) { overflow: visible; }
 
 /* Sin encabezado repetido, el primer grupo sube (el título de la hoja ya está en el margen) */
 .cv-paper-in > .cv-group:first-of-type { margin-top: 0.9rem; }
+
+/* Barra que se encoge: cuánto queda para deshacer */
+.ap-toast.has-act { position: fixed; overflow: hidden; padding-bottom: 0.95rem; }
+.ap-toast-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255, 255, 255, 0.85); transform-origin: left center; animation: apToastBar linear forwards; }
+@keyframes apToastBar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@media (prefers-reduced-motion: reduce) { .ap-toast-bar { animation-duration: 0.01ms !important; } }
+
+/* El aviso con «Deshacer» ocupa todo el ancho (con márgenes) y el texto no se parte */
+.ap-toast.has-act { left: 0.9rem; right: 0.9rem; max-width: none; width: auto; transform: translateY(1rem); justify-content: space-between; text-align: left; font-size: 0.86rem; }
+.ap-toast.has-act.is-on { transform: translateY(0); }
+.ap-toast.has-act span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ap-toast.has-act button { flex: none; }
