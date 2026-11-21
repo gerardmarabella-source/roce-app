@@ -530,3 +530,5 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .cv-sheet .ap-mail p { margin: 0; font-size: 0.88rem; line-height: 1.35; }
 #apDlg input.ap-in.ap-in-g.ap-code { height: 3.4rem; font-size: 1.7rem; font-weight: 700; letter-spacing: 0.45em; text-indent: 0.45em; }
 .ap-resend .ap-link:disabled { opacity: 0.5; text-decoration: none; cursor: default; }
+
+.ap-vn { font-style: normal; font-size: 0.78rem; font-weight: 700; opacity: 0.7; margin-left: 0.35rem; }

@@ -161,10 +161,10 @@ window.CARTA = {
 /* Las cinco cartas, en este orden: Kitchen · Juices · Bakery · Coffee & Matcha · Drinks.
    Se componen a partir de los bloques de arriba (el bloque "Drinks" se reparte entre Coffee & Matcha y Juices). */
 (function () {
-  /* Mezclas de las copas de ginebra, vodka, whisky y ron (van incluidas en el precio): refrescos de la carta + tónicas. El Red Bull suma 1,50 €. */
-  var MIXERS = [{ name: 'Solo' }, { name: 'Pepsi' }, { name: 'Pepsi Max' }, { name: '7UP' }, { name: 'Kas Limón' }, { name: 'Kas Naranja' }, { name: 'Tónica Schweppes' }, { name: 'Tónica Schweppes Zero' }];
+  /* Mezclas de las copas de ginebra, vodka, whisky y ron (van incluidas en el precio): refrescos de la carta + tónicas. El Red Bull es una opción más y suma 1,50 € (por dentro va como el extra «Red Bull»). */
+  var MIXERS = [{ name: 'Solo' }, { name: 'Pepsi' }, { name: 'Pepsi Max' }, { name: '7UP' }, { name: 'Kas Limón' }, { name: 'Kas Naranja' }, { name: 'Tónica Schweppes' }, { name: 'Tónica Schweppes Zero' }, { name: 'Red Bull', addin: 'Red Bull', note: '+1,50 €' }];
   var MIXH = { es: 'Con qué lo quieres', en: 'What to mix it with' };
-  var RB = { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Red Bull', en: 'Red Bull' }, '+1,50']] };
+  var RB = { auto: true, title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Red Bull', en: 'Red Bull' }, '+1,50']] };
   var C = window.CARTA, by = {};
   C.sections.forEach(function (s) { by[s.id] = s; });
   var drinks = by.bebidas.groups[0].blocks;

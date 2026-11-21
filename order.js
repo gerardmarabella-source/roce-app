@@ -207,6 +207,12 @@
   function mixDefault(it) { if (!it.pick || !it.variants) return null; var m = it.variants.map(function () { return 0; }); for (var i = 0; i < it.pick; i++) m[i % m.length]++; return m; }
   function mixSum() { return cur.mix ? cur.mix.reduce(function (a, b) { return a + b; }, 0) : 0; }
   function mixStr() { return cur.it.variants.map(function (v, k) { return cur.mix[k] ? cur.mix[k] + '× ' + v.name : ''; }).filter(Boolean).join(' + '); }
+  /* Una mezcla con suplemento (Red Bull) marca por dentro el extra del mismo nombre: el precio y Ágora lo reciben igual que antes. */
+  function syncAddin() {
+    cur.extras = [];
+    var v = cur.it.variants && cur.variant >= 0 ? cur.it.variants[cur.variant] : null;
+    if (v && v.addin && cur.b.extras) cur.b.extras.list.forEach(function (e, k) { if (e[0].es === v.addin) cur.extras.push(k); });
+  }
   function curVar() { return cur.it.pick ? mixStr() : (cur.variant >= 0 ? cur.it.variants[cur.variant].name : ''); }
   function soldTxt() { return L() === 'en' ? 'Sold out for today' : 'Agotado por hoy'; }
   function openItem(li) {
@@ -220,8 +226,8 @@
     var it = cur.it, b = cur.b, h = '<h2>' + esc(cur.base.name) + '</h2><div class="cv-sheet-body">' + (it.img ? '<img class="ap-photo" src="' + esc(it.img) + '" alt="' + esc(it.name) + '">' : '') + (cur.ok ? '' : '<p class="ap-na">' + esc(cur.sold ? soldTxt() : t('avail') + ' ' + hoursLabel(b).toLowerCase()) + '</p>') + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '') + (it.tag && !cur.base.alt ? '<p class="ap-meta">' + esc(tx(it.tag)) + '</p>' : '') + (it.desc ? '<p>' + esc(tx(it.desc)) + '</p>' : '') + (it.kw ? '<p class="ap-kw">' + esc(tx(it.kw)) + '</p>' : '');
     if (cur.ok && cur.base.alt) h += '<section class="cv-fs"><h3>' + t('srv_h') + '</h3>' + [['copa', t('srv_copa'), cur.base.price], ['shot', t('srv_shot'), cur.base.alt.price]].map(function (o) { return '<button type="button" class="cv-pick" data-srv="' + o[0] + '" aria-pressed="' + (cur.srv === o[0]) + '"><i class="cv-radio"></i><span>' + o[1] + ' · ' + money(cents(o[2])) + '</span></button>'; }).join('') + '</section>';
     if (it.variants && it.pick) h += '<section class="cv-fs ap-mix"><h3>' + esc(t('pick_h').replace('{n}', it.pick)) + ' · ' + mixSum() + '/' + it.pick + '</h3>' + it.variants.map(function (v, k) { return '<div class="ap-mix-row"><div><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span></div><div class="ap-qty"><button type="button" data-mx="' + k + ':-1" aria-label="-"' + (cur.mix[k] ? '' : ' disabled') + '>−</button><b>' + cur.mix[k] + '</b><button type="button" data-mx="' + k + ':1" aria-label="+"' + (mixSum() >= it.pick ? ' disabled' : '') + '>+</button></div></div>'; }).join('') + '</section>';
-    else if (it.variants) h += '<section class="cv-fs"><h3>' + (it.vh ? esc(tx(it.vh)) : t('choose')) + '</h3>' + it.variants.map(function (v, k) { return '<button type="button" class="cv-pick" data-v="' + k + '" aria-pressed="' + (cur.variant === k) + '"><i class="cv-radio"></i><span>' + esc(v.name) + '</span></button>'; }).join('') + '</section>';
-    if (cur.ok && b.extras && cur.srv !== 'shot') h += '<section class="cv-fs"><h3>' + esc(tx(b.extras.title)) + '</h3>' + b.extras.list.map(function (e, k) { var p = extraPrice(e[1]); return '<button type="button" class="cv-pick" data-x="' + k + '" aria-pressed="' + (cur.extras.indexOf(k) !== -1) + '"><i class="cv-radio"></i>' + (e[2] ? '<img class="ap-xth" src="' + esc(e[2]) + '" alt="" loading="lazy">' : '') + '<span>' + esc(tx(e[0])) + '</span>' + (p ? '<span class="ap-pick-price">+' + money(cents(p)) + '</span>' : '') + '</button>'; }).join('') + '</section>';
+    else if (it.variants) h += '<section class="cv-fs"><h3>' + (it.vh ? esc(tx(it.vh)) : t('choose')) + '</h3>' + it.variants.map(function (v, k) { return '<button type="button" class="cv-pick" data-v="' + k + '" aria-pressed="' + (cur.variant === k) + '"><i class="cv-radio"></i><span>' + esc(v.name) + (v.note ? ' <em class="ap-vn">' + esc(v.note) + '</em>' : '') + '</span></button>'; }).join('') + '</section>';
+    if (cur.ok && b.extras && !b.extras.auto && cur.srv !== 'shot') h += '<section class="cv-fs"><h3>' + esc(tx(b.extras.title)) + '</h3>' + b.extras.list.map(function (e, k) { var p = extraPrice(e[1]); return '<button type="button" class="cv-pick" data-x="' + k + '" aria-pressed="' + (cur.extras.indexOf(k) !== -1) + '"><i class="cv-radio"></i>' + (e[2] ? '<img class="ap-xth" src="' + esc(e[2]) + '" alt="" loading="lazy">' : '') + '<span>' + esc(tx(e[0])) + '</span>' + (p ? '<span class="ap-pick-price">+' + money(cents(p)) + '</span>' : '') + '</button>'; }).join('') + '</section>';
     (cur.ok ? addonsFor(b) : []).forEach(function (g) {
       var ab = addonBlock(g), sel = cur.sel[g.id], opn = cur.openG[g.id];
       if (!open(ab)) { h += '<section class="cv-fs"><div class="ap-fold is-na"><span>' + t(g.label) + '</span><em>' + esc(t('avail')) + ' ' + esc(hoursLabel(ab).toLowerCase()) + '</em></div></section>'; return; }
@@ -237,7 +243,7 @@
   }
   function addToCart() {
     keepNote(); var it = cur.it, b = cur.b, key = [bk(b), it.name, curVar(), cur.extras.slice().sort().join('+'), cur.sel.side.slice().sort().join('+'), cur.sel.prot.slice().sort().join('+'), cur.note].join('|'), parts = [];
-    if (curVar()) parts.push(curVar()); cur.extras.forEach(function (k) { parts.push('+ ' + tx(b.extras.list[k][0])); });
+    if (curVar()) parts.push(curVar()); cur.extras.forEach(function (k) { if (tx(b.extras.list[k][0]) !== curVar()) parts.push('+ ' + tx(b.extras.list[k][0])); });
     var f = S.cart.filter(function (l) { return l.key === key; })[0];
     if (f) f.qty += cur.qty; else S.cart.push({ key: key, item: bk(b) + '|' + (it.code || it.name), name: it.name, variant: curVar(), extras: cur.extras.map(function (k) { return b.extras.list[k][0].es; }), unit: unit(), qty: cur.qty, note: cur.note, detail: parts.join(' · ') });
     ADDON.forEach(function (g) {
@@ -445,7 +451,7 @@
     else if (el.hasAttribute('data-okorders')) { hide(); if (window.ROCE_ACCT) window.ROCE_ACCT.open(); }
     else if (el.dataset.mode) { S.mode = el.dataset.mode; save(); paintMode(); openMode(); }
     else if (el.dataset.srv !== undefined && cur) { keepNote(); cur.srv = el.dataset.srv; cur.it = cur.srv === 'shot' && cur.base.alt ? cur.base.alt : cur.base; cur.variant = cur.it.variants && !cur.it.pick ? (cur.it.req ? -1 : 0) : -1; cur.extras = []; paintItem(); }
-    else if (el.dataset.v !== undefined && cur) { keepNote(); cur.variant = +el.dataset.v; paintItem(); }
+    else if (el.dataset.v !== undefined && cur) { keepNote(); cur.variant = +el.dataset.v; syncAddin(); paintItem(); }
     else if (el.dataset.mx !== undefined && cur) { keepNote(); var mm2 = el.dataset.mx.split(':'), k3 = +mm2[0], d3 = +mm2[1], n3 = cur.mix[k3] + d3; if (n3 >= 0 && mixSum() + d3 <= cur.it.pick) cur.mix[k3] = n3; paintItem(); }
     else if (el.dataset.x !== undefined && cur) { keepNote(); var k = +el.dataset.x, i = cur.extras.indexOf(k); if (i === -1) cur.extras.push(k); else cur.extras.splice(i, 1); paintItem(); }
     else if (el.dataset.q && cur) { keepNote(); cur.qty = Math.max(1, Math.min(20, cur.qty + (+el.dataset.q))); paintItem(); }
