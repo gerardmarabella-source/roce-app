@@ -46,7 +46,8 @@
     });
   }
   var profile = null;
-  function getProfile() { return rest('GET', '/rest/v1/app_customers?select=*&limit=1').then(function (a) { profile = a && a[0] || null; syncFilters(false); return profile; }); }
+  /* Siempre por el id de la sesión: el personal del local puede leer todos los clientes y sin este filtro se mostraba el perfil de otra persona (y la foto no se podía guardar). */
+  function getProfile() { return rest('GET', '/rest/v1/app_customers?select=*&id=eq.' + encodeURIComponent((S && S.user && S.user.id) || '00000000-0000-0000-0000-000000000000') + '&limit=1').then(function (a) { profile = a && a[0] || null; syncFilters(false); return profile; }); }
   /* Las alergias y la dieta del perfil se aplican solas a los filtros de la carta y de la Ayuda. */
   var DIETMAP = { vegetariana: 'veg', vegana: 'vegan', pescetariana: 'pesc', sin_gluten: 'gf', sin_lactosa: 'lf' };
   function syncFilters(force) {
@@ -292,7 +293,7 @@
   }
   function helpBlock() { return '<div class="ap-help"><h4>' + esc(t('help_h')) + '</h4><p class="ap-meta">' + esc(t('help_p')) + '</p><div class="ap-help-row">' + helpLinks('') + '</div></div>'; }
   function loadOrders() {
-    rest('GET', '/rest/v1/app_orders?select=id,ref,mode,table_name,status,payment_status,total_cents,refunded_cents,created_at,paid_at,app_order_items(name,qty,variant,extras)&payment_status=in.(paid,table,refunded)&order=created_at.desc&limit=30')
+    rest('GET', '/rest/v1/app_orders?select=id,ref,mode,table_name,status,payment_status,total_cents,refunded_cents,created_at,paid_at,app_order_items(name,qty,variant,extras)&customer_id=eq.' + encodeURIComponent((S && S.user && S.user.id) || '00000000-0000-0000-0000-000000000000') + '&payment_status=in.(paid,table,refunded)&order=created_at.desc&limit=30')
       .then(function (rows) {
         var el = document.getElementById('apOrders'); if (!el) return;
         if (!rows || !rows.length) { el.innerHTML = '<p class="ap-meta">' + esc(t('orders_none')) + '</p>' + helpBlock(); return; }
