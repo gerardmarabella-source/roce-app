@@ -162,7 +162,7 @@ window.CARTA = {
    Se componen a partir de los bloques de arriba (el bloque "Drinks" se reparte entre Coffee & Matcha y Juices). */
 (function () {
   /* Mezclas de las copas de ginebra, vodka, whisky y ron (van incluidas en el precio): refrescos de la carta + tónicas. El Red Bull suma 1,50 €. */
-  var MIXERS = [{ name: 'Solo' }, { name: 'Pepsi' }, { name: 'Pepsi 0' }, { name: '7UP' }, { name: 'Kas Limón' }, { name: 'Kas Naranja' }, { name: 'Tónica Schweppes' }, { name: 'Tónica Schweppes Zero' }];
+  var MIXERS = [{ name: 'Solo' }, { name: 'Pepsi' }, { name: 'Pepsi Max' }, { name: '7UP' }, { name: 'Kas Limón' }, { name: 'Kas Naranja' }, { name: 'Tónica Schweppes' }, { name: 'Tónica Schweppes Zero' }];
   var MIXH = { es: 'Con qué lo quieres', en: 'What to mix it with' };
   var RB = { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Red Bull', en: 'Red Bull' }, '+1,50']] };
   var C = window.CARTA, by = {};
@@ -178,13 +178,16 @@ window.CARTA = {
       title: { es: 'Bebidas', en: 'Drinks' },
       blocks: [
               { title: { es: 'Cervezas', en: 'Beers' }, note: { es: 'Tercios · Solo mayores de 18 años', en: 'Tercios · 18+ only' }, compact: true, alPending: true, items: [
-                { name: 'Alhambra Reserva 1925', price: 3.5 }, { name: 'Alhambra Reserva Roja', price: 4 }, { name: 'Mahou 5 Estrellas', price: 3.3 }, { name: 'Mahou Reserva', price: 3.8 }, { name: 'Mahou Session IPA', price: 4 }, { name: 'Mahou Sin Gluten', price: 3.5 }, { name: 'Mahou 0,0 Tostada', price: 3.3 }
+                { name: 'Alhambra Reserva 1925', price: 3.5 }, { name: 'Alhambra Reserva Roja', price: 4 }, { name: 'Mahou 5 Estrellas', price: 3.3 }, { name: 'Mahou Reserva', price: 3.8 }, { name: 'Mahou Session IPA', price: 4 }, { name: 'Mahou Sin Gluten', price: 3.5 }, { name: 'Mahou 0,0 Tostada', price: 3.3 }, { name: 'Coronita', price: 3.8 }, { name: 'Tinto de verano', price: 3.5 }
+              ] },
+              { title: { es: 'Dobles', en: 'Large beers' }, note: { es: 'Solo mayores de 18 años', en: '18+ only' }, compact: true, alPending: true, items: [
+                { name: 'Mahou Clásica', price: 3 }, { name: 'Mahou Maestra', price: 4.2 }, { name: 'Radler', price: 3 }
               ] },
               { title: { es: 'Vermuts', en: 'Vermouths' }, note: { es: 'Solo mayores de 18 años', en: '18+ only' }, compact: true, alPending: true, items: [
                 { name: 'Vermut casero ROCE', price: 3.5 }, { name: 'Martini Rosso', price: 4.5 }, { name: 'Martini Bianco', price: 4.5 }, { name: 'Martini Fiero', price: 5 }, { name: 'Martini Rosato', price: 4.5 }
               ] },
               { title: { es: 'Refrescos', en: 'Soft drinks' }, compact: true, alPending: true, items: [
-                { name: 'Pepsi', price: 3.5 }, { name: 'Pepsi 0', price: 3.5 }, { name: 'Kas Limón', price: 3.5 }, { name: 'Kas Naranja', price: 3.5 }, { name: 'Aquarade Limón', price: 3.5 }, { name: 'Aquarade Naranja', price: 3.5 }, { name: '7UP', price: 3.5 }, { name: 'Lipton', price: 3.5 }
+                { name: 'Pepsi', price: 3.5 }, { name: 'Pepsi Max', price: 3.5 }, { name: 'Kas Limón', price: 3.5 }, { name: 'Kas Naranja', price: 3.5 }, { name: 'Aquarade Limón', price: 3.5 }, { name: 'Aquarade Naranja', price: 3.5 }, { name: '7UP', price: 3.5 }, { name: 'Lipton', price: 3.5 }, { name: 'Tónica', price: 3.5 }, { name: 'Red Bull', price: 4.5, tag: { es: 'Sin azúcar, coco, albaricoque y sandía', en: 'Sugar-free, coconut, apricot and watermelon' } }
               ] },
               { title: { es: 'Aguas', en: 'Water' }, compact: true, alPending: true, items: [
                 { name: 'Solán de Cabras 0,5 L', price: 2.5 }, { name: 'Solán de Cabras con gas 0,5 L', price: 2.8 }
