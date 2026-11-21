@@ -38,7 +38,8 @@ img { max-width: 100%; display: block; }
 .cv-lang button.is-active { color: var(--black); text-decoration: underline; text-underline-offset: 4px; }
 
 /* ── Menú a pantalla completa (como una lista tipográfica con filetes) ── */
-.cv-menu { position: fixed; inset: 0; z-index: 70; overflow: hidden; background: var(--paper); color: var(--black); animation: cvMenuIn 0.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+/* Se extiende 100 px por debajo de la pantalla (y se compensa con padding): en iPhone, al abrir la app desde el icono, la zona de la barra inferior a veces no se cubría y asomaba la hoja */
+.cv-menu { position: fixed; top: 0; right: 0; bottom: -100px; left: 0; padding-bottom: 100px; box-sizing: border-box; z-index: 70; overflow: hidden; background: var(--paper); color: var(--black); animation: cvMenuIn 0.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
 @keyframes cvMenuIn { from { opacity: 0; transform: translateY(-1.2rem); } to { opacity: 1; transform: none; } }
 .cv-menu-in { display: flex; flex-direction: column; min-height: 100%; max-width: 46rem; margin: 0 auto; padding: env(safe-area-inset-top) var(--pad) calc(1.4rem + env(safe-area-inset-bottom)); }
 .cv-menu-top { display: flex; align-items: center; justify-content: flex-end; padding: 0.75rem 0 0.65rem; border-bottom: 1.5px solid var(--black); }
