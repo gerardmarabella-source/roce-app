@@ -532,3 +532,25 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .ap-resend .ap-link:disabled { opacity: 0.5; text-decoration: none; cursor: default; }
 
 .ap-vn { font-style: normal; font-size: 0.78rem; font-weight: 700; opacity: 0.7; margin-left: 0.35rem; }
+
+/* Lista con foto (como Glovo/Honest Greens): miniatura a la derecha y el «+» encima de su esquina */
+.cv-item.has-thumb { padding-right: 0; min-height: 6.6rem; align-items: flex-start; }
+.cv-item.has-thumb .cv-i-main { padding-right: 0.2rem; }
+.cv-thumb { flex: none; width: 5.6rem; height: 5.6rem; object-fit: cover; border-radius: 0.8rem; background: rgba(10, 10, 10, 0.1); align-self: flex-start; }
+.cv-item.has-thumb::after { right: -0.3rem; bottom: 0.55rem; box-shadow: 0 0 0 3px var(--sheet); }
+.cv-item.has-thumb[data-off] .cv-thumb { filter: grayscale(1); opacity: 0.55; }
+/* Aviso con «Deshacer» */
+.ap-toast.has-act { display: flex; align-items: center; gap: 0.9rem; pointer-events: auto; text-transform: none; letter-spacing: 0.01em; }
+.ap-toast.has-act button { padding: 0.25rem 0.1rem; border: 0; background: transparent; color: #fff; font: inherit; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; text-transform: uppercase; letter-spacing: 0.08em; }
+/* Barra del pedido: rebote al añadir */
+@keyframes apBump { 0% { transform: scale(1); } 35% { transform: scale(1.045); } 100% { transform: scale(1); } }
+.ap-cartbar.is-bump, #apCartBar.is-bump { animation: apBump 0.38s ease; }
+@media (prefers-reduced-motion: reduce) { #apCartBar.is-bump { animation: none; } }
+.ap-alnames { margin: 0 0 0.6rem; font-size: 0.82rem; opacity: 0.72; }
+
+/* Píldoras de secciones bajo la cabecera */
+.ux-chips { display: flex; gap: 0.45rem; overflow-x: auto; padding: 0.15rem var(--pad) 0.7rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.ux-chips::-webkit-scrollbar { display: none; }
+.ux-chips[hidden] { display: none; }
+.ux-chips button { flex: none; padding: 0.42rem 0.9rem; border: 1.5px solid rgba(255, 255, 255, 0.35); border-radius: 999px; background: transparent; color: #fff; font: inherit; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; white-space: nowrap; transition: background 0.18s, color 0.18s, border-color 0.18s; }
+.ux-chips button.is-on { background: #fff; color: #0a0a0a; border-color: #fff; }

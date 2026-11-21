@@ -103,7 +103,7 @@
   }
   function item(it, blk, n) {
     var dup = it.code && it.code === it.name;
-    var h = '<li class="cv-item" id="it-' + blk._id + '-' + n + '"' + attrs(it, blk) + '><div class="cv-i-main"><div class="cv-i-top"><span class="cv-i-name">' +
+    var h = '<li class="cv-item' + (it.img ? ' has-thumb' : '') + '" id="it-' + blk._id + '-' + n + '"' + attrs(it, blk) + '><div class="cv-i-main"><div class="cv-i-top"><span class="cv-i-name">' +
       (it.code && !dup && !blk.hideCode ? '<em>' + esc(it.code) + '</em>' : '') + esc(it.name) + (isVegan(it, blk) ? '<span class="cv-vgl" role="img" aria-label="' + esc(L === 'en' ? 'Vegan' : 'Vegano') + '" title="' + esc(L === 'en' ? 'Vegan, based on the listed ingredients' : 'Vegano, según los ingredientes indicados') + '">' + LEAF + '</span>' : '') + (it.note ? ' <small>' + esc(tx(it.note)) + '</small>' : '') + als(it.al) +
       (blk.alPending ? '<span class="cv-pend">' + esc(ui('pending')) + '</span>' : '') + '</span><span class="cv-price">' + money(it.price) + '</span></div>' +
       tags(it, blk);
@@ -113,7 +113,7 @@
     if (it.kw) h += '<p class="cv-i-kw">' + esc(tx(it.kw)) + '</p>';
     if (it.nut) h += nut(it.nut, it.nutEst);
     if (it.variants && !it.req) h += '<ul class="cv-variants">' + it.variants.map(function (v) { return '<li><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span>' + als(v.al) + '</li>'; }).join('') + '</ul>';
-    h += '</div></li>'; /* la foto (it.img) solo se enseña dentro del diálogo del plato */
+    h += '</div>' + (it.img ? '<img class="cv-thumb" src="' + esc(it.img) + '" alt="" loading="lazy" decoding="async" width="90" height="90">' : '') + '</li>';
     return h;
   }
   function extras(b) {
