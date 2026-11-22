@@ -30,7 +30,7 @@ window.CARTA = {
               extras: { title: { es: 'Extras para tostadas', en: 'Toast extras' }, list: [[{ es: 'Bacon', en: 'Bacon' }, 2.5, '/assets/dishes/bacon.webp'], [{ es: 'Aguacate', en: 'Avocado' }, 2.5, '/assets/dishes/aguacate.webp'], [{ es: 'Salmón', en: 'Salmon' }, 3.5, '/assets/dishes/salmon-ahumado.webp'], [{ es: 'Huevo', en: 'Egg' }, 2, '/assets/dishes/huevo.webp'], [{ es: 'Jamón', en: 'Ham' }, 3, '/assets/dishes/jamon.webp']] }
             },
             {
-              title: { es: 'Açaí & Yogur', en: 'Açaí & Yogurt' }, note: { es: 'Todo el día', en: 'All day' },
+              title: { es: 'Açaí & Yogur', en: 'Açaí & Yogurt' },
               items: [
                 { name: 'Dark Açaí', img: '/assets/dishes/dark-acai.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [5, 8], nut: [412, 10, 56, 16], price: 10.5, es: 'Açaí, plátano, granola, crema de cacahuete y nibs de cacao.', en: 'Açaí, banana, granola, peanut cream and cacao nibs.' },
                 { name: 'Shaka Açaí', img: '/assets/dishes/shaka-acai.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [8], nut: [398, 8, 62, 14], price: 10.5, es: 'Açaí, mango, plátano, coco y granola.', en: 'Açaí, mango, banana, coconut and granola.' },
@@ -39,7 +39,7 @@ window.CARTA = {
               extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Fruta', en: 'Fruit' }, 2, '/assets/dishes/fruta.webp'], [{ es: 'Granola', en: 'Granola' }, 1.5, '/assets/dishes/granola.webp'], [{ es: 'Crema de cacahuete', en: 'Peanut cream' }, 1.5, '/assets/dishes/crema-cacahuete.webp']] }
             },
             {
-              title: { es: 'Sándwiches', en: 'Sandwiches' }, note: { es: 'Todo el día', en: 'All day' },
+              title: { es: 'Sándwiches', en: 'Sandwiches' },
               items: [
                 { name: 'Chicken Joe', img: '/assets/dishes/chicken-joe.webp', al: [1, 3], nut: [632, 38, 49, 28], price: 12.5, es: 'Pollo a la brasa, bacon, tomate, hojas verdes y mayonesa de ajo asado.', en: 'Grilled chicken, bacon, tomato, green leaves and roasted garlic mayo.' },
                 { name: 'Terra', img: '/assets/dishes/terra.webp', diet: ['veg', 'pesc', 'lf'], al: [1, 11], nut: [460, 18, 52, 20], price: 10.5, es: 'Hummus de remolacha, berenjena y calabacín asados, tomate seco, rúcula, tomate, hojas verdes y aliño de limón.', en: 'Beetroot hummus, roasted aubergine and courgette, sun-dried tomato, rocket, tomato, green leaves and lemon dressing.' },
@@ -95,7 +95,7 @@ window.CARTA = {
               ]
             },
             {
-              title: { es: 'Más proteína', en: 'More protein' }, key: 'Extras', note: { es: 'Todo el día', en: 'All day' },
+              title: { es: 'Más proteína', en: 'More protein' }, key: 'Extras',
               compact: true,
               items: [
                 { name: 'Huevo campero', img: '/assets/dishes/huevo.webp', al: [3], nut: [72, 6, 1, 5], price: 2 }, { name: 'Falafel', img: '/assets/dishes/falafel.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [11], nut: [188, 8, 24, 7], price: 3.5 }, { name: 'Cottage', img: '/assets/dishes/cottage.webp', al: [7], nut: [82, 11, 3, 3], price: 2.5 },
