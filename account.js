@@ -255,7 +255,7 @@
     var alh = (D && D.allergens ? D.allergens : []).map(function (a) { return '<button type="button" class="cv-pick" data-pfal="' + a.n + '" aria-pressed="' + (draft.allergies.indexOf(a.n) !== -1) + '"><i class="cv-radio"></i><span>' + esc(a[L()] || a.es) + '</span><span class="cv-al">' + a.n + '</span></button>'; }).join('');
     show('<h2>' + (profile && profile.name ? t('edit') : t('prof_h')) + '</h2><div class="cv-sheet-body">' + photoBlock(p) +
       '<h3 class="ap-sech">' + t('sec_gen') + '</h3>' + fld('apPfName', t('name') + ' *', p.name, 'autocomplete="given-name" maxlength="80"') + fld('apPfLast', t('last'), p.last_name, 'autocomplete="family-name" maxlength="100"') +
-      '<section class="cv-fs"><h3>' + t('birthday') + '</h3><input class="ap-in" id="apPfBday" type="date" value="' + esc(p.birthday || '') + '" max="' + new Date().toISOString().slice(0, 10) + '"></section>' +
+      '<section class="cv-fs"><h3>' + t('birthday') + '</h3><input class="ap-in" id="apPfBday" type="date" value="' + esc(p.birthday || '') + '" max="' + new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid' }).format(new Date()) + '"></section>' +
       '<section class="cv-fs"><h3>' + t('gender') + '</h3><select class="ap-in" id="apPfGender">' + opts(GENDERS, p.gender) + '</select></section>' + fld('apPfCp', t('postal'), p.postal_code, 'inputmode="numeric" autocomplete="postal-code" maxlength="10"') +
       '<section class="cv-fs"><h3>' + t('diet') + '</h3><select class="ap-in" id="apPfDiet">' + opts(DIETS, p.diet) + '</select></section>' +
       '<section class="cv-fs"><h3>' + t('allergies') + '</h3>' + alh + '</section>' +

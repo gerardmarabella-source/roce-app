@@ -656,3 +656,9 @@ button.ap-av:not(.has-img) { overflow: visible; }
   .ap-c-act .ap-c-pay { gap: 0.45rem; padding: 0.9rem 0.7rem; font-size: 0.82rem; letter-spacing: 0.04em; }
   .ap-c-pay span { overflow: visible; text-overflow: clip; }
 }
+
+/* Aviso «Cerrado ahora» (fuera de 10:00-20:00, hora de España) */
+.ap-closed { display: flex; flex-direction: column; gap: 0.15rem; margin: 0.9rem var(--pad, 1rem) 0; padding: 0.85rem 1rem; background: var(--black, #0a0a0a); color: #fff; border-radius: 0.8rem; }
+.ap-closed[hidden] { display: none; }
+.ap-closed b { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.ap-closed span { font-size: 0.82rem; opacity: 0.85; line-height: 1.35; }
