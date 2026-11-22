@@ -673,3 +673,20 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .ap-closed-x { position: absolute; top: 0.55rem; right: 0.55rem; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #fff; cursor: pointer; }
 .ap-closed-x:active { transform: scale(0.94); }
 
+
+/* Aviso de «cerrado» al abrir la carta (mismo estilo que el aviso +18) */
+html.ap-gate-open { overflow: hidden; }
+.ap-gate { position: fixed; inset: 0; z-index: 590; display: flex; align-items: flex-end; justify-content: center; background: rgba(0, 0, 0, 0.62); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); overflow-y: auto; animation: apGateFade 0.25s ease-out both; }
+.ap-gate-card { box-sizing: border-box; width: min(100%, 26rem); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.65rem; padding: 1.5rem 1.4rem calc(1.3rem + env(safe-area-inset-bottom)); background: #141414; color: #ece7dd; border-radius: 26px 26px 0 0; box-shadow: 0 -24px 70px rgba(0, 0, 0, 0.55); animation: apGateUp 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.ap-gate-ic { display: grid; place-items: center; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #f1e7d2; }
+.ap-gate-card h2 { margin: 0; font-size: 1.35rem; line-height: 1.15; letter-spacing: -0.01em; }
+.ap-gate-card p { margin: 0; max-width: 21rem; font-size: 0.9rem; line-height: 1.5; color: rgba(236, 231, 221, 0.72); }
+.ap-gate-act { width: 100%; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.7rem; }
+.ap-gate-act button { width: 100%; min-height: 3.1rem; padding: 0.6rem 1rem; border: 0; border-radius: 999px; font: inherit; font-size: 0.95rem; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: transform 0.12s ease; }
+.ap-gate-act button:active { transform: scale(0.98); }
+.ap-gate-yes { background: #ece7dd; color: #0a0a0a; }
+.ap-gate-no { background: transparent; color: rgba(236, 231, 221, 0.7); font-weight: 500 !important; font-size: 0.85rem !important; min-height: 2.7rem !important; }
+@keyframes apGateFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes apGateUp { from { transform: translateY(38px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (min-width: 560px) { .ap-gate { align-items: center; padding: 1.25rem; } .ap-gate-card { border-radius: 26px; padding: 2rem 1.9rem 1.6rem; } }
+@media (prefers-reduced-motion: reduce) { .ap-gate, .ap-gate-card { animation: none; } }
