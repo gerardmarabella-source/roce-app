@@ -123,8 +123,8 @@
     try { if (!c) sessionStorage.removeItem('roce_closed_dismissed'); } catch (e) {}
     var gone = false; try { gone = sessionStorage.getItem('roce_closed_dismissed') === '1'; } catch (e) {}
     el.hidden = !c || gone; if (!c || gone) return;
-    el.innerHTML = '<span class="ap-closed-ic">' + MOON + '</span><div class="ap-closed-t"><b>' + esc(t('closed_h')) + '</b><span>' + esc(nowHM() >= STORE.to ? t('open_pm') : t('open_am')) + '</span></div>' +
-      '<em class="ap-closed-n"><i aria-hidden="true"></i>' + esc(t('opens_in').replace('{t}', fmtLeft(minsToOpen()))) + '</em><small>' + esc(t('closed_p')) + '</small><button type="button" class="ap-closed-x" data-closed-x aria-label="' + esc(t('close_x')) + '"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+    el.innerHTML = '<span class="ap-closed-ic">' + MOON + '</span><div class="ap-closed-t"><b>' + esc(t('closed_h')) + '</b><span>' + esc(t('opens_in').replace('{t}', fmtLeft(minsToOpen()))) + '</span></div>' +
+      '<small>' + esc(t('closed_p')) + '</small><button type="button" class="ap-closed-x" data-closed-x aria-label="' + esc(t('close_x')) + '"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
   }
   document.addEventListener('click', function (e) { if (e.target.closest('[data-closed-x]')) { try { sessionStorage.setItem('roce_closed_dismissed', '1'); } catch (x) {} var el = $('apClosed'); if (el) el.hidden = true; } });
   function mark() {

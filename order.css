@@ -673,5 +673,3 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .ap-closed-x { position: absolute; top: 0.55rem; right: 0.55rem; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #fff; cursor: pointer; }
 .ap-closed-x:active { transform: scale(0.94); }
 
-/* Pantallas pequeñas: sin la cuenta atrás («Abre en 11 h 6 min»), que no cabe bien */
-@media (max-width: 380px) { .ap-closed-n { display: none; } }
