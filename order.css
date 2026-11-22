@@ -643,3 +643,16 @@ button.ap-av:not(.has-img) { overflow: visible; }
 @media (min-width: 401px) {
   .cv-item.has-thumb::after { top: 4.55rem; bottom: auto; }
 }
+
+/* Pantallas bajas (iPhone SE/mini, Safari con barras): la foto del plato no se come media pantalla; así se ven antes la descripción y las opciones */
+@media (max-height: 700px) {
+  .ap-photo { width: 100%; max-width: 100%; height: 30vh; max-height: none; object-fit: cover; object-position: center 40%; margin-bottom: 0.7rem; }
+}
+
+/* Móviles estrechos (≤ 360 px): «Continuar» entero (antes salía «CONTINU…»): menos relleno y el enlace «Añadir más» más compacto */
+@media (max-width: 360px) {
+  .ap-c-act { gap: 0.4rem; }
+  .ap-c-act .cv-ghost { padding-left: 0.3rem; padding-right: 0.3rem; font-size: 0.74rem; letter-spacing: 0.02em; }
+  .ap-c-act .ap-c-pay { gap: 0.45rem; padding: 0.9rem 0.7rem; font-size: 0.82rem; letter-spacing: 0.04em; }
+  .ap-c-pay span { overflow: visible; text-overflow: clip; }
+}
