@@ -183,10 +183,11 @@
     var idx = function (x) { return D.sections.map(function (s) { return s.id; }).indexOf(x); };
     var from = $('pg-' + cur), to = $('pg-' + id), forward = idx(id) > idx(cur), old = cur;
     window.scrollTo({ top: 0, behavior: 'instant' });
-    cur = id; sheetState(old); measure();
+    cur = id; sheetState(TOUCH.matches ? '' : old); measure();   /* en el móvil nunca se dejan dos hojas a la vez (el Safari/Chrome del iPhone aplazan las animaciones y quedaban superpuestas) */
     try { history.replaceState(null, '', '#' + id); } catch (e) {}
     current = ''; onScroll(); paintNext();
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { endFlip(); return; }
+    if (TOUCH.matches) { to.classList.remove('fade-in'); void to.offsetWidth; to.classList.add('fade-in'); setTimeout(function () { to.classList.remove('fade-in'); }, 400); return; }
     var anim = forward ? from : to, dur = TOUCH.matches ? 460 : 740;
     anim.classList.add(forward ? 'flip-away' : 'flip-in');
     flipping = { t: setTimeout(endFlip, dur), at: Date.now(), dur: dur };

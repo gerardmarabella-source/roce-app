@@ -422,3 +422,7 @@ main { transform: none !important; transition: none !important; }
    (los elementos fijos no llegan hasta ahí), así que se pinta el fondo de la página y se oculta el resto. */
 html.menu-open, html.menu-open body { background: var(--paper) !important; }
 html.menu-open body > *:not(.cv-menu):not(script):not(style) { visibility: hidden; }
+
+/* Cambio de hoja en el móvil: la hoja nueva aparece con un fundido corto (sin giro ni hojas superpuestas) */
+@keyframes cvFadeIn { from { opacity: 0; transform: translateY(0.6rem); } to { opacity: 1; transform: none; } }
+.cv-paper.fade-in { animation: cvFadeIn 0.28s ease-out both; }
