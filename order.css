@@ -744,16 +744,20 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   body.chef-top .cv-paper-in { padding-right: 0.85rem; }
 }
 
-/* Precio en píldora debajo de la foto (a la derecha) y, en la misma línea, los valores nutricionales a la izquierda; el «+» sube a la esquina de la foto */
+/* Última línea de cada plato (todo en una): precio en píldora a la izquierda, a su lado kcal · P · C · G bien legibles y el «+» al final */
 @media (min-width: 401px) and (max-width: 639px) {
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb { padding-bottom: 2.7rem; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.8rem; margin: 0; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; white-space: nowrap; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut { position: absolute; left: 0; right: 6.5rem; bottom: 0.8rem; margin: 0; min-height: 1.6rem; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb::after { top: calc(0.85rem + 5.6rem - 1.7rem); bottom: auto; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb { padding-bottom: 2.9rem; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { position: absolute; left: 0; bottom: 0.8rem; margin: 0; padding: 0.3rem 0.7rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; white-space: nowrap; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut { position: absolute; left: 5rem; right: 2.1rem; bottom: 0.8rem; margin: 0; min-height: 1.7rem; align-items: center; flex-wrap: nowrap; white-space: nowrap; gap: 0 0.45rem; font-size: 0.72rem; letter-spacing: 0; opacity: 1; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span { font-weight: 600; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span + span { padding-left: 0.45rem; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb::after { top: auto; bottom: 0.65rem; }
 }
 @media (min-width: 640px) {
-  .cv-item.has-thumb { padding-bottom: 2.7rem; }
-  .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.8rem; margin: 0; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; white-space: nowrap; }
-  .cv-item.has-thumb .cv-nut { position: absolute; left: 0; right: 6.5rem; bottom: 0.8rem; margin: 0; min-height: 1.6rem; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
-  .cv-item.has-thumb::after { top: calc(0.85rem + 5.6rem - 1.7rem); bottom: auto; }
+  .cv-item.has-thumb { padding-bottom: 2.9rem; }
+  .cv-item.has-thumb .cv-price { position: absolute; left: 0; bottom: 0.8rem; margin: 0; padding: 0.3rem 0.7rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; white-space: nowrap; }
+  .cv-item.has-thumb .cv-nut { position: absolute; left: 5rem; right: 2.1rem; bottom: 0.8rem; margin: 0; min-height: 1.7rem; align-items: center; flex-wrap: nowrap; white-space: nowrap; gap: 0 0.45rem; font-size: 0.72rem; letter-spacing: 0; opacity: 1; }
+  .cv-item.has-thumb .cv-nut span { font-weight: 600; }
+  .cv-item.has-thumb .cv-nut span + span { padding-left: 0.45rem; }
+  .cv-item.has-thumb::after { top: auto; bottom: 0.65rem; }
 }
