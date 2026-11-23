@@ -128,11 +128,11 @@
   function mark() {
     paintClosed();
     [].forEach.call(document.querySelectorAll('.cv-cat'), function (sec) {
-      var b = blockOf(sec.id); if (!b) return; var ok = open(b), shut = !storeOpen();
+      var b = blockOf(sec.id); if (!b) return; var shut = !storeOpen(), ok = shut || open(b);   /* tienda cerrada: se enseña toda la carta a pleno contraste (el aviso de horario va una sola vez arriba) */
       /* Cerrado (fuera de 9:00-20:00): todas las tarjetas de categoría quedan plegadas; se pueden abrir para mirar la carta. */
       /* «Más proteína» es un complemento: sale plegada de entrada (una sola vez; después manda lo que haga la persona). */
       var foldNow = b.key === 'Extras' && !initFold[sec.id]; if (b.key === 'Extras') initFold[sec.id] = true;
-      if (((!ok || !storeOpen()) || foldNow) && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
+      if ((!ok || foldNow) && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
       [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) {
         if (b.view) { li.setAttribute('data-view', ''); return; }   /* carta de consulta (vinos): se ve, pero no se pide desde la app */
         var mm = /^it-(.+)-(\d+)$/.exec(li.id || ''), it = mm && b.items[+mm[2]], sold = !!(it && soldOut[itemKey(b, it)]);
@@ -141,12 +141,13 @@
       });
       /* Cerrado: cada tarjeta sale bloqueada (rayas) con la hora a la que se puede pedir lo suyo: desde las 9:00 (la mayoría) o desde las 12:00 (Starters, Pokes, Platos ROCE, Acompañamientos). */
       sec.classList.toggle('is-na', !ok);
-      sec.classList.toggle('is-shut', shut && ok);
-      var h = sec.querySelector('.ap-hours'), lab = shut ? shutLabel(b) : hoursLabel(b), hd = sec.querySelector('.cv-cat-h');
+      sec.classList.remove('is-shut');
+      var h = sec.querySelector('.ap-hours'), lab = shut ? '' : hoursLabel(b), hd = sec.querySelector('.cv-cat-h');
+      if (!lab && h) { h.remove(); h = null; }
       if (lab && !h) { h = document.createElement('span'); h.className = 'ap-hours'; }
       if (h) {
-        h.classList.toggle('is-na', !ok || shut); h.textContent = t('avail') + ' ' + lab.toLowerCase();
-        if (hd) { if (!ok || shut) sec.insertBefore(h, sec.firstChild); else hd.parentNode.insertBefore(h, hd.nextSibling); }
+        h.classList.toggle('is-na', !ok); h.textContent = t('avail') + ' ' + lab.toLowerCase();
+        if (hd) { if (!ok) sec.insertBefore(h, sec.firstChild); else hd.parentNode.insertBefore(h, hd.nextSibling); }
       }
     });
   }
@@ -267,7 +268,7 @@
   }
   function openItem(li) {
     var m = /^it-(.+)-(\d+)$/.exec(li.id || ''); if (!m) return; var b = blockOf(m[1]); if (!b) return; var it = b.items[+m[2]];
-    cur = { b: b, it: it, base: it, srv: 'copa', qty: 1, variant: it.variants && !it.pick ? (it.req ? -1 : 0) : -1, mix: mixDefault(it), extras: [], sel: { side: [], prot: [] }, openG: { side: false, prot: false }, note: '', ok: open(b) && !soldOut[itemKey(b, it)], sold: !!soldOut[itemKey(b, it)] }; view = 'item'; paintItem();
+    cur = { b: b, it: it, base: it, srv: 'copa', qty: 1, variant: it.variants && !it.pick ? (it.req ? -1 : 0) : -1, mix: mixDefault(it), extras: [], sel: { side: [], prot: [] }, openG: { side: false, prot: false }, note: '', ok: (open(b) || !storeOpen()) && !soldOut[itemKey(b, it)], sold: !!soldOut[itemKey(b, it)] }; view = 'item'; paintItem();
   }
   function unit() { var u = cents(cur.it.price); if (cur.b.extras) cur.b.extras.list.forEach(function (e, k) { if (cur.extras.indexOf(k) !== -1) u += cents(extraPrice(e[1])); }); return u; }
   function protTotal() { var s = 0; ADDON.forEach(function (g) { var ab = addonBlock(g); if (ab) (cur.sel[g.id] || []).forEach(function (k) { s += cents(ab.items[k].price); }); }); return s; }
@@ -284,7 +285,7 @@
   var PROT_IC = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 12h9"/><rect x="4.5" y="7.5" width="3" height="9" rx="1"/><rect x="16.5" y="7.5" width="3" height="9" rx="1"/><path d="M2.5 10v4M21.5 10v4"/></svg>';
   var SIDE_IC_S = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10h12l-1.5 10h-9L6 10Z"/><path d="M9 10V4M12 10V3M15 10V5"/></svg>';
   function crossSell() {
-    var b = cur.b, en = L() === 'en', can = cur.ok && storeOpen(), out = '';
+    var b = cur.b, en = L() === 'en', can = cur.ok, out = '';
     var chip = function (attr, val, label, price, on, off, img, grp) {
       return '<button type="button" class="ap-chip" ' + attr + '="' + val + '" aria-pressed="' + (!!on) + '"' + (off ? ' disabled' : '') + '>' + (emojiFor(label) ? '<span class="ap-chip-e" aria-hidden="true">' + emojiFor(label) + '</span>' : img ? '<img class="ap-chip-i" src="' + esc(img) + '" alt="" loading="lazy">' : (grp ? '<span class="ap-chip-ic" aria-hidden="true">' + (grp === 'prot' ? PROT_IC : SIDE_IC_S) + '</span>' : '')) + '<span>' + esc(label) + '</span>' + (price ? '<b>+' + money(cents(price)) + '</b>' : '') + '<i aria-hidden="true"></i></button>';
     };
@@ -294,7 +295,7 @@
     }
     addonsFor(b).forEach(function (g) {
       var ab = addonBlock(g), sel = cur.sel[g.id], ic = g.id === 'prot' ? DUMB.replace('class="cv-dumb"', 'class="ap-xs-ic"').replace('width="22" height="22"', 'width="20" height="20"') : SIDE_IC;
-      if (!open(ab)) { out += group(ic, t(g.label), '<p class="ap-xs-na">' + esc(t('avail') + ' ' + hoursLabel(ab).toLowerCase()) + '</p>'); return; }
+      if (!open(ab) && storeOpen()) { out += group(ic, t(g.label), '<p class="ap-xs-na">' + esc(t('avail') + ' ' + hoursLabel(ab).toLowerCase()) + '</p>'); return; }
       out += group(ic, t(g.label), '<div class="ap-chips">' + ab.items.map(function (p, k) { var sold = soldOut[itemKey(ab, p)]; return chip('data-pr', g.id + ':' + k, p.name + (sold ? ' · ' + (en ? 'sold out' : 'agotado') : ''), p.price, sel.indexOf(k) !== -1, !can || sold, null, g.id); }).join('') + '</div>');
     });
     return out ? '<section class="ap-xs"><h3 class="ap-xs-h">' + (en ? 'Complete your dish' : 'Completa tu plato') + '</h3>' + out + '</section>' : '';

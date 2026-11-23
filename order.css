@@ -666,7 +666,6 @@ button.ap-av:not(.has-img) { overflow: visible; }
 .ap-closed-ic svg { width: 1.05rem; height: 1.05rem; }
 .ap-closed b { font-weight: 700; letter-spacing: 0.02em; }
 /* Cerrado: la carta se ve igual (fotos y nombres con su contraste); el botón de pedir queda desactivado */
-html.ap-shut .cv-item:not([data-view])::after { opacity: 0.4; filter: grayscale(1); }
 html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 
 
@@ -723,7 +722,7 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 /* Todas las tarjetas bloqueadas por horario se ven igual: título y fotos con su contraste normal (solo el botón de pedir queda apagado). Lo agotado sí se atenúa. */
 /* Los títulos de las tarjetas bloqueadas (por horario o por estar cerrado) van atenuados, sin el negro fuerte; el contenido y las fotos, normales. */
 .cv-cat.is-na > .cv-cat-body { opacity: 1; }
-.cv-cat.is-na > .cv-cat-h, html.ap-shut .cv-cat > .cv-cat-h { opacity: 0.55; }
+.cv-cat.is-na > .cv-cat-h { opacity: 0.55; }
 .cv-item[data-off]:not([data-sold]) .cv-i-main { opacity: 1; }
 .cv-item.has-thumb[data-off]:not([data-sold]) .cv-thumb { filter: none; opacity: 1; }
 
@@ -925,3 +924,12 @@ html[data-sheet="lgray"] { --sheet: #b4b7ba; }
   background-blend-mode: soft-light, normal;
 }
 .cv-paper.is-lgray::before { opacity: 0.18; }
+
+/* «Completa tu plato» en acero inoxidable cepillado, como Bebidas */
+.cv-sheet .ap-xs {
+  background-color: #c4c7ca;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='b' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.004 0.9' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0.9 0.9 0.9 0 -0.35'/></filter><rect width='100%25' height='100%25' filter='url(%23b)'/></svg>"),
+    linear-gradient(100deg, rgba(0, 0, 0, 0.10) 0%, rgba(255, 255, 255, 0.40) 22%, rgba(0, 0, 0, 0.03) 44%, rgba(255, 255, 255, 0.44) 66%, rgba(0, 0, 0, 0.08) 84%, rgba(255, 255, 255, 0.26) 100%);
+  background-blend-mode: soft-light, normal;
+}
