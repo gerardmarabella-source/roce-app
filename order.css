@@ -720,7 +720,8 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 .cv-cat.is-shut > .ap-hours { display: block; margin: 0 -0.9rem 0.5rem; padding: 0.6rem 0.9rem; }
 
 /* Todas las tarjetas bloqueadas por horario se ven igual: título y fotos con su contraste normal (solo el botón de pedir queda apagado). Lo agotado sí se atenúa. */
-.cv-cat.is-na > .cv-cat-h, .cv-cat.is-na > .cv-cat-body { opacity: 1; }
+/* Los títulos de las tarjetas bloqueadas (por horario o por estar cerrado) van atenuados, sin el negro fuerte; el contenido y las fotos, normales. */
+.cv-cat.is-na > .cv-cat-body { opacity: 1; }
+.cv-cat.is-na > .cv-cat-h, html.ap-shut .cv-cat > .cv-cat-h { opacity: 0.55; }
 .cv-item[data-off]:not([data-sold]) .cv-i-main { opacity: 1; }
 .cv-item.has-thumb[data-off]:not([data-sold]) .cv-thumb { filter: none; opacity: 1; }
-.cv-cat.is-na .cv-cat-h h3, .cv-cat.is-shut .cv-cat-h h3 { color: inherit; }
