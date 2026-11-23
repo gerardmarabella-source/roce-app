@@ -725,3 +725,14 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 .cv-cat.is-na > .cv-cat-h, html.ap-shut .cv-cat > .cv-cat-h { opacity: 0.55; }
 .cv-item[data-off]:not([data-sold]) .cv-i-main { opacity: 1; }
 .cv-item.has-thumb[data-off]:not([data-sold]) .cv-thumb { filter: none; opacity: 1; }
+
+
+/* Más ancho útil en móvil: Ayuda más pequeña con un hueco más estrecho, y las tarjetas bloqueadas con menos relleno lateral */
+@media (max-width: 480px) {
+  .cv-chef-btn { right: 0.35rem; width: 2.4rem; height: 2.4rem; }
+  .cv-chef-btn::before { font-size: 1rem; }
+  .cv-paper-in { padding-right: 2.9rem; }
+}
+/* Tarjeta bloqueada sin bordes ni relleno laterales (solo rayas arriba y línea discontinua arriba y abajo): así no le roba ancho a los platos */
+.cv-cat.is-na, .cv-cat.is-shut { padding-left: 0; padding-right: 0; border-left: 0; border-right: 0; border-width: 1px; background: transparent; }
+.cv-cat.is-na > .ap-hours, .cv-cat.is-shut > .ap-hours { margin-left: 0; margin-right: 0; padding-left: 0.7rem; padding-right: 0.7rem; }
