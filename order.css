@@ -892,3 +892,4 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 .ap-chip-i { width: 1.55rem; height: 1.55rem; margin: -0.25rem 0 -0.25rem -0.4rem; border-radius: 50%; object-fit: cover; }
 .cv-sheet p.ap-xs-na { margin: 0; font-size: 0.82rem; opacity: 0.7; }
 .ap-chip-ic { display: inline-grid; place-items: center; flex: none; margin: -0.1rem 0 -0.1rem -0.1rem; }
+.ap-chip-e { flex: none; margin: -0.1rem 0 -0.1rem -0.15rem; font-size: 1.1rem; line-height: 1; }
