@@ -276,7 +276,7 @@
       if (!id) { var f = document.querySelector('#pg-' + cur + ' .cv-cat:not(.is-hidden)'); id = f ? f.id : ''; }
       current = id;
       var c = id ? $(id) : null;
-      $('cvCrumb').textContent = tx(secById(cur).title) + (c ? ' / ' + c.querySelector('h3').textContent : '');
+      $('cvCrumbT').textContent = tx(secById(cur).title) + (c ? ' / ' + c.querySelector('h3').textContent : '');
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -312,6 +312,12 @@
     else if (al) { closeMenu(); openAl(); }
   });
   $('cvAlBtn').addEventListener('click', openAl);
+  /* Desplegable en la miga de pan («COCINA / TOSTADAS ▾»): cambiar de carta sin tener que deslizar ni abrir el menú */
+  function crumbMenu(on) { var m = $('cvCrumbMenu'), b = $('cvCrumb'); if (on) { m.innerHTML = D.sections.map(function (s) { return '<button type="button" role="menuitem" class="cv-cm-i' + (s.id === cur ? ' is-on' : '') + (s.soon ? ' is-soon' : '') + '" data-sec="' + s.id + '"><span>' + esc(tx(s.title)) + '</span>' + (s.soon ? '<small>' + esc(ui('soon')) + '</small>' : (s.id === cur ? '<i aria-hidden="true">✓</i>' : '')) + '</button>'; }).join(''); } m.hidden = !on; b.setAttribute('aria-expanded', String(!!on)); }
+  $('cvCrumb').addEventListener('click', function (e) { e.stopPropagation(); crumbMenu($('cvCrumbMenu').hidden); });
+  $('cvCrumbMenu').addEventListener('click', function (e) { var i = e.target.closest('.cv-cm-i'); if (!i) return; crumbMenu(false); if (i.dataset.sec !== cur) setSheet(i.dataset.sec); else window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  document.addEventListener('click', function (e) { if (!$('cvCrumbMenu').hidden && !e.target.closest('#cvCrumbMenu')) crumbMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') crumbMenu(false); });
   $('cvAlDone').addEventListener('click', function () { $('cvSheet').close ? $('cvSheet').close() : $('cvSheet').removeAttribute('open'); });
   $('cvAlClear').addEventListener('click', function () { setF({ al: [], diet: [], ing: { m: F.ing.m, k: [] } }); });
   $('cvSheet').addEventListener('click', function (e) {
