@@ -272,6 +272,28 @@
   function unit() { var u = cents(cur.it.price); if (cur.b.extras) cur.b.extras.list.forEach(function (e, k) { if (cur.extras.indexOf(k) !== -1) u += cents(extraPrice(e[1])); }); return u; }
   function protTotal() { var s = 0; ADDON.forEach(function (g) { var ab = addonBlock(g); if (ab) (cur.sel[g.id] || []).forEach(function (k) { s += cents(ab.items[k].price); }); }); return s; }
   function keepNote() { var n = $('apNote'); if (n) cur.note = n.value; }
+  /* Venta cruzada de comida («Completa tu plato»): extras del plato, acompañamientos y más proteína como fichas que se marcan con un toque y suman al precio.
+     Después de pulsar «Añadir» sigue saliendo «Para acompañar» con las bebidas. */
+  var FOOD = ['Tostadas', 'Açaí & Yogur', 'Sándwiches', 'Starters', 'Pokes', 'Platos ROCE'];
+  function isFood(b) { return FOOD.indexOf(bk(b)) !== -1; }
+  var SIDE_IC = '<svg class="ap-xs-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10h12l-1.5 10h-9L6 10Z"/><path d="M9 10V4M12 10V3M15 10V5"/></svg>';
+  var PLUS_IC = '<svg class="ap-xs-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>';
+  function crossSell() {
+    var b = cur.b, en = L() === 'en', can = cur.ok && storeOpen(), out = '';
+    var chip = function (attr, val, label, price, on, off, img) {
+      return '<button type="button" class="ap-chip" ' + attr + '="' + val + '" aria-pressed="' + (!!on) + '"' + (off ? ' disabled' : '') + '>' + (img ? '<img class="ap-chip-i" src="' + esc(img) + '" alt="" loading="lazy">' : '') + '<span>' + esc(label) + '</span>' + (price ? '<b>+' + money(cents(price)) + '</b>' : '') + '<i aria-hidden="true"></i></button>';
+    };
+    var group = function (icon, title, body) { return '<div class="ap-xs-g"><p class="ap-xs-t">' + icon + esc(title) + '</p>' + body + '</div>'; };
+    if (isFood(b) && b.extras && !b.extras.auto) {
+      out += group(PLUS_IC, tx(b.extras.title), '<div class="ap-chips">' + b.extras.list.map(function (e, k) { return chip('data-x', k, tx(e[0]), extraPrice(e[1]), cur.extras.indexOf(k) !== -1, !can, e[2]); }).join('') + '</div>');
+    }
+    addonsFor(b).forEach(function (g) {
+      var ab = addonBlock(g), sel = cur.sel[g.id], ic = g.id === 'prot' ? DUMB.replace('class="cv-dumb"', 'class="ap-xs-ic"').replace('width="22" height="22"', 'width="20" height="20"') : SIDE_IC;
+      if (!open(ab)) { out += group(ic, t(g.label), '<p class="ap-xs-na">' + esc(t('avail') + ' ' + hoursLabel(ab).toLowerCase()) + '</p>'); return; }
+      out += group(ic, t(g.label), '<div class="ap-chips">' + ab.items.map(function (p, k) { var sold = soldOut[itemKey(ab, p)]; return chip('data-pr', g.id + ':' + k, p.name + (sold ? ' · ' + (en ? 'sold out' : 'agotado') : ''), p.price, sel.indexOf(k) !== -1, !can || sold); }).join('') + '</div>');
+    });
+    return out ? '<section class="ap-xs"><h3 class="ap-xs-h"><span class="ap-xs-badge" aria-hidden="true">+</span>' + (en ? 'Complete your dish' : 'Completa tu plato') + '</h3>' + out + '</section>' : '';
+  }
   /* Ficha del plato (estilo carta moderna): flecha de volver, foto grande, «CATEGORÍA · código», nombre grande, precio y, más abajo, «Por ración» con las cuatro cifras */
   /* Nombre de la categoría en singular para la ficha del plato («Tostadas» → «Tostada») */
   var SINGULAR = { 'Tostadas': 'Tostada', 'Sándwiches': 'Sándwich', 'Starters': 'Starter', 'Pokes': 'Poke', 'Platos ROCE': 'Plato ROCE', 'Acompañamientos': 'Acompañamiento', 'Cafés': 'Café', 'Matcha & Tés': 'Matcha & Té', 'Smoothies': 'Smoothie', 'Zumos naturales': 'Zumo natural', 'Aguas': 'Agua', 'Refrescos': 'Refresco', 'Cervezas': 'Cerveza', 'Dobles': 'Doble', 'Vermuts': 'Vermut', 'Energéticas': 'Energética', 'Vinos': 'Vino', 'Por copas': 'Por copa', 'Blancos': 'Blanco', 'Espumosos': 'Espumoso', 'Tintos': 'Tinto', 'Ginebras': 'Ginebra', 'Licores': 'Licor', 'Otros chupitos': 'Chupito', 'Comidas': 'Comida',
@@ -297,18 +319,11 @@
     return '<section class="ap-nutb" aria-label="' + (en ? 'Nutrition per serving' : 'Información nutricional por ración') + '"><h3>' + (en ? 'Per serving' : 'Por ración') + '</h3><div class="ap-nutr">' + it.nut.slice(0, 4).map(function (v, k) { return '<div><b>' + (it.nutEst && !k ? '≈' : '') + esc(String(v)) + un[k] + '</b><span>' + lab[k] + '</span></div>'; }).join('') + '</div></section>';
   }
   function paintItem() {
-    var it = cur.it, b = cur.b, h = itemHead() + (cur.ok ? '' : '<p class="ap-na">' + esc(cur.sold ? soldTxt() : t('avail') + ' ' + hoursLabel(b).toLowerCase()) + '</p>') + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '') + (it.tag && !cur.base.alt ? '<p class="ap-meta">' + esc(tx(it.tag)) + '</p>' : '') + (it.desc ? '<p>' + esc(tx(it.desc)) + '</p>' : '') + (it.kw ? '<p class="ap-kw">' + esc(tx(it.kw)) + '</p>' : '') + nutBlock(it);
+    var it = cur.it, b = cur.b, h = itemHead() + (cur.ok ? '' : '<p class="ap-na">' + esc(cur.sold ? soldTxt() : t('avail') + ' ' + hoursLabel(b).toLowerCase()) + '</p>') + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '') + (it.tag && !cur.base.alt ? '<p class="ap-meta">' + esc(tx(it.tag)) + '</p>' : '') + (it.desc ? '<p>' + esc(tx(it.desc)) + '</p>' : '') + (it.kw ? '<p class="ap-kw">' + esc(tx(it.kw)) + '</p>' : '') + crossSell() + nutBlock(it);
     if (cur.ok && cur.base.alt) h += '<section class="cv-fs"><h3>' + t('srv_h') + '</h3>' + [['copa', t('srv_copa'), cur.base.price], ['shot', t('srv_shot'), cur.base.alt.price]].map(function (o) { return '<button type="button" class="cv-pick" data-srv="' + o[0] + '" aria-pressed="' + (cur.srv === o[0]) + '"><i class="cv-radio"></i><span>' + o[1] + ' · ' + money(cents(o[2])) + '</span></button>'; }).join('') + '</section>';
     if (it.variants && it.pick) h += '<section class="cv-fs ap-mix"><h3>' + esc(t('pick_h').replace('{n}', it.pick)) + ' · ' + mixSum() + '/' + it.pick + '</h3>' + it.variants.map(function (v, k) { return '<div class="ap-mix-row"><div><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span></div><div class="ap-qty"><button type="button" data-mx="' + k + ':-1" aria-label="-"' + (cur.mix[k] ? '' : ' disabled') + '>−</button><b>' + cur.mix[k] + '</b><button type="button" data-mx="' + k + ':1" aria-label="+"' + (mixSum() >= it.pick ? ' disabled' : '') + '>+</button></div></div>'; }).join('') + '</section>';
     else if (it.variants) h += '<section class="cv-fs"><h3>' + (it.vh ? esc(tx(it.vh)) : t('choose')) + '</h3>' + it.variants.map(function (v, k) { return '<button type="button" class="cv-pick" data-v="' + k + '" aria-pressed="' + (cur.variant === k) + '"><i class="cv-radio"></i><span>' + esc(v.name) + (v.note ? ' <em class="ap-vn">' + esc(v.note) + '</em>' : '') + '</span></button>'; }).join('') + '</section>';
-    if (cur.ok && b.extras && !b.extras.auto && cur.srv !== 'shot') h += '<section class="cv-fs"><h3>' + esc(tx(b.extras.title)) + '</h3>' + b.extras.list.map(function (e, k) { var p = extraPrice(e[1]); return '<button type="button" class="cv-pick" data-x="' + k + '" aria-pressed="' + (cur.extras.indexOf(k) !== -1) + '"><i class="cv-radio"></i>' + (e[2] ? '<img class="ap-xth" src="' + esc(e[2]) + '" alt="" loading="lazy">' : '') + '<span>' + esc(tx(e[0])) + '</span>' + (p ? '<span class="ap-pick-price">+' + money(cents(p)) + '</span>' : '') + '</button>'; }).join('') + '</section>';
-    addonsFor(b).forEach(function (g) {
-      var ab = addonBlock(g), sel = cur.sel[g.id], opn = cur.openG[g.id];
-      if (!open(ab)) { h += '<section class="cv-fs"><div class="ap-fold is-na"><span>' + t(g.label) + '</span><em>' + esc(t('avail')) + ' ' + esc(hoursLabel(ab).toLowerCase()) + '</em></div></section>'; return; }
-      h += '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="' + g.id + '" aria-expanded="' + opn + '"><span>' + (g.id === 'prot' ? DUMB : '') + t(g.label) + (sel.length ? '<b class="cnt">' + sel.length + '</b>' : '') + '</span><i></i></button>';
-      if (opn) h += '<div class="ap-fold-body">' + ab.items.map(function (p, k) { var off = soldOut[itemKey(ab, p)]; return '<button type="button" class="cv-pick" data-pr="' + g.id + ':' + k + '" aria-pressed="' + (sel.indexOf(k) !== -1) + '"' + (off || !cur.ok || !storeOpen() ? ' disabled' : '') + '><i class="cv-radio"></i><span>' + esc(p.name) + (off ? ' · ' + (L() === 'en' ? 'sold out' : 'agotado') : '') + '</span><span class="ap-pick-price">+' + money(cents(p.price)) + '</span></button>'; }).join('') + '</div>';
-      h += '</section>';
-    });
+    if (cur.ok && b.extras && !b.extras.auto && cur.srv !== 'shot' && !isFood(b)) h += '<section class="cv-fs"><h3>' + esc(tx(b.extras.title)) + '</h3>' + b.extras.list.map(function (e, k) { var p = extraPrice(e[1]); return '<button type="button" class="cv-pick" data-x="' + k + '" aria-pressed="' + (cur.extras.indexOf(k) !== -1) + '"><i class="cv-radio"></i>' + (e[2] ? '<img class="ap-xth" src="' + esc(e[2]) + '" alt="" loading="lazy">' : '') + '<span>' + esc(tx(e[0])) + '</span>' + (p ? '<span class="ap-pick-price">+' + money(cents(p)) + '</span>' : '') + '</button>'; }).join('') + '</section>';
     h += alFold(it);
     var nt = noteTexts(b);
     if (cur.ok) h += '<section class="cv-fs"><h3>' + nt.title + '</h3><textarea class="ap-note" id="apNote" maxlength="200" placeholder="' + esc(nt.ph) + '">' + esc(cur.note) + '</textarea></section>';

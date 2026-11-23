@@ -185,7 +185,7 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
    (antes tomaba al instante el de la nueva, y el giro se veía raro). */
 .cv-paper.is-kraft { --sheet: var(--kraft); --ink: #0a0a0a; }
 .cv-paper.is-paper { --sheet: var(--paper); --ink: #0a0a0a; }
-.cv-paper.is-sun { --sheet: var(--sun); --ink: #0a0a0a; }
+.cv-paper.is-sand { --sheet: var(--sand); --ink: #0a0a0a; }
 .cv-paper.is-olive { --sheet: var(--olive); --ink: var(--cream); }
 .cv-paper.is-red { --sheet: var(--red); --ink: var(--cream); }
 .cv-paper.is-wine { --sheet: var(--wine); --ink: var(--cream); }
@@ -872,3 +872,22 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
   .cv-chef-btn { right: 0.7rem; width: auto; height: auto; padding: 0.62rem 0.95rem 0.62rem 0.8rem; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; line-height: 1; text-transform: uppercase; }
   .cv-chef-btn::before { content: "✦"; margin: 0; font-size: 0.95rem; }
 }
+
+/* ── «Completa tu plato»: extras, acompañamientos y más proteína como fichas que se marcan con un toque ── */
+.cv-sheet .ap-xs { margin: 1.1rem 0 0.9rem; padding: 0.95rem 0.9rem 1rem; border: 1.5px solid var(--black); border-radius: 0.95rem; background: #f6efdf; }
+.cv-sheet h3.ap-xs-h { display: flex; align-items: center; gap: 0.55rem; margin: 0 0 0.8rem; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.005em; text-transform: none; }
+.ap-xs-badge { flex: none; width: 1.55rem; height: 1.55rem; display: grid; place-items: center; border-radius: 50%; background: var(--black); color: #fff; font-size: 1.1rem; font-weight: 500; line-height: 1; }
+.ap-xs-g + .ap-xs-g { margin-top: 0.95rem; padding-top: 0.85rem; border-top: 1px dashed rgba(10, 10, 10, 0.35); }
+.cv-sheet p.ap-xs-t { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.6rem; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; opacity: 1; }
+.ap-xs-ic { flex: none; }
+.ap-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.ap-chip { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 0.85rem; border: 1.5px solid var(--black); border-radius: 999px; background: #fff; color: var(--black); font: inherit; font-size: 0.88rem; font-weight: 600; letter-spacing: 0; text-transform: none; line-height: 1; cursor: pointer; transition: background 0.15s, color 0.15s; }
+.ap-chip b { font-size: 0.8rem; font-weight: 500; opacity: 0.7; }
+.ap-chip i { display: none; font-style: normal; font-size: 0.85rem; line-height: 1; }
+.ap-chip i::before { content: "✓"; }
+.ap-chip[aria-pressed="true"] { background: #0a0a0a; color: #fff; }
+.ap-chip[aria-pressed="true"] b { opacity: 0.85; }
+.ap-chip[aria-pressed="true"] i { display: inline; }
+.ap-chip:disabled { opacity: 0.45; cursor: default; }
+.ap-chip-i { width: 1.55rem; height: 1.55rem; margin: -0.25rem 0 -0.25rem -0.4rem; border-radius: 50%; object-fit: cover; }
+.cv-sheet p.ap-xs-na { margin: 0; font-size: 0.82rem; opacity: 0.7; }

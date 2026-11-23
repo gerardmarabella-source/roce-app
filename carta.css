@@ -3,7 +3,7 @@
 
 :root {
   --black: #0a0a0a; --paper: #f6f3ec; --cream: #ece7dd;
-  --kraft: #a78d5b; --paper: #ffffff; --sun: #e8cf6a; --red: #832f2f; --olive: #5b5a32; --wine: #5a1f2b; --dark: #262624; --gold: #9f7a2e;
+  --kraft: #a78d5b; --paper: #ffffff; --sand: #c9a97f; --red: #832f2f; --olive: #5b5a32; --wine: #5a1f2b; --dark: #262624; --gold: #9f7a2e;
   --display: "Helvetica Neue Web", "Helvetica Neue", Arial, sans-serif;
   --pad: clamp(1.1rem, 4.5vw, 2.4rem);
   --bar: 5.4rem;
@@ -12,7 +12,7 @@
 }
 html[data-sheet="kraft"] { --sheet: var(--kraft); --ink: #0a0a0a; }
 html[data-sheet="paper"] { --sheet: var(--paper); --ink: #0a0a0a; }
-html[data-sheet="sun"] { --sheet: var(--sun); --ink: #0a0a0a; }
+html[data-sheet="sand"] { --sheet: var(--sand); --ink: #0a0a0a; }
 html[data-sheet="olive"] { --sheet: var(--olive); --ink: var(--cream); }
 html[data-sheet="red"] { --sheet: var(--red); --ink: var(--cream); }
 html[data-sheet="wine"] { --sheet: var(--wine); --ink: var(--cream); }
