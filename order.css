@@ -893,3 +893,20 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 .cv-sheet p.ap-xs-na { margin: 0; font-size: 0.82rem; opacity: 0.7; }
 .ap-chip-ic { display: inline-grid; place-items: center; flex: none; margin: -0.1rem 0 -0.1rem -0.1rem; }
 .ap-chip-e { flex: none; margin: -0.1rem 0 -0.1rem -0.15rem; font-size: 1.1rem; line-height: 1; }
+
+/* Fichas más pequeñas: en móvil caben varias por fila y quedan como un popurrí, no una columna */
+.ap-chips { gap: 0.35rem; }
+.ap-chip { gap: 0.3rem; padding: 0.4rem 0.62rem; font-size: 0.78rem; }
+.ap-chip b { font-size: 0.7rem; }
+.ap-chip-e { margin: -0.1rem 0 -0.1rem -0.1rem; font-size: 0.95rem; }
+.ap-chip-ic svg { width: 14px; height: 14px; }
+.ap-chip i { font-size: 0.72rem; }
+.cv-sheet .ap-xs { padding: 0.85rem 0.8rem 0.9rem; }
+
+/* Ficha compacta de dos líneas (nombre y, debajo, el precio): caben 2 o 3 por fila y se ven como un popurrí */
+.ap-chip { display: inline-grid; grid-template-columns: auto auto auto; grid-template-areas: "e n i" "e p i"; align-items: center; column-gap: 0.4rem; row-gap: 0.1rem; padding: 0.38rem 0.65rem 0.38rem 0.55rem; border-radius: 0.85rem; text-align: left; }
+.ap-chip > span:not(.ap-chip-e):not(.ap-chip-ic) { grid-area: n; line-height: 1.1; }
+.ap-chip > b { grid-area: p; line-height: 1.1; font-size: 0.68rem; }
+.ap-chip > .ap-chip-e, .ap-chip > .ap-chip-ic, .ap-chip > .ap-chip-i { grid-area: e; margin: 0; align-self: center; }
+.ap-chip > i { grid-area: i; align-self: center; }
+.ap-chip-e { font-size: 1.15rem; }
