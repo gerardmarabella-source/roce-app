@@ -84,8 +84,8 @@
 
   /* Valores nutricionales por ración: [kcal, proteínas, hidratos, grasas]. */
   function nut(n, est) {
-    var l = L === 'en' ? ['Kcal', 'Prot.', 'Carbs', 'Fat'] : ['Kcal', 'Prot.', 'Hidr.', 'Grasa'];
-    return '<p class="cv-nut" aria-label="' + esc(ui('nutri')) + '">' + (est ? '<span class="cv-nut-est" title="' + esc(L === 'en' ? 'Approximate' : 'Aproximado') + '">≈</span>' : '') + '<span class="n-k"><b>' + l[0] + '</b> ' + n[0] + '</span><span class="n-p"><b>' + l[1] + '</b> ' + n[1] + ' g</span><span class="n-c"><b>' + l[2] + '</b> ' + n[2] + ' g</span><span class="n-g"><b>' + l[3] + '</b> ' + n[3] + ' g</span></p>';
+    var l = L === 'en' ? ['kcal', 'protein', 'carbs', 'fat'] : ['kcal', 'de proteína', 'de hidratos', 'de grasa'], u = ['', ' g', ' g', ' g'], k = ['n-k', 'n-p', 'n-c', 'n-g'];
+    return '<p class="cv-nut' + (est ? ' is-est' : '') + '" aria-label="' + esc(ui('nutri')) + '">' + n.slice(0, 4).map(function (v, i) { return '<span class="' + k[i] + '"><i>' + (est && !i ? '≈' : '') + v + u[i] + '</i> <b>' + l[i] + '</b></span>'; }).join('') + '</p>';
   }
   /* ── Platos y listas ── */
   /* «High protein»: solo en platos con valores propios (no estimados) y si al menos el 20 % de la energía procede de proteínas

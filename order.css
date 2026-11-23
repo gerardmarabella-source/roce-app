@@ -744,32 +744,34 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   body.chef-top .cv-paper-in { padding-right: 0.85rem; }
 }
 
-/* Ficha de plato con foto: arriba título, descripción y foto; abajo, en una sola fila a todo el ancho, la rejilla de valores (kcal · proteínas · hidratos · grasas) y el botón negro con el precio, que hace de «añadir» */
+/* Lista de platos con foto (estilo carta de app moderna): foto grande a la izquierda y, a la derecha, nombre en negrita, descripción, «kcal · proteína» y precio; el «+» queda a la derecha para añadir rápido. Toda la información nutricional va en la ficha. */
 @media (min-width: 401px) and (max-width: 639px) {
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb::after { display: none; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb { padding-bottom: 4rem; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.9rem; width: 6.2rem; height: 2.55rem; margin: 0; padding: 0; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 0.65rem; background: var(--ink); color: var(--sheet); font-size: 0.95rem; font-weight: 800; letter-spacing: 0.01em; line-height: 1; white-space: nowrap; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price::after { content: "+"; margin-left: 0.5rem; font-size: 1.25rem; font-weight: 500; line-height: 0; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb[data-off] .cv-price::after { content: "—"; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb[data-view] .cv-price::after { content: none; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut { position: absolute; left: 0; right: 6.7rem; bottom: 0.9rem; max-width: 22rem; height: 2.55rem; margin: 0; box-sizing: border-box; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid color-mix(in srgb, var(--ink) 45%, transparent); border-radius: 0.65rem; overflow: hidden; opacity: 1; white-space: nowrap; letter-spacing: 0; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span { display: flex; flex-direction: column-reverse; align-items: center; justify-content: center; gap: 0.1rem; padding: 0; font-size: 0.92rem; font-weight: 800; line-height: 1; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span b { margin: 0; font-size: 0.52rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut .cv-nut-est { display: none; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb { flex-direction: row-reverse; justify-content: flex-start; gap: 0.95rem; padding: 1.05rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 55%, transparent); }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-thumb { width: 38%; height: auto; aspect-ratio: 1.12 / 1; border-radius: 0.2rem; align-self: flex-start; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; padding: 0; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-top { display: contents; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-name { font-size: 1.22rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-desc { margin-top: 0.4rem; font-size: 0.92rem; line-height: 1.32; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut { order: 9; display: flex; flex-wrap: wrap; gap: 0; margin: 0.5rem 0 0; font-size: 0.8rem; letter-spacing: 0; opacity: 0.85; white-space: nowrap; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span:is(.n-c, .n-g) { display: none; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 0; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span + span::before { content: "·"; margin: 0 0.4rem; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { order: 10; margin: 0.55rem 0 0; padding: 0; background: none; color: var(--ink); font-size: 1.22rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb::after { top: auto; right: 0; bottom: 1.05rem; }
 }
 @media (min-width: 640px) {
-  .cv-item.has-thumb::after { display: none; }
-  .cv-item.has-thumb { padding-bottom: 4rem; }
-  .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.9rem; width: 6.2rem; height: 2.55rem; margin: 0; padding: 0; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 0.65rem; background: var(--ink); color: var(--sheet); font-size: 0.95rem; font-weight: 800; letter-spacing: 0.01em; line-height: 1; white-space: nowrap; }
-  .cv-item.has-thumb .cv-price::after { content: "+"; margin-left: 0.5rem; font-size: 1.25rem; font-weight: 500; line-height: 0; }
-  .cv-item.has-thumb[data-off] .cv-price::after { content: "—"; }
-  .cv-item.has-thumb[data-view] .cv-price::after { content: none; }
-  .cv-item.has-thumb .cv-nut { position: absolute; left: 0; right: 6.7rem; bottom: 0.9rem; max-width: 22rem; height: 2.55rem; margin: 0; box-sizing: border-box; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid color-mix(in srgb, var(--ink) 45%, transparent); border-radius: 0.65rem; overflow: hidden; opacity: 1; white-space: nowrap; letter-spacing: 0; }
-  .cv-item.has-thumb .cv-nut span { display: flex; flex-direction: column-reverse; align-items: center; justify-content: center; gap: 0.1rem; padding: 0; font-size: 0.92rem; font-weight: 800; line-height: 1; }
-  .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); }
-  .cv-item.has-thumb .cv-nut span b { margin: 0; font-size: 0.52rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
-  .cv-item.has-thumb .cv-nut .cv-nut-est { display: none; }
+  .cv-item.has-thumb { flex-direction: row-reverse; justify-content: flex-start; gap: 0.95rem; padding: 1.05rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 55%, transparent); }
+  .cv-item.has-thumb .cv-thumb { width: 38%; height: auto; aspect-ratio: 1.12 / 1; border-radius: 0.2rem; align-self: flex-start; }
+  .cv-item.has-thumb .cv-i-main { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; padding: 0; }
+  .cv-item.has-thumb .cv-i-top { display: contents; }
+  .cv-item.has-thumb .cv-i-name { font-size: 1.22rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+  .cv-item.has-thumb .cv-i-desc { margin-top: 0.4rem; font-size: 0.92rem; line-height: 1.32; }
+  .cv-item.has-thumb .cv-nut { order: 9; display: flex; flex-wrap: wrap; gap: 0; margin: 0.5rem 0 0; font-size: 0.8rem; letter-spacing: 0; opacity: 0.85; white-space: nowrap; }
+  .cv-item.has-thumb .cv-nut span:is(.n-c, .n-g) { display: none; }
+  .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 0; }
+  .cv-item.has-thumb .cv-nut span + span::before { content: "·"; margin: 0 0.4rem; }
+  .cv-item.has-thumb .cv-price { order: 10; margin: 0.55rem 0 0; padding: 0; background: none; color: var(--ink); font-size: 1.22rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; }
+  .cv-item.has-thumb::after { top: auto; right: 0; bottom: 1.05rem; }
 }
 
 /* Información nutricional completa en la ficha del plato */
@@ -779,3 +781,5 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 .ap-nutb b small { margin-left: 0.15rem; font-size: 0.62rem; font-weight: 700; opacity: 0.7; }
 .ap-nutb span { font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
 .ap-nutb p { grid-column: 1 / -1; margin: 0.1rem 0 0; font-size: 0.7rem; opacity: 0.7; }
+.cv-nut i { font-style: normal; font-weight: 700; margin-right: 0.2rem; }
+.cv-nut b { font-weight: 400; margin-right: 0; }
