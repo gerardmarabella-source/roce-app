@@ -718,3 +718,9 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 /* Cerrado: tarjeta bloqueada (rayas y borde discontinuo) con su hora, pero con el título y las fotos con su contraste normal */
 .cv-cat.is-shut { margin-top: 1.4rem; padding: 0 0.9rem 0.4rem; background: color-mix(in srgb, var(--ink) 9%, transparent); border: 1.5px dashed color-mix(in srgb, var(--ink) 50%, transparent); }
 .cv-cat.is-shut > .ap-hours { display: block; margin: 0 -0.9rem 0.5rem; padding: 0.6rem 0.9rem; }
+
+/* Todas las tarjetas bloqueadas por horario se ven igual: título y fotos con su contraste normal (solo el botón de pedir queda apagado). Lo agotado sí se atenúa. */
+.cv-cat.is-na > .cv-cat-h, .cv-cat.is-na > .cv-cat-body { opacity: 1; }
+.cv-item[data-off]:not([data-sold]) .cv-i-main { opacity: 1; }
+.cv-item.has-thumb[data-off]:not([data-sold]) .cv-thumb { filter: none; opacity: 1; }
+.cv-cat.is-na .cv-cat-h h3, .cv-cat.is-shut .cv-cat-h h3 { color: inherit; }
