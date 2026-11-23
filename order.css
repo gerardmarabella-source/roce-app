@@ -702,3 +702,14 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   .cv-sheet p { margin: 0 0 0.4rem; font-size: 0.76rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cv-sheet-actions { margin-top: 0.35rem; padding-top: 0.45rem; }
 }
+
+
+/* «Recoger» / «Mesa» en la cabecera, junto a Filtros y Menú */
+.cv-bar-row { gap: 0.55rem; }
+.cv-bar-row .ap-modebtn { min-height: 2.35rem; padding: 0 0.65rem 0 0.6rem; font-size: 0.72rem; letter-spacing: 0.06em; margin-left: auto; margin-right: auto; }
+.cv-crumb-row { justify-content: flex-start; }
+@media (max-width: 375px) {
+  #cvAlLabel { font-size: 0; }   /* Filtros: solo el icono para que quepan los cuatro botones */
+  .cv-bar-row .ap-modebtn { gap: 0.35rem; padding: 0 0.55rem 0 0.5rem; }
+}
+@media (max-width: 380px) { .cv-crumb-row { display: none; } }

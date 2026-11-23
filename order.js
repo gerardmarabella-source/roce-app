@@ -128,7 +128,8 @@
     paintClosed();
     [].forEach.call(document.querySelectorAll('.cv-cat'), function (sec) {
       var b = blockOf(sec.id); if (!b) return; var ok = open(b);
-      if (!ok && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
+      /* Cerrado (fuera de 10:00-20:00): todas las tarjetas de categoría quedan plegadas; se pueden abrir para mirar la carta. */
+      if ((!ok || !storeOpen()) && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
       [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) {
         if (b.view) { li.setAttribute('data-view', ''); return; }   /* carta de consulta (vinos): se ve, pero no se pide desde la app */
         var mm = /^it-(.+)-(\d+)$/.exec(li.id || ''), it = mm && b.items[+mm[2]], sold = !!(it && soldOut[itemKey(b, it)]);
