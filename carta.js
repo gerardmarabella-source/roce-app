@@ -313,9 +313,30 @@
   });
   $('cvAlBtn').addEventListener('click', openAl);
   /* Desplegable en la miga de pan («COCINA / TOSTADAS ▾»): cambiar de carta sin tener que deslizar ni abrir el menú */
-  function crumbMenu(on) { var m = $('cvCrumbMenu'), b = $('cvCrumb'); if (on) { m.innerHTML = D.sections.map(function (s) { return '<button type="button" role="menuitem" class="cv-cm-i' + (s.id === cur ? ' is-on' : '') + (s.soon ? ' is-soon' : '') + '" data-sec="' + s.id + '"><span>' + esc(tx(s.title)) + '</span>' + (s.soon ? '<small>' + esc(ui('soon')) + '</small>' : (s.id === cur ? '<i aria-hidden="true">✓</i>' : '')) + '</button>'; }).join(''); } m.hidden = !on; b.setAttribute('aria-expanded', String(!!on)); }
+  function crumbMenu(on) {
+    var m = $('cvCrumbMenu'), b = $('cvCrumb');
+    if (on) {
+      m.innerHTML = D.sections.map(function (s) {
+        var pg = $('pg-' + s.id), cs = pg ? [].slice.call(pg.querySelectorAll('.cv-cat:not(.is-hidden)')) : [], many = cs.length > 1 && !s.soon, open = s.id === cur && many;
+        return '<div class="cv-cm-g' + (open ? ' is-open' : '') + '"><div class="cv-cm-row"><button type="button" role="menuitem" class="cv-cm-i' + (s.id === cur ? ' is-on' : '') + (s.soon ? ' is-soon' : '') + '" data-sec="' + s.id + '"><span>' + esc(tx(s.title)) + '</span>' + (s.soon ? '<small>' + esc(ui('soon')) + '</small>' : '') + '</button>' +
+          (many ? '<button type="button" class="cv-cm-x" aria-label="' + esc(tx(s.title)) + '" aria-expanded="' + open + '"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>' : '') + '</div>' +
+          (many ? '<div class="cv-cm-sub">' + cs.map(function (c) { return '<button type="button" role="menuitem" class="cv-cm-s" data-sec="' + s.id + '" data-cat="' + c.id + '">' + esc(c.querySelector('h3').textContent) + '</button>'; }).join('') + '</div>' : '') + '</div>';
+      }).join('');
+    }
+    m.hidden = !on; b.setAttribute('aria-expanded', String(!!on));
+  }
+  function goCat(sec, catId) {
+    if (sec !== cur) setSheet(sec);
+    setTimeout(function () { var c = $(catId); if (!c) return; openCat(c); c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, sec !== cur ? 450 : 0);
+  }
   $('cvCrumb').addEventListener('click', function (e) { e.stopPropagation(); crumbMenu($('cvCrumbMenu').hidden); });
-  $('cvCrumbMenu').addEventListener('click', function (e) { var i = e.target.closest('.cv-cm-i'); if (!i) return; crumbMenu(false); if (i.dataset.sec !== cur) setSheet(i.dataset.sec); else window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  $('cvCrumbMenu').addEventListener('click', function (e) {
+    e.stopPropagation();
+    var x = e.target.closest('.cv-cm-x'), sub = e.target.closest('.cv-cm-s'), i = e.target.closest('.cv-cm-i');
+    if (x) { var g = x.closest('.cv-cm-g'), on = !g.classList.contains('is-open'); g.classList.toggle('is-open', on); x.setAttribute('aria-expanded', String(on)); return; }
+    if (sub) { crumbMenu(false); goCat(sub.dataset.sec, sub.dataset.cat); return; }
+    if (!i) return; crumbMenu(false); if (i.dataset.sec !== cur) setSheet(i.dataset.sec); else window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
   document.addEventListener('click', function (e) { if (!$('cvCrumbMenu').hidden && !e.target.closest('#cvCrumbMenu')) crumbMenu(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') crumbMenu(false); });
   $('cvAlDone').addEventListener('click', function () { $('cvSheet').close ? $('cvSheet').close() : $('cvSheet').removeAttribute('open'); });

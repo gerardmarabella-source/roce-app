@@ -707,7 +707,7 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 
 /* «Recoger» / «Mesa» en la cabecera, junto a Filtros y Menú */
 .cv-bar-row { gap: 0.55rem; }
-.cv-bar-row .ap-modebtn { min-height: 2.35rem; padding: 0 0.65rem 0 0.6rem; font-size: 0.72rem; letter-spacing: 0.06em; margin-left: 0; margin-right: auto; }
+.cv-bar-row .ap-modebtn { min-height: 2.35rem; padding: 0 0.65rem 0 0.6rem; font-size: 0.72rem; letter-spacing: 0.06em; margin-left: auto; margin-right: 0; }
 .cv-crumb-row { justify-content: flex-start; }
 @media (max-width: 375px) {
   .cv-bar-row .ap-modebtn { gap: 0.35rem; padding: 0 0.55rem 0 0.5rem; }
@@ -837,3 +837,21 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 
 /* Cocina en blanco limpio (como el fondo de la web): sin el grano del papel ni la sombra del lomo */
 .cv-paper.is-paper::before, .cv-paper.is-paper::after { display: none; }
+
+/* Menú a la izquierda de la cabecera; Recoger y perfil a la derecha */
+.cv-bar-row .cv-menu-btn { margin-right: auto; }
+.cv-bar-row .ap-hdr-acct { margin-left: 0; }
+.cv-bar-row .ap-modebtn { margin-left: auto; margin-right: 0; }
+
+/* Desplegable de la miga: cartas con sus secciones (como las categorías y subcategorías de una tienda online) */
+.cv-crumb-menu { max-height: calc(100dvh - 9rem); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.cv-cm-row { display: flex; align-items: stretch; }
+.cv-cm-row .cv-cm-i { flex: 1; min-width: 0; }
+.cv-cm-x { flex: none; width: 2.6rem; display: grid; place-items: center; border: 0; border-radius: 0.55rem; background: none; color: #fff; cursor: pointer; }
+.cv-cm-x svg { transition: transform 0.2s; }
+.cv-cm-x[aria-expanded="true"] svg { transform: rotate(180deg); }
+.cv-cm-x:hover, .cv-cm-x:focus-visible { background: rgba(255, 255, 255, 0.1); outline: none; }
+.cv-cm-sub { display: none; padding: 0 0 0.35rem 0.8rem; margin: 0 0 0.2rem 0.8rem; border-left: 1px solid rgba(255, 255, 255, 0.25); }
+.cv-cm-g.is-open .cv-cm-sub { display: grid; }
+.cv-cm-s { display: block; width: 100%; padding: 0.55rem 0.7rem; border: 0; border-radius: 0.5rem; background: none; color: rgba(255, 255, 255, 0.88); font: inherit; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-align: left; cursor: pointer; }
+.cv-cm-s:hover, .cv-cm-s:focus-visible { background: rgba(255, 255, 255, 0.1); color: #fff; outline: none; }

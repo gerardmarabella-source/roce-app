@@ -398,7 +398,7 @@
   function ensureEntry() {
     var row = document.querySelector('.cv-bar-row'), mb = document.getElementById('cvMenuBtn');
     if (row && mb && !document.getElementById('apHdrAcct')) {
-      var hb = document.createElement('button'); hb.type = 'button'; hb.id = 'apHdrAcct'; hb.className = 'ap-hdr-acct'; row.insertBefore(hb, mb); paintEntry();
+      var hb = document.createElement('button'); hb.type = 'button'; hb.id = 'apHdrAcct'; hb.className = 'ap-hdr-acct'; row.appendChild(hb); paintEntry();
       hb.addEventListener('click', function () { open(); });
     }
     var body = document.getElementById('cvMenuBody'); if (!body || document.getElementById('apAcctBtn')) return;
