@@ -744,34 +744,32 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   body.chef-top .cv-paper-in { padding-right: 0.85rem; }
 }
 
-/* Fila de plato con foto: precio dentro de un botón negro bajo la foto (hace de «añadir») y valores nutricionales en una rejilla de cuatro cifras bajo la descripción */
+/* Ficha de plato con foto: arriba título, descripción y foto; abajo, en una sola fila a todo el ancho, la rejilla de valores (kcal · proteínas · hidratos · grasas) y el botón negro con el precio, que hace de «añadir» */
 @media (min-width: 401px) and (max-width: 639px) {
   .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb::after { display: none; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main { min-height: 8.3rem; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.85rem; width: 5.6rem; margin: 0; padding: 0.42rem 0; box-sizing: border-box; text-align: center; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.01em; line-height: 1.1; white-space: nowrap; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price::after { content: "+"; margin-left: 0.45rem; font-size: 1.1rem; font-weight: 500; line-height: 0; vertical-align: -0.05em; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb { padding-bottom: 4rem; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.9rem; width: 6.2rem; height: 2.55rem; margin: 0; padding: 0; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 0.65rem; background: var(--ink); color: var(--sheet); font-size: 0.95rem; font-weight: 800; letter-spacing: 0.01em; line-height: 1; white-space: nowrap; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price::after { content: "+"; margin-left: 0.5rem; font-size: 1.25rem; font-weight: 500; line-height: 0; }
   .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb[data-off] .cv-price::after { content: "—"; }
   .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb[data-view] .cv-price::after { content: none; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 0.6rem 0 0; border: 1px solid color-mix(in srgb, var(--ink) 38%, transparent); border-radius: 0.65rem; overflow: hidden; opacity: 1; white-space: nowrap; letter-spacing: 0; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span { display: flex; flex-direction: column-reverse; align-items: center; gap: 0.12rem; padding: 0.32rem 0 0.28rem; font-size: 0.9rem; font-weight: 700; line-height: 1.1; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 1px solid color-mix(in srgb, var(--ink) 38%, transparent); }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span b { margin: 0; font-size: 0.54rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.75; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut { position: absolute; left: 0; right: 6.7rem; bottom: 0.9rem; max-width: 22rem; height: 2.55rem; margin: 0; box-sizing: border-box; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid color-mix(in srgb, var(--ink) 45%, transparent); border-radius: 0.65rem; overflow: hidden; opacity: 1; white-space: nowrap; letter-spacing: 0; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span { display: flex; flex-direction: column-reverse; align-items: center; justify-content: center; gap: 0.1rem; padding: 0; font-size: 0.92rem; font-weight: 800; line-height: 1; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span b { margin: 0; font-size: 0.52rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
   .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut .cv-nut-est { display: none; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut:has(.cv-nut-est) .n-k::before, .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut:has(.cv-nut-est) .n-p::before, .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut:has(.cv-nut-est) .n-c::before, .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut:has(.cv-nut-est) .n-g::before { content: none; }
 }
 @media (min-width: 640px) {
   .cv-item.has-thumb::after { display: none; }
-  .cv-item.has-thumb .cv-i-main { min-height: 8.3rem; }
-  .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.85rem; width: 5.6rem; margin: 0; padding: 0.42rem 0; box-sizing: border-box; text-align: center; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.01em; line-height: 1.1; white-space: nowrap; }
-  .cv-item.has-thumb .cv-price::after { content: "+"; margin-left: 0.45rem; font-size: 1.1rem; font-weight: 500; line-height: 0; vertical-align: -0.05em; }
+  .cv-item.has-thumb { padding-bottom: 4rem; }
+  .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.9rem; width: 6.2rem; height: 2.55rem; margin: 0; padding: 0; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 0.65rem; background: var(--ink); color: var(--sheet); font-size: 0.95rem; font-weight: 800; letter-spacing: 0.01em; line-height: 1; white-space: nowrap; }
+  .cv-item.has-thumb .cv-price::after { content: "+"; margin-left: 0.5rem; font-size: 1.25rem; font-weight: 500; line-height: 0; }
   .cv-item.has-thumb[data-off] .cv-price::after { content: "—"; }
   .cv-item.has-thumb[data-view] .cv-price::after { content: none; }
-  .cv-item.has-thumb .cv-nut { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 0.6rem 0 0; border: 1px solid color-mix(in srgb, var(--ink) 38%, transparent); border-radius: 0.65rem; overflow: hidden; opacity: 1; white-space: nowrap; letter-spacing: 0; }
-  .cv-item.has-thumb .cv-nut span { display: flex; flex-direction: column-reverse; align-items: center; gap: 0.12rem; padding: 0.32rem 0 0.28rem; font-size: 0.9rem; font-weight: 700; line-height: 1.1; }
-  .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 1px solid color-mix(in srgb, var(--ink) 38%, transparent); }
-  .cv-item.has-thumb .cv-nut span b { margin: 0; font-size: 0.54rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.75; }
+  .cv-item.has-thumb .cv-nut { position: absolute; left: 0; right: 6.7rem; bottom: 0.9rem; max-width: 22rem; height: 2.55rem; margin: 0; box-sizing: border-box; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid color-mix(in srgb, var(--ink) 45%, transparent); border-radius: 0.65rem; overflow: hidden; opacity: 1; white-space: nowrap; letter-spacing: 0; }
+  .cv-item.has-thumb .cv-nut span { display: flex; flex-direction: column-reverse; align-items: center; justify-content: center; gap: 0.1rem; padding: 0; font-size: 0.92rem; font-weight: 800; line-height: 1; }
+  .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); }
+  .cv-item.has-thumb .cv-nut span b { margin: 0; font-size: 0.52rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
   .cv-item.has-thumb .cv-nut .cv-nut-est { display: none; }
-  .cv-item.has-thumb .cv-nut:has(.cv-nut-est) .n-k::before, .cv-item.has-thumb .cv-nut:has(.cv-nut-est) .n-p::before, .cv-item.has-thumb .cv-nut:has(.cv-nut-est) .n-c::before, .cv-item.has-thumb .cv-nut:has(.cv-nut-est) .n-g::before { content: none; }
 }
 
 /* Información nutricional completa en la ficha del plato */
