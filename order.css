@@ -834,3 +834,6 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 .cv-cm-i.is-soon { opacity: 0.5; }
 .cv-cm-i small { font-size: 0.66rem; font-weight: 500; letter-spacing: 0.1em; opacity: 0.8; }
 .cv-cm-i i { font-style: normal; }
+
+/* Cocina en blanco limpio (como el fondo de la web): sin el grano del papel ni la sombra del lomo */
+.cv-paper.is-paper::before, .cv-paper.is-paper::after { display: none; }
