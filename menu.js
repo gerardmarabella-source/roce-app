@@ -174,7 +174,7 @@ window.CARTA = {
     sheet('fresh', 'red', 'Zumos', 'Juices', [drinks[2], drinks[3]]),
     by.bakery,
     sheet('coffee', 'olive', 'Café y Matcha', 'Coffee & Matcha', [drinks[0], drinks[1]]),
-    { id: 'drinks', color: 'sand', title: { es: 'Bebidas', en: 'Drinks' }, desc: { es: 'Aguas, refrescos, cervezas, vermuts y energéticas.', en: 'Water, soft drinks, beers, vermouths and energy drinks.' }, groups: [{
+    { id: 'drinks', color: 'lgray', title: { es: 'Bebidas', en: 'Drinks' }, desc: { es: 'Aguas, refrescos, cervezas, vermuts y energéticas.', en: 'Water, soft drinks, beers, vermouths and energy drinks.' }, groups: [{
       title: { es: 'Bebidas', en: 'Drinks' },
       blocks: [
               { title: { es: 'Aguas', en: 'Water' }, compact: true, alPending: true, items: [

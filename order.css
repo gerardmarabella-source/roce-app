@@ -192,7 +192,7 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 .cv-paper.is-dark { --sheet: #262624; --ink: var(--cream); }
 .cv-paper.is-cream { --sheet: var(--cream); --ink: #0a0a0a; }
 /* Coffee & Matcha: gris clarito */
-:root { --lgray: #d9d8d4; }
+:root { --lgray: #bab9b4; }
 html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 .cv-paper.is-lgray { --sheet: var(--lgray); --ink: #0a0a0a; }
 
