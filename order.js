@@ -11,7 +11,7 @@
       warn_h: 'Cuidado: alérgenos', warn_contains: 'contiene', warn_p: 'Son alérgenos que has marcado en tu perfil o en los filtros de la carta.', warn_team: 'Si lo pides, avisa también a nuestro equipo de tu alergia. ¿Quieres añadirlo igualmente?', warn_back: 'Volver', warn_ok: 'Añadir igualmente',
       pair_ing: 'Ingredientes', pair_al: 'Alérgenos',
       pair_h: '¿Algo para acompañar?', pair_all: 'Ver toda la carta de', pair_p: 'Esto le pega a tu', pair_no: 'No, gracias', pair_none: 'Continuar sin complementos', pair_go: 'Listo, continuar', pair_done: 'Listo',
-      from: 'Desde las', from_tmr: 'Desde mañana a las', gate_h: 'Ahora estamos cerrados', gate_p: 'Abrimos en {t}. Los pedidos son de 10:00 a 20:00 (hora de España), pero puedes seguir viendo la carta.', gate_stay: 'Ver la carta', gate_leave: 'Salir', close_x: 'Cerrar aviso', open_am: 'Abrimos hoy a las 10:00', open_pm: 'Abrimos mañana a las 10:00', opens_in: 'Abrimos en {t}', closed_h: 'Cerrado ahora', closed_p: 'Se puede pedir de 10:00 a 20:00 (hora de España).', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
+      from: 'Desde las', from_tmr: 'Desde mañana a las', shut_n: 'Pedidos desde las 10:00', shut_n_tmr: 'Pedidos desde mañana a las 10:00', shut_btn: 'Pedidos desde las 10:00', gate_h: 'Ahora estamos cerrados', gate_p: 'Abrimos en {t}. Los pedidos son de 10:00 a 20:00 (hora de España), pero puedes seguir viendo la carta.', gate_stay: 'Ver la carta', gate_leave: 'Salir', close_x: 'Cerrar aviso', open_am: 'Abrimos hoy a las 10:00', open_pm: 'Abrimos mañana a las 10:00', opens_in: 'Abrimos en {t}', closed_h: 'Cerrado ahora', closed_p: 'Se puede pedir de 10:00 a 20:00 (hora de España).', until: 'Hasta las', party: '¿Cuántos sois?', scan: 'Escanear el QR de la mesa', scan_t: 'Escanea el QR de tu mesa', scan_p: 'Apunta la cámara al código QR que hay en tu mesa.', scan_deny: 'No hemos podido abrir la cámara. Comprueba el permiso del navegador o escanea el QR con la cámara de tu móvil.', scan_bad: 'Ese código no es de una mesa de ROCE. Prueba con otro.', scan_chk: 'Comprobando la mesa…', scan_ok: 'Mesa reconocida', scan_other: 'Escanear otra mesa', prot: 'Más proteína', side: 'Acompañamientos', na: 'No disponible ahora', avail: 'Disponible', with_: 'Con', done: 'Hecho', to_table: 'Pedido a la mesa', to_pick: 'Pedido para recoger en el local' },
     en: { mesa: 'At table', mesa_s: 'We bring it to you', recoger: 'Pick up', recoger_s: 'Come and get it', mesa_n: "Scan your table's QR", where: 'Table', pick: 'Pick up', view: 'View order', your: 'Your order', how: 'How do you want it?',
       choose: 'Choose', srv_h: 'How would you like it', srv_copa: 'Glass', srv_shot: 'Shot', pick_mix: 'Choose your mixer', pick_h: 'Choose {n} flavours', pick_left: '{k} to go', extras: 'Extras', note: 'Note for the kitchen', note_ph: 'Any allergy or special request…', note_bar: 'Note for the bar', add: 'Add', off: 'Unavailable', close: 'Close', total: 'Total', pay: 'Pay', soon: 'Payment arrives in the next step.', empty: "You haven't added anything yet.",
       st_cart: 'Order', st_pay: 'Payment', st_conf: 'Confirm', next: 'Continue', back: 'Back', pay_h: 'Payment', pm_only_card: 'Cash payment is available when you order from your table: scan the table QR.', pm_big: 'For orders over €150 please pay by card.', sum_h: 'Summary', added: 'Added', undo: 'Undo', al_h: 'Allergens', paying: 'Preparing payment…', pm_h: 'How would you like to pay', pm_card: 'Card', pm_card_s: 'Pay now, instantly', pm_table: 'Pay at the table', pm_table_s: 'A waiter charges you (cash or card)', pay_table: 'Send to the kitchen', rm: 'Remove', cf_h: 'Confirm your order', cf_p: 'Made a mistake? Cancel now. Otherwise it is sent automatically.', cf_card: 'Taking you to payment in', cf_tbl: 'Sending to the kitchen in', cf_no: 'Cancel', cf_ok: 'Confirm now', cf_s: 's', keep: 'Add more', paying_t: 'Sending your order…', ok_h_t: 'Order sent!', ok_p_t: 'Your order is in the kitchen.', ok_s_sent: 'Sent', ok_s_table_pay: 'At your table, then we charge you', ok_total_t: 'To pay at the table', ok_pay_t: 'A waiter will charge you when serving. You can pay in cash or by card.', e_pt_off: 'Pay at the table is not available right now. Please pay by card.', e_pt_big: 'Orders over €150 must be paid by card.', e_pt_many: 'You already have several orders waiting to be paid at this table. Please call a waiter.', ok_h: 'Order received!', ok_p: 'Your order is in the kitchen.', ok_thanks: 'Thank you', ok_when: 'Time', ok_total: 'Total', ok_s_paid: 'Paid', ok_s_kitchen: 'In the kitchen', ok_s_table: 'At your table', ok_s_pick: 'Ready to collect', ok_mail: 'We have emailed the summary to', ok_help: 'Any problem with your order?', ok_wa: 'Message us on WhatsApp', ok_orders: 'My orders', ok_back: 'Back to the menu', ok_wait: 'Confirming your payment…', ok_ref: 'Order', ok_table: "We'll bring it to your table", ok_pick: "Come and pick it up when we let you know", ko_h: 'Payment not completed', ko_p: 'Nothing was charged. Your order is still in the cart so you can try again.',
@@ -19,7 +19,7 @@
       warn_h: 'Careful: allergens', warn_contains: 'contains', warn_p: 'These are allergens you marked in your profile or in the menu filters.', warn_team: 'If you order it, please also tell our team about your allergy. Do you still want to add it?', warn_back: 'Back', warn_ok: 'Add anyway',
       pair_ing: 'Ingredients', pair_al: 'Allergens',
       pair_h: 'Something to go with it?', pair_all: 'See the full', pair_p: 'These go well with your', pair_no: 'No, thanks', pair_none: 'Continue without sides', pair_go: 'Done, continue', pair_done: 'Done',
-      from: 'From', from_tmr: 'From tomorrow at', gate_h: "We're closed right now", gate_p: 'We open in {t}. Orders are from 10:00 to 20:00 (Spanish time), but you can keep browsing the menu.', gate_stay: 'See the menu', gate_leave: 'Leave', close_x: 'Dismiss', open_am: 'We open today at 10:00', open_pm: 'We open tomorrow at 10:00', opens_in: 'We open in {t}', closed_h: 'Closed right now', closed_p: 'You can order from 10:00 to 20:00 (Spanish time).', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
+      from: 'From', from_tmr: 'From tomorrow at', shut_n: 'Orders from 10:00', shut_n_tmr: 'Orders from tomorrow at 10:00', shut_btn: 'Orders from 10:00', gate_h: "We're closed right now", gate_p: 'We open in {t}. Orders are from 10:00 to 20:00 (Spanish time), but you can keep browsing the menu.', gate_stay: 'See the menu', gate_leave: 'Leave', close_x: 'Dismiss', open_am: 'We open today at 10:00', open_pm: 'We open tomorrow at 10:00', opens_in: 'We open in {t}', closed_h: 'Closed right now', closed_p: 'You can order from 10:00 to 20:00 (Spanish time).', until: 'Until', party: 'How many of you?', scan: 'Scan the table QR', scan_t: 'Scan your table QR', scan_p: 'Point the camera at the QR code on your table.', scan_deny: "We couldn't open the camera. Check the browser permission or scan the QR with your phone camera.", scan_bad: "That code isn't a ROCE table. Try another one.", scan_chk: 'Checking the table…', scan_ok: 'Table recognised', scan_other: 'Scan another table', prot: 'More protein', side: 'Sides', na: 'Not available now', avail: 'Available', with_: 'With', done: 'Done', to_table: 'Order to your table', to_pick: 'Order to pick up at the venue' }
   };
   var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [], party: 2, pm: 'card' };
   var B = window.ROCE_BACKEND;
@@ -48,8 +48,8 @@
      (el servidor lo comprueba también: app_orders_store_hours). */
   var STORE = { from: '10:00', to: '20:00' };
   function storeOpen() { var n = nowHM(); return n >= STORE.from && n < STORE.to; }
-  function open(b) { if (!storeOpen()) return false; var r = RULES[bk(b)], n = nowHM(); return !r || !((r.from && n < r.from) || (r.to && n >= r.to)); }
-  function hoursLabel(b) { if (!storeOpen()) return (nowHM() >= STORE.to ? t('from_tmr') : t('from')) + ' ' + STORE.from; var r = RULES[bk(b)]; return !r ? '' : r.from ? t('from') + ' ' + r.from : t('until') + ' ' + r.to; }
+  function open(b) { var r = RULES[bk(b)], n = nowHM(); return !r || !((r.from && n < r.from) || (r.to && n >= r.to)); }
+  function hoursLabel(b) { var r = RULES[bk(b)]; return !r ? '' : r.from ? t('from') + ' ' + r.from : t('until') + ' ' + r.to; }
 
   /* Agotados: lo que el equipo apaga desde el panel (app_menu_items.active) */
   var soldOut = {}, dbPrice = {}, dbExtras = {};   /* dbPrice: precio vigente por producto (lo sincroniza Ágora; manda sobre el de menu.js) */
@@ -116,17 +116,14 @@
   function minsToOpen() { var n = nowHM(), m = (+n.slice(0, 2)) * 60 + (+n.slice(3)), o = (+STORE.from.slice(0, 2)) * 60; return m < o ? o - m : 1440 - m + o; }
   function fmtLeft(m) { var h = Math.floor(m / 60), r = m % 60; return h ? h + ' h' + (r ? ' ' + r + ' min' : '') : r + ' min'; }
   var MOON = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/><path d="M16.5 3.5v3M15 5h3" stroke-width="1.4"/></svg>';
+  /* Un solo aviso compacto cuando se está fuera de 10:00-20:00 (hora de España); la carta se ve con su aspecto normal y lo que se bloquea es pedir. */
   function paintClosed() {
+    var c = !storeOpen(); document.documentElement.classList.toggle('ap-shut', c);
     var el = $('apClosed');
     if (!el) { var st = $('cvSections'); if (!st) return; el = document.createElement('div'); el.id = 'apClosed'; el.className = 'ap-closed'; el.setAttribute('role', 'status'); st.parentNode.insertBefore(el, st); }
-    var c = !storeOpen();
-    try { if (!c) sessionStorage.removeItem('roce_closed_dismissed'); } catch (e) {}
-    var gone = false; try { gone = sessionStorage.getItem('roce_closed_dismissed') === '1'; } catch (e) {}
-    el.hidden = !c || gone; if (!c || gone) return;
-    el.innerHTML = '<span class="ap-closed-ic">' + MOON + '</span><div class="ap-closed-t"><b>' + esc(t('closed_h')) + '</b><span>' + esc(t('opens_in').replace('{t}', fmtLeft(minsToOpen()))) + '</span></div>' +
-      '<small>' + esc(t('closed_p')) + '</small><button type="button" class="ap-closed-x" data-closed-x aria-label="' + esc(t('close_x')) + '"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+    el.hidden = !c; if (!c) return;
+    el.innerHTML = '<span class="ap-closed-ic">' + MOON + '</span><b>' + esc(t(nowHM() >= STORE.to ? 'shut_n_tmr' : 'shut_n')) + '</b>';
   }
-  document.addEventListener('click', function (e) { if (e.target.closest('[data-closed-x]')) { try { sessionStorage.setItem('roce_closed_dismissed', '1'); } catch (x) {} var el = $('apClosed'); if (el) el.hidden = true; } });
   function mark() {
     paintClosed();
     [].forEach.call(document.querySelectorAll('.cv-cat'), function (sec) {
@@ -245,7 +242,7 @@
   /* Añadir directo: solo platos sin variantes, sin «elige N» y sin mezcla/serving obligatorio. Devuelve false si hay que abrir el plato. */
   function quickAdd(li) {
     var m = /^it-(.+)-(\d+)$/.exec(li.id || ''); if (!m) return false; var b = blockOf(m[1]); if (!b) return false; var it = b.items[+m[2]];
-    if (!it || it.variants || it.pick || it.req || it.alt || !open(b) || soldOut[itemKey(b, it)]) return false;
+    if (!it || it.variants || it.pick || it.req || it.alt || !storeOpen() || !open(b) || soldOut[itemKey(b, it)]) return false;
     cur = { b: b, it: it, base: it, srv: 'copa', qty: 1, variant: -1, mix: null, extras: [], sel: { side: [], prot: [] }, openG: { side: false, prot: false }, note: '', ok: true, sold: false };
     var snap = JSON.stringify(S.cart), go = function () { addToCart(); toastUndo(t('added') + ' · ' + it.name, function () { S.cart = JSON.parse(snap); save(); paintBar(); }); try { if (navigator.vibrate) navigator.vibrate(8); } catch (x) { /* sin vibración */ } };
     var hh = itemAllergenHits(); if (hh.length) warnAllergens(it.name, hh, function () { hide(); }, go); else go();
@@ -281,7 +278,7 @@
     var nt = noteTexts(b);
     if (cur.ok) h += '<section class="cv-fs"><h3>' + nt.title + '</h3><textarea class="ap-note" id="apNote" maxlength="200" placeholder="' + esc(nt.ph) + '">' + esc(cur.note) + '</textarea></section>';
     h += (cur.ok ? '<div class="ap-qty"><button type="button" data-q="-1" aria-label="-">−</button><b>' + cur.qty + '</b><button type="button" data-q="1" aria-label="+">+</button></div>' : '') + '</div>';
-    h += '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button><button type="button" class="cv-solid" data-addcart' + (cur.ok && (!it.pick || mixSum() === it.pick) && !(it.req && cur.variant < 0) ? '' : ' disabled') + '>' + (!cur.ok ? (cur.sold ? soldTxt() : t('off')) : (it.pick && mixSum() !== it.pick ? t('pick_left').replace('{k}', it.pick - mixSum()) : (it.req && cur.variant < 0) ? t('pick_mix') : t('add') + ' · ' + money((unit() + protTotal()) * cur.qty))) + '</button></div>';
+    h += '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button><button type="button" class="cv-solid" data-addcart' + (storeOpen() && cur.ok && (!it.pick || mixSum() === it.pick) && !(it.req && cur.variant < 0) ? '' : ' disabled') + '>' + (!storeOpen() ? t('shut_btn') : !cur.ok ? (cur.sold ? soldTxt() : t('off')) : (it.pick && mixSum() !== it.pick ? t('pick_left').replace('{k}', it.pick - mixSum()) : (it.req && cur.variant < 0) ? t('pick_mix') : t('add') + ' · ' + money((unit() + protTotal()) * cur.qty))) + '</button></div>';
     var sc = (dlg.querySelector('.cv-sheet-body') || {}).scrollTop || 0; show(h); var bd = dlg.querySelector('.cv-sheet-body'); if (bd) bd.scrollTop = sc;
   }
   function addToCart() {
@@ -457,7 +454,7 @@
       if (S.mode === 'mesa') h += '<div class="ap-c-party"><span>' + t('party') + '</span><div class="ap-c-qty"><button type="button" data-party="-1" aria-label="-">−</button><b>' + S.party + '</b><button type="button" data-party="1" aria-label="+">+</button></div></div>';
       h += '<div class="ap-c-total"><span>' + t('total') + '</span><b>' + money(s.c) + '</b></div>';
     }
-    h += '</div><div class="cv-sheet-actions ap-c-act"><button type="button" class="cv-ghost" data-close>' + t('keep') + '</button>' + (S.cart.length ? '<button type="button" class="cv-solid ap-c-pay" data-next><span>' + t('next') + '</span><b>' + money(s.c) + '</b></button>' : '') + '</div>';
+    h += '</div><div class="cv-sheet-actions ap-c-act"><button type="button" class="cv-ghost" data-close>' + t('keep') + '</button>' + (S.cart.length ? '<button type="button" class="cv-solid ap-c-pay" data-next' + (storeOpen() ? '' : ' disabled') + '><span>' + (storeOpen() ? t('next') : t('shut_btn')) + '</span><b>' + money(s.c) + '</b></button>' : '') + '</div>';
     show(h);
   }
   /* Paso 2: cómo pagar (en otra pantalla, para que nunca quede tapado) */
@@ -663,23 +660,7 @@
     (function next() { if (i >= urls.length) return; var im = new Image(); im.decoding = 'async'; im.onload = im.onerror = function () { idle(next); }; im.src = urls[i++]; })();
   }
   window.addEventListener('load', function () { setTimeout(warmPhotos, 1500); });
-  /* Aviso al abrir la carta con el local cerrado (como el de +18): seguir viendo la carta o irse. Una vez por visita. */
-  function closedGate() {
-    if (storeOpen() || $('apGate')) return;
-    try { if (sessionStorage.getItem('roce_closed_gate') === '1') return; } catch (e) {}
-    var g = document.createElement('div'); g.id = 'apGate'; g.className = 'ap-gate'; g.setAttribute('role', 'dialog'); g.setAttribute('aria-modal', 'true'); g.setAttribute('aria-labelledby', 'apGateH');
-    g.innerHTML = '<div class="ap-gate-card"><span class="ap-gate-ic">' + MOON + '</span><h2 id="apGateH">' + esc(t('gate_h')) + '</h2><p>' + esc(t('gate_p').replace('{t}', fmtLeft(minsToOpen()))) + '</p>' +
-      '<div class="ap-gate-act"><button type="button" class="ap-gate-yes" data-gate="stay">' + esc(t('gate_stay')) + '</button><button type="button" class="ap-gate-no" data-gate="leave">' + esc(t('gate_leave')) + '</button></div></div>';
-    document.body.appendChild(g); document.documentElement.classList.add('ap-gate-open');
-    var y = g.querySelector('[data-gate="stay"]'); if (y) y.focus({ preventScroll: true });
-  }
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-gate]'); if (!b) return;
-    if (b.dataset.gate === 'leave') { location.href = 'https://roce.es/'; return; }
-    try { sessionStorage.setItem('roce_closed_gate', '1'); } catch (x) {}
-    var g = $('apGate'); if (g) g.remove(); document.documentElement.classList.remove('ap-gate-open');
-  });
-  paintMode(); paintBar(); mark(); loadAvail(); resolveTable(); closedGate(); setTimeout(function () { handleReturn(ret); }, 400);
+  paintMode(); paintBar(); mark(); loadAvail(); resolveTable(); setTimeout(function () { handleReturn(ret); }, 400);
   /* Precios y agotados al día: Ágora manda en los precios (se sincronizan cada minuto en la base de datos), así que la app los vuelve a leer sola cada 5 segundos mientras la pantalla está abierta. */
   setInterval(function () { if (!document.hidden) loadAvail(); }, 5000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) loadAvail(); });

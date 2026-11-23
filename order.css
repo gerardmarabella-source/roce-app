@@ -657,36 +657,12 @@ button.ap-av:not(.has-img) { overflow: visible; }
   .ap-c-pay span { overflow: visible; text-overflow: clip; }
 }
 
-/* Aviso «Cerrado ahora» (fuera de 10:00-20:00, hora de España) */
-.ap-closed { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.7rem 0.9rem; margin: 0.9rem var(--pad, 1rem) 0; padding: 1rem 1.05rem 0.9rem; background: radial-gradient(120% 140% at 100% 0%, #26211c 0%, #0a0a0a 62%); color: #fff; border-radius: 1.1rem; border: 1px solid rgba(255, 255, 255, 0.12); }
+/* Aviso único y compacto fuera de 10:00-20:00 (hora de España) */
+.ap-closed { display: flex; align-items: center; gap: 0.5rem; margin: 0.6rem var(--pad, 1rem) 0; padding: 0.5rem 0.85rem; border-radius: 999px; background: var(--black, #0a0a0a); color: #fff; font-size: 0.8rem; line-height: 1.2; }
 .ap-closed[hidden] { display: none; }
-.ap-closed-ic { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #f1e7d2; }
-.ap-closed-t { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
-.ap-closed-t b { font-size: 1.15rem; line-height: 1.1; letter-spacing: 0.01em; text-transform: uppercase; }
-.ap-closed-t span { font-size: 0.84rem; opacity: 0.8; }
-.ap-closed-n { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 0.5rem; justify-self: start; padding: 0.4rem 0.8rem; border-radius: 999px; background: rgba(255, 255, 255, 0.1); font-style: normal; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; }
-.ap-closed-n i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #ff8a5c; box-shadow: 0 0 0 0 rgba(255, 138, 92, 0.6); animation: apCl 1.8s ease-out infinite; }
-.ap-closed small { grid-column: 1 / -1; font-size: 0.72rem; opacity: 0.55; letter-spacing: 0.02em; }
-@keyframes apCl { 0% { box-shadow: 0 0 0 0 rgba(255, 138, 92, 0.6); } 70%, 100% { box-shadow: 0 0 0 7px rgba(255, 138, 92, 0); } }
-@media (prefers-reduced-motion: reduce) { .ap-closed-n i { animation: none; } }
-
-.ap-closed-x { position: absolute; top: 0.55rem; right: 0.55rem; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #fff; cursor: pointer; }
-.ap-closed-x:active { transform: scale(0.94); }
-
-
-/* Aviso de «cerrado» al abrir la carta (mismo estilo que el aviso +18) */
-html.ap-gate-open { overflow: hidden; }
-.ap-gate { position: fixed; inset: 0; z-index: 590; display: flex; align-items: flex-end; justify-content: center; background: rgba(0, 0, 0, 0.62); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); overflow-y: auto; animation: apGateFade 0.25s ease-out both; }
-.ap-gate-card { box-sizing: border-box; width: min(100%, 26rem); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.65rem; padding: 1.5rem 1.4rem calc(1.3rem + env(safe-area-inset-bottom)); background: #141414; color: #ece7dd; border-radius: 26px 26px 0 0; box-shadow: 0 -24px 70px rgba(0, 0, 0, 0.55); animation: apGateUp 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-.ap-gate-ic { display: grid; place-items: center; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #f1e7d2; }
-.ap-gate-card h2 { margin: 0; font-size: 1.35rem; line-height: 1.15; letter-spacing: -0.01em; }
-.ap-gate-card p { margin: 0; max-width: 21rem; font-size: 0.9rem; line-height: 1.5; color: rgba(236, 231, 221, 0.72); }
-.ap-gate-act { width: 100%; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.7rem; }
-.ap-gate-act button { width: 100%; min-height: 3.1rem; padding: 0.6rem 1rem; border: 0; border-radius: 999px; font: inherit; font-size: 0.95rem; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: transform 0.12s ease; }
-.ap-gate-act button:active { transform: scale(0.98); }
-.ap-gate-yes { background: #ece7dd; color: #0a0a0a; }
-.ap-gate-no { background: transparent; color: rgba(236, 231, 221, 0.7); font-weight: 500 !important; font-size: 0.85rem !important; min-height: 2.7rem !important; }
-@keyframes apGateFade { from { opacity: 0; } to { opacity: 1; } }
-@keyframes apGateUp { from { transform: translateY(38px); opacity: 0; } to { transform: none; opacity: 1; } }
-@media (min-width: 560px) { .ap-gate { align-items: center; padding: 1.25rem; } .ap-gate-card { border-radius: 26px; padding: 2rem 1.9rem 1.6rem; } }
-@media (prefers-reduced-motion: reduce) { .ap-gate, .ap-gate-card { animation: none; } }
+.ap-closed-ic { display: inline-grid; place-items: center; color: #f1e7d2; }
+.ap-closed-ic svg { width: 1.05rem; height: 1.05rem; }
+.ap-closed b { font-weight: 700; letter-spacing: 0.02em; }
+/* Cerrado: la carta se ve igual (fotos y nombres con su contraste); el botón de pedir queda desactivado */
+html.ap-shut .cv-item:not([data-view])::after { opacity: 0.4; filter: grayscale(1); }
+html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
