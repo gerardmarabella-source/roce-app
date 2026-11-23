@@ -475,10 +475,21 @@
 
   var currentLang = 'es';
 
+  /* El idioma se comparte entre roce.es y app.roce.es con una cookie técnica de preferencia en .roce.es (el almacenamiento local no se comparte entre dominios).
+     La última elección, hecha en cualquiera de las dos, manda. */
+  function readLangCookie() { var m = (document.cookie || '').match(/(?:^|;\s*)roce_lang=(es|en)/); return m ? m[1] : null; }
+  function writeLangCookie(l) {
+    try {
+      var dom = /(^|\.)roce\.es$/.test(location.hostname) ? '; domain=.roce.es' : '';
+      document.cookie = 'roce_lang=' + l + dom + '; path=/; max-age=31536000; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+    } catch (e) {}
+  }
   function detectLang() {
     var saved = null;
+    var ck = readLangCookie();
+    if (ck) { try { localStorage.setItem(STORAGE_KEY, ck); } catch (e) {} return ck; }
     try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
-    if (saved === 'en' || saved === 'es') return saved;
+    if (saved === 'en' || saved === 'es') { writeLangCookie(saved); return saved; }
     var nav = (navigator.language || (navigator.languages && navigator.languages[0]) || 'es').toLowerCase();
     return nav.indexOf('en') === 0 ? 'en' : 'es';
   }
@@ -532,6 +543,7 @@
 
   function setLang(lang) {
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+    writeLangCookie(lang);
     applyLang(lang);
   }
 
