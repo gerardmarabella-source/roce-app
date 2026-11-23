@@ -317,11 +317,20 @@
     if (!names.length) return '';
     return '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="al" aria-expanded="' + !!opn + '"><span>' + t('al_h') + '</span><i></i></button>' + (opn ? '<div class="ap-fold-body"><p class="ap-alnames">' + esc(names.join(' · ')) + '</p></div>' : '') + '</section>';
   }
-  /* Información nutricional por ración en la ficha del plato (la lista lleva solo kcal y proteína) */
+  /* Valores nutricionales de lo elegido: plato + extras + acompañamientos + proteína (aproximado) */
+  function selNut() {
+    var it = cur.it, b = cur.b; if (!it.nut) return null;
+    var tot = it.nut.slice(0, 4).map(Number), extra = false, miss = false;
+    function add(n) { extra = true; if (!n) { miss = true; return; } for (var i = 0; i < 4; i++) tot[i] += Number(n[i]) || 0; }
+    if (isFood(b) && b.extras && !b.extras.auto) cur.extras.forEach(function (k) { var e = b.extras.list[k]; if (e) add(e[3]); });
+    ADDON.forEach(function (g) { var ab = addonBlock(g); if (!ab) return; (cur.sel[g.id] || []).forEach(function (k) { var p = ab.items[k]; if (p) add(p.nut); }); });
+    return { n: tot.map(function (v) { return Math.round(v); }), extra: extra, miss: miss };
+  }
+  /* Información nutricional por ración en la ficha del plato (la lista lleva solo kcal y proteína); se actualiza al marcar extras */
   function nutBlock(it) {
-    if (!it.nut) return '';
-    var en = L() === 'en', lab = en ? ['Energy', 'Protein', 'Carbs', 'Fat'] : ['Energía', 'Proteína', 'Hidratos', 'Grasas'], un = [' kcal', ' g', ' g', ' g'];
-    return '<section class="ap-nutb" aria-label="' + (en ? 'Nutrition per serving' : 'Información nutricional por ración') + '"><h3>' + (en ? 'Per serving' : 'Por ración') + '</h3><div class="ap-nutr">' + it.nut.slice(0, 4).map(function (v, k) { return '<div><b>' + (it.nutEst && !k ? '≈' : '') + esc(String(v)) + un[k] + '</b><span>' + lab[k] + '</span></div>'; }).join('') + '</div></section>';
+    var sn = selNut(); if (!sn) return '';
+    var en = L() === 'en', lab = en ? ['Energy', 'Protein', 'Carbs', 'Fat'] : ['Energía', 'Proteína', 'Hidratos', 'Grasas'], un = [' kcal', ' g', ' g', ' g'], est = it.nutEst || sn.extra;
+    return '<section class="ap-nutb" aria-label="' + (en ? 'Nutrition per serving' : 'Información nutricional por ración') + '"><h3>' + (en ? 'Per serving' : 'Por ración') + (sn.extra ? (en ? ' · with your extras' : ' · con tus extras') : '') + '</h3><div class="ap-nutr">' + sn.n.map(function (v, k) { return '<div><b>' + (est && !k ? '≈' : '') + v + un[k] + '</b><span>' + lab[k] + '</span></div>'; }).join('') + '</div>' + (sn.extra ? '<p class="ap-nutn">' + (en ? '≈ Approximate values including what you have chosen' : '≈ Valores aproximados con lo que has elegido') + (sn.miss ? (en ? ' (some items have no data)' : ' (algún extra sin datos)') : '') + '.</p>' : '') + '</section>';
   }
   function paintItem() {
     var it = cur.it, b = cur.b, h = itemHead() + (cur.ok ? '' : '<p class="ap-na">' + esc(cur.sold ? soldTxt() : t('avail') + ' ' + hoursLabel(b).toLowerCase()) + '</p>') + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '') + (it.tag && !cur.base.alt ? '<p class="ap-meta">' + esc(tx(it.tag)) + '</p>' : '') + (it.desc ? '<p>' + esc(tx(it.desc)) + '</p>' : '') + (it.kw ? '<p class="ap-kw">' + esc(tx(it.kw)) + '</p>' : '') + crossSell() + nutBlock(it);

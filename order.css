@@ -910,3 +910,4 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 .ap-chip > .ap-chip-e, .ap-chip > .ap-chip-ic, .ap-chip > .ap-chip-i { grid-area: e; margin: 0; align-self: center; }
 .ap-chip > i { grid-area: i; align-self: center; }
 .ap-chip-e { font-size: 1.15rem; }
+.cv-sheet .ap-nutb p.ap-nutn { margin: 0.6rem 0 0; font-size: 0.72rem; opacity: 0.7; }
