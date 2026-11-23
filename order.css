@@ -736,3 +736,15 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 /* Tarjeta bloqueada sin bordes ni relleno laterales (solo rayas arriba y línea discontinua arriba y abajo): así no le roba ancho a los platos */
 .cv-cat.is-na, .cv-cat.is-shut { padding-left: 0; padding-right: 0; border-left: 0; border-right: 0; border-width: 1px; background: transparent; }
 .cv-cat.is-na > .ap-hours, .cv-cat.is-shut > .ap-hours { margin-left: 0; margin-right: 0; padding-left: 0.7rem; padding-right: 0.7rem; }
+
+/* Precio en píldora: baja a la última línea de cada plato (debajo de la descripción y los macros) como etiqueta, y deja el título con todo el ancho */
+@media (min-width: 401px) and (max-width: 639px) {
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main { display: flex; flex-direction: column; align-items: flex-start; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-top { display: contents; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { order: 9; margin-top: 0.55rem; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; }
+}
+@media (min-width: 640px) {
+  .cv-item.has-thumb .cv-i-main { display: flex; flex-direction: column; align-items: flex-start; }
+  .cv-item.has-thumb .cv-i-top { display: contents; }
+  .cv-item.has-thumb .cv-price { order: 9; margin-top: 0.55rem; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; }
+}
