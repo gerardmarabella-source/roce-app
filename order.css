@@ -774,12 +774,26 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   .cv-item.has-thumb::after { top: auto; right: 0; bottom: 1.05rem; }
 }
 
-/* Información nutricional completa en la ficha del plato */
-.ap-nutb { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; margin: 0.9rem 0 0.3rem; }
-.ap-nutb div { display: grid; gap: 0.15rem; padding: 0.6rem 0.2rem; text-align: center; border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent); border-radius: 0.7rem; }
-.ap-nutb b { font-size: 1.05rem; font-weight: 800; line-height: 1.1; }
-.ap-nutb b small { margin-left: 0.15rem; font-size: 0.62rem; font-weight: 700; opacity: 0.7; }
-.ap-nutb span { font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
-.ap-nutb p { grid-column: 1 / -1; margin: 0.1rem 0 0; font-size: 0.7rem; opacity: 0.7; }
 .cv-nut i { font-style: normal; font-weight: 700; margin-right: 0.2rem; }
 .cv-nut b { font-weight: 400; margin-right: 0; }
+
+/* ── Ficha del plato (estilo carta moderna) ── */
+.cv-sheet .ap-hero { position: relative; margin: -1.5rem -1rem 1.1rem; background: #1a1612; }
+.cv-sheet .ap-hero .ap-photo { display: block; width: 100%; height: auto; max-height: none; aspect-ratio: 4 / 3; object-fit: cover; margin: 0; animation: none; }
+.cv-sheet .ap-back { position: absolute; top: 0.85rem; left: 0.85rem; z-index: 2; width: 2.5rem; height: 2.5rem; padding: 0; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.94); color: #0a0a0a; cursor: pointer; }
+.cv-sheet .ap-topbar { margin: -0.4rem 0 0.7rem; }
+.cv-sheet .ap-topbar .ap-back { position: static; border: 1.5px solid var(--black); background: transparent; }
+.cv-sheet p.ap-eyebrow { margin: 0 0 0.3rem; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; }
+#apDlg .cv-sheet-body h2.ap-title { margin: 0; padding: 0; border: 0; font-size: clamp(1.9rem, 8.5vw, 2.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: none; }
+.cv-sheet p.ap-bigprice { margin: 0.55rem 0 1rem; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.01em; opacity: 1; }
+.cv-sheet .ap-nutb { margin: 1.1rem 0 0.5rem; padding-top: 0.9rem; border-top: 1.5px solid var(--black); }
+.cv-sheet .ap-nutb h3 { margin: 0 0 0.7rem; font-size: 1.05rem; font-weight: 800; }
+.cv-sheet .ap-nutr { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cv-sheet .ap-nutr div { display: grid; gap: 0.2rem; justify-items: center; text-align: center; padding: 0.1rem 0.2rem; }
+.cv-sheet .ap-nutr div + div { border-left: 1px solid color-mix(in srgb, var(--black) 45%, transparent); }
+.cv-sheet .ap-nutr b { font-size: 1.02rem; font-weight: 800; line-height: 1.1; white-space: nowrap; }
+.cv-sheet .ap-nutr span { font-size: 0.8rem; opacity: 0.75; }
+.cv-sheet .ap-fold { padding: 1rem 0; border: 0; border-top: 1.5px solid var(--black); background: transparent; font-size: 1.05rem; font-weight: 800; letter-spacing: 0; text-transform: none; }
+.cv-sheet .cv-fs:has(> .ap-fold) { margin-top: 0; }
+.cv-sheet .ap-fold-body p.ap-alnames { margin: 0 0 1rem; font-size: 0.92rem; opacity: 0.85; }
+.cv-sheet-actions.ap-act1 .cv-solid { flex: 1 1 auto; width: 100%; min-height: 3.4rem; font-size: 1.08rem; font-weight: 800; letter-spacing: 0.01em; text-transform: none; }

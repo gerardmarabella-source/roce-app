@@ -272,14 +272,28 @@
   function unit() { var u = cents(cur.it.price); if (cur.b.extras) cur.b.extras.list.forEach(function (e, k) { if (cur.extras.indexOf(k) !== -1) u += cents(extraPrice(e[1])); }); return u; }
   function protTotal() { var s = 0; ADDON.forEach(function (g) { var ab = addonBlock(g); if (ab) (cur.sel[g.id] || []).forEach(function (k) { s += cents(ab.items[k].price); }); }); return s; }
   function keepNote() { var n = $('apNote'); if (n) cur.note = n.value; }
-  /* Información nutricional completa en la ficha del plato (en la lista solo van kcal y proteína, como en las apps de comida) */
+  /* Ficha del plato (estilo carta moderna): flecha de volver, foto grande, «CATEGORÍA · código», nombre grande, precio y, más abajo, «Por ración» con las cuatro cifras */
+  function itemHead() {
+    var it = cur.it, b = cur.b, en = L() === 'en', back = '<button type="button" class="ap-back" data-close aria-label="' + (en ? 'Back' : 'Volver') + '"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>';
+    var cat = b.title ? tx(b.title) : '', code = it.code && it.code !== it.name ? it.code : '', eyebrow = [cat, code].filter(Boolean).join(' · ');
+    var pr = typeof it.price === 'number' && !cur.base.alt ? '<p class="ap-bigprice">' + money(cents(it.price)) + '</p>' : '';
+    return (it.img ? '<div class="ap-hero"><img class="ap-photo" src="' + esc(it.img) + '" alt="' + esc(it.name) + '">' + back + '</div>' : '<div class="ap-topbar">' + back + '</div>') +
+      '<div class="cv-sheet-body">' + (eyebrow ? '<p class="ap-eyebrow">' + esc(eyebrow) + '</p>' : '') + '<h2 class="ap-title">' + esc(cur.base.name) + '</h2>' + pr;
+  }
+  function alFold(it) {
+    var al = it.al || []; if (!al.length || !D.allergens) return '';
+    var names = D.allergens.filter(function (a) { return al.indexOf(a.n) !== -1; }).map(function (a) { return a[L()] || a.es; }), opn = cur.openG.al;
+    if (!names.length) return '';
+    return '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="al" aria-expanded="' + !!opn + '"><span>' + t('al_h') + '</span><i></i></button>' + (opn ? '<div class="ap-fold-body"><p class="ap-alnames">' + esc(names.join(' · ')) + '</p></div>' : '') + '</section>';
+  }
+  /* Información nutricional por ración en la ficha del plato (la lista lleva solo kcal y proteína) */
   function nutBlock(it) {
     if (!it.nut) return '';
-    var en = L() === 'en', lab = en ? ['Calories', 'Protein', 'Carbs', 'Fat'] : ['Energía', 'Proteínas', 'Hidratos', 'Grasas'], un = ['kcal', 'g', 'g', 'g'];
-    return '<section class="ap-nutb" aria-label="' + (en ? 'Nutrition per serving' : 'Información nutricional por ración') + '">' + it.nut.slice(0, 4).map(function (v, k) { return '<div><b>' + esc(String(v)) + '<small>' + un[k] + '</small></b><span>' + lab[k] + '</span></div>'; }).join('') + (it.nutEst ? '<p>' + (en ? '≈ Approximate values' : '≈ Valores aproximados') + '</p>' : '') + '</section>';
+    var en = L() === 'en', lab = en ? ['Energy', 'Protein', 'Carbs', 'Fat'] : ['Energía', 'Proteína', 'Hidratos', 'Grasas'], un = [' kcal', ' g', ' g', ' g'];
+    return '<section class="ap-nutb" aria-label="' + (en ? 'Nutrition per serving' : 'Información nutricional por ración') + '"><h3>' + (en ? 'Per serving' : 'Por ración') + '</h3><div class="ap-nutr">' + it.nut.slice(0, 4).map(function (v, k) { return '<div><b>' + (it.nutEst && !k ? '≈' : '') + esc(String(v)) + un[k] + '</b><span>' + lab[k] + '</span></div>'; }).join('') + '</div></section>';
   }
   function paintItem() {
-    var it = cur.it, b = cur.b, h = '<h2>' + esc(cur.base.name) + '</h2><div class="cv-sheet-body">' + (it.img ? '<img class="ap-photo" src="' + esc(it.img) + '" alt="' + esc(it.name) + '">' : '') + (cur.ok ? '' : '<p class="ap-na">' + esc(cur.sold ? soldTxt() : t('avail') + ' ' + hoursLabel(b).toLowerCase()) + '</p>') + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '') + (it.tag && !cur.base.alt ? '<p class="ap-meta">' + esc(tx(it.tag)) + '</p>' : '') + (it.desc ? '<p>' + esc(tx(it.desc)) + '</p>' : '') + (it.kw ? '<p class="ap-kw">' + esc(tx(it.kw)) + '</p>' : '') + nutBlock(it) + alNames(it);
+    var it = cur.it, b = cur.b, h = itemHead() + (cur.ok ? '' : '<p class="ap-na">' + esc(cur.sold ? soldTxt() : t('avail') + ' ' + hoursLabel(b).toLowerCase()) + '</p>') + (it.es ? '<p>' + esc(tx({ es: it.es, en: it.en })) + '</p>' : '') + (it.tag && !cur.base.alt ? '<p class="ap-meta">' + esc(tx(it.tag)) + '</p>' : '') + (it.desc ? '<p>' + esc(tx(it.desc)) + '</p>' : '') + (it.kw ? '<p class="ap-kw">' + esc(tx(it.kw)) + '</p>' : '') + nutBlock(it) + alFold(it);
     if (cur.ok && cur.base.alt) h += '<section class="cv-fs"><h3>' + t('srv_h') + '</h3>' + [['copa', t('srv_copa'), cur.base.price], ['shot', t('srv_shot'), cur.base.alt.price]].map(function (o) { return '<button type="button" class="cv-pick" data-srv="' + o[0] + '" aria-pressed="' + (cur.srv === o[0]) + '"><i class="cv-radio"></i><span>' + o[1] + ' · ' + money(cents(o[2])) + '</span></button>'; }).join('') + '</section>';
     if (it.variants && it.pick) h += '<section class="cv-fs ap-mix"><h3>' + esc(t('pick_h').replace('{n}', it.pick)) + ' · ' + mixSum() + '/' + it.pick + '</h3>' + it.variants.map(function (v, k) { return '<div class="ap-mix-row"><div><b>' + esc(v.name) + '</b><span>' + esc(tx({ es: v.es, en: v.en })) + '</span></div><div class="ap-qty"><button type="button" data-mx="' + k + ':-1" aria-label="-"' + (cur.mix[k] ? '' : ' disabled') + '>−</button><b>' + cur.mix[k] + '</b><button type="button" data-mx="' + k + ':1" aria-label="+"' + (mixSum() >= it.pick ? ' disabled' : '') + '>+</button></div></div>'; }).join('') + '</section>';
     else if (it.variants) h += '<section class="cv-fs"><h3>' + (it.vh ? esc(tx(it.vh)) : t('choose')) + '</h3>' + it.variants.map(function (v, k) { return '<button type="button" class="cv-pick" data-v="' + k + '" aria-pressed="' + (cur.variant === k) + '"><i class="cv-radio"></i><span>' + esc(v.name) + (v.note ? ' <em class="ap-vn">' + esc(v.note) + '</em>' : '') + '</span></button>'; }).join('') + '</section>';
@@ -294,7 +308,7 @@
     var nt = noteTexts(b);
     if (cur.ok) h += '<section class="cv-fs"><h3>' + nt.title + '</h3><textarea class="ap-note" id="apNote" maxlength="200" placeholder="' + esc(nt.ph) + '">' + esc(cur.note) + '</textarea></section>';
     h += (cur.ok ? '<div class="ap-qty"><button type="button" data-q="-1" aria-label="-">−</button><b>' + cur.qty + '</b><button type="button" data-q="1" aria-label="+">+</button></div>' : '') + '</div>';
-    h += '<div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-close>' + t('close') + '</button><button type="button" class="cv-solid" data-addcart' + (storeOpen() && cur.ok && (!it.pick || mixSum() === it.pick) && !(it.req && cur.variant < 0) ? '' : ' disabled') + '>' + (!storeOpen() ? t('shut_btn') : !cur.ok ? (cur.sold ? soldTxt() : t('off')) : (it.pick && mixSum() !== it.pick ? t('pick_left').replace('{k}', it.pick - mixSum()) : (it.req && cur.variant < 0) ? t('pick_mix') : t('add') + ' · ' + money((unit() + protTotal()) * cur.qty))) + '</button></div>';
+    h += '<div class="cv-sheet-actions ap-act1"><button type="button" class="cv-solid" data-addcart' + (storeOpen() && cur.ok && (!it.pick || mixSum() === it.pick) && !(it.req && cur.variant < 0) ? '' : ' disabled') + '>' + (!storeOpen() ? t('shut_btn') : !cur.ok ? (cur.sold ? soldTxt() : t('off')) : (it.pick && mixSum() !== it.pick ? t('pick_left').replace('{k}', it.pick - mixSum()) : (it.req && cur.variant < 0) ? t('pick_mix') : t('add') + ' · ' + money((unit() + protTotal()) * cur.qty))) + '</button></div>';
     var sc = (dlg.querySelector('.cv-sheet-body') || {}).scrollTop || 0; show(h); var bd = dlg.querySelector('.cv-sheet-body'); if (bd) bd.scrollTop = sc;
   }
   function addToCart() {
