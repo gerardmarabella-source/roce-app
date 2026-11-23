@@ -184,6 +184,7 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
 /* Cada hoja lleva sus propios colores: al cambiar de carta, la hoja que se va conserva su color mientras gira
    (antes tomaba al instante el de la nueva, y el giro se veía raro). */
 .cv-paper.is-kraft { --sheet: var(--kraft); --ink: #0a0a0a; }
+.cv-paper.is-paper { --sheet: var(--paper); --ink: #0a0a0a; }
 .cv-paper.is-olive { --sheet: var(--olive); --ink: var(--cream); }
 .cv-paper.is-red { --sheet: var(--red); --ink: var(--cream); }
 .cv-paper.is-wine { --sheet: var(--wine); --ink: var(--cream); }
@@ -797,3 +798,18 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 .cv-sheet .cv-fs:has(> .ap-fold) { margin-top: 0; }
 .cv-sheet .ap-fold-body p.ap-alnames { margin: 0 0 1rem; font-size: 0.92rem; opacity: 0.85; }
 .cv-sheet-actions.ap-act1 .cv-solid { flex: 1 1 auto; width: 100%; min-height: 3.4rem; font-size: 1.08rem; font-weight: 800; letter-spacing: 0.01em; text-transform: none; }
+
+/* Filas plegables de la ficha (alérgenos, extras): al desplegar mantienen el texto negro sobre blanco, sin caja ni fondo negro */
+.cv-sheet .ap-fold, .cv-sheet .ap-fold[aria-expanded="true"] { background: transparent; color: var(--black); }
+.cv-sheet .ap-fold[aria-expanded="true"] .cnt { background: var(--black); color: #fff; }
+.cv-sheet .ap-fold-body { padding: 0 0 0.3rem; border: 0; background: transparent; }
+
+/* Títulos verticales («COCINA COCINA…») en el lateral derecho: la columna pasa a la derecha, el texto se lee de arriba abajo y los márgenes se intercambian */
+.cv-paper { flex-direction: row-reverse; }
+.cv-run { align-items: flex-end; }
+.cv-run i { transform: none; }
+html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); padding-right: 1rem; }
+@media (max-width: 560px) { html body .cv-paper > .cv-paper-in { padding-left: 0.85rem; padding-right: 1.05rem; } }
+@media (max-width: 380px) { html body .cv-paper > .cv-paper-in { padding-left: 0.85rem; padding-right: 0.75rem; } }
+@media (min-width: 640px) { html body .cv-paper > .cv-paper-in { padding-left: 2rem; padding-right: 1.6rem; } }
+@media (min-width: 900px) { html body .cv-paper > .cv-paper-in { padding-left: 3rem; padding-right: 2.4rem; } }

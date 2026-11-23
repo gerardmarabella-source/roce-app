@@ -11,7 +11,7 @@ window.CARTA = {
   ],
   sections: [
     {
-      id: 'kitchen', color: 'kraft', title: { es: 'Cocina', en: 'Kitchen' },
+      id: 'kitchen', color: 'paper', title: { es: 'Cocina', en: 'Kitchen' },
       groups: [
         {
           title: { es: 'Cocina', en: 'Kitchen' },
@@ -154,7 +154,7 @@ window.CARTA = {
         }
       ]
     },
-    { id: 'bakery', color: 'dark', soon: true, title: { es: 'Horno', en: 'Bakery' }, desc: { es: 'Bollería, dulces y horno.', en: 'Pastries, sweets and bakery.' }, groups: [] }
+    { id: 'bakery', color: 'kraft', soon: true, title: { es: 'Horno', en: 'Bakery' }, desc: { es: 'Bollería, dulces y horno.', en: 'Pastries, sweets and bakery.' }, groups: [] }
   ]
 };
 
