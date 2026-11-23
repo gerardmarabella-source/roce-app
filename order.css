@@ -739,12 +739,16 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 
 /* Precio en píldora: baja a la última línea de cada plato (debajo de la descripción y los macros) como etiqueta, y deja el título con todo el ancho */
 @media (min-width: 401px) and (max-width: 639px) {
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main { display: flex; flex-direction: column; align-items: flex-start; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; justify-items: start; column-gap: 0.6rem; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > :not(.cv-price):not(.cv-nut), .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-i-top > :not(.cv-price) { grid-column: 1 / -1; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut { order: 10; margin: 0.55rem 0 0; flex-wrap: wrap; align-self: center; }
   .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-top { display: contents; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { order: 9; margin-top: 0.55rem; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { order: 9; margin-top: 0.55rem; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; white-space: nowrap; }
 }
 @media (min-width: 640px) {
-  .cv-item.has-thumb .cv-i-main { display: flex; flex-direction: column; align-items: flex-start; }
+  .cv-item.has-thumb .cv-i-main { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; justify-items: start; column-gap: 0.7rem; }
+  .cv-item.has-thumb .cv-i-main > :not(.cv-price):not(.cv-nut), .cv-item.has-thumb .cv-i-main > .cv-i-top > :not(.cv-price) { grid-column: 1 / -1; }
+  .cv-item.has-thumb .cv-i-main > .cv-nut { order: 10; margin: 0.55rem 0 0; align-self: center; }
   .cv-item.has-thumb .cv-i-top { display: contents; }
   .cv-item.has-thumb .cv-price { order: 9; margin-top: 0.55rem; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; }
 }
@@ -754,4 +758,14 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   .cv-chef-btn.in-crumb { position: static; flex: none; margin-left: auto; width: 2.1rem; height: 2.1rem; box-shadow: none; background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.7); }
   .cv-chef-btn.in-crumb::before { font-size: 0.95rem; }
   body.chef-top .cv-paper-in { padding-right: 0.85rem; }
+}
+
+/* Valores nutricionales en la misma línea que el precio: en móviles (hasta 500 px) en dos filas de dos para que quepan sin partirse */
+@media (min-width: 401px) and (max-width: 500px) {
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 0.15rem 0.7rem; font-size: 0.68rem; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 0; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut .cv-nut-est { grid-column: 1 / -1; }
+}
+@media (min-width: 501px) and (max-width: 639px) {
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut { flex-wrap: nowrap; white-space: nowrap; }
 }
