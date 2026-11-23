@@ -276,7 +276,7 @@
       if (!id) { var f = document.querySelector('#pg-' + cur + ' .cv-cat:not(.is-hidden)'); id = f ? f.id : ''; }
       current = id;
       var c = id ? $(id) : null;
-      $('cvCrumbT').textContent = tx(secById(cur).title) + (c ? ' / ' + c.querySelector('h3').textContent : '');
+      var ct = $('cvCrumbT'); ct.textContent = tx(secById(cur).title); if (c) { var sub = document.createElement('span'); sub.className = 'cv-crumb-sub'; sub.textContent = ' / ' + c.querySelector('h3').textContent; ct.appendChild(sub); }
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
