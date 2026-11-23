@@ -713,3 +713,8 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   .cv-bar-row .ap-modebtn { gap: 0.35rem; padding: 0 0.55rem 0 0.5rem; }
 }
 @media (max-width: 380px) { .cv-crumb-row { display: none; } }
+
+
+/* Cerrado: tarjeta bloqueada (rayas y borde discontinuo) con su hora, pero con el título y las fotos con su contraste normal */
+.cv-cat.is-shut { margin-top: 1.4rem; padding: 0 0.9rem 0.4rem; background: color-mix(in srgb, var(--ink) 9%, transparent); border: 1.5px dashed color-mix(in srgb, var(--ink) 50%, transparent); }
+.cv-cat.is-shut > .ap-hours { display: block; margin: 0 -0.9rem 0.5rem; padding: 0.6rem 0.9rem; }

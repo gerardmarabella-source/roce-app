@@ -124,10 +124,11 @@
     el.hidden = !c; if (!c) return;
     el.innerHTML = '<span class="ap-closed-ic">' + MOON + '</span><b>' + esc(t(nowHM() >= STORE.to ? 'shut_n_tmr' : 'shut_n')) + '</b>';
   }
+  function shutLabel(b) { var r = RULES[bk(b)], start = r && r.from ? r.from : STORE.from; return (nowHM() >= STORE.to ? t('from_tmr') : t('from')) + ' ' + start; }
   function mark() {
     paintClosed();
     [].forEach.call(document.querySelectorAll('.cv-cat'), function (sec) {
-      var b = blockOf(sec.id); if (!b) return; var ok = open(b);
+      var b = blockOf(sec.id); if (!b) return; var ok = open(b), shut = !storeOpen();
       /* Cerrado (fuera de 10:00-20:00): todas las tarjetas de categoría quedan plegadas; se pueden abrir para mirar la carta. */
       if ((!ok || !storeOpen()) && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
       [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) {
@@ -136,12 +137,14 @@
         var pe = it && typeof it.price === 'number' && li.querySelector('.cv-price'), pt = pe && it.price.toFixed(2).replace('.', ',') + ' €'; if (pe && pe.textContent !== pt) pe.textContent = pt;
         if (ok && !sold) { li.removeAttribute('data-off'); li.removeAttribute('data-sold'); } else { li.setAttribute('data-off', ''); if (sold) li.setAttribute('data-sold', ''); else li.removeAttribute('data-sold'); }
       });
+      /* Cerrado: cada tarjeta sale bloqueada (rayas) con la hora a la que se puede pedir lo suyo: desde las 10:00 (la mayoría) o desde las 12:00 (Starters, Pokes, Platos ROCE, Acompañamientos). */
       sec.classList.toggle('is-na', !ok);
-      var h = sec.querySelector('.ap-hours'), lab = hoursLabel(b), hd = sec.querySelector('.cv-cat-h');
+      sec.classList.toggle('is-shut', shut && ok);
+      var h = sec.querySelector('.ap-hours'), lab = shut ? shutLabel(b) : hoursLabel(b), hd = sec.querySelector('.cv-cat-h');
       if (lab && !h) { h = document.createElement('span'); h.className = 'ap-hours'; }
       if (h) {
-        h.classList.toggle('is-na', !ok); h.textContent = t('avail') + ' ' + lab.toLowerCase();
-        if (hd) { if (!ok) sec.insertBefore(h, sec.firstChild); else hd.parentNode.insertBefore(h, hd.nextSibling); }
+        h.classList.toggle('is-na', !ok || shut); h.textContent = t('avail') + ' ' + lab.toLowerCase();
+        if (hd) { if (!ok || shut) sec.insertBefore(h, sec.firstChild); else hd.parentNode.insertBefore(h, hd.nextSibling); }
       }
     });
   }
