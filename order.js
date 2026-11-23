@@ -297,7 +297,7 @@
       if (!open(ab)) { out += group(ic, t(g.label), '<p class="ap-xs-na">' + esc(t('avail') + ' ' + hoursLabel(ab).toLowerCase()) + '</p>'); return; }
       out += group(ic, t(g.label), '<div class="ap-chips">' + ab.items.map(function (p, k) { var sold = soldOut[itemKey(ab, p)]; return chip('data-pr', g.id + ':' + k, p.name + (sold ? ' · ' + (en ? 'sold out' : 'agotado') : ''), p.price, sel.indexOf(k) !== -1, !can || sold, null, g.id); }).join('') + '</div>');
     });
-    return out ? '<section class="ap-xs"><h3 class="ap-xs-h"><span class="ap-xs-badge" aria-hidden="true">+</span>' + (en ? 'Complete your dish' : 'Completa tu plato') + '</h3>' + out + '</section>' : '';
+    return out ? '<section class="ap-xs"><h3 class="ap-xs-h">' + (en ? 'Complete your dish' : 'Completa tu plato') + '</h3>' + out + '</section>' : '';
   }
   /* Ficha del plato (estilo carta moderna): flecha de volver, foto grande, «CATEGORÍA · código», nombre grande, precio y, más abajo, «Por ración» con las cuatro cifras */
   /* Nombre de la categoría en singular para la ficha del plato («Tostadas» → «Tostada») */
