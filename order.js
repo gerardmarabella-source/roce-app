@@ -273,9 +273,13 @@
   function protTotal() { var s = 0; ADDON.forEach(function (g) { var ab = addonBlock(g); if (ab) (cur.sel[g.id] || []).forEach(function (k) { s += cents(ab.items[k].price); }); }); return s; }
   function keepNote() { var n = $('apNote'); if (n) cur.note = n.value; }
   /* Ficha del plato (estilo carta moderna): flecha de volver, foto grande, «CATEGORÍA · código», nombre grande, precio y, más abajo, «Por ración» con las cuatro cifras */
+  /* Nombre de la categoría en singular para la ficha del plato («Tostadas» → «Tostada») */
+  var SINGULAR = { 'Tostadas': 'Tostada', 'Sándwiches': 'Sándwich', 'Starters': 'Starter', 'Pokes': 'Poke', 'Platos ROCE': 'Plato ROCE', 'Acompañamientos': 'Acompañamiento', 'Cafés': 'Café', 'Matcha & Tés': 'Matcha & Té', 'Smoothies': 'Smoothie', 'Zumos naturales': 'Zumo natural', 'Aguas': 'Agua', 'Refrescos': 'Refresco', 'Cervezas': 'Cerveza', 'Dobles': 'Doble', 'Vermuts': 'Vermut', 'Energéticas': 'Energética', 'Vinos': 'Vino', 'Por copas': 'Por copa', 'Blancos': 'Blanco', 'Espumosos': 'Espumoso', 'Tintos': 'Tinto', 'Ginebras': 'Ginebra', 'Licores': 'Licor', 'Otros chupitos': 'Chupito', 'Comidas': 'Comida',
+    'Toasts': 'Toast', 'Sandwiches': 'Sandwich', 'ROCE plates': 'ROCE plate', 'Sides': 'Side', 'Coffees': 'Coffee', 'Matcha & Teas': 'Matcha & Tea', 'Fresh juices': 'Fresh juice', 'Soft drinks': 'Soft drink', 'Beers': 'Beer', 'Large beers': 'Large beer', 'Vermouths': 'Vermouth', 'Energy drinks': 'Energy drink', 'Wines': 'Wine', 'By the glass': 'By the glass', 'Whites': 'White', 'Reds': 'Red', 'Liqueurs': 'Liqueur', 'Other shots': 'Shot', 'Lunch': 'Lunch' };
+  function singular(n) { return SINGULAR[n] || n; }
   function itemHead() {
     var it = cur.it, b = cur.b, en = L() === 'en', back = '<button type="button" class="ap-back" data-close aria-label="' + (en ? 'Back' : 'Volver') + '"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>';
-    var cat = b.title ? tx(b.title) : '', code = it.code && it.code !== it.name ? it.code : '', eyebrow = [cat, code].filter(Boolean).join(' · ');
+    var cat = b.title ? singular(tx(b.title)) : '', code = it.code && it.code !== it.name ? it.code : '', eyebrow = [cat, code].filter(Boolean).join(' · ');
     var pr = typeof it.price === 'number' && !cur.base.alt ? '<p class="ap-bigprice">' + money(cents(it.price)) + '</p>' : '';
     return (it.img ? '<div class="ap-hero"><img class="ap-photo" src="' + esc(it.img) + '" alt="' + esc(it.name) + '">' + back + '</div>' : '<div class="ap-topbar">' + back + '</div>') +
       '<div class="cv-sheet-body">' + (eyebrow ? '<p class="ap-eyebrow">' + esc(eyebrow) + '</p>' : '') + '<h2 class="ap-title">' + esc(cur.base.name) + '</h2>' + pr;
@@ -701,16 +705,4 @@
     String(preset || '').split(',').forEach(function (x) { var p = x.split(':'); if (cur.sel[p[0]] && p[1] !== undefined) { cur.sel[p[0]].push(+p[1]); cur.openG[p[0]] = true; } });
     paintItem();
   } };
-})();
-
-/* Ayuda en móvil: el botón flotante tapaba el «+» de los platos, así que se coloca dentro de la fila de migas (a la derecha de «COCINA / TOSTADAS»), sin tapar nada y sin quitar ancho a la carta.
-   Con el texto «AYUDA» para que se vea qué es. */
-(function () {
-  var mq = window.matchMedia('(max-width: 480px)'), btn = document.getElementById('cvChefBtn'), row = document.querySelector('.cv-crumb-row'), home = btn && btn.parentNode, next = btn && btn.nextSibling;
-  if (!btn || !row) return;
-  function place() {
-    if (mq.matches) { if (btn.parentNode !== row) row.appendChild(btn); btn.classList.add('in-crumb'); document.body.classList.add('chef-top'); }
-    else { if (btn.parentNode !== home) home.insertBefore(btn, next && next.parentNode === home ? next : null); btn.classList.remove('in-crumb'); document.body.classList.remove('chef-top'); }
-  }
-  place(); (mq.addEventListener ? mq.addEventListener('change', place) : mq.addListener(place));
 })();

@@ -185,7 +185,7 @@ body.ap-has-cart .cv-foot { padding-bottom: calc(7rem + env(safe-area-inset-bott
    (antes tomaba al instante el de la nueva, y el giro se veía raro). */
 .cv-paper.is-kraft { --sheet: var(--kraft); --ink: #0a0a0a; }
 .cv-paper.is-paper { --sheet: var(--paper); --ink: #0a0a0a; }
-.cv-paper.is-petrol { --sheet: var(--petrol); --ink: var(--cream); }
+.cv-paper.is-sun { --sheet: var(--sun); --ink: #0a0a0a; }
 .cv-paper.is-olive { --sheet: var(--olive); --ink: var(--cream); }
 .cv-paper.is-red { --sheet: var(--red); --ink: var(--cream); }
 .cv-paper.is-wine { --sheet: var(--wine); --ink: var(--cream); }
@@ -739,16 +739,6 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 .cv-cat.is-na, .cv-cat.is-shut { border-bottom: 0; padding-bottom: 0; }
 .cv-cat.is-na > .ap-hours, .cv-cat.is-shut > .ap-hours { margin-left: 0; margin-right: 0; padding-left: 0.7rem; padding-right: 0.7rem; }
 
-/* Ayuda dentro de la fila de migas (móvil, hasta 480 px): botón con el texto «AYUDA» a la derecha de Filtros, fuera de las fichas */
-@media (max-width: 480px) {
-  .cv-chef-btn.in-crumb { position: static; flex: none; width: auto; height: auto; margin-left: 0; padding: 0.42rem 0.8rem 0.42rem 0.7rem; display: inline-flex; align-items: center; gap: 0.4rem; box-shadow: none; background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.75); border-radius: 999px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; line-height: 1; text-transform: uppercase; }
-  .cv-chef-btn.in-crumb::before { content: "✦"; margin: 0; font-size: 0.9rem; }
-  .cv-crumb-row { gap: 0.4rem; }
-  .cv-crumb-row .cv-crumb { font-size: 0.74rem; letter-spacing: 0.08em; }
-  .cv-crumb-row .cv-allergy-btn { gap: 0.35rem; font-size: 0.72rem; letter-spacing: 0.06em; }
-  .cv-crumb-row .cv-allergy-btn svg { width: 18px; height: 18px; }
-  .cv-chef-btn.in-crumb { padding: 0.38rem 0.65rem 0.38rem 0.58rem; gap: 0.3rem; font-size: 0.66rem; letter-spacing: 0.08em; }
-}
 
 /* Lista de platos con foto (estilo carta de app moderna): foto grande a la izquierda y, a la derecha, nombre en negrita, descripción, «kcal · proteína» y precio; el «+» queda a la derecha para añadir rápido. Toda la información nutricional va en la ficha. */
 @media (min-width: 401px) and (max-width: 639px) {
@@ -826,7 +816,6 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 .cv-crumb-chev { flex: none; transition: transform 0.2s; }
 .cv-crumb[aria-expanded="true"] .cv-crumb-chev { transform: rotate(180deg); }
 .cv-crumb-row .cv-allergy-btn { flex: none; margin-left: auto; }
-.cv-crumb-row .cv-chef-btn.in-crumb { margin-left: 0; }
 .cv-crumb-menu { position: absolute; z-index: 60; left: var(--pad); top: calc(100% - 0.2rem); min-width: 14.5rem; max-width: calc(100vw - 2 * var(--pad)); padding: 0.35rem; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 0.8rem; background: #161616; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55); }
 .cv-crumb-menu[hidden] { display: none; }
 .cv-cm-i { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; padding: 0.7rem 0.8rem; border: 0; border-radius: 0.55rem; background: none; color: #fff; font: inherit; font-size: 0.86rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: left; cursor: pointer; }
@@ -877,3 +866,9 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 #apDlg .ap-lg-in input.ap-in.ap-in-g { width: 100%; height: 3.3rem; padding: 0 1rem 0 2.9rem; border: 1.5px solid var(--black); border-radius: 0.7rem; font-size: 1rem; background: #fff; }
 #apDlg .ap-lg-in input.ap-in.ap-in-g:focus { outline: none; box-shadow: 0 0 0 4px rgba(10, 10, 10, 0.16); }
 .cv-sheet .ap-c-act.ap-act1 .cv-solid { min-height: 3.4rem; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.01em; text-transform: none; }
+
+/* Ayuda: siempre flotante abajo, con el texto «AYUDA» (nunca en la cabecera) */
+@media (max-width: 480px) {
+  .cv-chef-btn { right: 0.7rem; width: auto; height: auto; padding: 0.62rem 0.95rem 0.62rem 0.8rem; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; line-height: 1; text-transform: uppercase; }
+  .cv-chef-btn::before { content: "✦"; margin: 0; font-size: 0.95rem; }
+}
