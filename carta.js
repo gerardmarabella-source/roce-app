@@ -293,7 +293,7 @@
   /* ── Menú de navegación a pantalla completa ── */
   function renderMenu() {
     var h = '<ul class="cv-m-list">' + D.sections.map(function (s) {
-      return '<li><button type="button" class="cv-m-sheet' + (s.id === cur ? ' is-on' : '') + '" data-sec="' + s.id + '" style="--c:var(--' + s.color + ')"><span>' + esc(tx(s.title)) + '</span><span class="cv-m-side">' + (s.soon ? '<small>' + esc(ui('soon')) + '</small>' : '') + '</span></button></li>';
+      return '<li><button type="button" class="cv-m-sheet' + (s.id === cur ? ' is-on' : '') + (s.soon ? ' is-soon' : '') + '" data-sec="' + s.id + '" style="--c:var(--' + s.color + ')"><span>' + esc(tx(s.title)) + '</span><span class="cv-m-side">' + (s.soon ? '<small>' + esc(ui('soon')) + '</small>' : '') + '</span></button></li>';
     }).join('') + '</ul>';
     $('cvMenuBody').innerHTML = h;
   }

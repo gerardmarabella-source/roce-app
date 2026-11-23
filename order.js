@@ -148,7 +148,11 @@
 
   /* Modo (mesa / recoger) en la barra */
   var mesaLabel = function () { return S.mesaName || S.mesa; };
-  function paintMode() { $('apModeBtn').textContent = S.mode === 'mesa' ? t('where') + ' ' + mesaLabel() : t('pick'); }
+  /* El modo (recoger / mesa) como botón bien visible: icono + texto + flecha, con zona de toque de 40 px. */
+  function paintMode() {
+    var mesa = S.mode === 'mesa', ic = mesa ? '<path d="M3 9h18M5 9v10M19 9v10M7 9V5h10v4"/>' : '<path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/>';
+    $('apModeBtn').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ic + '</svg><span>' + esc(mesa ? t('where') + ' ' + mesaLabel() : t('pick')) + '</span><svg class="ap-mode-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  }
   new MutationObserver(function () { paintMode(); paintBar(); mark(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 
   /* Diálogo común */

@@ -666,3 +666,39 @@ button.ap-av:not(.has-img) { overflow: visible; }
 /* Cerrado: la carta se ve igual (fotos y nombres con su contraste); el botón de pedir queda desactivado */
 html.ap-shut .cv-item:not([data-view])::after { opacity: 0.4; filter: grayscale(1); }
 html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
+
+
+/* ── Pasada de móvil ─────────────────────────────────────────────────────────────────────────── */
+/* «Recoger» / «Mesa»: botón en píldora con icono y flecha (antes parecía un texto de estado de 20 px) */
+.ap-modebtn { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 2.5rem; padding: 0 0.8rem 0 0.7rem; border: 1.5px solid currentColor; border-radius: 999px; background: rgba(255, 255, 255, 0.1); text-decoration: none; }
+.ap-modebtn svg { width: 1.15rem; height: 1.15rem; flex: none; }
+.ap-modebtn .ap-mode-chev { width: 0.95rem; height: 0.95rem; opacity: 0.8; }
+.ap-modebtn:active { transform: scale(0.97); }
+.cv-crumb-row { align-items: center; }
+
+/* Ayuda: en pantallas estrechas solo el icono y con su propio hueco a la derecha (no tapa las fichas) */
+@media (max-width: 480px) {
+  .cv-chef-btn { right: 0.45rem; bottom: calc(5.4rem + env(safe-area-inset-bottom)); width: 2.7rem; height: 2.7rem; padding: 0; display: grid; place-items: center; font-size: 0; letter-spacing: 0; }
+  body:not(.ap-has-cart) .cv-chef-btn { bottom: calc(1rem + env(safe-area-inset-bottom)); }
+  .cv-chef-btn::before { content: "✦"; margin: 0; font-size: 1.1rem; }
+  .cv-paper-in { padding-right: 3.4rem; }
+}
+
+/* Menú de hojas: las disponibles con buen contraste; solo «Muy pronto» (Horno) va atenuado */
+.cv-m-sheet:not(.is-on) { opacity: 0.9; }
+.cv-m-sheet.is-soon { opacity: 0.38; }
+@media (max-height: 600px) { .cv-m-word { max-height: 2.6rem; width: auto; object-fit: contain; object-position: left bottom; margin-top: 0.3rem; padding-top: 0.5rem; } .cv-m-sheet { padding: 0.3rem 0 0.4rem; } .cv-menu-foot { margin-top: 0.8rem; } }
+
+/* En horizontal (poca altura): menú en dos columnas, logo pequeño y filtros con más sitio para la lista */
+@media (orientation: landscape) and (max-height: 520px) {
+  .cv-m-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.6rem; }
+  .cv-m-sheet { font-size: clamp(1.5rem, 5vw, 2.3rem); padding: 0.25rem 0 0.35rem; }
+  .cv-m-word { max-height: 1.8rem; margin-top: 0.2rem; padding-top: 0.3rem; }
+  .cv-menu { overflow-y: auto; }
+  .cv-menu-foot { margin-top: 0.5rem; }
+  .cv-sheet { max-height: 96vh; }
+  .cv-sheet-in { padding-top: 0.55rem; padding-bottom: calc(0.55rem + env(safe-area-inset-bottom)); max-height: 96vh; }
+  .cv-sheet h2 { margin: 0 0 0.25rem; padding-bottom: 0.35rem; font-size: 1rem; }
+  .cv-sheet p { margin: 0 0 0.4rem; font-size: 0.76rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cv-sheet-actions { margin-top: 0.35rem; padding-top: 0.45rem; }
+}
