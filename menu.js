@@ -27,7 +27,7 @@ window.CARTA = {
                 { code: '005', name: '005', img: '/assets/dishes/tostada-005.webp', al: [1, 11], nut: [436, 14, 55, 16], price: 6.5, es: 'Pan de masa madre, hummus de remolacha, berenjena asada, rúcula y semillas.', en: 'Sourdough, beetroot hummus, roasted aubergine, rocket and seeds.' },
                 { code: '006', name: '006', img: '/assets/dishes/tostada-006.webp', al: [1, 3], nut: [520, 20, 60, 22], price: 7.5, es: 'Pan artesano con mermelada y 2 huevos a elegir (revueltos, pochados o fritos).', en: 'Artisan bread with jam and 2 eggs your way (scrambled, poached or fried).' }
               ],
-              extras: { title: { es: 'Extras para tostadas', en: 'Toast extras' }, list: [[{ es: 'Bacon', en: 'Bacon' }, 2.5, '/assets/dishes/bacon.webp', [130, 9, 0, 10]], [{ es: 'Aguacate', en: 'Avocado' }, 2.5, '/assets/dishes/aguacate.webp', [80, 1, 4, 7]], [{ es: 'Salmón', en: 'Salmon' }, 3.5, '/assets/dishes/salmon-ahumado.webp', [70, 8, 0, 4]], [{ es: 'Huevo', en: 'Egg' }, 2, '/assets/dishes/huevo.webp', [72, 6, 1, 5]], [{ es: 'Jamón', en: 'Ham' }, 3, '/assets/dishes/jamon.webp', [75, 11, 0, 3]]] }
+              extras: { title: { es: 'Extras para tostadas', en: 'Toast extras' }, list: [[{ es: 'Bacon', en: 'Bacon' }, 2.5, '/assets/dishes/bacon.webp', [130, 9, 0, 10]], [{ es: 'Aguacate', en: 'Avocado' }, 2.5, '/assets/dishes/aguacate.webp', [80, 1, 4, 7]], [{ es: 'Salmón', en: 'Salmon' }, 3.5, '/assets/dishes/salmon-ahumado.webp', [70, 8, 0, 4], [4]], [{ es: 'Huevo', en: 'Egg' }, 2, '/assets/dishes/huevo.webp', [72, 6, 1, 5], [3]], [{ es: 'Jamón', en: 'Ham' }, 3, '/assets/dishes/jamon.webp', [75, 11, 0, 3]]] }
             },
             {
               title: { es: 'Açaí & Yogur', en: 'Açaí & Yogurt' },
@@ -36,7 +36,7 @@ window.CARTA = {
                 { name: 'Shaka Açaí', img: '/assets/dishes/shaka-acai.webp', diet: ['veg', 'pesc', 'vegan', 'gf', 'lf'], al: [8], nut: [398, 8, 62, 14], price: 10.5, es: 'Açaí, mango, plátano, coco y granola.', en: 'Açaí, mango, banana, coconut and granola.' },
                 { name: 'Greek Freak', img: '/assets/dishes/greek-freak.webp', al: [7, 8], nut: [368, 16, 48, 12], price: 7.5, es: 'Yogur griego, fruta de temporada, granola y miel.', en: 'Greek yogurt, seasonal fruit, granola and honey.' }
               ],
-              extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Fruta', en: 'Fruit' }, 2, '/assets/dishes/fruta.webp', [45, 1, 10, 0]], [{ es: 'Granola', en: 'Granola' }, 1.5, '/assets/dishes/granola.webp', [130, 3, 20, 4]], [{ es: 'Crema de cacahuete', en: 'Peanut cream' }, 1.5, '/assets/dishes/crema-cacahuete.webp', [90, 4, 3, 8]]] }
+              extras: { title: { es: 'Extras', en: 'Extras' }, list: [[{ es: 'Fruta', en: 'Fruit' }, 2, '/assets/dishes/fruta.webp', [45, 1, 10, 0]], [{ es: 'Granola', en: 'Granola' }, 1.5, '/assets/dishes/granola.webp', [130, 3, 20, 4], [1, 8]], [{ es: 'Crema de cacahuete', en: 'Peanut cream' }, 1.5, '/assets/dishes/crema-cacahuete.webp', [90, 4, 3, 8], [5]]] }
             },
             {
               title: { es: 'Sándwiches', en: 'Sandwiches' },

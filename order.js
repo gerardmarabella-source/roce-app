@@ -311,11 +311,21 @@
     return (it.img ? '<div class="ap-hero"><img class="ap-photo" src="' + esc(it.img) + '" alt="' + esc(it.name) + '">' + back + '</div>' : '<div class="ap-topbar">' + back + '</div>') +
       '<div class="cv-sheet-body">' + (eyebrow ? '<p class="ap-eyebrow">' + esc(eyebrow) + '</p>' : '') + '<h2 class="ap-title">' + esc(cur.base.name) + '</h2>' + pr;
   }
+  /* Alérgenos que aportan los extras, acompañamientos y proteína elegidos */
+  function addedAl() {
+    var b = cur.b, out = [];
+    if (isFood(b) && b.extras && !b.extras.auto) cur.extras.forEach(function (k) { var e = b.extras.list[k]; if (e && e[4]) out = out.concat(e[4]); });
+    ADDON.forEach(function (g) { var ab = addonBlock(g); if (!ab) return; (cur.sel[g.id] || []).forEach(function (k) { var p = ab.items[k]; if (p && p.al) out = out.concat(p.al); }); });
+    return uniq(out);
+  }
   function alFold(it) {
-    var al = it.al || []; if (!al.length || !D.allergens) return '';
-    var names = D.allergens.filter(function (a) { return al.indexOf(a.n) !== -1; }).map(function (a) { return a[L()] || a.es; }), opn = cur.openG.al;
-    if (!names.length) return '';
-    return '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="al" aria-expanded="' + !!opn + '"><span>' + t('al_h') + '</span><i></i></button>' + (opn ? '<div class="ap-fold-body"><p class="ap-alnames">' + esc(names.join(' · ')) + '</p></div>' : '') + '</section>';
+    if (!D.allergens) return '';
+    var en = L() === 'en', base = it.al || [], add = addedAl().filter(function (n) { return base.indexOf(n) === -1; }), opn = cur.openG.al;
+    var nm = function (list) { return D.allergens.filter(function (a) { return list.indexOf(a.n) !== -1; }).map(function (a) { return a[L()] || a.es; }); };
+    var bn = nm(base), an = nm(add);
+    if (!bn.length && !an.length) return '';
+    return '<section class="cv-fs"><button type="button" class="ap-fold" data-fold="al" aria-expanded="' + !!opn + '"><span>' + t('al_h') + (an.length ? '<b class="cnt">+' + an.length + '</b>' : '') + '</span><i></i></button>' +
+      (opn ? '<div class="ap-fold-body">' + (bn.length ? '<p class="ap-alnames">' + esc(bn.join(' · ')) + '</p>' : '') + (an.length ? '<p class="ap-alnames ap-aladd"><b>' + (en ? 'Added by your extras' : 'Añadidos por tus extras') + ':</b> ' + esc(an.join(' · ')) + '</p>' : '') + '</div>' : '') + '</section>';
   }
   /* Valores nutricionales de lo elegido: plato + extras + acompañamientos + proteína (aproximado) */
   function selNut() {
@@ -464,7 +474,7 @@
   function itemAllergenHits() {
     var it = cur.it, als = (cur.variant >= 0 && it.variants && it.variants[cur.variant] && it.variants[cur.variant].al) ? it.variants[cur.variant].al : (it.al || []);
     if (it.pick && cur.mix) { als = []; it.variants.forEach(function (v, k) { if (cur.mix[k]) als = als.concat(v.al || []); }); }
-    var hits = allergenHits(als);
+    var hits = allergenHits(als).concat(allergenHits(addedAl()));
     ADDON.forEach(function (g) { var ab = addonBlock(g); if (!ab || !open(ab)) return; (cur.sel[g.id] || []).forEach(function (k) { hits = hits.concat(allergenHits(ab.items[k].al)); }); });
     return uniq(hits).sort(function (a, b) { return a - b; });
   }

@@ -911,3 +911,5 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 .ap-chip > i { grid-area: i; align-self: center; }
 .ap-chip-e { font-size: 1.15rem; }
 .cv-sheet .ap-nutb p.ap-nutn { margin: 0.6rem 0 0; font-size: 0.72rem; opacity: 0.7; }
+.cv-sheet .ap-fold-body p.ap-aladd { margin-top: -0.4rem; opacity: 1; }
+.cv-sheet .ap-fold .cnt { margin-left: 0.5rem; padding: 0.1rem 0.45rem; border-radius: 999px; background: #0a0a0a; color: #fff; font-size: 0.72rem; font-weight: 700; }
