@@ -737,22 +737,6 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
 .cv-cat.is-na, .cv-cat.is-shut { padding-left: 0; padding-right: 0; border-left: 0; border-right: 0; border-width: 1px; background: transparent; }
 .cv-cat.is-na > .ap-hours, .cv-cat.is-shut > .ap-hours { margin-left: 0; margin-right: 0; padding-left: 0.7rem; padding-right: 0.7rem; }
 
-/* Precio en píldora: baja a la última línea de cada plato (debajo de la descripción y los macros) como etiqueta, y deja el título con todo el ancho */
-@media (min-width: 401px) and (max-width: 639px) {
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; justify-items: start; column-gap: 0.6rem; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > :not(.cv-price):not(.cv-nut), .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-i-top > :not(.cv-price) { grid-column: 1 / -1; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut { order: 10; margin: 0.55rem 0 0; flex-wrap: wrap; align-self: center; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-top { display: contents; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { order: 9; margin-top: 0.55rem; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; white-space: nowrap; }
-}
-@media (min-width: 640px) {
-  .cv-item.has-thumb .cv-i-main { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; justify-items: start; column-gap: 0.7rem; }
-  .cv-item.has-thumb .cv-i-main > :not(.cv-price):not(.cv-nut), .cv-item.has-thumb .cv-i-main > .cv-i-top > :not(.cv-price) { grid-column: 1 / -1; }
-  .cv-item.has-thumb .cv-i-main > .cv-nut { order: 10; margin: 0.55rem 0 0; align-self: center; }
-  .cv-item.has-thumb .cv-i-top { display: contents; }
-  .cv-item.has-thumb .cv-price { order: 9; margin-top: 0.55rem; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; }
-}
-
 /* Ayuda dentro de la fila de migas (móvil, 381–480 px): botón pequeño a la derecha, fuera de las fichas; la carta recupera el ancho del hueco */
 @media (min-width: 381px) and (max-width: 480px) {
   .cv-chef-btn.in-crumb { position: static; flex: none; margin-left: auto; width: 2.1rem; height: 2.1rem; box-shadow: none; background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.7); }
@@ -760,12 +744,16 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   body.chef-top .cv-paper-in { padding-right: 0.85rem; }
 }
 
-/* Valores nutricionales en la misma línea que el precio: en móviles (hasta 500 px) en dos filas de dos para que quepan sin partirse */
-@media (min-width: 401px) and (max-width: 500px) {
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 0.15rem 0.7rem; font-size: 0.68rem; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut span + span { padding-left: 0; border-left: 0; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut .cv-nut-est { grid-column: 1 / -1; }
+/* Precio en píldora debajo de la foto (a la derecha) y, en la misma línea, los valores nutricionales a la izquierda; el «+» sube a la esquina de la foto */
+@media (min-width: 401px) and (max-width: 639px) {
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb { padding-bottom: 2.7rem; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.8rem; margin: 0; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; white-space: nowrap; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-nut { position: absolute; left: 0; right: 6.5rem; bottom: 0.8rem; margin: 0; min-height: 1.6rem; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb::after { top: calc(0.85rem + 5.6rem - 1.7rem); bottom: auto; }
 }
-@media (min-width: 501px) and (max-width: 639px) {
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut { flex-wrap: nowrap; white-space: nowrap; }
+@media (min-width: 640px) {
+  .cv-item.has-thumb { padding-bottom: 2.7rem; }
+  .cv-item.has-thumb .cv-price { position: absolute; right: 0; bottom: 0.8rem; margin: 0; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; white-space: nowrap; }
+  .cv-item.has-thumb .cv-nut { position: absolute; left: 0; right: 6.5rem; bottom: 0.8rem; margin: 0; min-height: 1.6rem; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
+  .cv-item.has-thumb::after { top: calc(0.85rem + 5.6rem - 1.7rem); bottom: auto; }
 }
