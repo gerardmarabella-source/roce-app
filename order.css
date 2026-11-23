@@ -744,23 +744,25 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   body.chef-top .cv-paper-in { padding-right: 0.85rem; }
 }
 
-/* Línea de datos al final de cada plato, como en las apps de comida: precio en negrita y, a su lado y en gris, kcal · proteína (la información completa va en la ficha del plato) */
+/* Línea de datos al final de cada plato: precio en negrita a la izquierda y, a su derecha, kcal · P · C · G (la fila baja de la foto y puede usar todo el ancho); la información completa va también en la ficha del plato */
 @media (min-width: 401px) and (max-width: 639px) {
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > :not(.cv-i-top):not(.cv-nut), .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-i-top > :not(.cv-price) { flex: 0 0 100%; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: repeat(20, auto) 1fr auto; align-content: start; align-items: baseline; column-gap: 0.9rem; min-height: 7.6rem; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > :not(.cv-i-top):not(.cv-nut), .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-i-top > :not(.cv-price) { grid-column: 1 / -1; }
   .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-i-top { display: contents; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main .cv-price { order: 10; margin: 0.3rem 0 0; flex: 0 0 100%; padding: 0; background: none; color: var(--ink); font-size: 1.02rem; font-weight: 800; letter-spacing: 0; line-height: 1.2; white-space: nowrap; }
-  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut { order: 9; flex: 0 0 100%; min-width: 0; margin: 0.4rem 0 0; flex-wrap: nowrap; white-space: nowrap; gap: 0; font-size: 0.72rem; letter-spacing: 0; opacity: 0.85; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main .cv-price { grid-row: 22; grid-column: 1; margin: 0.45rem 0 0; padding: 0; background: none; color: var(--ink); font-size: 1.02rem; font-weight: 800; letter-spacing: 0; line-height: 1.2; white-space: nowrap; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut { grid-row: 22; grid-column: 2; margin: 0.45rem -6.2rem 0 0; min-width: 0; flex-wrap: nowrap; white-space: nowrap; gap: 0; font-size: 0.72rem; letter-spacing: 0; opacity: 0.85; }
+  .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut span:is(.n-c, .n-g) { display: inline; }
   .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut span + span { padding-left: 0; border-left: 0; }
   .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut span::before { content: "·"; margin: 0 0.3rem; opacity: 0.6; }
   .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut .cv-nut-est::before, .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut > span:first-child::before, .cv-paper:not(:is([data-sec="coffee"], [data-sec="drinks"], [data-sec="bakery"])) .cv-item.has-thumb .cv-i-main > .cv-nut .cv-nut-est + span::before { content: none; }
 }
 @media (min-width: 640px) {
-  .cv-item.has-thumb .cv-i-main { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0; }
-  .cv-item.has-thumb .cv-i-main > :not(.cv-i-top):not(.cv-nut), .cv-item.has-thumb .cv-i-main > .cv-i-top > :not(.cv-price) { flex: 0 0 100%; }
+  .cv-item.has-thumb .cv-i-main { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: repeat(20, auto) 1fr auto; align-content: start; align-items: baseline; column-gap: 0.9rem; min-height: 7.6rem; }
+  .cv-item.has-thumb .cv-i-main > :not(.cv-i-top):not(.cv-nut), .cv-item.has-thumb .cv-i-main > .cv-i-top > :not(.cv-price) { grid-column: 1 / -1; }
   .cv-item.has-thumb .cv-i-main > .cv-i-top { display: contents; }
-  .cv-item.has-thumb .cv-i-main .cv-price { order: 10; margin: 0.3rem 0 0; flex: 0 0 100%; padding: 0; background: none; color: var(--ink); font-size: 1.05rem; font-weight: 800; letter-spacing: 0; line-height: 1.2; white-space: nowrap; }
-  .cv-item.has-thumb .cv-i-main > .cv-nut { order: 9; flex: 0 0 100%; min-width: 0; margin: 0.4rem 0 0; flex-wrap: nowrap; white-space: nowrap; gap: 0; font-size: 0.72rem; letter-spacing: 0; opacity: 0.85; }
+  .cv-item.has-thumb .cv-i-main .cv-price { grid-row: 22; grid-column: 1; margin: 0.45rem 0 0; padding: 0; background: none; color: var(--ink); font-size: 1.05rem; font-weight: 800; letter-spacing: 0; line-height: 1.2; white-space: nowrap; }
+  .cv-item.has-thumb .cv-i-main > .cv-nut { grid-row: 22; grid-column: 2; margin: 0.45rem -6.2rem 0 0; min-width: 0; flex-wrap: nowrap; white-space: nowrap; gap: 0; font-size: 0.72rem; letter-spacing: 0; opacity: 0.85; }
+  .cv-item.has-thumb .cv-i-main > .cv-nut span:is(.n-c, .n-g) { display: inline; }
   .cv-item.has-thumb .cv-i-main > .cv-nut span + span { padding-left: 0; border-left: 0; }
   .cv-item.has-thumb .cv-i-main > .cv-nut span::before { content: "·"; margin: 0 0.3rem; opacity: 0.6; }
   .cv-item.has-thumb .cv-i-main > .cv-nut .cv-nut-est::before, .cv-item.has-thumb .cv-i-main > .cv-nut > span:first-child::before, .cv-item.has-thumb .cv-i-main > .cv-nut .cv-nut-est + span::before { content: none; }
