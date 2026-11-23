@@ -681,3 +681,15 @@
     paintItem();
   } };
 })();
+
+/* Ayuda en móvil: el botón flotante tapaba el «+» de los platos, así que se coloca dentro de la fila de migas (a la derecha de «COCINA / TOSTADAS»), sin tapar nada y sin quitar ancho a la carta.
+   En pantallas muy estrechas (la fila de migas se oculta) se queda flotante como antes. */
+(function () {
+  var mq = window.matchMedia('(min-width: 381px) and (max-width: 480px)'), btn = document.getElementById('cvChefBtn'), row = document.querySelector('.cv-crumb-row'), home = btn && btn.parentNode, next = btn && btn.nextSibling;
+  if (!btn || !row) return;
+  function place() {
+    if (mq.matches) { if (btn.parentNode !== row) row.appendChild(btn); btn.classList.add('in-crumb'); document.body.classList.add('chef-top'); }
+    else { if (btn.parentNode !== home) home.insertBefore(btn, next && next.parentNode === home ? next : null); btn.classList.remove('in-crumb'); document.body.classList.remove('chef-top'); }
+  }
+  place(); (mq.addEventListener ? mq.addEventListener('change', place) : mq.addListener(place));
+})();

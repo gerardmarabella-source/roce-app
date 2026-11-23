@@ -748,3 +748,10 @@ html.ap-shut .cv-item:not([data-view]) { cursor: pointer; }
   .cv-item.has-thumb .cv-i-top { display: contents; }
   .cv-item.has-thumb .cv-price { order: 9; margin-top: 0.55rem; padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--ink); color: var(--sheet); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; }
 }
+
+/* Ayuda dentro de la fila de migas (móvil, 381–480 px): botón pequeño a la derecha, fuera de las fichas; la carta recupera el ancho del hueco */
+@media (min-width: 381px) and (max-width: 480px) {
+  .cv-chef-btn.in-crumb { position: static; flex: none; margin-left: auto; width: 2.1rem; height: 2.1rem; box-shadow: none; background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.7); }
+  .cv-chef-btn.in-crumb::before { font-size: 0.95rem; }
+  body.chef-top .cv-paper-in { padding-right: 0.85rem; }
+}
