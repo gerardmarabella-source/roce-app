@@ -110,7 +110,7 @@
   function blockOf(id) { var f = null; D.sections.forEach(function (s) { s.groups.forEach(function (g) { g.blocks.forEach(function (b) { if (b._id === id) f = b; }); }); }); return f; }
 
   /* Marca los platos fuera de horario cada vez que la carta se pinta */
-  var userOpen = {};
+  var userOpen = {}, initFold = {};
   document.addEventListener('click', function (e) { var t0 = e.target.closest('[data-toggle]'); if (t0) userOpen[t0.dataset.toggle] = true; }, true);
   /* Aviso general cuando la app está cerrada (fuera de 9:00-20:00, hora de España) */
   function minsToOpen() { var n = nowHM(), m = (+n.slice(0, 2)) * 60 + (+n.slice(3)), o = (+STORE.from.slice(0, 2)) * 60; return m < o ? o - m : 1440 - m + o; }
@@ -130,7 +130,9 @@
     [].forEach.call(document.querySelectorAll('.cv-cat'), function (sec) {
       var b = blockOf(sec.id); if (!b) return; var ok = open(b), shut = !storeOpen();
       /* Cerrado (fuera de 9:00-20:00): todas las tarjetas de categoría quedan plegadas; se pueden abrir para mirar la carta. */
-      if ((!ok || !storeOpen()) && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
+      /* «Más proteína» es un complemento: sale plegada de entrada (una sola vez; después manda lo que haga la persona). */
+      var foldNow = b.key === 'Extras' && !initFold[sec.id]; if (b.key === 'Extras') initFold[sec.id] = true;
+      if (((!ok || !storeOpen()) || foldNow) && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
       [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) {
         if (b.view) { li.setAttribute('data-view', ''); return; }   /* carta de consulta (vinos): se ve, pero no se pide desde la app */
         var mm = /^it-(.+)-(\d+)$/.exec(li.id || ''), it = mm && b.items[+mm[2]], sold = !!(it && soldOut[itemKey(b, it)]);
