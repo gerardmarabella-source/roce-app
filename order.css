@@ -874,7 +874,7 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 }
 
 /* ── «Completa tu plato»: extras, acompañamientos y más proteína como fichas que se marcan con un toque ── */
-.cv-sheet .ap-xs { margin: 1.1rem 0 0.9rem; padding: 0.95rem 0.9rem 1rem; border: 1.5px solid var(--black); border-radius: 0.95rem; background: #f6efdf; }
+.cv-sheet .ap-xs { margin: 1.1rem 0 0.9rem; padding: 0.95rem 0.9rem 1rem; border: 1.5px solid var(--black); border-radius: 0.95rem; background: #ececea; }
 .cv-sheet h3.ap-xs-h { display: flex; align-items: center; gap: 0.55rem; margin: 0 0 0.8rem; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.005em; text-transform: none; }
 .ap-xs-badge { flex: none; width: 1.55rem; height: 1.55rem; display: grid; place-items: center; border-radius: 50%; background: var(--black); color: #fff; font-size: 1.1rem; font-weight: 500; line-height: 1; }
 .ap-xs-g + .ap-xs-g { margin-top: 0.95rem; padding-top: 0.85rem; border-top: 1px dashed rgba(10, 10, 10, 0.35); }
@@ -891,3 +891,4 @@ html body .cv-paper > .cv-paper-in { padding-left: calc(var(--pad) + 0.15rem); p
 .ap-chip:disabled { opacity: 0.45; cursor: default; }
 .ap-chip-i { width: 1.55rem; height: 1.55rem; margin: -0.25rem 0 -0.25rem -0.4rem; border-radius: 50%; object-fit: cover; }
 .cv-sheet p.ap-xs-na { margin: 0; font-size: 0.82rem; opacity: 0.7; }
+.ap-chip-ic { display: inline-grid; place-items: center; flex: none; margin: -0.1rem 0 -0.1rem -0.1rem; }

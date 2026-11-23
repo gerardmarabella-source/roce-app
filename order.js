@@ -278,10 +278,12 @@
   function isFood(b) { return FOOD.indexOf(bk(b)) !== -1; }
   var SIDE_IC = '<svg class="ap-xs-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10h12l-1.5 10h-9L6 10Z"/><path d="M9 10V4M12 10V3M15 10V5"/></svg>';
   var PLUS_IC = '<svg class="ap-xs-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>';
+  var PROT_IC = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 12h9"/><rect x="4.5" y="7.5" width="3" height="9" rx="1"/><rect x="16.5" y="7.5" width="3" height="9" rx="1"/><path d="M2.5 10v4M21.5 10v4"/></svg>';
+  var SIDE_IC_S = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10h12l-1.5 10h-9L6 10Z"/><path d="M9 10V4M12 10V3M15 10V5"/></svg>';
   function crossSell() {
     var b = cur.b, en = L() === 'en', can = cur.ok && storeOpen(), out = '';
-    var chip = function (attr, val, label, price, on, off, img) {
-      return '<button type="button" class="ap-chip" ' + attr + '="' + val + '" aria-pressed="' + (!!on) + '"' + (off ? ' disabled' : '') + '>' + (img ? '<img class="ap-chip-i" src="' + esc(img) + '" alt="" loading="lazy">' : '') + '<span>' + esc(label) + '</span>' + (price ? '<b>+' + money(cents(price)) + '</b>' : '') + '<i aria-hidden="true"></i></button>';
+    var chip = function (attr, val, label, price, on, off, img, grp) {
+      return '<button type="button" class="ap-chip" ' + attr + '="' + val + '" aria-pressed="' + (!!on) + '"' + (off ? ' disabled' : '') + '>' + (img ? '<img class="ap-chip-i" src="' + esc(img) + '" alt="" loading="lazy">' : (grp ? '<span class="ap-chip-ic" aria-hidden="true">' + (grp === 'prot' ? PROT_IC : SIDE_IC_S) + '</span>' : '')) + '<span>' + esc(label) + '</span>' + (price ? '<b>+' + money(cents(price)) + '</b>' : '') + '<i aria-hidden="true"></i></button>';
     };
     var group = function (icon, title, body) { return '<div class="ap-xs-g"><p class="ap-xs-t">' + icon + esc(title) + '</p>' + body + '</div>'; };
     if (isFood(b) && b.extras && !b.extras.auto) {
@@ -290,7 +292,7 @@
     addonsFor(b).forEach(function (g) {
       var ab = addonBlock(g), sel = cur.sel[g.id], ic = g.id === 'prot' ? DUMB.replace('class="cv-dumb"', 'class="ap-xs-ic"').replace('width="22" height="22"', 'width="20" height="20"') : SIDE_IC;
       if (!open(ab)) { out += group(ic, t(g.label), '<p class="ap-xs-na">' + esc(t('avail') + ' ' + hoursLabel(ab).toLowerCase()) + '</p>'); return; }
-      out += group(ic, t(g.label), '<div class="ap-chips">' + ab.items.map(function (p, k) { var sold = soldOut[itemKey(ab, p)]; return chip('data-pr', g.id + ':' + k, p.name + (sold ? ' · ' + (en ? 'sold out' : 'agotado') : ''), p.price, sel.indexOf(k) !== -1, !can || sold); }).join('') + '</div>');
+      out += group(ic, t(g.label), '<div class="ap-chips">' + ab.items.map(function (p, k) { var sold = soldOut[itemKey(ab, p)]; return chip('data-pr', g.id + ':' + k, p.name + (sold ? ' · ' + (en ? 'sold out' : 'agotado') : ''), p.price, sel.indexOf(k) !== -1, !can || sold, null, g.id); }).join('') + '</div>');
     });
     return out ? '<section class="ap-xs"><h3 class="ap-xs-h"><span class="ap-xs-badge" aria-hidden="true">+</span>' + (en ? 'Complete your dish' : 'Completa tu plato') + '</h3>' + out + '</section>' : '';
   }
