@@ -416,7 +416,7 @@
     var f = null; D.sections.forEach(function (sec) { if (sec.id !== 'bakery') return; (sec.groups || []).forEach(function (g) { g.blocks.forEach(function (blk) { blk.items.forEach(function (x) { if (!f && !soldOut[itemKey(blk, x)]) f = { b: blk, it: x, bakery: true }; }); }); }); });
     return f;
   }
-  var pairList = [], pairFood = '';
+  var pairList = [], pairFood = '', pairTop = [], pairMode = 'top';
   function offerPair(b, it) {
     var rule = PAIR[bk(b)]; if (!rule) return;
     var list = rule[nowHM() < '12:00' ? 'bf' : 'lunch'];
@@ -431,9 +431,10 @@
     out = out.slice(0, bp ? 3 : 4);
     if (bp) out.push({ b: bp.b, it: bp.it, why: { es: 'Algo dulce para acabar', en: 'Something sweet to finish' }, done: false });
     if (!out.length) return;
-    pairList = out; pairFood = it.name; view = 'pair'; paintPair();
+    pairList = out; pairTop = out; pairMode = 'top'; pairFood = it.name; view = 'pair'; paintPair();
   }
   function paintPair() {
+    if (pairMode === 'all') { paintPairAll(); return; }
     var h = '<h2>' + esc(t('pair_h')) + '</h2><div class="cv-sheet-body"><p>' + esc(t('pair_p')) + ' ' + esc(pairFood) + '.</p><div class="ap-pair">';
     pairList.forEach(function (x, i) {
       var desc = x.it.es ? tx({ es: x.it.es, en: x.it.en }) : '', als = (x.it.al || []).length ? (t('pair_al') + ': ' + allergenNames(x.it.al)) : '';
@@ -445,6 +446,31 @@
     var cs = D.sections.filter(function (z) { return z.id === 'coffee'; })[0];
     h += '</div>' + (cs ? '<button type="button" class="ap-pair-all" data-pairsheet="coffee">' + esc(t('pair_all')) + ' ' + esc(tx(cs.title)) + (L() === 'en' ? ' menu' : '') + ' →</button>' : '') + '</div><div class="cv-sheet-actions"><button type="button" class="cv-solid" data-close>' + esc(pairList.some(function (x) { return x.done; }) ? t('pair_go') : t('pair_none')) + '</button></div>';
     show(h);
+  }
+  /* «Ver toda la carta de Café y Matcha»: lista completa dentro de la misma hoja, agrupada, con precio y un toque para añadir/quitar, sin salir del pedido */
+  function drinkEmoji(n) { var x = String(n).toLowerCase(); if (/iced/.test(x)) return '🧊'; if (/matcha/.test(x)) return '🍵'; if (/\bt[eé]\b|rooibos|digestivo|infusi/.test(x)) return '🫖'; if (/chocolate|cacao/.test(x)) return '🍫'; return '☕'; }
+  function inCart(b, it) { var key = [bk(b), it.name, -1, '', '', '', ''].join('|'); return S.cart.some(function (l) { return l.key === key; }); }
+  function showPairAll() {
+    var cs = D.sections.filter(function (z) { return z.id === 'coffee'; })[0]; if (!cs) return;
+    var list = [];
+    (cs.groups || []).forEach(function (g) { g.blocks.forEach(function (blk) { blk.items.forEach(function (it) {
+      if (typeof it.price !== 'number' || it.variants || it.pick || it.req || it.alt || soldOut[itemKey(blk, it)]) return;
+      list.push({ b: blk, it: it, why: WHY[it.name.toLowerCase()] || null, done: inCart(blk, it) });
+    }); }); });
+    pairTop = pairList; pairMode = 'all'; pairList = list; paintPairAll();
+  }
+  function paintPairAll() {
+    var cs = D.sections.filter(function (z) { return z.id === 'coffee'; })[0], en = L() === 'en', groups = [], by = {};
+    pairList.forEach(function (x, i) { var g = tx(x.b.title); if (!by[g]) { by[g] = []; groups.push(g); } by[g].push({ x: x, i: i }); });
+    var h = '<h2>' + esc(tx(cs.title)) + '</h2><div class="cv-sheet-body"><p>' + esc(t('pair_p')) + ' ' + esc(pairFood) + '.</p>';
+    groups.forEach(function (g) {
+      h += '<section class="ap-pall-g"><h3>' + esc(g) + '</h3>' + by[g].map(function (o) {
+        var x = o.x, note = x.why ? tx(x.why) : (x.it.es ? tx({ es: x.it.es, en: x.it.en }) : '');
+        return '<button type="button" class="ap-pall-r' + (x.done ? ' is-done' : '') + '" data-pair="' + o.i + '" aria-pressed="' + (!!x.done) + '"><span class="ap-pall-e" aria-hidden="true">' + drinkEmoji(x.it.name) + '</span><span class="ap-pall-t"><b>' + esc(x.it.name) + '</b>' + (note ? '<em>' + esc(note) + '</em>' : '') + '</span><span class="ap-pall-p">' + money(cents(x.it.price)) + '</span><i class="ap-pall-a" aria-hidden="true">' + (x.done ? '✓' : '+') + '</i></button>';
+      }).join('') + '</section>';
+    });
+    h += '</div><div class="cv-sheet-actions"><button type="button" class="cv-ghost" data-pairsheet="top">' + (en ? '← Back' : '← Volver') + '</button><button type="button" class="cv-solid" data-close>' + esc(pairList.some(function (x) { return x.done; }) ? t('pair_go') : t('pair_none')) + '</button></div>';
+    var sc = (dlg.querySelector('.cv-sheet-body') || {}).scrollTop || 0; show(h); var bd = dlg.querySelector('.cv-sheet-body'); if (bd) bd.scrollTop = sc;
   }
   dlg.addEventListener('toggle', function (e) { var d = e.target; if (d && d.dataset && d.dataset.pairdet !== undefined && pairList[+d.dataset.pairdet]) pairList[+d.dataset.pairdet].open = d.open; }, true);
   function removePair(x) {
@@ -578,6 +604,8 @@
     else if (el.dataset.cq) { var a = el.dataset.cq.split(':'), l = S.cart[+a[0]]; l.qty += +a[1]; if (l.qty < 1) S.cart.splice(+a[0], 1); save(); paintBar(); openCart(); }
     else if (el.dataset.pair !== undefined) addPair(+el.dataset.pair);
     else if (el.hasAttribute('data-pairno')) { hide(); }
+    else if (el.dataset.pairsheet === 'coffee') { showPairAll(); }
+    else if (el.dataset.pairsheet === 'top') { pairMode = 'top'; pairList = pairTop; pairList.forEach(function (x) { x.done = inCart(x.b, x.it); }); paintPair(); }
     else if (el.dataset.pairsheet) { hide(); var nb = document.querySelector('#cvFootNav .cv-fn[data-sec="' + el.dataset.pairsheet + '"]'); if (nb) nb.click(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     else if (el.hasAttribute('data-addcart') && cur) { keepNote(); var hh = itemAllergenHits(); if (hh.length) warnAllergens(cur.it.name, hh, function () { paintItem(); }, addToCart); else addToCart(); }
     else if (el.hasAttribute('data-warnback')) { var wb = warnBack; warnBack = warnGo = null; if (wb) wb(); else hide(); }

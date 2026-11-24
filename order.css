@@ -942,3 +942,17 @@ html[data-sheet="lgray"] { --sheet: #b4b7ba; }
   /* La miga muestra solo la carta; la categoría activa ya la marca la fila de píldoras de debajo */
   .cv-crumb-sub { display: none; }
 }
+
+/* Carta completa de café y matcha dentro del pedido: filas compactas con emoji, nombre, nota, precio y +/✓ */
+.ap-pall-g { margin: 0 0 1.1rem; }
+.cv-sheet .ap-pall-g h3 { margin: 0 0 0.5rem; padding-bottom: 0.4rem; border-bottom: 1.5px solid var(--black); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+.ap-pall-r { display: flex; align-items: center; gap: 0.7rem; width: 100%; padding: 0.65rem 0.1rem; border: 0; border-bottom: 1px solid rgba(10, 10, 10, 0.18); background: transparent; color: var(--black); font: inherit; text-align: left; cursor: pointer; }
+.ap-pall-e { flex: none; width: 1.7rem; text-align: center; font-size: 1.3rem; line-height: 1; }
+.ap-pall-t { flex: 1; min-width: 0; display: grid; gap: 0.1rem; }
+.ap-pall-t b { font-size: 0.98rem; font-weight: 800; letter-spacing: 0; text-transform: none; }
+.ap-pall-t em { font-style: normal; font-size: 0.78rem; line-height: 1.25; opacity: 0.7; letter-spacing: 0; text-transform: none; }
+.ap-pall-p { flex: none; font-size: 0.92rem; font-weight: 800; letter-spacing: 0; }
+.ap-pall-a { flex: none; width: 1.9rem; height: 1.9rem; display: grid; place-items: center; border-radius: 50%; background: var(--black); color: #fff; font-style: normal; font-size: 1.2rem; font-weight: 500; line-height: 1; }
+.ap-pall-r.is-done .ap-pall-a { background: #2e7d4f; font-size: 1rem; }
+.ap-pall-r.is-done { background: rgba(46, 125, 79, 0.08); }
+.ap-pall-r:active { background: rgba(10, 10, 10, 0.06); }
