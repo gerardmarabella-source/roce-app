@@ -317,7 +317,7 @@
     var m = $('cvCrumbMenu'), b = $('cvCrumb');
     if (on) {
       m.innerHTML = D.sections.map(function (s) {
-        var pg = $('pg-' + s.id), cs = pg ? [].slice.call(pg.querySelectorAll('.cv-cat:not(.is-hidden)')) : [], many = cs.length > 1 && !s.soon, open = s.id === cur && many;
+        var pg = $('pg-' + s.id), cs = pg ? [].slice.call(pg.querySelectorAll('.cv-cat:not(.is-hidden)')) : [], many = cs.length > 1 && !s.soon, open = false;   /* siempre plegado al abrir: la persona despliega la carta que quiera */
         return '<div class="cv-cm-g' + (open ? ' is-open' : '') + '"><div class="cv-cm-row"><button type="button" role="menuitem" class="cv-cm-i' + (s.id === cur ? ' is-on' : '') + (s.soon ? ' is-soon' : '') + '" data-sec="' + s.id + '"><span>' + esc(tx(s.title)) + '</span>' + (s.soon ? '<small>' + esc(ui('soon')) + '</small>' : '') + '</button>' +
           (many ? '<button type="button" class="cv-cm-x" aria-label="' + esc(tx(s.title)) + '" aria-expanded="' + open + '"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>' : '') + '</div>' +
           (many ? '<div class="cv-cm-sub">' + cs.map(function (c) { return '<button type="button" role="menuitem" class="cv-cm-s" data-sec="' + s.id + '" data-cat="' + c.id + '">' + esc(c.querySelector('h3').textContent) + '</button>'; }).join('') + '</div>' : '') + '</div>';
