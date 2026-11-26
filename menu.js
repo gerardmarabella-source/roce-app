@@ -336,3 +336,15 @@ window.CARTA = {
     }] }
   ];
 })();
+
+/* OCULTO DE MOMENTO (26-11-2026): en la app solo se pide brunch. Estos apartados siguen escritos arriba; para volver a enseñarlos,
+   basta con vaciar la lista. Al quitarlos aquí desaparecen de la carta, de la Ayuda, de los complementos y de las sugerencias. */
+(function () {
+  var HIDDEN = ['Starters', 'Pokes', 'Platos ROCE', 'Acompañamientos'];
+  window.CARTA.hidden = HIDDEN;
+  window.CARTA.sections.forEach(function (sec) {
+    if (!sec.groups) return;
+    sec.groups.forEach(function (g) { g.blocks = g.blocks.filter(function (b) { return HIDDEN.indexOf(b.key || b.title.es) === -1; }); });
+    sec.groups = sec.groups.filter(function (g) { return g.blocks.length; });
+  });
+})();

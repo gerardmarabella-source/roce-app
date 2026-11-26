@@ -24,6 +24,8 @@
   var S = { mode: 'recoger', mesa: '', mesaName: '', cart: [], party: 2, pm: 'card' };
   var B = window.ROCE_BACKEND;
   try { var sv = JSON.parse(localStorage.getItem(LS) || '{}'); S.cart = Array.isArray(sv.cart) ? sv.cart : []; S.mesa = sv.mesa || ''; S.mesaName = sv.mesaName || ''; S.party = Math.max(1, Math.min(20, +sv.party || 2)); S.mode = sv.mode || 'recoger'; S.pm = sv.pm === 'table' ? 'table' : 'card'; } catch (e) {}
+  /* Lo que ya no se ofrece no se queda guardado en el pedido de nadie. */
+  S.cart = S.cart.filter(function (l) { return (D.hidden || []).indexOf(String(l.item || '').split('|')[0]) === -1; });
   var q = new URLSearchParams(location.search);
   if (q.get('m')) { S.mesa = String(q.get('m')).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40); S.mesaName = ''; S.mode = S.mesa ? 'mesa' : 'recoger'; history.replaceState(null, '', '/' + location.hash); }
   var ret = q.get('pago') ? { st: q.get('pago'), ref: String(q.get('ref') || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 12) } : null;
