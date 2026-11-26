@@ -105,20 +105,40 @@
       .then(function (r) { S = fromTokens(r); store(S); return afterLogin(); })
       .catch(function () { msg(t('err_google')); });
   }
+  /* El botón de Google tarda en llegar (hay que bajar su librería y su marco). Mientras, se ve ya uno igual, atenuado, y se cambia por el
+     oficial cuando está listo. Si Google no carga, queda un botón propio que entra por redirección. */
+  function gBtn(attrs) { return '<button type="button" ' + attrs + '><svg class="ap-g" viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>' + t('google') + '</span></button>'; }
   function renderGoogle() {
     var host = document.getElementById('apGoogle'); if (!host) return;
-    function fallback() {
-            host.innerHTML = '<button type="button" class="ap-gbtn" data-acct="google"><svg class="ap-g" viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>' + t('google') + '</span></button>'
+    host.innerHTML = gBtn('class="ap-gbtn ap-gwait" disabled aria-busy="true"') + '<div class="ap-greal"></div>';
+    var real = host.querySelector('.ap-greal');
+    function fallback() { host.classList.remove('is-ready'); host.innerHTML = gBtn('class="ap-gbtn" data-acct="google"'); }
+    function ready() { if (host.isConnected) host.classList.add('is-ready'); }
+    function watch() {
+      var t0 = Date.now();
+      (function look() {
+        if (!host.isConnected || host.classList.contains('is-ready')) return;
+        var f = real.querySelector('iframe');
+        if (f) { f.addEventListener('load', ready); setTimeout(ready, 1200); return; }
+        if (Date.now() - t0 > 3000) { if (real.firstChild) ready(); else fallback(); return; }
+        setTimeout(look, 80);
+      })();
     }
     loadGsi().then(function () {
       var raw = randHex(16);
       return sha256Hex(raw).then(function (hash) {
         window.google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, nonce: hash, callback: function (r) { if (r && r.credential) onGoogleCredential(r.credential, raw); }, auto_select: false, cancel_on_tap_outside: true, itp_support: true });
         var w = Math.max(200, Math.min(400, Math.round(host.getBoundingClientRect().width || 300)));
-        window.google.accounts.id.renderButton(host, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', shape: 'rectangular', logo_alignment: 'left', width: w, locale: L() });
+        window.google.accounts.id.renderButton(real, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', shape: 'rectangular', logo_alignment: 'left', width: w, locale: L() });
+        watch();
       });
     }).catch(fallback);
   }
+  /* Se va pidiendo a Google en cuanto la persona muestra que va a entrar (toca su cuenta, el carrito o «Añadir»), no al abrir la app. */
+  document.addEventListener('pointerdown', function (e) {
+    if (S || !PROVIDERS.google || !e.target.closest || !e.target.closest('#apHdrAcct, #apAcctBtn, #apCartOpen, [data-addcart]')) return;
+    loadGsi().catch(function () {});
+  }, { capture: true, passive: true });
 
   function viewLogin() {
     var soc = '';

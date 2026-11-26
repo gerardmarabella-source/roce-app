@@ -428,6 +428,12 @@ html[data-sheet="lgray"] { --sheet: var(--lgray); --ink: #0a0a0a; }
 /* Entrada: Google y email con exactamente el mismo ancho (el botón de Google no pasa de 400 px) */
 .ap-narrow { max-width: 400px; margin: 0 auto; }
 .ap-narrow .ap-gwrap { width: 100%; }
+/* Botón de Google: el provisional se ve al instante; el oficial se prepara oculto y lo sustituye cuando está listo. */
+.ap-gwrap { position: relative; }
+.ap-gbtn.ap-gwait { opacity: 0.55; cursor: progress; }
+.ap-greal { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; overflow: hidden; opacity: 0; pointer-events: none; }
+.ap-gwrap.is-ready .ap-gwait { display: none; }
+.ap-gwrap.is-ready .ap-greal { position: static; width: 100%; opacity: 1; pointer-events: auto; }
 .ap-narrow .ap-in-g { width: 100%; }
 
 /* Confirmar el pedido en 10 segundos */
@@ -956,3 +962,55 @@ html[data-sheet="lgray"] { --sheet: #b4b7ba; }
 .ap-pall-r.is-done .ap-pall-a { background: #2e7d4f; font-size: 1rem; }
 .ap-pall-r.is-done { background: rgba(46, 125, 79, 0.08); }
 .ap-pall-r:active { background: rgba(10, 10, 10, 0.06); }
+
+/* ── Ayuda ── */
+#cvChef h2 { border: 0; padding: 0; margin: 0 0 0.35rem; font-size: 1.75rem; font-weight: 700; letter-spacing: -0.025em; text-transform: none; }
+#cvChef p.ah-lead { margin: 0 0 0.9rem; font-size: 0.95rem; line-height: 1.45; opacity: 0.65; white-space: normal; }
+#cvChef p.ah-hint, #cvChef p.ah-closed { margin: 0 0 0.8rem; padding: 0.7rem 0.85rem; border-radius: 0.8rem; background: #0a0a0a; color: #fff; font-size: 0.86rem; line-height: 1.35; opacity: 1; white-space: normal; }
+#cvChef textarea { display: block; width: 100%; box-sizing: border-box; padding: 0.85rem 0.95rem; border: 0; border-radius: 0.9rem; background: #f1f1ef; font-size: 16px; line-height: 1.35; resize: none; }
+#cvChef textarea:focus { outline: 2px solid #0a0a0a; outline-offset: 0; }
+#cvChef .ah-ideas { flex-wrap: nowrap; overflow-x: auto; gap: 0.45rem; margin: 0.65rem 0 0; padding: 0 0 0.2rem; scrollbar-width: none; }
+#cvChef .ah-ideas::-webkit-scrollbar { display: none; }
+#cvChef .ah-ideas .cv-chip { flex: 0 0 auto; padding: 0.5rem 0.85rem; border: 1px solid rgba(10, 10, 10, 0.18); border-radius: 999px; font-size: 0.82rem; font-weight: 400; white-space: nowrap; }
+#cvChef p.ah-section { margin: 1.4rem 0 0.5rem; font-size: 1.05rem; font-weight: 700; opacity: 1; }
+#cvChef .ah-section small { font-size: 0.8rem; font-weight: 400; opacity: 0.5; }
+#cvChef .ah-group { border-radius: 1rem; background: #f1f1ef; padding: 0 0.85rem; }
+#cvChef .ah-row { padding: 0.75rem 0 0.85rem; }
+#cvChef .ah-row + .ah-row { border-top: 1px solid rgba(10, 10, 10, 0.1); }
+#cvChef p.ah-label { margin: 0 0 0.5rem; font-size: 0.82rem; font-weight: 700; opacity: 0.75; }
+#cvChef .cv-opts.ah-seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); grid-template-columns: none; gap: 0; padding: 3px; border-radius: 0.8rem; background: rgba(10, 10, 10, 0.07); }
+#cvChef .cv-opts.ah-pills { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+#cvChef .cv-opts .cv-opt { min-height: 2.5rem; padding: 0.4rem 0.5rem; border: 0; border-radius: 0.62rem; background: transparent; color: #0a0a0a; font-size: 0.88rem; font-weight: 400; line-height: 1.15; }
+#cvChef .cv-opts.ah-pills .cv-opt { padding: 0.4rem 0.95rem; border-radius: 999px; background: #fff; }
+#cvChef .cv-opts .cv-opt[aria-pressed="true"], #cvChef .cv-opts.ah-pills .cv-opt[aria-pressed="true"] { background: #0a0a0a; color: #fff; font-weight: 700; }
+#cvChef .ah-back { margin: 0 0 0.7rem; padding: 0.2rem 0; border: 0; background: transparent; color: #0a0a0a; font: inherit; font-size: 0.85rem; opacity: 0.6; cursor: pointer; }
+#cvChef .ah-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+#cvChef .ah-card { padding: 0.8rem; border: 1px solid rgba(10, 10, 10, 0.12); border-radius: 1rem; background: #fff; }
+#cvChef .ah-head { display: flex; gap: 0.75rem; align-items: center; }
+#cvChef .ah-thumb { flex: 0 0 auto; width: 4.6rem; height: 4.6rem; border-radius: 0.75rem; object-fit: cover; background: #f1f1ef; }
+#cvChef .ah-tit { min-width: 0; display: grid; gap: 0.12rem; }
+#cvChef p.ah-eye { margin: 0; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.5; }
+#cvChef .ah-tit b { font-size: 1.05rem; line-height: 1.15; overflow-wrap: anywhere; }
+#cvChef .ah-tit span { font-size: 0.95rem; }
+#cvChef p.ah-desc { margin: 0.6rem 0 0; font-size: 0.85rem; line-height: 1.4; opacity: 0.65; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+#cvChef .ah-card .ap-mac { margin: 0.55rem 0 0; font-size: 0.8rem; }
+#cvChef .ah-card p.cv-pl-why, #cvChef p.ah-why { margin: 0.4rem 0 0; font-size: 0.8rem; line-height: 1.35; opacity: 0.75; white-space: normal; }
+#cvChef .ah-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.7rem; margin-top: 0.7rem; }
+#cvChef .ah-foot p.cv-pl-al { margin: 0; min-width: 0; font-size: 0.72rem; line-height: 1.8; white-space: normal; }
+#cvChef .ah-add { flex: 0 0 auto; min-height: 2.6rem; padding: 0 1.2rem; border: 0; border-radius: 999px; background: #0a0a0a; color: #fff; font: inherit; font-size: 0.9rem; font-weight: 700; cursor: pointer; }
+#cvChef .ah-add:active { transform: scale(0.97); }
+#cvChef .ah-add:disabled { background: #e6e6e3; color: rgba(10, 10, 10, 0.45); cursor: default; }
+#cvChef .ah-add.is-done { background: #fff; color: #0a0a0a; box-shadow: inset 0 0 0 1.5px #0a0a0a; }
+#cvChef .ah-sum { margin: 1rem 0 0; padding: 0.9rem; border-radius: 1rem; background: #f1f1ef; }
+#cvChef .ah-sum h3 { margin: 0 0 0.6rem; font-size: 0.95rem; font-weight: 700; letter-spacing: 0; text-transform: none; }
+#cvChef .ah-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; }
+#cvChef .ah-tiles div { display: grid; justify-items: center; gap: 0.15rem; padding: 0.6rem 0.2rem; border-radius: 0.7rem; background: #fff; }
+#cvChef .ah-tiles b { font-size: 1.15rem; line-height: 1.1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#cvChef .ah-tiles small { font-size: 0.7rem; font-weight: 400; }
+#cvChef .ah-tiles span { font-size: 0.7rem; opacity: 0.6; }
+#cvChef p.ah-total { display: flex; justify-content: space-between; align-items: baseline; margin: 1rem 0 0; padding: 0; font-size: 0.95rem; opacity: 1; }
+#cvChef p.ah-total b { font-size: 1.3rem; }
+#cvChef .cv-sheet-actions .cv-ghost, #cvChef .cv-sheet-actions .cv-solid { min-height: 3.1rem; border-radius: 999px; text-transform: none; letter-spacing: 0; font-size: 1rem; font-weight: 700; }
+#cvChef .cv-sheet-actions .cv-ghost { border: 1.5px solid rgba(10, 10, 10, 0.25); }
+#cvChef .cv-sheet-actions .cv-solid:disabled { opacity: 0.3; }
+#cvChef .cv-sheet-actions { border-top: 1px solid rgba(10, 10, 10, 0.1); }

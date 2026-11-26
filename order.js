@@ -122,7 +122,8 @@
     var el = $('apClosed');
     if (!el) { var st = $('cvSections'); if (!st) return; el = document.createElement('div'); el.id = 'apClosed'; el.className = 'ap-closed'; el.setAttribute('role', 'status'); st.parentNode.insertBefore(el, st); }
     el.hidden = !c; if (!c) return;
-    el.innerHTML = '<span class="ap-closed-ic">' + MOON + '</span><b>' + esc(t(nowHM() >= STORE.to ? 'shut_n_tmr' : 'shut_n')) + '</b>';
+    var msg = t(nowHM() >= STORE.to ? 'shut_n_tmr' : 'shut_n');
+    if (el.dataset.msg !== msg) { el.dataset.msg = msg; el.innerHTML = '<span class="ap-closed-ic">' + MOON + '</span><b>' + esc(msg) + '</b>'; }
   }
   function shutLabel(b) { var r = RULES[bk(b)], start = (r && r.from ? r.from : STORE.from).replace(/^0/, ''); return (nowHM() >= STORE.to ? t('from_tmr') : t('from')) + ' ' + start; }
   function mark() {
@@ -132,7 +133,9 @@
       /* Cerrado (fuera de 9:00-20:00): todas las tarjetas de categoría quedan plegadas; se pueden abrir para mirar la carta. */
       /* «Más proteína» es un complemento: sale plegada de entrada (una sola vez; después manda lo que haga la persona). */
       var foldNow = b.key === 'Extras' && !initFold[sec.id]; if (b.key === 'Extras') initFold[sec.id] = true;
-      if ((!ok || foldNow) && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
+      /* Se pliega una sola vez (al pintarse fuera de hora o al pasar a estarlo); si la persona la abre, desde donde sea, se queda abierta. */
+      var foldShut = !ok && !sec.dataset.autofold; sec.dataset.autofold = ok ? '' : '1';
+      if ((foldShut || foldNow) && !userOpen[sec.id]) { sec.classList.add('is-closed'); var hh = sec.querySelector('.cv-cat-h'); if (hh) hh.setAttribute('aria-expanded', 'false'); }
       [].forEach.call(sec.querySelectorAll('.cv-item'), function (li) {
         if (b.view) { li.setAttribute('data-view', ''); return; }   /* carta de consulta (vinos): se ve, pero no se pide desde la app */
         var mm = /^it-(.+)-(\d+)$/.exec(li.id || ''), it = mm && b.items[+mm[2]], sold = !!(it && soldOut[itemKey(b, it)]);
@@ -146,8 +149,12 @@
       if (!lab && h) { h.remove(); h = null; }
       if (lab && !h) { h = document.createElement('span'); h.className = 'ap-hours'; }
       if (h) {
-        h.classList.toggle('is-na', !ok); h.textContent = t('avail') + ' ' + lab.toLowerCase();
-        if (hd) { if (!ok) sec.insertBefore(h, sec.firstChild); else hd.parentNode.insertBefore(h, hd.nextSibling); }
+        var txt = t('avail') + ' ' + lab.toLowerCase();
+        h.classList.toggle('is-na', !ok); if (h.textContent !== txt) h.textContent = txt;
+        if (hd) {   // solo se mueve si no está ya en su sitio: moverlo cada 5 segundos hacía parpadear la pantalla
+          if (!ok) { if (sec.firstChild !== h) sec.insertBefore(h, sec.firstChild); }
+          else if (hd.nextSibling !== h) hd.parentNode.insertBefore(h, hd.nextSibling);
+        }
       }
     });
   }
@@ -356,8 +363,9 @@
     h += '<div class="cv-sheet-actions ap-act1"><button type="button" class="cv-solid" data-addcart' + (storeOpen() && cur.ok && (!it.pick || mixSum() === it.pick) && !(it.req && cur.variant < 0) ? '' : ' disabled') + '>' + (!storeOpen() ? t('shut_btn') : !cur.ok ? (cur.sold ? soldTxt() : t('off')) : (it.pick && mixSum() !== it.pick ? t('pick_left').replace('{k}', it.pick - mixSum()) : (it.req && cur.variant < 0) ? t('pick_mix') : t('add') + ' · ' + money((unit() + protTotal()) * cur.qty))) + '</button></div>';
     var sc = (dlg.querySelector('.cv-sheet-body') || {}).scrollTop || 0; show(h); var bd = dlg.querySelector('.cv-sheet-body'); if (bd) bd.scrollTop = sc;
   }
-  function addToCart() {
-    keepNote(); var it = cur.it, b = cur.b, key = [bk(b), it.name, curVar(), cur.extras.slice().sort().join('+'), cur.sel.side.slice().sort().join('+'), cur.sel.prot.slice().sort().join('+'), cur.note].join('|'), parts = [];
+  function addToCart(quiet) {
+    if (dlg.open) keepNote();   /* con la hoja cerrada no se lee: quedaría la nota del plato anterior */
+    var it = cur.it, b = cur.b, key = [bk(b), it.name, curVar(), cur.extras.slice().sort().join('+'), cur.sel.side.slice().sort().join('+'), cur.sel.prot.slice().sort().join('+'), cur.note].join('|'), parts = [];
     if (curVar()) parts.push(curVar()); cur.extras.forEach(function (k) { if (tx(b.extras.list[k][0]) !== curVar()) parts.push('+ ' + tx(b.extras.list[k][0])); });
     var f = S.cart.filter(function (l) { return l.key === key; })[0];
     if (f) f.qty += cur.qty; else S.cart.push({ key: key, item: bk(b) + '|' + (it.code || it.name), name: it.name, variant: curVar(), extras: cur.extras.map(function (k) { return b.extras.list[k][0].es; }), unit: unit(), qty: cur.qty, note: cur.note, detail: parts.join(' · ') });
@@ -369,7 +377,7 @@
       });
     });
     save(); hide(); paintBar();
-    offerPair(b, it);
+    if (quiet !== true) offerPair(b, it);
   }
 
   /* ── Para acompañar: al añadir comida se ofrece café, bebida o bakery que le pega (y se deja fuera lo que no le pega) ──
@@ -767,7 +775,26 @@
   /* Precios y agotados al día: Ágora manda en los precios (se sincronizan cada minuto en la base de datos), así que la app los vuelve a leer sola cada 5 segundos mientras la pantalla está abierta. */
   setInterval(function () { if (!document.hidden) loadAvail(); }, 5000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) loadAvail(); });
-  window.ROCE_APP = { state: S, openItemById: function (id, preset) {
+  /* Desde Ayuda: 'ready' se puede añadir de una vez · 'options' hay que abrir el plato (elegir algo o avisar de alérgenos) · 'off' cerrado, fuera de hora o agotado. */
+  function helpItem(id, preset) {
+    var li = document.getElementById(id), m = li && /^it-(.+)-(\d+)$/.exec(id); if (!m || li.hasAttribute('data-view')) return null;
+    var b = blockOf(m[1]), it = b && b.items[+m[2]]; if (!it) return null;
+    var c = { b: b, it: it, base: it, srv: 'copa', qty: 1, variant: -1, mix: null, extras: [], sel: { side: [], prot: [] }, openG: { side: false, prot: false }, note: '', ok: true, sold: false };
+    String(preset || '').split(',').forEach(function (x) { var p = x.split(':'); if (c.sel[p[0]] && p[1] !== undefined) c.sel[p[0]].push(+p[1]); });
+    var state = !storeOpen() || !open(b) || soldOut[itemKey(b, it)] ? 'off' : it.variants || it.pick || it.req || it.alt ? 'options' : 'ready';
+    if (state === 'ready') { var keep = cur; cur = c; if (itemAllergenHits().length) state = 'options'; cur = keep; }
+    return { state: state, cur: c };
+  }
+  function addFromHelp(list) {
+    var snap = JSON.stringify(S.cart), added = [];
+    list.forEach(function (x) { var h = helpItem(x.id, x.preset); if (!h || h.state !== 'ready') return; cur = h.cur; addToCart(true); added.push(x.id); });
+    if (added.length) {
+      toastUndo(t('added') + (added.length > 1 ? ' · ' + added.length : ''), function () { S.cart = JSON.parse(snap); save(); paintBar(); });
+      try { if (navigator.vibrate) navigator.vibrate(8); } catch (x) { /* sin vibración */ }
+    }
+    return added;
+  }
+  window.ROCE_APP = { state: S, add: addFromHelp, helpState: function (id, preset) { var h = helpItem(id, preset); return h ? h.state : 'off'; }, openItemById: function (id, preset) {
     var li = document.getElementById(id); if (!li || li.hasAttribute('data-off') || li.hasAttribute('data-view')) return;
     openItem(li); if (!cur) return;
     String(preset || '').split(',').forEach(function (x) { var p = x.split(':'); if (cur.sel[p[0]] && p[1] !== undefined) { cur.sel[p[0]].push(+p[1]); cur.openG[p[0]] = true; } });

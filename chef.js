@@ -395,20 +395,21 @@
     }
 
     /* ── Pantalla ── */
-    function chips(key, list) { return '<div class="cv-opts" data-q="' + key + '">' + list.map(function (o) { return '<button type="button" class="cv-opt" data-v="' + o[0] + '" aria-pressed="' + (st[key] === o[0]) + '"><i></i>' + esc(o[1]) + '</button>'; }).join('') + '</div>'; }
-    function step(n, title, body, optional) {
-      return '<section class="cv-step"><div class="cv-step-h"><span class="cv-step-n">' + n + '</span><h3>' + esc(title) + (optional ? ' <small>' + esc(t('opt')) + '</small>' : '') + '</h3></div>' + body + '</section>';
-    }
+    /* Opciones: 'seg' es un selector de una fila; 'pills' son píldoras que se reparten en varias líneas. */
+    function chips(key, list, kind) { return '<div class="cv-opts ah-' + (kind || 'seg') + '" data-q="' + key + '" role="group">' + list.map(function (o) { return '<button type="button" class="cv-opt" data-v="' + o[0] + '" aria-pressed="' + (st[key] === o[0]) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>'; }
+    function row(title, body) { return '<div class="ah-row"><p class="ah-label">' + esc(title) + '</p>' + body + '</div>'; }
     function form() {
       var G = A.F(), n = G.al.length + G.diet.length + G.ing.k.length;
-      return '<h2 id="cvChefTitle">' + esc(t('h')) + '</h2><p class="cv-chef-p">' + esc(t('p')) + '</p>' +
-        step(1, t('q_what'), '<textarea id="cvChefText" rows="2" placeholder="' + esc(t('ph')) + '">' + esc(st.text) + '</textarea>' +
-          '<div class="cv-ideas">' + t('ex').map(function (x) { return '<button type="button" class="cv-chip" data-ex="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</div>') +
-        step(2, t('q_when'), chips('when', t('when')), true) +
-        step(3, t('q_goal'), chips('goal', t('goal')), true) +
-        step(4, t('q_hunger'), chips('hunger', t('hunger')), true) +
-        step(5, t('q_taste'), chips('taste', t('taste')), true) +
-        step(6, t('q_people'), chips('people', t('people')), true) +
+      return '<h2 id="cvChefTitle">' + esc(t('h')) + '</h2><p class="ah-lead">' + esc(t('p')) + '</p><p class="ah-hint" role="status" hidden></p>' +
+        '<textarea id="cvChefText" rows="2" aria-label="' + esc(t('q_what')) + '" placeholder="' + esc(t('ph')) + '">' + esc(st.text) + '</textarea>' +
+        '<div class="cv-ideas ah-ideas">' + t('ex').map(function (x) { return '<button type="button" class="cv-chip" data-ex="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</div>' +
+        '<p class="ah-section">' + esc(X('O elige', 'Or pick')) + ' <small>' + esc(t('opt')) + '</small></p><div class="ah-group">' +
+        row(t('q_when'), chips('when', t('when'))) +
+        row(t('q_goal'), chips('goal', t('goal'), 'pills')) +
+        row(t('q_hunger'), chips('hunger', t('hunger'))) +
+        row(t('q_taste'), chips('taste', t('taste'))) +
+        row(t('q_people'), chips('people', t('people'))) +
+        '</div>' +
         (n ? '<p class="cv-fs-note">' + esc(t('filters')) + ' · <button type="button" class="cv-link" id="cvChefFilters">' + esc(t('filters_edit')) + '</button></p>' : '');
     }
     /* En la app: complementos elegidos (acompañamiento / más proteína) que se preseleccionan al pedir. */
@@ -417,84 +418,118 @@
       var a = c.plan ? c.plan.add : []; if (!a.length) return '';
       return '<p class="cv-pl-why">' + esc(X('Con: ', 'With: ')) + a.map(function (x) { var N = NV(x.it); return esc(x.name) + ' (+' + esc(A.money(x.price)) + (N ? ' · +' + nm(N.k) + ' kcal · +' + nm(N.p) + ' g P' : '') + ')'; }).join(' · ') + '</p>';
     }
-    function orderBtn(c, extra) { return '<button type="button" class="cv-link" data-go="' + c.sec + '|' + c.id + '"' + (extra || '') + '>' + esc(window.ROCE_APP ? X('Pedir', 'Order') : t('see')) + ' →</button>'; }
-    function itemCard(c, label, R, idx) {
-      var M = c.plan ? c.plan.M : c.nv, p = c.plan ? c.plan.price : price(c);
-      return '<li class="cv-slot-' + label + '"><p class="cv-pl-slot"><span class="cv-pl-n">' + idx + '</span>' + esc(t('slots')[label]) + '</p><div class="cv-pl-top"><b>' + esc(dishName(c)) + '</b><span>' + esc(A.money(c.it.price)) + '</span></div>' +
-        (c.it.es ? '<p class="cv-pl-desc">' + esc(A.tx({ es: c.it.es, en: c.it.en })) + '</p>' : '') +
-        (M ? macroLine(M, c.it.nutEst) : '') +
-        (reason(c, R) ? '<p class="cv-pl-why">' + esc(reason(c, R)) + '</p>' : '') + (pendTxt(c) ? '<p class="cv-fs-note">' + esc(pendTxt(c)) + '</p>' : '') + allergenLine(c) + addonLine(c) +
-        orderBtn(c, addAttr(c)) + '</li>';
+    var added = {};   /* lo ya añadido desde esta propuesta: el botón queda en «Añadido» */
+    function addList() { var out = []; if (st.result && st.result.kind === 'plan') st.result.slots.forEach(function (sl) { sl.items.forEach(function (c) { out.push({ id: c.id, sec: c.sec, preset: (c.plan ? c.plan.add : []).map(function (x) { return x.grp + ':' + x.k; }).join(',') }); }); }); return out; }
+    function stateOf(id, preset) { return window.ROCE_APP && window.ROCE_APP.helpState ? window.ROCE_APP.helpState(id, preset) : 'options'; }
+    function orderBtn(c) {
+      if (!window.ROCE_APP) return '<button type="button" class="cv-link" data-go="' + c.sec + '|' + c.id + '">' + esc(t('see')) + ' →</button>';
+      var preset = (c.plan ? c.plan.add : []).map(function (x) { return x.grp + ':' + x.k; }).join(',');
+      if (added[c.id]) return '<button type="button" class="ah-add is-done" disabled>✓ ' + esc(X('Añadido', 'Added')) + '</button>';
+      var off = stateOf(c.id, preset) === 'off';
+      return '<button type="button" class="ah-add" data-addid="' + c.id + '" data-sec="' + c.sec + '" data-preset="' + preset + '"' + (off ? ' disabled' : '') + '>' + esc(off ? X('No disponible', 'Unavailable') : X('Añadir', 'Add')) + '</button>';
     }
+    function thumb(c) { return c.it.img ? '<img class="ah-thumb" src="' + esc(c.it.img) + '" alt="" loading="lazy">' : ''; }
+    function head(c, eyebrow) {
+      return '<div class="ah-head">' + thumb(c) + '<div class="ah-tit">' + (eyebrow ? '<p class="ah-eye">' + esc(eyebrow) + '</p>' : '') + '<b>' + esc(dishName(c)) + '</b><span>' + esc(A.money(c.it.price)) + '</span></div></div>';
+    }
+    function itemCard(c, label, R) {
+      var M = c.plan ? c.plan.M : c.nv, why = reason(c, R);
+      return '<li class="ah-card">' + head(c, t('slots')[label]) +
+        (c.it.es ? '<p class="ah-desc">' + esc(A.tx({ es: c.it.es, en: c.it.en })) + '</p>' : '') +
+        (M ? macroLine(M, c.it.nutEst) : '') + addonLine(c) +
+        (why ? '<p class="ah-why">' + esc(why) + '</p>' : '') + (pendTxt(c) ? '<p class="cv-fs-note">' + esc(pendTxt(c)) + '</p>' : '') +
+        '<div class="ah-foot">' + allergenLine(c) + orderBtn(c) + '</div></li>';
+    }
+    function tiles(M) {
+      var l = X([['kcal', ''], ['Proteína', 'g'], ['Hidratos', 'g'], ['Grasa', 'g']], [['kcal', ''], ['Protein', 'g'], ['Carbs', 'g'], ['Fat', 'g']]), v = [M.k, M.p, M.c, M.f];
+      return '<div class="ah-tiles">' + l.map(function (x, i) { return '<div><b>' + nm(v[i]) + (x[1] ? '<small> ' + x[1] + '</small>' : '') + '</b><span>' + x[0] + '</span></div>'; }).join('') + '</div>';
+    }
+    function back() { return '<button type="button" class="ah-back" data-back>← ' + esc(t('edit')) + '</button>'; }
+    function closedLine() { var el = document.querySelector('#apClosed:not([hidden]) b'); return el ? '<p class="ah-closed">' + esc(el.textContent) + '</p>' : ''; }
     function planView() {
-      var R = st.result, idx = 0;
-      var h = '<h2 id="cvChefTitle">' + esc(t('res_h')) + '</h2>';
+      var R = st.result;
+      var h = back() + '<h2 id="cvChefTitle">' + esc(t('res_h')) + '</h2>';
       if (!R.slots.length) return h + '<p>' + esc(t('none')) + '</p>';
-      var sy = say(R); if (sy) h += '<p class="cv-chef-p ap-say">' + esc(sy) + '</p>';
+      var sy = say(R); if (sy) h += '<p class="ah-lead">' + esc(sy) + '</p>';
       if (R.miss.length) h += '<p class="cv-fs-note">' + esc(t('miss')(R.miss.join(', '))) + '</p>';
-      h += '<ul class="cv-pick-list">';
-      R.slots.forEach(function (s) { s.items.forEach(function (c) { h += itemCard(c, s.label, R, ++idx); }); });
+      h += closedLine() + '<ul class="ah-list">';
+      R.slots.forEach(function (s) { s.items.forEach(function (c) { h += itemCard(c, s.label, R); }); });
       h += '</ul>';
       if (R.totals.k) {
-        h += '<section class="ap-sum"><h3>' + esc(X('Resumen nutricional', 'Nutrition summary')) + (R.people > 1 ? ' · ' + esc(X('por persona', 'per person')) : '') + '</h3>' + macroLine(R.per) + bar(R.per);
+        h += '<section class="ah-sum"><h3>' + esc(X('Resumen', 'Summary')) + (R.people > 1 ? ' · ' + esc(X('por persona', 'per person')) : '') + '</h3>' + tiles(R.per) + bar(R.per);
         if (R.checks.length) h += '<ul class="ap-checks">' + R.checks.map(function (x) { return '<li class="' + (x.ok ? 'ap-ok' : 'ap-ko') + '"><span aria-hidden="true">' + (x.ok ? '✓' : '✕') + '</span> ' + esc(x.txt) + '</li>'; }).join('') + '</ul>';
         if (R.hasDrink) h += '<p class="cv-fs-note">' + esc(X('Los valores de las bebidas son aproximados (ración estándar e ingredientes de la carta).', 'Drink values are approximate (standard serving and menu ingredients).')) + '</p>';
         h += '</section>';
       }
-      h += '<p class="cv-pl-total">' + esc(t('total')) + (R.people > 1 ? ' (' + R.people + ')' : '') + ': <b>' + esc(A.money(Math.round(R.price * 100) / 100)) + '</b></p><p class="cv-fs-note">' + esc(t('note')) + '</p>';
+      h += '<p class="ah-total"><span>' + esc(t('total')) + (R.people > 1 ? ' (' + R.people + ')' : '') + '</span><b>' + esc(A.money(Math.round(R.price * 100) / 100)) + '</b></p><p class="cv-fs-note">' + esc(t('note')) + '</p>';
       return h;
     }
     function dishView() {
-      var R = st.result, c = R.c, FF = R.FF, h = '<h2 id="cvChefTitle">' + esc(dishName(c)) + '</h2>';
+      var R = st.result, c = R.c, FF = R.FF, h = back() + '<h2 id="cvChefTitle">' + esc(dishName(c)) + '</h2>';
       if (c.off) h += '<p class="cv-fs-note">' + esc(X('Ahora mismo no está disponible (horario o agotado).', 'Not available right now (hours or sold out).')) + '</p>';
-      if (!c.nv) return h + '<p class="cv-chef-p">' + esc(X('De esta bebida no tenemos valores nutricionales.', "We don't have nutrition values for this drink.")) + '</p>' + allergenLine(c) + '<ul class="cv-pick-list"><li>' + orderBtn(c) + '</li></ul>';
+      if (!c.nv) return h + '<p class="cv-chef-p">' + esc(X('De esta bebida no tenemos valores nutricionales.', "We don't have nutrition values for this drink.")) + '</p>' + allergenLine(c) + '<ul class="ah-list"><li class="ah-card"><div class="ah-foot"><span></span>' + orderBtn(c) + '</div></li></ul>';
       h += (c.it.es ? '<p class="cv-chef-p">' + esc(A.tx({ es: c.it.es, en: c.it.en })) + '</p>' : '') + macroLine(c.nv, c.it.nutEst) + bar(c.nv) + (c.it.nutEst ? '<p class="cv-fs-note">' + esc(X('Valores aproximados: ración estándar e ingredientes de la carta.', 'Approximate values: standard serving and menu ingredients.')) + '</p>' : '');
       var a = A.analyze(c.it, c.blk); if (a.ing.length) h += '<p class="cv-pl-why">' + esc(X('Ingredientes que detecto: ', 'Ingredients I can see: ')) + esc(a.ing.map(ingName).join(', ').toLowerCase()) + '</p>';
       h += allergenLine(c);
       var e = ev(c.it, c.blk, FF); if (e.hide) h += '<p class="cv-fs-note ap-warn">' + esc(X('Ojo: este plato no encaja con tus filtros activos.', 'Heads-up: this dish does not match your active filters.')) + '</p>';
       var B = bestAddons(c, FF);
       if (B.prot.length || B.side.length) {
-        h += '<section class="ap-sum"><h3>' + esc(X('Cómo ajustarlo', 'How to tweak it')) + '</h3><ul class="ap-tweak">';
+        h += '<section class="ah-sum"><h3>' + esc(X('Cómo ajustarlo', 'How to tweak it')) + '</h3><ul class="ap-tweak">';
         B.prot.forEach(function (o) { h += '<li><b>+ ' + esc(o.x.name) + '</b> <span>(+' + esc(A.money(o.x.price)) + ')</span><br><small>' + esc(X('Subes a ', 'You get ')) + nm(o.M.p) + ' g ' + esc(X('de proteína', 'of protein')) + ' · ' + nm(o.M.k) + ' kcal</small></li>'; });
         B.side.forEach(function (o) { h += '<li><b>+ ' + esc(o.x.name) + '</b> <span>(+' + esc(A.money(o.x.price)) + ')</span><br><small>' + nm(o.M.k) + ' kcal · ' + nm(o.M.c) + ' g ' + esc(X('de hidratos', 'of carbs')) + '</small></li>'; });
         h += '</ul></section>';
       }
-      return h + '<ul class="cv-pick-list"><li>' + orderBtn(c) + '</li></ul>' + '<p class="cv-fs-note">' + esc(t('note')) + '</p>';
+      return h + '<ul class="ah-list"><li class="ah-card"><div class="ah-foot"><span></span>' + orderBtn(c) + '</div></li></ul>' + '<p class="cv-fs-note">' + esc(t('note')) + '</p>';
     }
     function compareView() {
-      var R = st.result, L = R.list, h = '<h2 id="cvChefTitle">' + esc(X('Comparación', 'Comparison')) + '</h2><ul class="cv-pick-list">';
+      var R = st.result, L = R.list, h = back() + '<h2 id="cvChefTitle">' + esc(X('Comparación', 'Comparison')) + '</h2><ul class="ah-list">';
       L.forEach(function (c, i) {
-        h += '<li><div class="cv-pl-top"><b>' + esc(dishName(c)) + '</b><span>' + esc(A.money(c.it.price)) + '</span></div>' + macroLine(c.nv, c.it.nutEst) + bar(c.nv) + allergenLine(c) + orderBtn(c) + '</li>';
+        h += '<li class="ah-card">' + head(c) + macroLine(c.nv, c.it.nutEst) + bar(c.nv) + '<div class="ah-foot">' + allergenLine(c) + orderBtn(c) + '</div></li>';
       });
       h += '</ul>';
       function best(key, dir, es, en) { var s = L.slice().sort(function (a, b) { return (dir === 'asc' ? 1 : -1) * (a.nv[key] - b.nv[key]); }); return '<li>' + esc(X(es, en)) + ': <b>' + esc(s[0].it.name) + '</b> (' + nm(s[0].nv[key]) + (key === 'k' ? ' kcal' : ' g') + ')</li>'; }
-      h += '<section class="ap-sum"><ul class="ap-checks">' + best('p', 'desc', 'Más proteína', 'Most protein') + best('k', 'asc', 'Menos calorías', 'Fewest calories') + best('c', 'asc', 'Menos hidratos', 'Fewest carbs') + best('f', 'asc', 'Menos grasa', 'Least fat') + '</ul></section>';
+      h += '<section class="ah-sum"><ul class="ap-checks">' + best('p', 'desc', 'Más proteína', 'Most protein') + best('k', 'asc', 'Menos calorías', 'Fewest calories') + best('c', 'asc', 'Menos hidratos', 'Fewest carbs') + best('f', 'asc', 'Menos grasa', 'Least fat') + '</ul></section>';
       return h + '<p class="cv-fs-note">' + esc(t('note')) + '</p>';
     }
     function rankView() {
       var R = st.result, lab = { p: X('más proteína', 'most protein'), k: R.dir === 'asc' ? X('menos calorías', 'fewest calories') : X('más calorías', 'most calories'), f: X('menos grasa', 'least fat'), c: X('menos hidratos', 'fewest carbs') };
-      var h = '<h2 id="cvChefTitle">' + esc(X('Ranking: ', 'Ranking: ') + lab[R.metric]) + '</h2>';
+      var h = back() + '<h2 id="cvChefTitle">' + esc(X('Ranking: ', 'Ranking: ') + lab[R.metric]) + '</h2>';
       if (!R.list.length) return h + '<p>' + esc(t('none')) + '</p>';
-      h += '<ul class="cv-pick-list">';
+      h += '<ul class="ah-list">';
       R.list.forEach(function (c, i) {
-        h += '<li><p class="cv-pl-slot"><span class="cv-pl-n">' + (i + 1) + '</span>' + esc(t('slots').rank) + '</p><div class="cv-pl-top"><b>' + esc(dishName(c)) + '</b><span>' + esc(A.money(c.it.price)) + '</span></div>' + macroLine(c.nv) +
-          (R.metric === 'p' ? '<p class="cv-pl-why">' + r1(c.nv.p / Math.max(1, c.nv.k / 100)) + ' g ' + esc(X('de proteína por 100 kcal', 'of protein per 100 kcal')) + '</p>' : '') + allergenLine(c) + orderBtn(c) + '</li>';
+        h += '<li class="ah-card">' + head(c, (i + 1) + 'º') + macroLine(c.nv) +
+          (R.metric === 'p' ? '<p class="cv-pl-why">' + r1(c.nv.p / Math.max(1, c.nv.k / 100)) + ' g ' + esc(X('de proteína por 100 kcal', 'of protein per 100 kcal')) + '</p>' : '') + '<div class="ah-foot">' + allergenLine(c) + orderBtn(c) + '</div></li>';
       });
       return h + '</ul><p class="cv-fs-note">' + esc(X('Solo platos disponibles ahora y que encajan con tus filtros.', 'Only dishes available now that match your filters.')) + '</p>';
     }
     function results() { var k = st.result.kind; return k === 'dish' ? dishView() : k === 'compare' ? compareView() : k === 'rank' ? rankView() : planView(); }
+    function isPlan() { return !!(st.result && st.result.kind === 'plan' && st.result.slots.length && window.ROCE_APP && window.ROCE_APP.add); }
+    function pending() { return addList().filter(function (x) { return !added[x.id] && stateOf(x.id, x.preset) !== 'off'; }); }
     function paint() {
       $('cvChefBtnLabel').textContent = t('btn');
       $('cvChefBody').innerHTML = st.result ? results() : form();
-      $('cvChefClose').textContent = st.result ? t('edit') : t('close');
-      $('cvChefGo').textContent = st.result ? (st.result.kind === 'plan' ? t('again') : X('Preguntar otra cosa', 'Ask something else')) : t('go');
+      var plan = isPlan(), go = $('cvChefGo');
+      $('cvChefClose').textContent = plan ? t('again') : st.result ? t('edit') : t('close');
+      go.textContent = plan ? X('Añadir', 'Add') : st.result ? X('Preguntar otra cosa', 'Ask something else') : t('go');
+      go.disabled = plan && !pending().length;
     }
-    function open() { st.result = null; paint(); var d = $('cvChef'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); fit(); }
+    function openDish(sec, id, preset) { close(); A.goTo(sec, id); if (window.ROCE_APP && window.ROCE_APP.openItemById) setTimeout(function () { window.ROCE_APP.openItemById(id, preset || ''); }, 450); }
+    /* Añade lo que se pueda de una vez; lo que necesita elegir algo se abre (de uno en uno) o se queda marcado para tocarlo. */
+    function addItems(list) {
+      var done = window.ROCE_APP.add(list); done.forEach(function (id) { added[id] = true; });
+      var rest = list.filter(function (x) { return done.indexOf(x.id) === -1; });
+      if (list.length === 1 && rest.length) return void openDish(rest[0].sec, rest[0].id, rest[0].preset);
+      if (!rest.length && !pending().length) return void close();
+      var top = $('cvChef').scrollTop; paint(); $('cvChef').scrollTop = top;
+      if (rest.length) { var note = document.createElement('p'); note.className = 'ah-closed'; note.textContent = X('Falta elegir opciones: toca «Añadir» en lo que queda.', 'Some items need options: tap “Add” on what is left.'); var l = $('cvChefBody').querySelector('.ah-list'); if (l) l.parentNode.insertBefore(note, l); }
+    }
+    function open() { st.result = null; added = {}; paint(); var d = $('cvChef'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); fit(); }
     function close() { var d = $('cvChef'); if (d.close) d.close(); else d.removeAttribute('open'); }
     function run(again) {
       var ta = $('cvChefText'); if (ta) st.text = ta.value;
       if (again && st.result && st.result.kind !== 'plan') { st.result = null; paint(); return; }
-      if (!st.result && !st.text.trim() && !st.when && !st.hunger && !st.taste && !st.goal && !st.people) { var n = $('cvChefBody').querySelector('p'); if (n) n.textContent = t('hint'); return; }
+      if (!st.result && !st.text.trim() && !st.when && !st.hunger && !st.taste && !st.goal && !st.people) { var n = $('cvChefBody').querySelector('.ah-hint'); if (n) { n.textContent = t('hint'); n.hidden = false; $('cvChef').scrollTop = 0; } return; }
+      added = {};
       st.seed = again ? st.seed + 1 : 0;
       st.result = (!again && st.text.trim() && answer(st.text)) || propose(st.seed);
       paint(); $('cvChef').scrollTop = 0; var b = $('cvChefBody'); if (b) b.scrollTop = 0;
@@ -505,11 +540,13 @@
     if (window.visualViewport) { window.visualViewport.addEventListener('resize', fit); window.visualViewport.addEventListener('scroll', fit); }
     document.addEventListener('focusin', function (e) { if (e.target && e.target.id === 'cvChefText') setTimeout(function () { fit(); try { e.target.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (x) { /* sin scroll */ } }, 250); });
     $('cvChefBtn').addEventListener('click', open);
-    $('cvChefClose').addEventListener('click', function () { if (st.result) { st.result = null; paint(); } else close(); });
-    $('cvChefGo').addEventListener('click', function () { run(!!st.result); });
+    $('cvChefClose').addEventListener('click', function () { if (isPlan()) run(true); else if (st.result) { st.result = null; paint(); } else close(); });
+    $('cvChefGo').addEventListener('click', function () { if (isPlan()) addItems(pending()); else run(!!st.result); });
     $('cvChef').addEventListener('click', function (e) {
       if (e.target === this) { close(); return; }
-      var o = e.target.closest('.cv-opt'), x = e.target.closest('[data-ex]'), g = e.target.closest('[data-go]');
+      var o = e.target.closest('.cv-opt'), x = e.target.closest('[data-ex]'), g = e.target.closest('[data-go]'), ad = e.target.closest('[data-addid]');
+      if (ad) return void addItems([{ id: ad.dataset.addid, sec: ad.dataset.sec, preset: ad.dataset.preset }]);
+      if (e.target.closest('[data-back]')) { st.result = null; paint(); $('cvChef').scrollTop = 0; return; }
       if (o) { var k = o.parentNode.dataset.q; st[k] = st[k] === o.dataset.v && o.dataset.v !== '' ? '' : o.dataset.v; var ta = $('cvChefText'); if (ta) st.text = ta.value; paint(); }
       else if (x) { var ta2 = $('cvChefText'); st.text = x.dataset.ex; ta2.value = st.text; ta2.focus(); }
       else if (g) { var p = g.dataset.go.split('|'); close(); A.goTo(p[0], p[1]); if (window.ROCE_APP && window.ROCE_APP.openItemById) { var pre = g.dataset.add || ''; setTimeout(function () { window.ROCE_APP.openItemById(p[1], pre); }, 450); } }
