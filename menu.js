@@ -346,5 +346,11 @@ window.CARTA = {
     if (!sec.groups) return;
     sec.groups.forEach(function (g) { g.blocks = g.blocks.filter(function (b) { return HIDDEN.indexOf(b.key || b.title.es) === -1; }); });
     sec.groups = sec.groups.filter(function (g) { return g.blocks.length; });
+    /* Si de un apartado («Comidas») solo queda un complemento, no lleva rótulo propio: pasa al apartado anterior. */
+    sec.groups = sec.groups.reduce(function (out, g) {
+      if (out.length && g.blocks.every(function (b) { return b.key === 'Extras'; })) out[out.length - 1].blocks = out[out.length - 1].blocks.concat(g.blocks);
+      else out.push(g);
+      return out;
+    }, []);
   });
 })();
