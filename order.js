@@ -25,7 +25,7 @@
   var B = window.ROCE_BACKEND;
   try { var sv = JSON.parse(localStorage.getItem(LS) || '{}'); S.cart = Array.isArray(sv.cart) ? sv.cart : []; S.mesa = sv.mesa || ''; S.mesaName = sv.mesaName || ''; S.party = Math.max(1, Math.min(20, +sv.party || 2)); S.mode = sv.mode || 'recoger'; S.pm = sv.pm === 'table' ? 'table' : 'card'; } catch (e) {}
   /* Lo que ya no se ofrece no se queda guardado en el pedido de nadie. */
-  S.cart = S.cart.filter(function (l) { return (D.hidden || []).indexOf(String(l.item || '').split('|')[0]) === -1; });
+  S.cart = S.cart.filter(function (l) { return (D.hidden || []).indexOf(String(l.item || '').split('|')[0]) === -1 && (D.hidden || []).indexOf(String(l.item || '')) === -1; });
   var q = new URLSearchParams(location.search);
   if (q.get('m')) { S.mesa = String(q.get('m')).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40); S.mesaName = ''; S.mode = S.mesa ? 'mesa' : 'recoger'; history.replaceState(null, '', '/' + location.hash); }
   var ret = q.get('pago') ? { st: q.get('pago'), ref: String(q.get('ref') || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 12) } : null;
@@ -43,8 +43,8 @@
   var extraPrice = function (p) { return typeof p === 'number' ? p : parseFloat(String(p).replace('+', '').replace(',', '.')) || 0; };
 
   /* Horarios por categoría (hora de Madrid) */
-  var RULES = { 'Tostadas': { to: '12:30' }, 'Starters': { from: '12:00' }, 'Pokes': { from: '12:00' }, 'Platos ROCE': { from: '12:00' }, 'Acompañamientos': { from: '12:00' } };
-  var bk = function (b) { return b.key || b.title.es; };      // los extras de proteína se piden todo el día
+  var RULES = { 'Tostadas': { to: '12:30' }, 'Açaí & Yogur': { to: '12:30' }, 'Sándwiches': { to: '12:30' }, 'Pokes': { to: '12:30' }, 'Platos ROCE': { to: '12:30' }, 'Extras': { to: '12:30' }, 'Starters': { from: '12:00' }, 'Acompañamientos': { from: '12:00' } };
+  var bk = function (b) { return b.key || b.title.es; };      // toda la comida (brunch) cierra a las 12:30; bebidas y café, todo el día
   function nowHM() { var p = {}; new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Madrid' }).formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; }); return p.hour + ':' + p.minute; }
   /* Horario general de la app: de 9:00 a 20:00, siempre hora de España (Madrid) aunque el móvil esté en otro país. Fuera de ese horario no se puede pedir
      (el servidor lo comprueba también: app_orders_store_hours). */
@@ -144,19 +144,16 @@
         var pe = it && typeof it.price === 'number' && li.querySelector('.cv-price'), pt = pe && it.price.toFixed(2).replace('.', ',') + ' €'; if (pe && pe.textContent !== pt) pe.textContent = pt;
         if (ok && !sold) { li.removeAttribute('data-off'); li.removeAttribute('data-sold'); } else { li.setAttribute('data-off', ''); if (sold) li.setAttribute('data-sold', ''); else li.removeAttribute('data-sold'); }
       });
-      /* Cerrado: cada tarjeta sale bloqueada (rayas) con la hora a la que se puede pedir lo suyo: desde las 9:00 (la mayoría) o desde las 12:00 (Starters, Pokes, Platos ROCE, Acompañamientos). */
+      /* Cerrado: cada tarjeta sale bloqueada (rayas) con la hora a la que vuelve a poder pedirse (las 9:00). La comida, además, cierra a las 12:30. */
       sec.classList.toggle('is-na', !ok);
       sec.classList.remove('is-shut');
-      var h = sec.querySelector('.ap-hours'), lab = shut ? '' : hoursLabel(b), hd = sec.querySelector('.cv-cat-h');
+      var h = sec.querySelector('.ap-hours'), lab = ok ? '' : hoursLabel(b);   /* mientras se puede pedir no se anuncia la hora; solo en las categorías ya cerradas, para saber por qué */
       if (!lab && h) { h.remove(); h = null; }
       if (lab && !h) { h = document.createElement('span'); h.className = 'ap-hours'; }
       if (h) {
         var txt = t('avail') + ' ' + lab.toLowerCase();
-        h.classList.toggle('is-na', !ok); if (h.textContent !== txt) h.textContent = txt;
-        if (hd) {   // solo se mueve si no está ya en su sitio: moverlo cada 5 segundos hacía parpadear la pantalla
-          if (!ok) { if (sec.firstChild !== h) sec.insertBefore(h, sec.firstChild); }
-          else if (hd.nextSibling !== h) hd.parentNode.insertBefore(h, hd.nextSibling);
-        }
+        h.classList.add('is-na'); if (h.textContent !== txt) h.textContent = txt;
+        if (sec.firstChild !== h) sec.insertBefore(h, sec.firstChild);   // solo se mueve si no está ya en su sitio: moverlo cada 5 segundos hacía parpadear la pantalla
       }
     });
   }
@@ -429,7 +426,7 @@
   var pairList = [], pairFood = '', pairTop = [], pairMode = 'top';
   function offerPair(b, it) {
     var rule = PAIR[bk(b)]; if (!rule) return;
-    var list = rule[nowHM() < '12:00' ? 'bf' : 'lunch'];
+    var list = rule[nowHM() < '12:00' ? 'bf' : 'lunch'] || rule.lunch;   // Pokes y Platos ROCE solo tienen una lista, y ahora se piden desde las 9:00
     if (!list) return;
     var out = [];
     list.forEach(function (k) {

@@ -337,20 +337,27 @@ window.CARTA = {
   ];
 })();
 
-/* OCULTO DE MOMENTO (26-11-2026): en la app solo se pide brunch. Estos apartados siguen escritos arriba; para volver a enseñarlos,
-   basta con vaciar la lista. Al quitarlos aquí desaparecen de la carta, de la Ayuda, de los complementos y de las sugerencias. */
+/* BRUNCH (27-11-2026): en la app solo está la comida de la carta de brunch. Lo demás sigue escrito arriba, oculto:
+   apartados enteros en HIDDEN_BLOCKS y platos sueltos («Apartado|Plato») en HIDDEN_ITEMS. Para volver a enseñarlo, se quita de la lista.
+   Las horas (hasta las 12:30) están en order.js (RULES) y en la base de datos. */
 (function () {
-  var HIDDEN = ['Starters', 'Pokes', 'Platos ROCE', 'Acompañamientos'];
-  window.CARTA.hidden = HIDDEN;
+  var HIDDEN_BLOCKS = ['Starters', 'Acompañamientos'];
+  var HIDDEN_ITEMS = ['Pokes|Forest Walk', 'Platos ROCE|Primitive Chicken', 'Platos ROCE|Citric Nordic', 'Platos ROCE|Muuuuuucho Beef'];
+  window.CARTA.hidden = HIDDEN_BLOCKS.concat(HIDDEN_ITEMS);
   window.CARTA.sections.forEach(function (sec) {
     if (!sec.groups) return;
-    sec.groups.forEach(function (g) { g.blocks = g.blocks.filter(function (b) { return HIDDEN.indexOf(b.key || b.title.es) === -1; }); });
+    sec.groups.forEach(function (g) {
+      g.blocks = g.blocks.filter(function (b) { return HIDDEN_BLOCKS.indexOf(b.key || b.title.es) === -1; });
+      g.blocks.forEach(function (b) {
+        var k = b.key || b.title.es;
+        if (b.items) b.items = b.items.filter(function (it) { return HIDDEN_ITEMS.indexOf(k + '|' + (it.code || it.name)) === -1; });
+      });
+    });
     sec.groups = sec.groups.filter(function (g) { return g.blocks.length; });
-    /* Si de un apartado («Comidas») solo queda un complemento, no lleva rótulo propio: pasa al apartado anterior. */
-    sec.groups = sec.groups.reduce(function (out, g) {
-      if (out.length && g.blocks.every(function (b) { return b.key === 'Extras'; })) out[out.length - 1].blocks = out[out.length - 1].blocks.concat(g.blocks);
-      else out.push(g);
-      return out;
-    }, []);
+    /* Todo es brunch: la cocina va seguida, sin el rótulo «Comidas». */
+    if (sec.id === 'kitchen' && sec.groups.length > 1) {
+      sec.groups[0].blocks = sec.groups.reduce(function (all, g) { return all.concat(g.blocks); }, []);
+      sec.groups.length = 1;
+    }
   });
 })();
